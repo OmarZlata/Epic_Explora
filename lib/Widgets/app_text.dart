@@ -7,7 +7,7 @@ class AppText extends StatelessWidget {
     super.key,
     required this.title,
     this.maxLines,
-    this.color = AppColors.white,
+    this.color,
     this.fontSize = 14,
     this.fontWeight = FontWeight.w400,
     this.fontFamily,
@@ -16,7 +16,7 @@ class AppText extends StatelessWidget {
 
   final String title;
   final int? maxLines;
-  final Color color;
+  final Color? color;
   final double fontSize;
   final FontWeight fontWeight;
   final String? fontFamily;

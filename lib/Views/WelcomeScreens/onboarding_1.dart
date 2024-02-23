@@ -6,7 +6,7 @@ class WelcomeScreen1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Image.asset('assets/images/logo.png'),
+      //body: Image.asset('assets/images/logo.png'),
     );
   }
 }
