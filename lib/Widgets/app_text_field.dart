@@ -15,7 +15,7 @@ class AppTextField extends StatelessWidget {
     this.icon,
     this.suffixicon,
     required this.obscureText,
-    this.maxLines = 1, required TextEditingController controller,
+    this.maxLines = 1, this.controller,
   }) : super(key: key);
 
   final String hint;
@@ -30,11 +30,13 @@ class AppTextField extends StatelessWidget {
   final Widget? suffixicon;
   final bool obscureText;
   final int maxLines;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       obscureText: obscureText,
+      controller: controller,
 
 
       cursorColor: AppColors.white,

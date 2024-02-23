@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../Widgets/app_button.dart';
 import '../../../Widgets/app_text.dart';
 import '../../../Widgets/app_text_field.dart';
 import '../../../core/app_colors/app_colors.dart';
@@ -13,6 +14,7 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   bool obscurePassword = true;
+  bool isChecked = false;
 
   TextEditingController emailController = TextEditingController();
 
@@ -56,10 +58,38 @@ class _SignupScreenState extends State<SignupScreen> {
       ),
     );
   }
+  Widget NameTextField() {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AppText(
+            title: "Full Name",
+            color: AppColors.Black,
+            fontWeight: FontWeight.bold,
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          AppTextField(
+            hint: "Name",
+            radius: 8,
+            icon: Icons.person,
+            hintFontSize: 12,
+            obscureText: false,
+            maxLines: 1,
+
+          ),
+        ],
+      ),
+    );
+  }
+
 
   Widget PasswordTextField() {
     return Padding(
-      padding: const EdgeInsets.only(left: 20.0, top: 20, right: 20),
+      padding: const EdgeInsets.only(left: 20.0, top: 20, right: 20,bottom: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -94,6 +124,71 @@ class _SignupScreenState extends State<SignupScreen> {
       ),
     );
   }
+  Widget ConfirmPasswordTextField() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 20.0, top: 20, right: 20,bottom: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AppText(
+            title: "Confirm Password",
+            color: AppColors.Black,
+            fontWeight: FontWeight.bold,
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          AppTextField(
+            hint: "Password",
+            radius: 8,
+            icon: Icons.lock_outline,
+            hintFontSize: 12,
+            suffixicon: IconButton(
+              onPressed: () {
+                setState(() {
+                  obscurePassword = !obscurePassword;
+                });
+              },
+              icon: Icon(
+                obscurePassword ? Icons.visibility_off : Icons.visibility,
+              ),
+            ),
+            obscureText: obscurePassword,
+            maxLines: 1,
+            controller: passwordController,
+          ),
+        ],
+      ),
+    );
+  }
+  Widget SiginUpButton() {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: AppButton(
+        title: "Sign Up",
+        onTap: () {
+          final email = emailController.text;
+          final password = passwordController.text;
+          // Perform sign-in logic with email and password
+        },
+      ),
+    );
+  }
+  Widget Terms(){
+    return Row(
+      children: [Checkbox(value: isChecked, activeColor: AppColors.Blue,onChanged: (value) {
+        setState(() {
+          isChecked = value!;
+
+        });
+      },),
+        AppText(title: "I agree",color: AppColors.Black,),TextButton(onPressed: () {
+
+        }, child: AppText(title: "Terms & Conditions",color: AppColors.Blue,))
+      ],
+    );
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,12 +198,23 @@ class _SignupScreenState extends State<SignupScreen> {
       backgroundColor: Colors.white,
       elevation: 0,
     ),
-    body: Column(
-      children: [
-        EmailTextField(),
+    body: SingleChildScrollView(
+      child: Column(
+        children: [
+          NameTextField(),
+          EmailTextField(),
+          PasswordTextField(),
+          ConfirmPasswordTextField(),
+          Terms(),
+          SiginUpButton(),
 
-      ],
 
+
+
+
+        ],
+
+      ),
     ),);
   }
 }
