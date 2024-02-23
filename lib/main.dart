@@ -1,18 +1,20 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:graduation_project/Views/WelcomeScreens/splash_screen.dart';
+import 'package:graduation_project/core/app_colors/app_colors.dart';
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ,
+      title: 'Splash Screen',
+      theme: ThemeData(
+      ),
+      home: SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
+
