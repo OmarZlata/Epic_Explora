@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project/Views/WelcomeScreens/Signin/SignUp.dart';
-import 'package:graduation_project/Views/WelcomeScreens/Signin/Signin.dart';
-import 'package:graduation_project/Views/WelcomeScreens/splash_screen.dart';
-import 'package:graduation_project/core/app_colors/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'Views/Signin/SignUp.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -10,12 +9,19 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Splash Screen',
-      theme: ThemeData(
-      ),
-      home: SignupScreen(),
-      debugShowCheckedModeBanner: false,
+    return ScreenUtilInit(
+      designSize: const Size(393, 852),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (_ , child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: SignupScreen(),
+        );
+      },
     );
   }
 }
