@@ -3,13 +3,21 @@ import '../core/app_colors/app_colors.dart';
 import 'app_text.dart';
 
 class AppButton extends StatelessWidget {
+
+
   const AppButton({
     super.key,
     required this.title,
     this.onTap,
+    this.font_color,
+    this.color,
   });
 
   final String title;
+  final font_color;
+  final color;
+
+
   final void Function()? onTap;
 
   @override
@@ -18,17 +26,22 @@ class AppButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         height: 48,
-        width: double.infinity,
+        width: 344,
         alignment: Alignment.center,
         child: AppText(
           title: title,
-          color: AppColors.white,
-          fontSize: 16,
+          color: font_color,
+          fontSize: 14,
           fontWeight: FontWeight.w500,
         ),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: Color(0xff2F3C7E),
+          borderRadius: BorderRadius.circular(13),
+          color: color,
+          border: Border.all(
+            color: AppColors.Blue,
+            width: 1.0,
+          ),
+
         ),
       ),
     );

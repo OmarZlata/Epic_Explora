@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../core/app_colors/app_colors.dart';
 import '../home_View.dart';
+import 'onboarding_1.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -11,11 +12,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 50),
+    Timer(Duration(seconds: 3),
             ()=>Navigator.pushReplacement(context,
             MaterialPageRoute(builder:
                 (context) =>
-                HomeView()
+                    WelcomeScreen1()
             )
         )
     );

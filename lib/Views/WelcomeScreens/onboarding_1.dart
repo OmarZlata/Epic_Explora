@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:graduation_project/core/app_colors/app_colors.dart';
+
+import '../../Widgets/app_button.dart';
+import '../../Widgets/app_text.dart';
+import 'onboarding_2.dart';
 
 class WelcomeScreen1 extends StatelessWidget {
   const WelcomeScreen1({super.key});
@@ -6,7 +12,62 @@ class WelcomeScreen1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //body: Image.asset('assets/images/logo.png'),
+      body: Column(
+        children: [
+          Container(
+            height: 430,
+            child: Stack(
+              children: [
+                Image.asset(
+                  'assets/images/Frame.png',
+                  width: 1000,
+                  fit: BoxFit.cover,
+                ),
+                Positioned(
+                  child: Image.asset(
+                    'assets/images/Welcome1.png',
+                    width: double.infinity,
+                    height: double.infinity,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          AppText(
+            title: "Welcome To Epic Explore",
+            color: AppColors.Black,
+            fontSize: 22 ,
+            fontWeight: FontWeight.w700,
+          ),
+          SizedBox(height: 10,),
+          AppText(
+            title: "Explore a world of possibilities as you ",
+            color: AppColors.gray,
+            fontSize: 18 ,
+
+          ),
+          AppText(
+            title: "plan your next adventure .",
+            color: AppColors.gray,
+            fontSize: 18 ,
+
+          ),
+          Spacer(),
+          AppButton(
+            title: "Next",
+            color: AppColors.Blue,
+            font_color: AppColors.white,
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => WelcomeScreen2(),
+                  ));
+            },
+          ),
+          SizedBox(height: 100,)
+        ],
+      ),
     );
   }
 }
