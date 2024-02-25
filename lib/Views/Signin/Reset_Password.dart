@@ -143,7 +143,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: AppButton(
-        title: "Continue",
+        title: "Confirm",
         color: AppColors.Blue,
         font_color: AppColors.white,
         onTap: () {
