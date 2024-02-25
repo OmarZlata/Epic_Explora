@@ -26,6 +26,7 @@ class _SigninState extends State<Signin> {
             title: "Email",
             color: AppColors.Black,
             fontWeight: FontWeight.bold,
+
           ),
           SizedBox(
             height: 10,

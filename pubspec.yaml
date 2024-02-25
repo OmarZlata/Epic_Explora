@@ -30,11 +30,13 @@ dev_dependencies:
 
 flutter:
   assets:
-    - assets/images/logo.png
-    - assets/images/Welcome1.png
-    - assets/images/Welcome2.png
-    - assets/images/Frame.png
-    - assets/images/Welcome3.png
+    - assets/images/
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+
+
 
 
   uses-material-design: true
