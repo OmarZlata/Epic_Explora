@@ -18,9 +18,6 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
     FavoriteScreen(),
     MyTripsScreen(),
     ProfileScreen(),
-
-
-
   ];
   int  _currentIndex = 0 ;
 
