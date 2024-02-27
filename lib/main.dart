@@ -3,6 +3,7 @@ import 'package:graduation_project/Views/Signin/Signin.dart';
 import 'package:graduation_project/Views/WelcomeScreens/splash_screen.dart';
 import 'package:graduation_project/core/app_colors/app_colors.dart';
 
+import 'Views/MainScreens/select_location.dart';
 import 'Views/Signin/Forget_Password.dart';
 import 'Views/Signin/Reset_Password.dart';
 import 'Views/Signin/SignUp.dart';
@@ -17,8 +18,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Splash Screen',
       theme: ThemeData(
+        fontFamily: 'Poppins'
       ),
-      home: ResetPasswordScreen(),
+      home: SelectLocation(),
       debugShowCheckedModeBanner: false,
     );
   }
