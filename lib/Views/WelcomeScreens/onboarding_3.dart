@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:graduation_project/core/app_colors/app_colors.dart';
-
 import '../../Widgets/app_button.dart';
 import '../../Widgets/app_text.dart';
+import '../../core/app_colors/app_colors.dart';
 
 class WelcomeScreen3 extends StatelessWidget {
   const WelcomeScreen3({super.key});

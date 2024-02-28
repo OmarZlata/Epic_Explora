@@ -1,8 +1,9 @@
+import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:graduation_project/core/app_colors/app_colors.dart';
 
 import '../../Widgets/app_button.dart';
+import 'home_screen.dart';
 
 class SelectLocation extends StatefulWidget {
   const SelectLocation({super.key});
@@ -12,7 +13,6 @@ class SelectLocation extends StatefulWidget {
 }
 
 class _SelectLocationState extends State<SelectLocation> {
-  double containerHeight = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class _SelectLocationState extends State<SelectLocation> {
             style: TextStyle(
                 color: AppColors.Black,
                 fontSize: 20,
-                fontWeight: FontWeight.w600),
+                fontWeight: FontWeight.w500),
           ),
           centerTitle: true,
         ),
@@ -65,7 +65,7 @@ class _SelectLocationState extends State<SelectLocation> {
                     color: AppColors.Blue,
                     font_color: AppColors.white,
                     onTap: () {
-                      print("Locations");
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen(),));
                     },
                   ),
                 ],

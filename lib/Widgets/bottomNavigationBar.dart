@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project/Views/MainScreens/profile_screen.dart';
-import 'package:graduation_project/core/app_colors/app_colors.dart';
+
 import '../Views/MainScreens/favorites_screen.dart';
 import '../Views/MainScreens/home_screen.dart';
 import '../Views/MainScreens/mytrips_screen.dart';
+import '../Views/MainScreens/profile_screen.dart';
+import '../core/app_colors/app_colors.dart';
 
 class bottomNavigationBar extends StatefulWidget {
   const bottomNavigationBar({super.key});
@@ -14,7 +15,7 @@ class bottomNavigationBar extends StatefulWidget {
 
 class _bottomNavigationBarState extends State<bottomNavigationBar> {
   final List<Widget> _pages = [
-    HomeScreen(),
+    SizedBox(),
     FavoriteScreen(),
     MyTripsScreen(),
     ProfileScreen(),
