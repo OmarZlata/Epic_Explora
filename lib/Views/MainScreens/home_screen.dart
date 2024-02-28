@@ -39,33 +39,39 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: 24,),
             Row(
               children: [
-                Container(
-                  width: 285 ,
-                  height: 60,
-                  child: TextFormField(
-                    maxLines: 1,
-                    decoration: InputDecoration(
-                      hintText: "Search",
-                      prefixIcon: Icon(Icons.search),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      )
+                Expanded(
+                  flex: 4,
+                  child: Container(
+                    width: 285 ,
+                    height: 60,
+                    child: TextFormField(
+                      maxLines: 1,
+                      decoration: InputDecoration(
+                        hintText: "Search",
+                        prefixIcon: Icon(Icons.search),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        )
+                      ),
                     ),
                   ),
                 ),
-                Spacer(),
-                Container(
-                  width: 60,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    color: AppColors.Blue,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: InkWell(
-                    child: Image.asset('assets/images/filters-2.png'),
-                    onTap: () {
-                      print("Fillter");
-                    },
+                SizedBox(width: 16,),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: AppColors.Blue,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: InkWell(
+                      child: Image.asset('assets/images/filters-2.png'),
+                      onTap: () {
+                        print("Fillter");
+                      },
+                    ),
                   ),
                 )
               ],

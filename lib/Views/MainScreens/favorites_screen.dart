@@ -42,6 +42,7 @@ class FavoriteScreen extends StatelessWidget {
       body: ListView.builder(
         itemBuilder: (context, index) => Column(
           children: [
+            SizedBox(height: 24,),
             Container(
               child: Center(
                 child: Material(
@@ -150,11 +151,11 @@ class FavoriteScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 16,),
           ],
 
         ),
         itemCount: 20,
+
       ),
     );
   }
