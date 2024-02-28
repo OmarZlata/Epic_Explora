@@ -15,7 +15,7 @@ class bottomNavigationBar extends StatefulWidget {
 
 class _bottomNavigationBarState extends State<bottomNavigationBar> {
   final List<Widget> _pages = [
-    SizedBox(),
+    HomeScreen(),
     FavoriteScreen(),
     MyTripsScreen(),
     ProfileScreen(),
@@ -26,9 +26,9 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
         fixedColor: AppColors.Blue,
         unselectedItemColor:AppColors.gray ,

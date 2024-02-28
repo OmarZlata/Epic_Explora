@@ -37,8 +37,6 @@ class AppTextField extends StatelessWidget {
     return TextFormField(
       obscureText: obscureText,
       controller: controller,
-
-
       cursorColor: AppColors.white,
       cursorHeight: cursorHeight,
       keyboardAppearance: Brightness.dark,
