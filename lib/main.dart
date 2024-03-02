@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Views/MainScreens/home_screen.dart';
+import 'Views/MainScreens/search_screen.dart';
 import 'Widgets/bottomNavigationBar.dart';
 import 'Views/MainScreens/select_location.dart';
 import 'Views/Signin/Forget_Password.dart';

@@ -2,6 +2,8 @@ import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../Widgets/bottomNavigationBar.dart';
+
 class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({super.key});
 
@@ -25,7 +27,7 @@ class FavoriteScreen extends StatelessWidget {
                 color: AppColors.gray,
               ),
               onTap: () {
-                print("Back");
+                Navigator.push(context, MaterialPageRoute(builder: (context) => bottomNavigationBar(),));
               },
             ),
           ),

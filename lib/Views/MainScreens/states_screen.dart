@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../Widgets/bottomNavigationBar.dart';
 import '../../core/app_colors/app_colors.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+class StateScreen extends StatelessWidget {
+  const StateScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,29 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Center(child: Text("Profile")),
+      body: Container(
+        padding: EdgeInsets.all(8),
+        child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+
+          ),
+          itemCount: 20,
+          itemBuilder: (context, index) => Column(
+            children: [
+              Column(
+                children: [
+                  InkWell(
+                    onTap: () {},
+                    child: Image.asset('assets/images/Aswan.png'),
+                  ),
+                  Text('Aswan'),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
