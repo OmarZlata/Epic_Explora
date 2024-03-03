@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../Widgets/app_button.dart';
 import '../../Widgets/app_text.dart';
 import '../../core/app_colors/app_colors.dart';
+import '../Signin/SignUp.dart';
 
 class WelcomeScreen3 extends StatelessWidget {
   const WelcomeScreen3({super.key});
@@ -56,6 +57,7 @@ class WelcomeScreen3 extends StatelessWidget {
             color: AppColors.Blue,
             font_color: AppColors.white,
             onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignupScreen(),));
             },
           ),
           SizedBox(height: 24,),
