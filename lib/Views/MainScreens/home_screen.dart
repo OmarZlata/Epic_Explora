@@ -2,8 +2,10 @@ import 'package:epic_expolre/Views/MainScreens/search_screen.dart';
 import 'package:epic_expolre/Views/MainScreens/states_screen.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../Widgets/app_button.dart';
+import '../../Widgets/app_home_card.dart';
 import '../../Widgets/app_text_field.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -12,14 +14,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Padding(
-      padding: const EdgeInsets.only(
-        top: 60,
-        right: 16,
-        left: 16,
-      ),
-      child: SingleChildScrollView(
-        child: Column(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        child: ListView(
           children: [
             Row(
               children: [
@@ -70,7 +67,9 @@ class HomeScreen extends StatelessWidget {
                     height: 60,
                     child: TextFormField(
                       onFieldSubmitted: (value) {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchScreen(),));
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => SearchScreen(),
+                        ));
                       },
                       maxLines: 1,
                       decoration: InputDecoration(
@@ -78,7 +77,6 @@ class HomeScreen extends StatelessWidget {
                           prefixIcon: Icon(Icons.search),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
-
                           )),
                     ),
                   ),
@@ -112,7 +110,7 @@ class HomeScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "All  Offers",
+                  "All Offers",
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
                 ),
                 SizedBox(height: 16),
@@ -120,7 +118,7 @@ class HomeScreen extends StatelessWidget {
                   onTap: () {
                     print('offers');
                   },
-                  child: Container(
+                  child: Center(
                     child: Image.asset(
                       'assets/images/offers.png',
                       fit: BoxFit.cover,
@@ -129,147 +127,122 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
-              height: 16,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            SizedBox(height: 16),
+            Row(
               children: [
-                Row(
-                  children: [
-                    Text(
-                      "Select State",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-                    ),
-                    Spacer(),
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => StateScreen(),));
-                      },
-                      child: Text(
-                        "See more",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                            color: AppColors.Blue),
-                      ),
-                    ),
-                  ],
+                Text(
+                  "Select State",
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
                 ),
-                SizedBox(height: 16),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Container(
-                    child: Column(
-                      children: [
-                        Center(
-                          child: Row(
-                            children: [
-                              Column(
-                                children: [
-                                  InkWell(
-                                    onTap: () {},
-                                    child:
-                                        Image.asset('assets/images/Aswan.png'),
-                                  ),
-                                  Text('Aswan'),
-                                ],
-                              ),
-                              SizedBox(
-                                width: 28.5,
-                              ),
-                              Column(
-                                children: [
-                                  InkWell(
-                                    onTap: () {},
-                                    child:
-                                        Image.asset('assets/images/Aswan.png'),
-                                  ),
-                                  Text('Aswan'),
-                                ],
-                              ),
-                              SizedBox(
-                                width: 28.5,
-                              ),
-                              Column(
-                                children: [
-                                  InkWell(
-                                    onTap: () {},
-                                    child:
-                                        Image.asset('assets/images/Aswan.png'),
-                                  ),
-                                  Text('Aswan'),
-                                ],
-                              ),
-                              SizedBox(
-                                width: 28.5,
-                              ),
-                              Column(
-                                children: [
-                                  InkWell(
-                                    onTap: () {},
-                                    child:
-                                        Image.asset('assets/images/Aswan.png'),
-                                  ),
-                                  Text('Aswan'),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                Spacer(),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => StateScreen(),
+                    ));
+                  },
+                  child: Text(
+                    "See more",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        color: AppColors.Blue),
                   ),
                 ),
               ],
             ),
             SizedBox(height: 16),
-            Column(
-              children: [
-                Row(
+            Container(
+              height: 120,
+              child: ListView.builder(
+                itemCount: 9,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) => Row(
                   children: [
-                    Text(
-                      "Recommendations",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                    Column(
+                      children: [
+                        InkWell(
+                          onTap: () {},
+                          child: Image.asset('assets/images/Aswan.png'),
+                        ),
+                        Text("Aswan"),
+                      ],
                     ),
-                    Spacer(),
-                    InkWell(
-                      onTap: () {
-                        print('Recommendations');
-                      },
-                      child: Text(
-                        "See more",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                            color: AppColors.Blue),
-                      ),
-                    ),
+                    SizedBox(
+                      width: 10,
+                    )
                   ],
                 ),
-                Container(
-                  width: 210,
-                  height: 248,
-                  decoration: BoxDecoration(
-                    color: AppColors.gray,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Stack(
-                    children: [
-                      ClipRRect(
-                        child: Image.asset('assets/images/cards.png'),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                    ],
+              ),
+            ),
+            SizedBox(height: 16),
+            Row(
+              children: [
+                Text(
+                  "Recommendations",
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                ),
+                Spacer(),
+                InkWell(
+                  onTap: () {
+                   print("Recommendations");
+                  },
+                  child: Text(
+                    "See more",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        color: AppColors.Blue),
                   ),
                 ),
               ],
             ),
+            SizedBox(height: 16),
+            Container(
+              height: 248,
+              width: 210,
+              child: ListView.builder(
+                itemCount: 9,
+                scrollDirection: Axis.horizontal,
+                clipBehavior: Clip.hardEdge,
+                itemBuilder: (context, index) => AppHomeCard()
+                ),
+              ),
+            SizedBox(height: 16),
+            Row(
+              children: [
+                Text(
+                  "popular",
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                ),
+                Spacer(),
+                InkWell(
+                  onTap: () {
+                    print("popular");
+                  },
+                  child: Text(
+                    "See more",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        color: AppColors.Blue),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 16),
+            Container(
+              height: 248,
+              width: 210,
+              child: ListView.builder(
+                itemCount: 9,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) => AppHomeCard(),
+              ),
+            ),
           ],
         ),
       ),
-    ));
+    );
   }
 }

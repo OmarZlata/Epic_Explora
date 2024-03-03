@@ -47,7 +47,7 @@ class StateScreen extends StatelessWidget {
             crossAxisCount: 3,
 
           ),
-          itemCount: 20,
+          itemCount: 12,
           itemBuilder: (context, index) => Column(
             children: [
               Column(
