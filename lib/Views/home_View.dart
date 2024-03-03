@@ -12,7 +12,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(backgroundColor: AppColors.Blue),
-      body: Column(
+      body: const Column(
         children: [
           AppButton(title: 'Enter',),
         ],
