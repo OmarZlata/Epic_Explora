@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project/core/app_colors/app_colors.dart';
+
+import '../core/app_colors/app_colors.dart';
+
 
 class AppTileWithButton extends StatefulWidget {
   final IconData iconData;

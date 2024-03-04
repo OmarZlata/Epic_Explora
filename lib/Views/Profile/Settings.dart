@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project/Widgets/app_text.dart';
-
 import '../../Widgets/app_ListTile.dart';
+import '../../Widgets/app_text.dart';
 import '../../core/app_colors/app_colors.dart';
 
 class SettingScreen extends StatelessWidget {

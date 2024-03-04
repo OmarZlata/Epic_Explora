@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project/Views/Profile/profile_main.dart';
-import 'package:graduation_project/Views/Signin/Signin.dart';
-import 'package:graduation_project/Views/WelcomeScreens/splash_screen.dart';
-import 'package:graduation_project/core/app_colors/app_colors.dart';
-
+import 'My_Trips/Add_Trip/add_trip.dart';
+import 'My_Trips/alexandria_trip.dart';
 import 'Views/Profile/AppMode.dart';
 import 'Views/Profile/Settings.dart';
 import 'Views/Profile/Terms.dart';
@@ -22,7 +19,7 @@ class MyApp extends StatelessWidget {
       title: 'Splash Screen',
       theme: ThemeData(
       ),
-      home:AppModeScreen(),
+      home:SignupScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

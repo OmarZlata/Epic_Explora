@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:graduation_project/Widgets/app_ListTile.dart';
-import 'package:graduation_project/Widgets/app_text.dart';
-import 'package:graduation_project/core/app_colors/app_colors.dart';
+
+import '../../Widgets/app_ListTile.dart';
+import '../../Widgets/app_text.dart';
+import '../../core/app_colors/app_colors.dart';
 
 class ProfileMainScreen extends StatelessWidget {
   const ProfileMainScreen({super.key});
@@ -121,43 +122,46 @@ class ProfileMainScreen extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          AppText(title: "Mohammed@gmail.com",color: AppColors.gray,),
-      Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: InkWell(
-        onTap: () {
-
-        },
-        child: Container(
-
-        height: 29,
-        width: 115,
-        alignment: Alignment.center,
-        child: Row(crossAxisAlignment: CrossAxisAlignment.center,mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            AppText(
-            title: "Edit Profile",
-            color: AppColors.white,
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            ),Icon(Icons.mode_edit_outline_outlined,color: AppColors.white,size: 18,)
-          ],
-        ),
-        decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
-        color: AppColors.Blue,
-
-        border: Border.all(
-
-        color: AppColors.Blue,
-        width: 1.0,
-        ),
-
-        ),
-        ),
-        ),
-      )
-
+          AppText(
+            title: "Mohammed@gmail.com",
+            color: AppColors.gray,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: InkWell(
+              onTap: () {},
+              child: Container(
+                height: 29,
+                width: 115,
+                alignment: Alignment.center,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AppText(
+                      title: "Edit Profile",
+                      color: AppColors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    Icon(
+                      Icons.mode_edit_outline_outlined,
+                      color: AppColors.white,
+                      size: 18,
+                    )
+                  ],
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: AppColors.Blue,
+                  border: Border.all(
+                    color: AppColors.Blue,
+                    width: 1.0,
+                  ),
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );
