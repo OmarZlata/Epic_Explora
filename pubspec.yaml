@@ -5,7 +5,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.1.0 <4.0.0'
+  sdk: '>=3.0.6 <4.0.0'
 
 dependencies:
   flutter:
@@ -14,7 +14,7 @@ dependencies:
   # Responsive UI
   flutter_screenutil: ^5.9.0
   # Icons
-  font_awesome_flutter: ^10.5.0
+  font_awesome_flutter: ^10.7.0
   # Local DB
   shared_preferences: ^2.2.0
   #Pro
@@ -23,6 +23,10 @@ dependencies:
   geolocator: ^11.0.0
   flutter_bloc: ^8.1.4
   cupertino_icons: ^1.0.2
+  dropdown_button2: ^2.3.9
+  im_stepper: ^1.0.1+1
+  easy_stepper: ^0.8.3
+  dotted_border: ^2.1.0
 
 dev_dependencies:
   flutter_test:
