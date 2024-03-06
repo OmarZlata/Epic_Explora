@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 
 import '../core/app_colors/app_colors.dart';
 
-class AppCard extends StatelessWidget {
+class AppCard extends StatefulWidget {
   const AppCard({super.key});
+
+  @override
+  State<AppCard> createState() => _AppCardState();
+}
+
+class _AppCardState extends State<AppCard> {
+  bool isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +95,18 @@ class AppCard extends StatelessWidget {
                               children: [
                                 Row(
                                   children: [
-                                    Icon(Icons.favorite, color: Colors.red),
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          isFavorite = !isFavorite;
+                                        });
+                                      },
+                                      child: Icon(
+                                        isFavorite ? Icons.favorite_border : Icons.favorite,
+                                        color: isFavorite ? Colors.red : Colors.red,
+                                        size: 28,
+                                      ),
+                                    ),
                                     Text(
                                       "294 Likes",
                                       style: TextStyle(

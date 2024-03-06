@@ -7,9 +7,41 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../Widgets/app_button.dart';
 import '../../Widgets/app_home_card.dart';
 import '../../Widgets/app_text_field.dart';
+import '../../Widgets/bottomNavigationBar.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  void _showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Slider(
+                value: 250,
+                onChanged: (value) {
+                  setState(() {
+
+                  });
+                },
+                max: 500,
+                min: 10,
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +128,7 @@ class HomeScreen extends StatelessWidget {
                     child: InkWell(
                       child: Image.asset('assets/images/filters-2.png'),
                       onTap: () {
-                        print("Fillter");
+                        _showBottomSheet(context);
                       },
                     ),
                   ),
@@ -185,7 +217,7 @@ class HomeScreen extends StatelessWidget {
                 Spacer(),
                 InkWell(
                   onTap: () {
-                   print("Recommendations");
+                    print("Recommendations");
                   },
                   child: Text(
                     "See more",
@@ -202,12 +234,11 @@ class HomeScreen extends StatelessWidget {
               height: 248,
               width: 210,
               child: ListView.builder(
-                itemCount: 9,
-                scrollDirection: Axis.horizontal,
-                clipBehavior: Clip.hardEdge,
-                itemBuilder: (context, index) => AppHomeCard()
-                ),
-              ),
+                  itemCount: 9,
+                  scrollDirection: Axis.horizontal,
+                  clipBehavior: Clip.hardEdge,
+                  itemBuilder: (context, index) => AppHomeCard()),
+            ),
             SizedBox(height: 16),
             Row(
               children: [
