@@ -59,7 +59,7 @@ class Futuree extends StatelessWidget {
                                     Icon(
                                       Icons.calendar_today_outlined,
                                       size: 18,
-                                      color: AppColors.Blue,
+                                      color: AppColors.blue,
                                     ),
                                     SizedBox(width: 3,),
                                     Text(
@@ -76,7 +76,7 @@ class Futuree extends StatelessWidget {
                                     const Icon(
                                       Icons.access_alarm_outlined,
                                       size: 18,
-                                      color: AppColors.Blue,
+                                      color: AppColors.blue,
                                     ),
                                     const Text(
                                       "15 days",
@@ -91,7 +91,7 @@ class Futuree extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         borderRadius:
                                         BorderRadius.circular(20),
-                                        color: AppColors.MediumBlue,
+                                        color: AppColors.mediumBlue,
                                       ),
                                       child: const Center(
                                           child: Text(
@@ -151,7 +151,7 @@ class Futuree extends StatelessWidget {
                                     Icon(
                                       Icons.calendar_today_outlined,
                                       size: 18,
-                                      color: AppColors.Blue,
+                                      color: AppColors.blue,
                                     ),
                                     SizedBox(width: 3,),
                                     Text(
@@ -168,7 +168,7 @@ class Futuree extends StatelessWidget {
                                     const Icon(
                                       Icons.access_alarm_outlined,
                                       size: 18,
-                                      color: AppColors.Blue,
+                                      color: AppColors.blue,
                                     ),
                                     const Text(
                                       "15 days",
@@ -183,7 +183,7 @@ class Futuree extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         borderRadius:
                                         BorderRadius.circular(20),
-                                        color: AppColors.Red,
+                                        color: AppColors.red,
                                       ),
                                       child: const Center(
                                           child: Text(
@@ -243,7 +243,7 @@ class Futuree extends StatelessWidget {
                                     Icon(
                                       Icons.calendar_today_outlined,
                                       size: 18,
-                                      color: AppColors.Blue,
+                                      color: AppColors.blue,
                                     ),
                                     SizedBox(width: 3,),
                                     Text(
@@ -260,7 +260,7 @@ class Futuree extends StatelessWidget {
                                     const Icon(
                                       Icons.access_alarm_outlined,
                                       size: 18,
-                                      color: AppColors.Blue,
+                                      color: AppColors.blue,
                                     ),
                                     const Text(
                                       "15 days",
@@ -275,7 +275,7 @@ class Futuree extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         borderRadius:
                                         BorderRadius.circular(20),
-                                        color: AppColors.MediumBlue,
+                                        color: AppColors.mediumBlue,
                                       ),
                                       child: const Center(
                                           child: Text(
@@ -335,7 +335,7 @@ class Futuree extends StatelessWidget {
                                     Icon(
                                       Icons.calendar_today_outlined,
                                       size: 18,
-                                      color: AppColors.Blue,
+                                      color: AppColors.blue,
                                     ),
                                     SizedBox(width: 3,),
                                     Text(
@@ -352,7 +352,7 @@ class Futuree extends StatelessWidget {
                                     const Icon(
                                       Icons.access_alarm_outlined,
                                       size: 18,
-                                      color: AppColors.Blue,
+                                      color: AppColors.blue,
                                     ),
                                     const Text(
                                       "15 days",
@@ -367,7 +367,7 @@ class Futuree extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         borderRadius:
                                         BorderRadius.circular(20),
-                                        color: AppColors.Red,
+                                        color: AppColors.red,
                                       ),
                                       child: const Center(
                                           child: Text(

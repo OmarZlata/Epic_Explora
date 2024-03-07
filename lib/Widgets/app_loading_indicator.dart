@@ -8,7 +8,7 @@ class AppLoadingIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: CircularProgressIndicator.adaptive(
-        backgroundColor: AppColors.Blue,
+        backgroundColor: AppColors.blue,
       ),
 
     );

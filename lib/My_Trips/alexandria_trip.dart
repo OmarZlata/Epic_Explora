@@ -13,7 +13,7 @@ class AlexandriaTrip extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
-          padding: const EdgeInsets.only(left: 10.0,top: 5),
+          padding: const EdgeInsets.all(8),
           child: Container(
             width: 50,
             height: 50,
@@ -21,17 +21,18 @@ class AlexandriaTrip extends StatelessWidget {
               border: Border.all(
                 color: Colors.black.withOpacity(0.2),
               ),
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(10),
             ),
             child: const Icon(
               Icons.arrow_back_ios_new,
+              color: AppColors.gray,
               size: 24,
             ),
           ),
         ),
         actions: [
           Padding(
-              padding: const EdgeInsets.only(right: 16.0),
+              padding: const EdgeInsets.all(8),
               child: Container(
                 width: 50,
                 height: 50,
@@ -39,13 +40,15 @@ class AlexandriaTrip extends StatelessWidget {
                   border: Border.all(
                     color: Colors.black.withOpacity(0.2),
                   ),
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(10),
                 ),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton2(
                     customButton: const Icon(
+
                       FontAwesomeIcons.ellipsisVertical,
-                      size: 24,
+                      size: 25,
+                      color: AppColors.gray,
                     ),
                     items: [
                       ...MenuItems.firstItems.map(
@@ -92,7 +95,7 @@ class AlexandriaTrip extends StatelessWidget {
         ],
         title: const AppText(
             title: "Alexandria Trip",
-            color: AppColors.Black,
+            color: AppColors.black,
             fontWeight: FontWeight.bold,
             fontSize: 20),
         centerTitle: true,
@@ -189,7 +192,7 @@ class AlexandriaTrip extends StatelessWidget {
               height: 28,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: AppColors.MediumBlue,
+                color: AppColors.mediumBlue,
               ),
               child: const Center(
                   child: Text(

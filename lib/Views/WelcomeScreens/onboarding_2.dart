@@ -33,7 +33,7 @@ class WelcomeScreen2 extends StatelessWidget {
           ),
           AppText(
             title: "Book Cheapest Fight",
-            color: AppColors.Black,
+            color: AppColors.black,
             fontSize: 22 ,
             fontWeight: FontWeight.w700,
           ),
@@ -53,7 +53,7 @@ class WelcomeScreen2 extends StatelessWidget {
           Spacer(),
           AppButton(
             title: "Next",
-            color: AppColors.Blue,
+            color: AppColors.blue,
             font_color: AppColors.white,
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) => WelcomeScreen3(),));
@@ -63,7 +63,7 @@ class WelcomeScreen2 extends StatelessWidget {
           AppButton(
             title: "Back",
             color: AppColors.white,
-            font_color: AppColors.Blue,
+            font_color: AppColors.blue,
             onTap: () {
               Navigator.pop(context);
             },

@@ -24,7 +24,7 @@ class _SigninState extends State<Signin> {
         children: [
           AppText(
             title: "Email",
-            color: AppColors.Black,
+            color: AppColors.black,
             fontWeight: FontWeight.bold,
 
           ),
@@ -64,7 +64,7 @@ class _SigninState extends State<Signin> {
         children: [
           AppText(
             title: "Password",
-            color: AppColors.Black,
+            color: AppColors.black,
             fontWeight: FontWeight.bold,
           ),
           SizedBox(
@@ -115,7 +115,7 @@ class _SigninState extends State<Signin> {
         onPressed: () {},
         child: AppText(
             title: "Forget Password",
-            color: AppColors.Blue,
+            color: AppColors.blue,
             fontWeight: FontWeight.bold),
       ),
     );
@@ -130,7 +130,7 @@ class _SigninState extends State<Signin> {
             onPressed: () {},
             child: AppText(
               title: "Sign Up",
-              color: AppColors.Blue,
+              color: AppColors.blue,
               fontWeight: FontWeight.bold,
 
             ),
@@ -144,7 +144,7 @@ class _SigninState extends State<Signin> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: AppText(title: "Sign in",fontWeight: FontWeight.bold,color: AppColors.Black,fontSize: 24),
+        title: AppText(title: "Sign in",fontWeight: FontWeight.bold,color: AppColors.black,fontSize: 24),
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,

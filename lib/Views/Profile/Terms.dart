@@ -12,7 +12,7 @@ class TermsScreen extends StatelessWidget {
       appBar: AppBar(
         title: AppText(
             title: "Terms of service",
-            color: AppColors.Black,
+            color: AppColors.black,
             fontWeight: FontWeight.bold,
             fontSize: 20),
         centerTitle: true,
@@ -31,7 +31,7 @@ class TermsScreen extends StatelessWidget {
             AppText(
               title: 'Terms Of Service',
               fontSize: 20,
-              color: AppColors.Blue,
+              color: AppColors.blue,
               fontWeight: FontWeight.bold,
             ),
             AppText(

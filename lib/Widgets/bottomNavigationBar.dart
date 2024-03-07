@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../My_Trips/previous.dart';
 import '../Views/MainScreens/favorites_screen.dart';
 import '../Views/MainScreens/home_screen.dart';
-import '../Views/MainScreens/mytrips_screen.dart';
-import '../Views/MainScreens/profile_screen.dart';
+
+import '../Views/Profile/profile_main.dart';
 import '../core/app_colors/app_colors.dart';
+import 'app_tabBar.dart';
 
 class bottomNavigationBar extends StatefulWidget {
   const bottomNavigationBar({super.key});
@@ -17,8 +19,8 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
   final List<Widget> _pages = [
     HomeScreen(),
     FavoriteScreen(),
-    MyTripsScreen(),
-    ProfileScreen(),
+    TabBarScreen(),
+    ProfileMainScreen(),
   ];
   int  _currentIndex = 0 ;
 
@@ -30,7 +32,7 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
-        fixedColor: AppColors.Blue,
+        fixedColor: AppColors.blue,
         unselectedItemColor:AppColors.gray ,
 
         onTap: (index) {

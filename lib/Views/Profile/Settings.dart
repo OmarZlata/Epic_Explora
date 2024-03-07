@@ -13,7 +13,7 @@ class SettingScreen extends StatelessWidget {
         title: "App Mode",
         icon: Icons.wb_sunny_outlined,
         onPressed: () {},
-        color: AppColors.Blue,
+        color: AppColors.blue,
       ),
     );
   }
@@ -25,7 +25,7 @@ class SettingScreen extends StatelessWidget {
         title: "App Language",
         icon: Icons.language,
         onPressed: () {},
-        color: AppColors.Blue,
+        color: AppColors.blue,
       ),
     );
   }
@@ -36,7 +36,7 @@ class SettingScreen extends StatelessWidget {
       appBar: AppBar(
         title: AppText(
             title: "Settings",
-            color: AppColors.Black,
+            color: AppColors.black,
             fontWeight: FontWeight.bold,
             fontSize: 20),
         centerTitle: true,

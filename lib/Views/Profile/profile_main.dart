@@ -16,7 +16,7 @@ class ProfileMainScreen extends StatelessWidget {
         title: "Setting",
         icon: Icons.settings_outlined,
         onPressed: () {},
-        color: AppColors.Blue,
+        color: AppColors.blue,
       ),
     );
   }
@@ -28,7 +28,7 @@ class ProfileMainScreen extends StatelessWidget {
         title: "Currency Converter",
         icon: CupertinoIcons.money_dollar_circle,
         onPressed: () {},
-        color: AppColors.Blue,
+        color: AppColors.blue,
       ),
     );
   }
@@ -40,7 +40,7 @@ class ProfileMainScreen extends StatelessWidget {
         title: "My Bookings",
         icon: Icons.settings_outlined,
         onPressed: () {},
-        color: AppColors.Blue,
+        color: AppColors.blue,
       ),
     );
   }
@@ -52,7 +52,7 @@ class ProfileMainScreen extends StatelessWidget {
         title: "Terms of service",
         icon: Icons.library_books,
         onPressed: () {},
-        color: AppColors.Blue,
+        color: AppColors.blue,
       ),
     );
   }
@@ -64,7 +64,7 @@ class ProfileMainScreen extends StatelessWidget {
         title: "Privacy policy",
         icon: Icons.privacy_tip_outlined,
         onPressed: () {},
-        color: AppColors.Blue,
+        color: AppColors.blue,
       ),
     );
   }
@@ -76,7 +76,7 @@ class ProfileMainScreen extends StatelessWidget {
         title: "About",
         icon: Icons.info_outline,
         onPressed: () {},
-        color: AppColors.Blue,
+        color: AppColors.blue,
       ),
     );
   }
@@ -88,7 +88,7 @@ class ProfileMainScreen extends StatelessWidget {
         title: "Change Password",
         icon: Icons.lock_outline_rounded,
         onPressed: () {},
-        color: AppColors.Blue,
+        color: AppColors.blue,
       ),
     );
   }
@@ -153,9 +153,9 @@ class ProfileMainScreen extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
-                  color: AppColors.Blue,
+                  color: AppColors.blue,
                   border: Border.all(
-                    color: AppColors.Blue,
+                    color: AppColors.blue,
                     width: 1.0,
                   ),
                 ),

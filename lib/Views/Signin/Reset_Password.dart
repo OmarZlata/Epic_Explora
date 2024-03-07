@@ -29,7 +29,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               children: [Image.asset('assets/images/icon.png'),
                 AppText(
                   title: "Reset Password successfully",
-                  color: AppColors.Green,
+                  color: AppColors.green,
                   fontWeight: FontWeight.bold,
                 ),
 
@@ -43,7 +43,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Center(child: AppText(title: "Ok",color: AppColors.Black,fontWeight: FontWeight.bold,)),
+              child: Center(child: AppText(title: "Ok",color: AppColors.black,fontWeight: FontWeight.bold,)),
             ),
           ],
         );
@@ -69,7 +69,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         children: [
           AppText(
             title: "New Password",
-            color: AppColors.Black,
+            color: AppColors.black,
             fontWeight: FontWeight.bold,
           ),
           SizedBox(
@@ -108,7 +108,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         children: [
           AppText(
             title: "Confirm New Password",
-            color: AppColors.Black,
+            color: AppColors.black,
             fontWeight: FontWeight.bold,
           ),
           SizedBox(
@@ -143,7 +143,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       padding: const EdgeInsets.all(20.0),
       child: AppButton(
         title: "Confirm",
-        color: AppColors.Blue,
+        color: AppColors.blue,
         font_color: AppColors.white,
         onTap: () {
           _showAlertDialog(context);
@@ -158,7 +158,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       appBar: AppBar(
         title: AppText(
             title: "Reset Password",
-            color: AppColors.Black,
+            color: AppColors.black,
             fontWeight: FontWeight.bold,
             fontSize: 20),
         centerTitle: true,

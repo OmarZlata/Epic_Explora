@@ -33,7 +33,7 @@ class SearchScreen extends StatelessWidget {
         title: Text(
           "    Search Result",
           style: TextStyle(
-            color: AppColors.Black,
+            color: AppColors.black,
             fontWeight: FontWeight.bold,
             fontSize: 20,
           ),

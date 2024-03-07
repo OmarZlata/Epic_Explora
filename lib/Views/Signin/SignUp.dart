@@ -28,7 +28,7 @@ class _SignupScreenState extends State<SignupScreen> {
         children: [
           AppText(
             title: "Email",
-            color: AppColors.Black,
+            color: AppColors.black,
             fontWeight: FontWeight.bold,
           ),
           SizedBox(
@@ -66,7 +66,7 @@ class _SignupScreenState extends State<SignupScreen> {
         children: [
           AppText(
             title: "Full Name",
-            color: AppColors.Black,
+            color: AppColors.black,
             fontWeight: FontWeight.bold,
           ),
           SizedBox(
@@ -95,7 +95,7 @@ class _SignupScreenState extends State<SignupScreen> {
         children: [
           AppText(
             title: "Password",
-            color: AppColors.Black,
+            color: AppColors.black,
             fontWeight: FontWeight.bold,
           ),
           SizedBox(
@@ -132,7 +132,7 @@ class _SignupScreenState extends State<SignupScreen> {
         children: [
           AppText(
             title: "Confirm Password",
-            color: AppColors.Black,
+            color: AppColors.black,
             fontWeight: FontWeight.bold,
           ),
           SizedBox(
@@ -176,15 +176,15 @@ class _SignupScreenState extends State<SignupScreen> {
   }
   Widget Terms(){
     return Row(
-      children: [Checkbox(value: isChecked, activeColor: AppColors.Blue,onChanged: (value) {
+      children: [Checkbox(value: isChecked, activeColor: AppColors.blue,onChanged: (value) {
         setState(() {
           isChecked = value!;
 
         });
       },),
-        AppText(title: "I agree",color: AppColors.Black,),TextButton(onPressed: () {
+        AppText(title: "I agree",color: AppColors.black,),TextButton(onPressed: () {
 
-        }, child: AppText(title: "Terms & Conditions",color: AppColors.Blue,))
+        }, child: AppText(title: "Terms & Conditions",color: AppColors.blue,))
       ],
     );
 
@@ -193,7 +193,7 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(appBar: AppBar(
-      title: AppText(title: "Sign Up",fontWeight: FontWeight.bold,color: AppColors.Black,fontSize: 24),
+      title: AppText(title: "Sign Up",fontWeight: FontWeight.bold,color: AppColors.black,fontSize: 24),
       centerTitle: true,
       backgroundColor: Colors.white,
       elevation: 0,

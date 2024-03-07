@@ -8,9 +8,10 @@ import '../../Widgets/app_button.dart';
 import '../../Widgets/app_home_card.dart';
 import '../../Widgets/app_text_field.dart';
 import '../../Widgets/bottomNavigationBar.dart';
+import '../../Widgets/ranged_slider_app.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+   HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -19,30 +20,23 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   void _showBottomSheet(BuildContext context) {
     showModalBottomSheet(
+      isScrollControlled: true,
       context: context,
       builder: (BuildContext context) {
         return Container(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Slider(
-                value: 250,
-                onChanged: (value) {
-                  setState(() {
-
-                  });
-                },
-                max: 500,
-                min: 10,
-              )
-            ],
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(16.0),
+                topRight: Radius.circular(16.0),
+              ),
+            ),
+            child: SliderScreen(),
           ),
         );
       },
     );
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Icon(
                           Icons.location_on_outlined,
-                          color: AppColors.Blue,
+                          color: AppColors.blue,
                         ),
                         Text(
                           "Alexandria ,Egypt",
@@ -74,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         Icon(
                           Icons.arrow_drop_down,
-                          color: AppColors.Blue,
+                          color: AppColors.blue,
                         ),
                       ],
                     ),
@@ -122,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: 60,
                     height: 60,
                     decoration: BoxDecoration(
-                      color: AppColors.Blue,
+                      color: AppColors.blue,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: InkWell(
@@ -178,7 +172,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
-                        color: AppColors.Blue),
+                        color: AppColors.blue),
                   ),
                 ),
               ],
@@ -224,7 +218,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
-                        color: AppColors.Blue),
+                        color: AppColors.blue),
                   ),
                 ),
               ],
@@ -256,7 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
-                        color: AppColors.Blue),
+                        color: AppColors.blue),
                   ),
                 ),
               ],

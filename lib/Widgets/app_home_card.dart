@@ -94,7 +94,7 @@ class _AppHomeCardState extends State<AppHomeCard> {
                         children: [
                           Icon(
                             Icons.location_on_outlined,
-                            color: AppColors.Blue,
+                            color: AppColors.blue,
                           ),
                           Text(
                             "Alexandria ,Egypt",

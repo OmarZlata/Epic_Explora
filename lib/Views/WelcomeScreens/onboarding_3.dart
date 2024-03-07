@@ -34,7 +34,7 @@ class WelcomeScreen3 extends StatelessWidget {
           ),
           AppText(
             title: "Share your experiences",
-            color: AppColors.Black,
+            color: AppColors.black,
             fontSize: 22 ,
             fontWeight: FontWeight.w700,
           ),
@@ -54,7 +54,7 @@ class WelcomeScreen3 extends StatelessWidget {
           Spacer(),
           AppButton(
             title: "Next",
-            color: AppColors.Blue,
+            color: AppColors.blue,
             font_color: AppColors.white,
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignupScreen(),));
@@ -64,7 +64,7 @@ class WelcomeScreen3 extends StatelessWidget {
           AppButton(
             title: "Back",
             color: AppColors.white,
-            font_color: AppColors.Blue,
+            font_color: AppColors.blue,
             onTap: () {
               Navigator.pop(context);
             },

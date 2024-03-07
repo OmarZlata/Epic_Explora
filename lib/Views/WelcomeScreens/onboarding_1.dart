@@ -34,7 +34,7 @@ class WelcomeScreen1 extends StatelessWidget {
           ),
           AppText(
             title: "Welcome To Epic Explore",
-            color: AppColors.Black,
+            color: AppColors.black,
             fontSize: 22 ,
             fontWeight: FontWeight.w700,
           ),
@@ -54,7 +54,7 @@ class WelcomeScreen1 extends StatelessWidget {
           Spacer(),
           AppButton(
             title: "Next",
-            color: AppColors.Blue,
+            color: AppColors.blue,
             font_color: AppColors.white,
             onTap: () {
               Navigator.push(

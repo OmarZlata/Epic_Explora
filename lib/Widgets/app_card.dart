@@ -71,7 +71,7 @@ class _AppCardState extends State<AppCard> {
                               children: [
                                 Icon(
                                   Icons.location_on_outlined,
-                                  color: AppColors.Blue,
+                                  color: AppColors.blue,
                                 ),
                                 Text(
                                   "Alexandria ,Egypt",
@@ -80,7 +80,7 @@ class _AppCardState extends State<AppCard> {
                                 ),
                                 Icon(
                                   Icons.arrow_drop_down,
-                                  color: AppColors.Blue,
+                                  color: AppColors.blue,
                                 ),
                               ],
                             ),

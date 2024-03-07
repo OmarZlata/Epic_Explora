@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.Blue,
+      backgroundColor: AppColors.blue,
       body  : Center(
         child: Container(
           height: 150,
@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 SizedBox(height: 10,),
                 Text("Epic Explore",style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: AppColors.Black
+                    color: AppColors.black
                 ),)
               ],
             )

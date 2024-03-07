@@ -25,7 +25,7 @@ class VerificationScreen extends StatelessWidget {
       padding: const EdgeInsets.all(20.0),
       child: AppButton(
         title: "Verify",
-        color: AppColors.Blue,
+        color: AppColors.blue,
         font_color: AppColors.white,
         onTap: () {
           final email = emailController.text;
@@ -41,7 +41,7 @@ class VerificationScreen extends StatelessWidget {
       appBar: AppBar(
         title: AppText(
             title: "Verification",
-            color: AppColors.Black,
+            color: AppColors.black,
             fontWeight: FontWeight.bold,
             fontSize: 20),
         centerTitle: true,
@@ -70,7 +70,7 @@ class VerificationScreen extends StatelessWidget {
                         ),
                         AppText(
                           title: 'Mohammed@gmail.com',
-                          color: AppColors.Blue,
+                          color: AppColors.blue,
                           fontWeight: FontWeight.bold,
                           fontSize: 17,
                         )

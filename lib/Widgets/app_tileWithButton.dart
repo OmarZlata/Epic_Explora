@@ -39,11 +39,11 @@ class _AppTileWithButtonState extends State<AppTileWithButton> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: widget.isSelected ? AppColors.Blue : AppColors.gray,
+            color: widget.isSelected ? AppColors.blue : AppColors.gray,
           ),
         ),
         child: ListTile(
-          leading: Icon(widget.iconData,color: widget.isSelected ? AppColors.Blue : AppColors.gray),
+          leading: Icon(widget.iconData,color: widget.isSelected ? AppColors.blue : AppColors.gray),
           title: Text(
             widget.title,
 
@@ -51,7 +51,7 @@ class _AppTileWithButtonState extends State<AppTileWithButton> {
           trailing: Radio<bool>(
             value: true,
             groupValue: widget.isSelected,
-            activeColor: AppColors.Blue,
+            activeColor: AppColors.blue,
             onChanged: (value) {
               widget.onSelect(value ?? false);
             },

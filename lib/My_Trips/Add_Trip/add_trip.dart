@@ -108,7 +108,7 @@ class _StepperExampleState extends State<StepperExample> {
                       children: [
                         AppText(
                           title: " Name",
-                          color: AppColors.Black,
+                          color: AppColors.black,
                           fontWeight: FontWeight.bold,
                         ),
                         SizedBox(
@@ -141,7 +141,7 @@ class _StepperExampleState extends State<StepperExample> {
                     children: [
                       AppText(
                         title: "City",
-                        color: AppColors.Black,
+                        color: AppColors.black,
                         fontWeight: FontWeight.bold,
                       ),
                       SizedBox(
@@ -192,7 +192,7 @@ class _StepperExampleState extends State<StepperExample> {
                     children: [
                       AppText(
                         title: "AirLine",
-                        color: AppColors.Black,
+                        color: AppColors.black,
                         fontWeight: FontWeight.bold,
                       ),
                       SizedBox(
@@ -226,7 +226,7 @@ class _StepperExampleState extends State<StepperExample> {
                     children: [
                       AppText(
                         title: "Date",
-                        color: AppColors.Black,
+                        color: AppColors.black,
                         fontWeight: FontWeight.bold,
                       ),
                       SizedBox(
@@ -260,7 +260,7 @@ class _StepperExampleState extends State<StepperExample> {
                     children: [
                       AppText(
                         title: "Time",
-                        color: AppColors.Black,
+                        color: AppColors.black,
                         fontWeight: FontWeight.bold,
                       ),
                       SizedBox(
@@ -309,7 +309,7 @@ class _StepperExampleState extends State<StepperExample> {
                           height: 47,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            color: AppColors.Blue,
+                            color: AppColors.blue,
                           ),
                           child: const Center(
                             child: Text(
@@ -345,7 +345,7 @@ class _StepperExampleState extends State<StepperExample> {
                     children: [
                       AppText(
                         title: "City ",
-                        color: AppColors.Black,
+                        color: AppColors.black,
                         fontWeight: FontWeight.bold,
                       ),
                       SizedBox(
@@ -394,7 +394,7 @@ class _StepperExampleState extends State<StepperExample> {
                     children: [
                       AppText(
                         title: "Date",
-                        color: AppColors.Black,
+                        color: AppColors.black,
                         fontWeight: FontWeight.bold,
                       ),
                       SizedBox(
@@ -430,7 +430,7 @@ class _StepperExampleState extends State<StepperExample> {
                     children: [
                       AppText(
                         title: "Time",
-                        color: AppColors.Black,
+                        color: AppColors.black,
                         fontWeight: FontWeight.bold,
                       ),
                       SizedBox(
@@ -507,7 +507,7 @@ class _StepperExampleState extends State<StepperExample> {
                           height: 48,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            color: AppColors.Blue,
+                            color: AppColors.blue,
                           ),
                           child: const Center(
                               child: Text(
@@ -619,7 +619,7 @@ class _StepperExampleState extends State<StepperExample> {
                     height: 28,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: AppColors.MediumBlue,
+                      color: AppColors.mediumBlue,
                     ),
                     child: const Center(
                         child: Text(
@@ -774,7 +774,7 @@ class _StepperExampleState extends State<StepperExample> {
                         height: 48,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
-                          color: AppColors.Blue,
+                          color: AppColors.blue,
                         ),
                         child: const Center(
                             child: Text(

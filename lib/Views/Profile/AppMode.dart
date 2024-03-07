@@ -23,7 +23,7 @@ class _AppModeScreenState extends State<AppModeScreen> {
       appBar: AppBar(
         title: AppText(
             title: "App Mode",
-            color: AppColors.Black,
+            color: AppColors.black,
             fontWeight: FontWeight.bold,
             fontSize: 20),
         centerTitle: true,

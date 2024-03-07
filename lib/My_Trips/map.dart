@@ -1,56 +1,55 @@
+import 'package:epic_expolre/Widgets/app_AppBar.dart';
 import 'package:flutter/material.dart';
 
 import '../Widgets/app_text.dart';
 import '../core/app_colors/app_colors.dart';
 
-class Map extends StatelessWidget {
-  const Map({super.key});
+class MapScreen extends StatelessWidget {
+  const MapScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 70,
+        backgroundColor: AppColors.white,
+        elevation: 1,
         leading: Padding(
-          padding: const EdgeInsets.only(left: 10.0, top: 15, bottom: 6),
+          padding: const EdgeInsets.all(8.0),
           child: Container(
-            width: 40,
-            height: 40,
             decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.black.withOpacity(0.2),
-              ),
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: AppColors.gray, width: 1),
             ),
-            child: const Icon(
-              Icons.arrow_back_ios_new,
-              size: 24,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(10),
+              child: Icon(
+                Icons.arrow_back_ios_outlined,
+                color: AppColors.gray,
+              ),
+              onTap: () {
+                Navigator.of(context).pop();
+              },
             ),
           ),
         ),
-        title: const AppText(
-            title: "  Map",
-            color: AppColors.Black,
+        title: Text(
+          "    Map",
+          style: TextStyle(
+            color: AppColors.black,
             fontWeight: FontWeight.bold,
-            fontSize: 20),
-        backgroundColor: AppColors.white,
-        elevation: 0.5,
+            fontSize: 20,
+          ),
+        ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-            children: [
-            const Divider(),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height:MediaQuery.of(context).size.height,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: ExactAssetImage('assets/images/sanaa map .png'),
-                        fit: BoxFit.cover
-                    )
-                ),
-              ),
-            ]),
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height:MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: ExactAssetImage('assets/images/sanaa map .png'),
+                fit: BoxFit.cover
+            )
+        ),
       )
     );
   }

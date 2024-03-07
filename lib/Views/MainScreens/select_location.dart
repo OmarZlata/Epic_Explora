@@ -34,7 +34,7 @@ class _SelectLocationState extends State<SelectLocation> {
                   Image.asset('assets/images/location.png'),
                   SizedBox(height:8 ,),
                   Text("Current location",style: TextStyle(
-                    color: AppColors.Blue,
+                    color: AppColors.blue,
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
                   ),),
@@ -47,7 +47,7 @@ class _SelectLocationState extends State<SelectLocation> {
                   SizedBox(height: 25,),
                   AppButton(
                     title: "set my location",
-                    color: AppColors.Blue,
+                    color: AppColors.blue,
                     font_color: AppColors.white,
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => bottomNavigationBar(),));
@@ -70,7 +70,7 @@ class _SelectLocationState extends State<SelectLocation> {
         title: Text(
           "Select Location",
           style: TextStyle(
-              color: AppColors.Black,
+              color: AppColors.black,
               fontSize: 20,
               fontWeight: FontWeight.w500),
         ),
@@ -92,7 +92,7 @@ class _SelectLocationState extends State<SelectLocation> {
               Center(
                 child: AppButton(
                   title: "Select Location",
-                  color: AppColors.Blue,
+                  color: AppColors.blue,
                   font_color: AppColors.white,
                   onTap: () {
                     _showBottomSheet(context);

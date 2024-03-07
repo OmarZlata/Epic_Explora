@@ -38,7 +38,7 @@ class AppButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(13),
           color: color,
           border: Border.all(
-            color: AppColors.Blue,
+            color: AppColors.blue,
             width: 1.0,
           ),
 

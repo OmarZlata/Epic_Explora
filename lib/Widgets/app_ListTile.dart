@@ -29,7 +29,7 @@ class AppTile extends StatelessWidget {
       child: ListTile(
         title: AppText(
           title: title,
-          color: AppColors.Black,
+          color: AppColors.black,
           fontSize: 16,
 
         ),

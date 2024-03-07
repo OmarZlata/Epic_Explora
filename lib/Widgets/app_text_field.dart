@@ -41,7 +41,7 @@ class AppTextField extends StatelessWidget {
       cursorHeight: cursorHeight,
       keyboardAppearance: Brightness.dark,
       style: TextStyle(
-        color: AppColors.Black,
+        color: AppColors.black,
         fontSize: hintFontSize,
       ),
       maxLines: maxLines,
@@ -55,7 +55,7 @@ class AppTextField extends StatelessWidget {
             ? Icon(suffixicon as IconData?, color: AppColors.gray)
             : suffixicon,
         labelText: labelText,
-        labelStyle: TextStyle(color: AppColors.Black),
+        labelStyle: TextStyle(color: AppColors.black),
         counterStyle: TextStyle(
           color: AppColors.white,
         ),

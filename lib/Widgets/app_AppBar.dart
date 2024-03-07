@@ -36,7 +36,7 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget{
       title: Text(
         title,
         style: TextStyle(
-          color: AppColors.Black,
+          color: AppColors.black,
           fontWeight: FontWeight.bold,
           fontSize: 20,
         ),

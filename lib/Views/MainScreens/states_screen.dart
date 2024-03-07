@@ -34,7 +34,7 @@ class StateScreen extends StatelessWidget {
         title: Text(
           "    Profile",
           style: TextStyle(
-            color: AppColors.Black,
+            color: AppColors.black,
             fontWeight: FontWeight.bold,
             fontSize: 20,
           ),

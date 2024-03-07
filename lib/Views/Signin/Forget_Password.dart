@@ -26,7 +26,7 @@ class ForgetPasswordScreen extends StatelessWidget {
         children: [
           AppText(
             title: "Email",
-            color: AppColors.Black,
+            color: AppColors.black,
             fontWeight: FontWeight.bold,
 
           ),
@@ -62,7 +62,7 @@ class ForgetPasswordScreen extends StatelessWidget {
       padding: const EdgeInsets.all(20.0),
       child: AppButton(
         title: "Continue",
-        color: AppColors.Blue,
+        color: AppColors.blue,
         font_color: AppColors.white,
         onTap: () {
           final email = emailController.text;
@@ -78,7 +78,7 @@ class ForgetPasswordScreen extends StatelessWidget {
       appBar: AppBar(
         title: AppText(
             title: "Forget Password",
-            color: AppColors.Black,
+            color: AppColors.black,
             fontWeight: FontWeight.bold,
             fontSize: 20),
         centerTitle: true,
