@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../core/app_colors/app_colors.dart';
 
-class Present extends StatelessWidget {
-  const Present({super.key});
+class PresentScreen extends StatelessWidget {
+  const PresentScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

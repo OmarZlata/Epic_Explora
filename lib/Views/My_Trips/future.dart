@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../core/app_colors/app_colors.dart';
 
-class Futuree extends StatelessWidget {
-  const Futuree({super.key});
+class FutureScreen extends StatelessWidget {
+  const FutureScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

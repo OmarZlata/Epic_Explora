@@ -1,18 +1,17 @@
-import 'package:epic_expolre/My_Trips/present.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import '../core/app_colors/app_colors.dart';
+import '../../core/app_colors/app_colors.dart';
 import 'future.dart';
 
-class Previous extends StatefulWidget {
-  const Previous({super.key});
+class PreviousScreen extends StatefulWidget {
+  const PreviousScreen({super.key});
 
   @override
-  State<Previous> createState() => _PreviousState();
+  State<PreviousScreen> createState() => _PreviousScreenState();
 }
 
-class _PreviousState extends State<Previous>
+class _PreviousScreenState extends State<PreviousScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 

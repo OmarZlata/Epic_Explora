@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../My_Trips/previous.dart';
 import '../Views/MainScreens/favorites_screen.dart';
 import '../Views/MainScreens/home_screen.dart';
-
 import '../Views/Profile/profile_main.dart';
 import '../core/app_colors/app_colors.dart';
 import 'app_tabBar.dart';

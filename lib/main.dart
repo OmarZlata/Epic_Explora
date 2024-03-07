@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'My_Trips/Add_Trip/add_trip.dart';
-import 'My_Trips/alexandria_trip.dart';
-import 'My_Trips/future.dart';
-import 'My_Trips/present.dart';
-import 'My_Trips/previous.dart';
 import 'Views/MainScreens/home_screen.dart';
 import 'Views/MainScreens/select_location.dart';
 import 'Views/Profile/AppMode.dart';

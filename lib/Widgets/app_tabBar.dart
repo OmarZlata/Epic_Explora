@@ -2,10 +2,9 @@ import 'package:epic_expolre/Widgets/app_text.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
-import '../My_Trips/future.dart';
-import '../My_Trips/present.dart';
-import '../My_Trips/previous.dart';
-
+import '../Views/My_Trips/future.dart';
+import '../Views/My_Trips/present.dart';
+import '../Views/My_Trips/previous.dart';
 class TabBarScreen extends StatefulWidget {
   const TabBarScreen({super.key});
 
@@ -66,9 +65,9 @@ class _TabBarScreenState extends State<TabBarScreen> {
               ),
               Expanded(
                 child: TabBarView(children: [
-                  Previous(),
-                  Present(),
-                  Futuree(),
+                  PreviousScreen(),
+                  PresentScreen(),
+                  FutureScreen(),
                 ]),
               )
             ],

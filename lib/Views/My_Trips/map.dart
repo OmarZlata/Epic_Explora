@@ -1,8 +1,7 @@
 import 'package:epic_expolre/Widgets/app_AppBar.dart';
 import 'package:flutter/material.dart';
 
-import '../Widgets/app_text.dart';
-import '../core/app_colors/app_colors.dart';
+import '../../core/app_colors/app_colors.dart';
 
 class MapScreen extends StatelessWidget {
   const MapScreen({super.key});
