@@ -1,7 +1,9 @@
+import 'package:epic_expolre/Views/BookingScreens/BookingDetails/Booking_Details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'Views/MainScreens/home_screen.dart';
 import 'Views/MainScreens/select_location.dart';
+import 'Views/My_Trips/Add_Trip/add_trip.dart';
 import 'Views/Profile/AppMode.dart';
 import 'Views/Profile/Settings.dart';
 import 'Views/Profile/Terms.dart';
@@ -32,7 +34,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: bottomNavigationBar(),
+          home: Booking_details(),
         );
       },
     );

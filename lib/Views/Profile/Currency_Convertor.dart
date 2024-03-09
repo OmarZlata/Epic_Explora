@@ -26,7 +26,7 @@ class _CurrencyState extends State<Currency> {
           width: 72,
           height: 72,
           decoration: BoxDecoration(
-            color: AppColors.light,
+            color: AppColors.light_blue,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Center(
@@ -54,7 +54,7 @@ class _CurrencyState extends State<Currency> {
           width: 180,
           height: 72,
           decoration: BoxDecoration(
-            color: AppColors.light,
+            color: AppColors.light_blue,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Center(
