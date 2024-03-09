@@ -18,7 +18,7 @@ class BookingCard extends StatelessWidget {
             vertical: 16,
           ),
           width: 356.w,
-          height: 270.h,
+          height: 315.h,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: AppColors.gray.withOpacity(.3))),
@@ -78,17 +78,15 @@ class BookingCard extends StatelessWidget {
                         color: AppColors.gray.withOpacity(.2)
                       )
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                         Icon(Icons.nightlight_outlined,color: AppColors.blue,),
-                          Text("13 nights",style: TextStyle(
-                            color: AppColors.gray,
-                            fontSize:10
-                          ),)
-                        ],
-                      ),
+                    child: Row(
+                      children: [
+                        SizedBox(width: 8,),
+                       Icon(Icons.nightlight_outlined,color: AppColors.blue,),
+                        Text("13 nights",style: TextStyle(
+                          color: AppColors.gray,
+                          fontSize:10
+                        ),)
+                      ],
                     ),
                   ),
                   Spacer(),
