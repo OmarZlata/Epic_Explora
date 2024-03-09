@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import '../../Widgets/app_ListTile.dart';
 import '../../Widgets/app_text.dart';
+import '../../Widgets/booking_tabBar.dart';
 import '../../core/app_colors/app_colors.dart';
 
 class ProfileMainScreen extends StatelessWidget {
@@ -33,13 +33,15 @@ class ProfileMainScreen extends StatelessWidget {
     );
   }
 
-  Widget Bookings() {
+  Widget Bookings(context) {
     return Padding(
       padding: const EdgeInsets.all(6.0),
       child: AppTile(
         title: "My Bookings",
         icon: Icons.settings_outlined,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => BookingTabBar(),));
+        },
         color: AppColors.blue,
       ),
     );
@@ -170,19 +172,21 @@ class ProfileMainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-            child: Column(
+        body: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: ListView(
       children: [
-        ProfilePic(),
-        Settings(),
-        Currency(),
-        Bookings(),
-        Terms(),
-        Privacy(),
-        About(),
-        password(),
-        Logout()
+          ProfilePic(),
+          Settings(),
+          Currency(),
+          Bookings(context),
+          Terms(),
+          Privacy(),
+          About(),
+          password(),
+          Logout()
       ],
-    )));
+    ),
+        ));
   }
 }

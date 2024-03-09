@@ -11,11 +11,13 @@ class AppButton extends StatelessWidget {
     this.onTap,
     this.font_color,
     this.color,
+    this.border_color
   });
 
   final String title;
   final font_color;
   final color;
+  final border_color;
 
 
   final void Function()? onTap;
@@ -24,6 +26,7 @@ class AppButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
       child: Container(
         height: 48,
         width: 344,
@@ -31,15 +34,15 @@ class AppButton extends StatelessWidget {
         child: AppText(
           title: title,
           color: font_color,
-          fontSize: 14,
+          fontSize: 12,
           fontWeight: FontWeight.w500,
         ),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(13),
+          borderRadius: BorderRadius.circular(12),
           color: color,
           border: Border.all(
-            color: AppColors.blue,
-            width: 1.0,
+            color: border_color ??AppColors.blue,
+            width: 1,
           ),
 
         ),

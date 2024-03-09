@@ -3,7 +3,7 @@ import '../Views/MainScreens/favorites_screen.dart';
 import '../Views/MainScreens/home_screen.dart';
 import '../Views/Profile/profile_main.dart';
 import '../core/app_colors/app_colors.dart';
-import 'app_tabBar.dart';
+import 'trips_tabBar.dart';
 
 class bottomNavigationBar extends StatefulWidget {
   const bottomNavigationBar({super.key});
@@ -16,7 +16,7 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
   final List<Widget> _pages = [
     HomeScreen(),
     FavoriteScreen(),
-    TabBarScreen(),
+    TripsTabBar(),
     ProfileMainScreen(),
   ];
   int  _currentIndex = 0 ;

@@ -13,13 +13,13 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget{
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: AppColors.white,
-      elevation: 1,
+      elevation: .2,
       leading: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: AppColors.gray, width: 1),
+            border: Border.all(color: AppColors.gray.withOpacity(.4), width: 1),
           ),
           child: InkWell(
             borderRadius: BorderRadius.circular(10),

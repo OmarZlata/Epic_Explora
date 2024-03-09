@@ -1,6 +1,5 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-
 import '../../../Widgets/app_text.dart';
 import '../../../core/app_colors/app_colors.dart';
 class AddTrip extends StatelessWidget {

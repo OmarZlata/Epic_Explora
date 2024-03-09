@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import '../Views/My_Trips/future.dart';
 import '../Views/My_Trips/present.dart';
 import '../Views/My_Trips/previous.dart';
-class TabBarScreen extends StatefulWidget {
-  const TabBarScreen({super.key});
+  class TripsTabBar extends StatefulWidget {
+  const TripsTabBar({super.key});
 
   @override
-  State<TabBarScreen> createState() => _TabBarScreenState();
+  State<TripsTabBar> createState() => _TripsTabBarState();
 }
 
-class _TabBarScreenState extends State<TabBarScreen> {
+class _TripsTabBarState extends State<TripsTabBar> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -38,15 +38,17 @@ class _TabBarScreenState extends State<TabBarScreen> {
               Container(
                 height: 40,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: AppColors.gray.withOpacity(.3)),
+                    borderRadius: BorderRadius.circular(12),
+                    color: AppColors.gray.withOpacity(.2)),
                 child: TabBar(
+                  indicatorPadding: EdgeInsets.only(left:15 ,right:15,top: 6,bottom: 6,),
+                  splashBorderRadius: BorderRadius.circular(12),
                   indicator: BoxDecoration(
                     color: AppColors.blue,
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  labelColor: Colors.black,
-                  indicatorColor: AppColors.white,
+                  labelColor: AppColors.white,
+                  unselectedLabelColor: AppColors.black,
                   tabs: [
                     Tab(
                         child: AppText(
