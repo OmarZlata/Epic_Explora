@@ -10,6 +10,7 @@ class AppColors {
 
 
 
+
   static const Color Black = Color(0xff000000);
 
 }
