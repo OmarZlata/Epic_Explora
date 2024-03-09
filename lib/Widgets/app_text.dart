@@ -31,7 +31,7 @@ class AppText extends StatelessWidget {
         color: color,
         fontSize: fontSize,
         fontWeight: fontWeight,
-        fontFamily: 'Poppins',
+        fontFamily:fontFamily??'Poppins',
       ),
       textAlign: textAlign,
     );

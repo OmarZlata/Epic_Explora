@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../Widgets/app_ListTile.dart';
 import '../../Widgets/app_text.dart';
+import '../../Widgets/booking_tabBar.dart';
 import '../../core/app_colors/app_colors.dart';
 
 class ProfileMainScreen extends StatelessWidget {
@@ -39,7 +40,9 @@ class ProfileMainScreen extends StatelessWidget {
       child: AppTile(
         title: "My Bookings",
         icon: Icons.settings_outlined,
-        onPressed: () {},
+        onPressed: () {
+
+        },
         color: AppColors.blue,
       ),
     );
