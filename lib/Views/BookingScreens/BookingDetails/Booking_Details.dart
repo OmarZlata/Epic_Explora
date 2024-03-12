@@ -10,11 +10,11 @@ import '../../../Widgets/PhoneNumTextField.dart';
 import '../../../Widgets/app_text.dart';
 import '../../../core/app_colors/app_colors.dart';
 
-class Booking_details extends StatefulWidget {
-  const Booking_details({super.key});
+class BookingDetails extends StatefulWidget {
+  const BookingDetails({super.key});
 
   @override
-  State<Booking_details> createState() => _Booking_detailsState();
+  State<BookingDetails> createState() => _BookingDetailsState();
 }
 
 int _index = 0;
@@ -23,7 +23,7 @@ bool isEWalletSelected= false;
 bool isCCSelected= false;
 
 
-class _Booking_detailsState extends State<Booking_details> {
+class _BookingDetailsState extends State<BookingDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
