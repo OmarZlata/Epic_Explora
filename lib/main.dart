@@ -5,6 +5,7 @@ import 'Views/MainScreens/home_screen.dart';
 import 'Views/MainScreens/select_location.dart';
 import 'Views/My_Trips/Add_Trip/add_trip.dart';
 import 'Views/Profile/AppMode.dart';
+import 'Views/Profile/Edit_Profile.dart';
 import 'Views/Profile/Settings.dart';
 import 'Views/Profile/Terms.dart';
 import 'Views/Signin/Forget_Password.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: Booking_details(),
+          home: EditProfileScreen(),
         );
       },
     );

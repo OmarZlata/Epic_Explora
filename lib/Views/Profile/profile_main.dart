@@ -5,29 +5,37 @@ import '../../Widgets/app_ListTile.dart';
 import '../../Widgets/app_text.dart';
 import '../../Widgets/booking_tabBar.dart';
 import '../../core/app_colors/app_colors.dart';
+import 'AppMode.dart';
+import 'Edit_Profile.dart';
+import 'Terms.dart';
+import 'Currency_Convertor.dart';
 
 class ProfileMainScreen extends StatelessWidget {
   const ProfileMainScreen({super.key});
 
-  Widget Settings() {
+  Widget Settings(context) {
     return Padding(
       padding: const EdgeInsets.all(6.0),
       child: AppTile(
         title: "Setting",
         icon: Icons.settings_outlined,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => AppModeScreen(),));
+        },
         color: AppColors.blue,
       ),
     );
   }
 
-  Widget Currency() {
+  Widget CurrencyConv(context) {
     return Padding(
       padding: const EdgeInsets.all(6),
       child: AppTile(
         title: "Currency Converter",
         icon: CupertinoIcons.money_dollar_circle,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => Currency(),));
+        },
         color: AppColors.blue,
       ),
     );
@@ -47,19 +55,21 @@ class ProfileMainScreen extends StatelessWidget {
     );
   }
 
-  Widget Terms() {
+  Widget Terms(context) {
     return Padding(
       padding: const EdgeInsets.all(6.0),
       child: AppTile(
         title: "Terms of service",
         icon: Icons.library_books,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => TermsScreen(),));
+        },
         color: AppColors.blue,
       ),
     );
   }
 
-  Widget Privacy() {
+  Widget Privacy(context) {
     return Padding(
       padding: const EdgeInsets.all(6.0),
       child: AppTile(
@@ -71,7 +81,7 @@ class ProfileMainScreen extends StatelessWidget {
     );
   }
 
-  Widget About() {
+  Widget About(context) {
     return Padding(
       padding: const EdgeInsets.all(6.0),
       child: AppTile(
@@ -107,7 +117,7 @@ class ProfileMainScreen extends StatelessWidget {
     );
   }
 
-  Widget ProfilePic() {
+  Widget ProfilePic(context) {
     return Padding(
       padding: const EdgeInsets.only(top: 15),
       child: Column(
@@ -131,7 +141,9 @@ class ProfileMainScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: InkWell(
-              onTap: () {},
+              onTap: () {Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) =>EditProfileScreen(),));},
               child: Container(
                 height: 29,
                 width: 115,
@@ -176,13 +188,13 @@ class ProfileMainScreen extends StatelessWidget {
           padding: const EdgeInsets.all(24.0),
           child: ListView(
       children: [
-          ProfilePic(),
-          Settings(),
-          Currency(),
+          ProfilePic(context),
+          Settings(context),
+          CurrencyConv(context),
           Bookings(context),
-          Terms(),
-          Privacy(),
-          About(),
+          Terms(context),
+          Privacy(context),
+          About(context),
           password(),
           Logout()
       ],
