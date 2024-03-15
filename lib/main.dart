@@ -6,6 +6,7 @@ import 'Views/MainScreens/select_location.dart';
 import 'Views/My_Trips/Add_Trip/add_trip.dart';
 import 'Views/Place_Detials/detials_place_detials.dart';
 import 'Views/Profile/AppMode.dart';
+import 'Views/Profile/Currency_Convertor.dart';
 import 'Views/Profile/Edit_Profile.dart';
 import 'Views/Profile/Settings.dart';
 import 'Views/Profile/Terms.dart';
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: detialsPlaceDetials(),
+          home: Currency(),
         );
       },
     );
