@@ -23,7 +23,7 @@ class HomeCubit extends Cubit<HomeStates> {
       final response = await Dio().get(baseURL + params + apiKey);
       location = Location.fromJson(response.data);
     } catch (e) {
-      print(e);
+      print("e");
     }
     emit(HomeInit());
   }

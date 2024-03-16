@@ -12,15 +12,10 @@ import 'package:geolocator/geolocator.dart';
 
 import 'cubit.dart';
 
-class SelectLocation extends StatefulWidget {
+class SelectLocation extends StatelessWidget {
 
   const SelectLocation({super.key});
 
-  @override
-  State<SelectLocation> createState() => _SelectLocationState();
-}
-
-class _SelectLocationState extends State<SelectLocation> {
   @override
   void _showBottomSheet(BuildContext context) {
     showModalBottomSheet(
@@ -67,6 +62,7 @@ class _SelectLocationState extends State<SelectLocation> {
       },
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -96,28 +92,34 @@ class _SelectLocationState extends State<SelectLocation> {
             if (location == null) {
               return Center(child: Text('Something went wrong!'));
             }
-            return Stack(
+            return Column(
               children: [
                 Center(
-                  child: Text('Location is:${location.region}'
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(location.condition),
+                      Text(location.district),
+                      Text(location.region),
+                      Text(location.country),
+                      Text(location.temp.toString()),
+                      Text(location.windSpeed.toString()),
+                      Text(location.time),
+                      Text(location.timezone),
+                    ],
                   ),
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Center(
-                      child: AppButton(
-                        title: "Select Location",
-                        color: AppColors.blue,
-                        font_color: AppColors.white,
-                        onTap: () {
-                          _showBottomSheet(context);
-                        },
-                      ),
-                    ),
-                    SizedBox(height: 16),
-                  ],
+                Center(
+                  child: AppButton(
+                    title: "Select Location",
+                    color: AppColors.blue,
+                    font_color: AppColors.white,
+                    onTap: () {
+                      _showBottomSheet(context);
+                    },
+                  ),
                 ),
+
               ],
             );
           },
