@@ -39,7 +39,7 @@ class _AppHomeCardState extends State<AppHomeCard> {
                     child: Stack(
                       children: [
                         Image.asset(
-                          'assets/images/fav.png',
+                          'assets/images/favbg.png',
                           fit: BoxFit.cover,
                           height: 28,
                           width: 28,

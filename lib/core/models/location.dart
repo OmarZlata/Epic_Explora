@@ -1,5 +1,4 @@
-
-class Weather {
+class Location {
   final String district;
   final String region;
   final String country;
@@ -10,7 +9,7 @@ class Weather {
   final String condition;
   final double windSpeed;
 
-  Weather({
+  Location({
     required this.district,
     required this.region,
     required this.country,
@@ -21,8 +20,8 @@ class Weather {
     required this.windSpeed,
   });
 
-  factory Weather.fromJson(Map<String, dynamic> json) {
-    return Weather(
+  factory Location.fromJson(Map<String, dynamic> json) {
+    return Location(
       district: json['location']['name'],
       region: json['location']['region'],
       country: json['location']['country'],
