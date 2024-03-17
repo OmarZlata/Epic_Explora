@@ -34,7 +34,7 @@ class AppButton extends StatelessWidget {
         child: AppText(
           title: title,
           color: font_color,
-          fontSize: 12,
+          fontSize: 16,
           fontWeight: FontWeight.w500,
         ),
         decoration: BoxDecoration(
