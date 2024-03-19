@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:epic_expolre/Views/MainScreens/search_screen.dart';
 import 'package:epic_expolre/Views/MainScreens/states_screen.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
@@ -9,6 +10,7 @@ import '../../Widgets/app_home_card.dart';
 import '../../Widgets/app_text_field.dart';
 import '../../Widgets/bottomNavigationBar.dart';
 import '../../Widgets/ranged_slider_app.dart';
+import '../../core/Location_utlis/location_utils.dart';
 
 class HomeScreen extends StatefulWidget {
    HomeScreen({super.key});
@@ -18,6 +20,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  @override
+
   void _showBottomSheet(BuildContext context) {
     showModalBottomSheet(
       isScrollControlled: true,
@@ -62,10 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Icons.location_on_outlined,
                           color: AppColors.blue,
                         ),
-                        Text(
-                          "Alexandria ,Egypt",
-                          style: TextStyle(fontSize: 12, color: AppColors.gray),
-                        ),
+                        Text("sda",),
                         Icon(
                           Icons.arrow_drop_down,
                           color: AppColors.blue,

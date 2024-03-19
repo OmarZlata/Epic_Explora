@@ -2,7 +2,8 @@ import 'package:epic_expolre/Views/BookingScreens/BookingDetails/Booking_Details
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'Views/MainScreens/home_screen.dart';
-import 'Views/Maps/view.dart';
+import 'Views/Maps/splash/view.dart';
+
 import 'Views/My_Trips/Add_Trip/add_trip.dart';
 import 'Views/Place_Detials/detials_place_detials.dart';
 import 'Views/Profile/AppMode.dart';
@@ -13,7 +14,6 @@ import 'Views/Signin/Forget_Password.dart';
 import 'Views/Signin/Reset_Password.dart';
 import 'Views/Signin/SignUp.dart';
 import 'Views/Signin/Verification.dart';
-
 import 'Widgets/booking_tabBar.dart';
 import 'Widgets/bottomNavigationBar.dart';
 import 'Widgets/trips_tabBar.dart';
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: SelectLocation(),
+          home: SplashView(),
         );
       },
     );

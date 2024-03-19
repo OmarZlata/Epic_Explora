@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import '../../Widgets/app_button.dart';
-import '../../Widgets/bottomNavigationBar.dart';
-import '../../core/models/location.dart';
-import '../MainScreens/home_screen.dart';
+import '../../../Widgets/app_button.dart';
+import '../../../Widgets/bottomNavigationBar.dart';
+import '../../../core/models/location.dart';
+import '../../MainScreens/home_screen.dart';
 import 'package:geolocator/geolocator.dart';
 
 import 'cubit.dart';
@@ -98,13 +98,9 @@ class SelectLocation extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text(location.condition),
                       Text(location.district),
                       Text(location.region),
                       Text(location.country),
-                      Text(location.temp.toString()),
-                      Text(location.windSpeed.toString()),
-                      Text(location.time),
                       Text(location.timezone),
                     ],
                   ),
