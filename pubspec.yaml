@@ -8,6 +8,9 @@ environment:
   sdk: '>=3.0.6 <4.0.0'
 
 dependencies:
+  flutter_localization: ^0.2.0
+
+
   flutter:
     sdk: flutter
 
@@ -34,7 +37,10 @@ dev_dependencies:
 
 flutter:
   assets:
+
     - assets/images/
+    - assets/translation/ar.json
+    - assets/translation/en.json
   fonts:
     - family: Poppins
       fonts:
