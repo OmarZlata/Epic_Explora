@@ -5,7 +5,7 @@ import '../../../Widgets/app_text.dart';
 import '../../../core/Location_utlis/location_utils.dart';
 import '../../../core/app_colors/app_colors.dart';
 import '../google_map/view.dart';
-import '../location/view.dart';
+
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);

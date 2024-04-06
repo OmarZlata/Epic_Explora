@@ -2,9 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:epic_expolre/core/models/location.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-
-
 part 'states.dart';
 
 class GoogleMapsCubit extends Cubit<GoogleMapsStates> {
@@ -14,7 +11,7 @@ class GoogleMapsCubit extends Cubit<GoogleMapsStates> {
 
   Location? location;
 
-  Future<void> getWeather() async {
+  Future<void> getLocation() async {
     if (markers.isEmpty) {
       return;
     }

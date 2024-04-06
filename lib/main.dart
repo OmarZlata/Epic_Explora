@@ -1,9 +1,8 @@
 import 'package:epic_expolre/Views/BookingScreens/BookingDetails/Booking_Details.dart';
+import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'Views/MainScreens/home_screen.dart';
 import 'Views/Maps/splash/view.dart';
-
 import 'Views/My_Trips/Add_Trip/add_trip.dart';
 import 'Views/Place_Detials/detials_place_detials.dart';
 import 'Views/Profile/AppMode.dart';
@@ -24,6 +23,7 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Epic Explore',
           theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primaryColor: Color(0xFF2F3C7E),
           ),
           home: SplashView(),
         );
