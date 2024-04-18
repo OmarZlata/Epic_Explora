@@ -172,7 +172,7 @@ class _BookingDetailsState extends State<BookingDetails> {
                                   ),
                                   AppText(
                                     title: "Sat 9 Oct 2022",
-                                    color: AppColors.gray,
+                                    color: AppColors.grey,
                                   )
                                 ],
                               ),
@@ -198,7 +198,7 @@ class _BookingDetailsState extends State<BookingDetails> {
                                     AppText(
                                       title: "13 nights",
                                       fontSize: 12,
-                                      color: AppColors.gray,
+                                      color: AppColors.grey,
                                     )
                                   ],
                                 ),
@@ -216,7 +216,7 @@ class _BookingDetailsState extends State<BookingDetails> {
                                   ),
                                   AppText(
                                     title: "Sat 18 Oct 2022",
-                                    color: AppColors.gray,
+                                    color: AppColors.grey,
                                   )
                                 ],
                               ),
@@ -551,7 +551,7 @@ class _BookingDetailsState extends State<BookingDetails> {
                                   ),
                                   AppText(
                                     title: "Sat 9 Oct 2022",
-                                    color: AppColors.gray,
+                                    color: AppColors.grey,
                                   )
                                 ],
                               ),
@@ -577,7 +577,7 @@ class _BookingDetailsState extends State<BookingDetails> {
                                     AppText(
                                       title: "13 nights",
                                       fontSize: 12,
-                                      color: AppColors.gray,
+                                      color: AppColors.grey,
                                     )
                                   ],
                                 ),
@@ -595,7 +595,7 @@ class _BookingDetailsState extends State<BookingDetails> {
                                   ),
                                   AppText(
                                     title: "Sat 18 Oct 2022",
-                                    color: AppColors.gray,
+                                    color: AppColors.grey,
                                   )
                                 ],
                               ),

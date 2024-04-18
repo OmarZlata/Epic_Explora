@@ -136,7 +136,7 @@ class ProfileMainScreen extends StatelessWidget {
           ),
           AppText(
             title: "Mohammed@gmail.com",
-            color: AppColors.gray,
+            color: AppColors.grey,
           ),
           Padding(
             padding: const EdgeInsets.all(15.0),

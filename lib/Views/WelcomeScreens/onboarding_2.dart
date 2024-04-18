@@ -40,13 +40,13 @@ class WelcomeScreen2 extends StatelessWidget {
           SizedBox(height: 10,),
           AppText(
             title: "We compare prices from 200+ booking",
-            color: AppColors.gray,
+            color: AppColors.grey,
             fontSize: 18 ,
 
           ),
           AppText(
             title: "site to help you find the lowest price .",
-            color: AppColors.gray,
+            color: AppColors.grey,
             fontSize: 18 ,
 
           ),

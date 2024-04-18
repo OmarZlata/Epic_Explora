@@ -88,7 +88,7 @@ class _AppHomeCardState extends State<AppHomeCard> {
                     ),
                     Container(
                       decoration: BoxDecoration(
-                          color: AppColors.gray.withOpacity(.1),
+                          color: AppColors.grey.withOpacity(.1),
                           borderRadius: BorderRadius.circular(8)),
                       child: Row(
                         children: [

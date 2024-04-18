@@ -1,3 +1,4 @@
+import 'package:epic_expolre/Views/Signin/SignUp.dart';
 import 'package:flutter/material.dart';
 import '../../../Widgets/app_text.dart';
 import '../../../Widgets/app_text_field.dart';
@@ -26,7 +27,6 @@ class _SigninState extends State<Signin> {
             title: "Email",
             color: AppColors.black,
             fontWeight: FontWeight.bold,
-
           ),
           SizedBox(
             height: 10,
@@ -43,8 +43,8 @@ class _SigninState extends State<Signin> {
               if (value!.isEmpty) {
                 return "Email can't be empty";
               }
-              final emailRegex = RegExp(
-                  r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+              final emailRegex =
+                  RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
               if (!emailRegex.hasMatch(value)) {
                 return "Invalid email address";
               }
@@ -71,6 +71,7 @@ class _SigninState extends State<Signin> {
             height: 10,
           ),
           AppTextField(
+
             hint: "Password",
             radius: 8,
             icon: Icons.lock_outline,
@@ -82,6 +83,7 @@ class _SigninState extends State<Signin> {
                 });
               },
               icon: Icon(
+                color: AppColors.blue,
                 obscurePassword ? Icons.visibility_off : Icons.visibility,
               ),
             ),
@@ -98,6 +100,8 @@ class _SigninState extends State<Signin> {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: AppButton(
+        color: AppColors.blue,
+        font_color: AppColors.white,
         title: "Sign in",
         onTap: () {
           final email = emailController.text;
@@ -120,19 +124,24 @@ class _SigninState extends State<Signin> {
       ),
     );
   }
-  Widget GotoSignup(){
+
+  Widget GotoSignup() {
     return Center(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          AppText(title: "Don’t have an Account?",color: AppColors.gray,),
-          TextButton(
-            onPressed: () {},
+          AppText(
+            title: "Don’t have an Account?",
+            color: AppColors.grey,
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignupScreen(),));
+            },
             child: AppText(
               title: "Sign Up",
               color: AppColors.blue,
               fontWeight: FontWeight.bold,
-
             ),
           ),
         ],
@@ -144,16 +153,24 @@ class _SigninState extends State<Signin> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: AppText(title: "Sign in",fontWeight: FontWeight.bold,color: AppColors.black,fontSize: 24),
+        title: AppText(
+            title: "Sign in",
+            fontWeight: FontWeight.bold,
+            color: AppColors.black,
+            fontSize: 24),
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
       ),
       body: SingleChildScrollView(
-        child: Column(crossAxisAlignment: CrossAxisAlignment.center,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Column(
               children: [
+                Center(
+                  child: Image.asset('assets/images/signup.png'),
+                ),
                 EmailTextField(),
                 PasswordTextField(),
               ],
@@ -172,5 +189,3 @@ class _SigninState extends State<Signin> {
     );
   }
 }
-
-

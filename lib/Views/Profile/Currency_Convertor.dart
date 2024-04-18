@@ -162,7 +162,7 @@ class _CurrencyState extends State<Currency> {
                 children: [
                   AppText(
                     title: "Egyptian Pound",
-                    color: AppColors.gray,
+                    color: AppColors.grey,
                   )
                 ]),
             Row(
@@ -180,7 +180,7 @@ class _CurrencyState extends State<Currency> {
             SizedBox(height: 150,),
             Padding(
               padding: const EdgeInsets.only(left: 12,right: 12),
-              child: Divider(color: AppColors.gray,height: 3),
+              child: Divider(color: AppColors.grey,height: 3),
             ),
             Row(
               children: [

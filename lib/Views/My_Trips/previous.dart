@@ -30,7 +30,7 @@ class _PreviousScreenState extends State<PreviousScreen>
                   height: 120,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(18),
-                    color: AppColors.gray.withOpacity(0.05),
+                    color: AppColors.grey.withOpacity(0.05),
                   ),
                   child: Row(
                     children: [
@@ -123,7 +123,7 @@ class _PreviousScreenState extends State<PreviousScreen>
                   height: 120,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(18),
-                    color: AppColors.gray.withOpacity(0.05),
+                    color: AppColors.grey.withOpacity(0.05),
                   ),
                   child: Row(
                     children: [
@@ -216,7 +216,7 @@ class _PreviousScreenState extends State<PreviousScreen>
                   height: 120,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(18),
-                    color: AppColors.gray.withOpacity(0.05),
+                    color: AppColors.grey.withOpacity(0.05),
                   ),
                   child: Row(
                     children: [
@@ -309,7 +309,7 @@ class _PreviousScreenState extends State<PreviousScreen>
                   height: 120,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(18),
-                    color: AppColors.gray.withOpacity(0.05),
+                    color: AppColors.grey.withOpacity(0.05),
                   ),
                   child: Row(
                     children: [

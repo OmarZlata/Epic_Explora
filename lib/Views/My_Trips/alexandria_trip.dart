@@ -24,7 +24,7 @@ class AlexandriaTrip extends StatelessWidget {
             ),
             child: const Icon(
               Icons.arrow_back_ios_new,
-              color: AppColors.gray,
+              color: AppColors.grey,
               size: 24,
             ),
           ),
@@ -47,7 +47,7 @@ class AlexandriaTrip extends StatelessWidget {
 
                       FontAwesomeIcons.ellipsisVertical,
                       size: 25,
-                      color: AppColors.gray,
+                      color: AppColors.grey,
                     ),
                     items: [
                       ...MenuItems.firstItems.map(

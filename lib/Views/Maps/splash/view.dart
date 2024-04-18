@@ -56,7 +56,7 @@ class _SplashViewState extends State<SplashView> {
           ),
           AppText(
             title: "Find Every Place Around You ",
-            color: AppColors.gray,
+            color: AppColors.grey,
             fontSize: 18,
           ),
 

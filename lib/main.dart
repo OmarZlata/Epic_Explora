@@ -1,6 +1,11 @@
+import 'package:dio/dio.dart';
 import 'package:epic_expolre/Views/BookingScreens/BookingDetails/Booking_Details.dart';
+import 'package:epic_expolre/Views/Signin/Signin.dart';
+import 'package:epic_expolre/core/api/dio_consumer.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
+import 'package:epic_expolre/cubit/user_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'Views/Maps/splash/view.dart';
 import 'Views/My_Trips/Add_Trip/add_trip.dart';
@@ -16,8 +21,16 @@ import 'Views/Signin/Verification.dart';
 import 'Widgets/booking_tabBar.dart';
 import 'Widgets/bottomNavigationBar.dart';
 import 'Widgets/trips_tabBar.dart';
+import 'cache/cache_helper.dart';
 void main() {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  CacheHelper().init();
+  runApp(
+    BlocProvider(
+      create: (context) => UserCubit(DioConsumer(dio: Dio())),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -37,7 +50,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primaryColor: Color(0xFF2F3C7E),
           ),
-          home: SplashView(),
+          home: Signin(),
         );
       },
     );

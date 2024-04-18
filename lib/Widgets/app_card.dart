@@ -77,7 +77,7 @@ class _AppCardState extends State<AppCard> {
                                 Text(
                                   "Alexandria ,Egypt",
                                   style: TextStyle(
-                                      fontSize: 12, color: AppColors.gray),
+                                      fontSize: 12, color: AppColors.grey),
                                 ),
                                 Icon(
                                   Icons.arrow_drop_down,
@@ -111,7 +111,7 @@ class _AppCardState extends State<AppCard> {
                                     Text(
                                       "294 Likes",
                                       style: TextStyle(
-                                          fontSize: 12, color: AppColors.gray),
+                                          fontSize: 12, color: AppColors.grey),
                                     ),
                                   ],
                                 ),
