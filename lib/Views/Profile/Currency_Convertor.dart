@@ -1,11 +1,10 @@
 import 'dart:convert';
-import 'package:epic_expolre/Widgets/app_AppBar.dart';
-import 'package:epic_expolre/Widgets/app_button.dart';
-import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'package:epic_expolre/Widgets/app_text.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
+import 'package:epic_expolre/Widgets/app_AppBar.dart';
+import 'package:epic_expolre/Widgets/app_button.dart';
+import 'package:epic_expolre/Widgets/app_text.dart';
 
 class Currency extends StatefulWidget {
   Currency({Key? key}) : super(key: key);
@@ -23,7 +22,7 @@ class _CurrencyState extends State<Currency> {
   List<DropdownMenuItem<String>> sourceCurrencyItems = [];
   List<DropdownMenuItem<String>> targetCurrencyItems = [];
   Map<String, dynamic>? jsonData;
-  bool isLoading = true; // Flag to track data loading state
+  bool isLoading = true; 
 
   @override
   void initState() {
@@ -66,8 +65,7 @@ class _CurrencyState extends State<Currency> {
           currencyCodes = currencies
               .where((currency) => responseData.containsKey(currency))
               .toList();
-          selectedSourceCurrency =
-          'eur'; // Set the default source currency to USD
+          selectedSourceCurrency = 'eur';
           selectedTargetCurrency = currencyCodes.first;
           currencyCodes.forEach((code) {
             sourceCurrencyItems.add(
@@ -83,7 +81,7 @@ class _CurrencyState extends State<Currency> {
               ),
             );
           });
-          isLoading = false; // Set loading flag to false after data is fetched
+          isLoading = false;
         });
       } else {
         print("Failed to fetch data: ${response.statusCode}");
@@ -95,20 +93,60 @@ class _CurrencyState extends State<Currency> {
 
   void convertCurrency() {
     if (jsonData != null) {
-      double? sourceRate = jsonData![selectedSourceCurrency];
-      double? targetRate = jsonData![selectedTargetCurrency];
-      if (sourceRate != null && targetRate != null) {
-        double amount = double.tryParse(displayedText) ?? 0;
-        double convertedAmount = (amount / sourceRate) * targetRate;
-        setState(() {
-          result = convertedAmount.toStringAsFixed(2);
-        });
+      double amount = double.tryParse(displayedText) ?? 0;
+
+      // If the first dropdown is set to 'usd'
+      if (selectedSourceCurrency == 'usd') {
+        // Multiply the second dropdown value by the text field value
+        double? targetRate = jsonData![selectedTargetCurrency];
+        if (targetRate != null) {
+          double convertedAmount = amount * targetRate;
+          setState(() {
+            result = convertedAmount.toStringAsFixed(2);
+          });
+        } else {
+          setState(() {
+            result = 'Rates for selected currencies are not available';
+          });
+        }
+      }
+      // If the second dropdown is set to 'usd'
+      else if (selectedTargetCurrency == 'usd') {
+        double? sourceRate = jsonData![selectedSourceCurrency];
+        if (sourceRate != null) {
+          double convertedAmount = amount / sourceRate;
+          setState(() {
+            result = convertedAmount.toStringAsFixed(2);
+          });
+        } else {
+          setState(() {
+            result = 'Rates for selected currencies are not available';
+          });
+        }
       } else {
-        setState(() {
-          result = 'Rates for selected currencies are not available';
-        });
+        // Default currency conversion logic
+        double? sourceRate = jsonData![selectedSourceCurrency];
+        double? targetRate = jsonData![selectedTargetCurrency];
+        if (sourceRate != null && targetRate != null) {
+          double convertedAmount = (amount / sourceRate) * targetRate;
+          setState(() {
+            result = convertedAmount.toStringAsFixed(2);
+          });
+        } else {
+          setState(() {
+            result = 'Rates for selected currencies are not available';
+          });
+        }
       }
     }
+  }
+
+  void swapCurrencies() {
+    setState(() {
+      String temp = selectedSourceCurrency;
+      selectedSourceCurrency = selectedTargetCurrency;
+      selectedTargetCurrency = temp;
+    });
   }
 
   @override
@@ -119,101 +157,111 @@ class _CurrencyState extends State<Currency> {
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: isLoading
-              ? CircularProgressIndicator() // Display loading indicator while data is being fetched
+              ? CircularProgressIndicator()
               : Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    width: 100, // Adjust the width as needed
-                    child: DropdownButton<String>(
-                      value: selectedSourceCurrency,
-                      onChanged: (newValue) {
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width: 100,
+                          child: DropdownButton<String>(
+                            value: selectedSourceCurrency,
+                            onChanged: (newValue) {
+                              setState(() {
+                                selectedSourceCurrency = newValue!;
+                              });
+                            },
+                            items: sourceCurrencyItems.map((item) {
+                              return DropdownMenuItem<String>(
+                                value: item.value,
+                                child: Text(
+                                  item.value!, // Use the value of the item
+                                  style: TextStyle(
+                                      fontSize: 20), // Adjust the font size
+                                ),
+                              );
+                            }).toList(),
+                            iconSize: 30, // Adjust the icon size
+                          ),
+                        ),
+                        ElevatedButton(
+                            style: ButtonStyle(
+                                shape: MaterialStatePropertyAll(CircleBorder()),
+                                backgroundColor:
+                                    MaterialStatePropertyAll(AppColors.blue)),
+                            onPressed: () {
+                              swapCurrencies();
+                            },
+                            child: Icon(Icons.swap_horiz)),
+                        SizedBox(
+                          width: 100, // Adjust the width as needed
+                          child: DropdownButton<String>(
+                            value: selectedTargetCurrency,
+                            onChanged: (newValue) {
+                              setState(() {
+                                selectedTargetCurrency = newValue!;
+                              });
+                            },
+                            items: targetCurrencyItems.map((item) {
+                              return DropdownMenuItem<String>(
+                                value: item.value,
+                                child: Text(
+                                  item.value!, // Use the value of the item
+                                  style: TextStyle(
+                                      fontSize: 20), // Adjust the font size
+                                ),
+                              );
+                            }).toList(),
+                            iconSize: 30, // Adjust the icon size
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    TextField(
+                      onChanged: (value) {
                         setState(() {
-                          selectedSourceCurrency = newValue!;
+                          displayedText = value;
                         });
                       },
-                      items: sourceCurrencyItems.map((item) {
-                        return DropdownMenuItem<String>(
-                          value: item.value,
-                          child: Text(
-                            item.value!, // Use the value of the item
-                            style: TextStyle(
-                                fontSize: 20), // Adjust the font size
-                          ),
-                        );
-                      }).toList(),
-                      iconSize: 30, // Adjust the icon size
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Enter amount',
+                      ),
                     ),
-                  ),
-                  Text('Convert to'),
-                  SizedBox(
-                    width: 100, // Adjust the width as needed
-                    child: DropdownButton<String>(
-                      value: selectedTargetCurrency,
-                      onChanged: (newValue) {
-                        setState(() {
-                          selectedTargetCurrency = newValue!;
-                        });
-                      },
-                      items: targetCurrencyItems.map((item) {
-                        return DropdownMenuItem<String>(
-                          value: item.value,
-                          child: Text(
-                            item.value!, // Use the value of the item
-                            style: TextStyle(
-                                fontSize: 20), // Adjust the font size
+                    SizedBox(height: 20),
+                    Center(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: AppButton(
+                              color: AppColors.blue,
+                              title: "Convert",
+                              font_color: AppColors.white,
+                              onTap: () {
+                                convertCurrency();
+                              },
+                            ),
                           ),
-                        );
-                      }).toList(),
-                      iconSize: 30, // Adjust the icon size
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-
-              SizedBox(height: 20),
-              TextField(
-                onChanged: (value) {
-                  setState(() {
-                    displayedText = value;
-                  });
-                },
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Enter amount',
+                    SizedBox(height: 20),
+                    Center(
+                      child: Text(
+                        'Result: $result ${selectedTargetCurrency.toUpperCase()}',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                  ],
                 ),
-              ),
-              SizedBox(height: 20),
-              AppButton(
-                color: AppColors.blue,
-                title: "Convert",
-                font_color: AppColors.white,
-                onTap: () {
-                  convertCurrency();
-                },
-              ),
-              SizedBox(height: 20),
-              Center(
-                child: Text(
-                  'Result: $result ${selectedTargetCurrency.toUpperCase()}',
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );
   }
 }
 
-void main() {
-  runApp(MaterialApp(
-    title: 'Your App',
-    home: Currency(),
-  ));
-}
