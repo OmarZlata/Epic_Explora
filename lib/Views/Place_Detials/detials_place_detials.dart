@@ -227,7 +227,7 @@ class _detialsPlaceDetialsState extends State<detialsPlaceDetials> {
                     "294Likes",
                     style: TextStyle(
                         fontSize: 12,
-                        color: AppColors.gray,
+                        color: AppColors.grey,
                         fontWeight: FontWeight.w400,
                         fontFamily: "Poppins"),
                   ),
@@ -253,7 +253,7 @@ class _detialsPlaceDetialsState extends State<detialsPlaceDetials> {
                   Container(
                     width: 150,
                     decoration: BoxDecoration(
-                        color: AppColors.gray.withOpacity(.1),
+                        color: AppColors.grey.withOpacity(.1),
                         borderRadius: BorderRadius.circular(8)),
                     child: const Row(
                       children: [
@@ -291,7 +291,7 @@ class _detialsPlaceDetialsState extends State<detialsPlaceDetials> {
                     "Classic cheeseburger with beef patty, ",
                     style: TextStyle(
                       fontSize: 14,
-                      color: AppColors.gray,
+                      color: AppColors.grey,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -306,7 +306,7 @@ class _detialsPlaceDetialsState extends State<detialsPlaceDetials> {
                     "pickles, cheese, tomato, onion, lettuce and ",
                     style: TextStyle(
                       fontSize: 14,
-                      color: AppColors.gray,
+                      color: AppColors.grey,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -321,7 +321,7 @@ class _detialsPlaceDetialsState extends State<detialsPlaceDetials> {
                     "ketchup mustard. Classic cheeseburger with",
                     style: TextStyle(
                       fontSize: 14,
-                      color: AppColors.gray,
+                      color: AppColors.grey,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -336,7 +336,7 @@ class _detialsPlaceDetialsState extends State<detialsPlaceDetials> {
                     "beef patty, pickles, cheese, tomato, onion,",
                     style: TextStyle(
                       fontSize: 14,
-                      color: AppColors.gray,
+                      color: AppColors.grey,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -351,7 +351,7 @@ class _detialsPlaceDetialsState extends State<detialsPlaceDetials> {
                     "lettuce and ketchup mustard",
                     style: TextStyle(
                       fontSize: 14,
-                      color: AppColors.gray,
+                      color: AppColors.grey,
                       fontWeight: FontWeight.w400,
                     ),
                   ),

@@ -6,7 +6,7 @@ import '../../../Widgets/app_text_field.dart';
 import '../../../core/app_colors/app_colors.dart';
 
 class SignupScreen extends StatefulWidget {
-   SignupScreen({super.key});
+  SignupScreen({super.key});
 
   @override
   State<SignupScreen> createState() => _SignupScreenState();
@@ -46,8 +46,8 @@ class _SignupScreenState extends State<SignupScreen> {
               if (value!.isEmpty) {
                 return "Email can't be empty";
               }
-              final emailRegex = RegExp(
-                  r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+              final emailRegex =
+                  RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
               if (!emailRegex.hasMatch(value)) {
                 return "Invalid email address";
               }
@@ -58,6 +58,7 @@ class _SignupScreenState extends State<SignupScreen> {
       ),
     );
   }
+
   Widget NameTextField() {
     return Padding(
       padding: const EdgeInsets.all(20.0),
@@ -79,17 +80,16 @@ class _SignupScreenState extends State<SignupScreen> {
             hintFontSize: 12,
             obscureText: false,
             maxLines: 1,
-
           ),
         ],
       ),
     );
   }
 
-
   Widget PasswordTextField() {
     return Padding(
-      padding: const EdgeInsets.only(left: 20.0, top: 20, right: 20,bottom: 20),
+      padding:
+          const EdgeInsets.only(left: 20.0, top: 20, right: 20, bottom: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -113,6 +113,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 });
               },
               icon: Icon(
+                color: obscurePassword ? AppColors.grey : AppColors.blue,
                 obscurePassword ? Icons.visibility_off : Icons.visibility,
               ),
             ),
@@ -124,9 +125,11 @@ class _SignupScreenState extends State<SignupScreen> {
       ),
     );
   }
+
   Widget ConfirmPasswordTextField() {
     return Padding(
-      padding: const EdgeInsets.only(left: 20.0, top: 20, right: 20,bottom: 20),
+      padding:
+          const EdgeInsets.only(left: 20.0, top: 20, right: 20, bottom: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -150,6 +153,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 });
               },
               icon: Icon(
+                color: obscurePassword ? AppColors.grey : AppColors.blue,
                 obscurePassword ? Icons.visibility_off : Icons.visibility,
               ),
             ),
@@ -161,60 +165,77 @@ class _SignupScreenState extends State<SignupScreen> {
       ),
     );
   }
+
   Widget SiginUpButton() {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: AppButton(
+        border_color: AppColors.white,
+        font_color: AppColors.white,
+        color: isChecked ? AppColors.blue : AppColors.grey.withOpacity(.7),
+        // Change button color based on isChecked
         title: "Sign Up",
-        onTap: () {
-          final email = emailController.text;
-          final password = passwordController.text;
-          // Perform sign-in logic with email and password
-        },
+        onTap: isChecked
+            ? () {
+                final email = emailController.text;
+                final password = passwordController.text;
+              }
+            : null,
       ),
     );
   }
-  Widget Terms(){
+
+  Widget Terms() {
     return Row(
-      children: [Checkbox(value: isChecked, activeColor: AppColors.blue,onChanged: (value) {
-        setState(() {
-          isChecked = value!;
-
-        });
-      },),
-        AppText(title: "I agree",color: AppColors.black,),TextButton(onPressed: () {
-
-        }, child: AppText(title: "Terms & Conditions",color: AppColors.blue,))
+      children: [
+        Checkbox(
+          value: isChecked,
+          activeColor: AppColors.blue,
+          onChanged: (value) {
+            setState(() {
+              isChecked = value!;
+            });
+          },
+        ),
+        AppText(
+          title: "I agree",
+          color: AppColors.black,
+        ),
+        TextButton(
+            onPressed: () {},
+            child: AppText(
+              title: "Terms & Conditions",
+              color: AppColors.blue,
+            ))
       ],
     );
-
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(
-      title: AppText(title: "Sign Up",fontWeight: FontWeight.bold,color: AppColors.black,fontSize: 24),
-      centerTitle: true,
-      backgroundColor: Colors.white,
-      elevation: 0,
-    ),
-    body: SingleChildScrollView(
-      child: Column(
-        children: [
-          NameTextField(),
-          EmailTextField(),
-          PasswordTextField(),
-          ConfirmPasswordTextField(),
-          Terms(),
-          SiginUpButton(),
-
-
-
-
-
-        ],
-
+    return Scaffold(
+      appBar: AppBar(
+        title: AppText(
+            title: "Sign Up",
+            fontWeight: FontWeight.bold,
+            color: AppColors.black,
+            fontSize: 24),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0,
       ),
-    ),);
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            NameTextField(),
+            EmailTextField(),
+            PasswordTextField(),
+            ConfirmPasswordTextField(),
+            Terms(),
+            SiginUpButton(),
+          ],
+        ),
+      ),
+    );
   }
 }

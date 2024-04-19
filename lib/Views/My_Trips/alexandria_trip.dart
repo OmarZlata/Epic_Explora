@@ -1,7 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import '../../Widgets/app_text.dart';
 import '../../core/app_colors/app_colors.dart';
 
@@ -25,7 +24,7 @@ class AlexandriaTrip extends StatelessWidget {
             ),
             child: const Icon(
               Icons.arrow_back_ios_new,
-              color: AppColors.gray,
+              color: AppColors.grey,
               size: 24,
             ),
           ),
@@ -48,7 +47,7 @@ class AlexandriaTrip extends StatelessWidget {
 
                       FontAwesomeIcons.ellipsisVertical,
                       size: 25,
-                      color: AppColors.gray,
+                      color: AppColors.grey,
                     ),
                     items: [
                       ...MenuItems.firstItems.map(

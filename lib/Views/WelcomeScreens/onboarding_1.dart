@@ -41,13 +41,13 @@ class WelcomeScreen1 extends StatelessWidget {
           SizedBox(height: 10,),
           AppText(
             title: "Explore a world of possibilities as you ",
-            color: AppColors.gray,
+            color: AppColors.grey,
             fontSize: 18 ,
 
           ),
           AppText(
             title: "plan your next adventure .",
-            color: AppColors.gray,
+            color: AppColors.grey,
             fontSize: 18 ,
 
           ),

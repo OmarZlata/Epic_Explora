@@ -66,7 +66,7 @@ class VerificationScreen extends StatelessWidget {
                         AppText(
                           title: "Check email ",
                           fontSize: 17,
-                          color: AppColors.gray,
+                          color: AppColors.grey,
                         ),
                         AppText(
                           title: 'Mohammed@gmail.com',
@@ -79,7 +79,7 @@ class VerificationScreen extends StatelessWidget {
                     AppText(
                       title: "inbox to verify your email",
                       fontSize: 17,
-                      color: AppColors.gray,
+                      color: AppColors.grey,
                     ),
                   ],
                 ),

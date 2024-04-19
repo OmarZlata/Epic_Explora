@@ -25,7 +25,7 @@ class TermsScreen extends StatelessWidget {
           children: [
             AppText(
               title: 'Licenses',
-              color: AppColors.gray,
+              color: AppColors.grey,
               fontSize: 14,
             ),
             AppText(

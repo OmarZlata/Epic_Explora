@@ -41,13 +41,13 @@ class WelcomeScreen3 extends StatelessWidget {
           SizedBox(height: 10,),
           AppText(
             title: "Allow users to share their travel experiences",
-            color: AppColors.gray,
+            color: AppColors.grey,
             fontSize: 18 ,
 
           ),
           AppText(
             title: "on social media platforms .",
-            color: AppColors.gray,
+            color: AppColors.grey,
             fontSize: 18 ,
 
           ),

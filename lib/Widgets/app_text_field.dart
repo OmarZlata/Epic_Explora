@@ -37,8 +37,7 @@ class AppTextField extends StatelessWidget {
     return TextFormField(
       obscureText: obscureText,
       controller: controller,
-      cursorColor: AppColors.white,
-      cursorHeight: cursorHeight,
+      cursorColor: AppColors.blue,
       keyboardAppearance: Brightness.dark,
       style: TextStyle(
         color: AppColors.black,
@@ -50,9 +49,9 @@ class AppTextField extends StatelessWidget {
       validator: validator,
       maxLength: maxLength,
       decoration: InputDecoration(
-        prefixIcon: Icon(icon, color: AppColors.gray),
+        prefixIcon: Icon(icon, color: AppColors.grey),
         suffixIcon: suffixicon != null && suffixicon is IconData
-            ? Icon(suffixicon as IconData?, color: AppColors.gray)
+            ? Icon(suffixicon as IconData?, color: AppColors.grey)
             : suffixicon,
         labelText: labelText,
         labelStyle: TextStyle(color: AppColors.black),
@@ -62,15 +61,15 @@ class AppTextField extends StatelessWidget {
         contentPadding: EdgeInsets.zero,
         hintText: hint,
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.gray),
+          borderSide: BorderSide(color: AppColors.grey),
           borderRadius: BorderRadius.circular(radius),
         ),
         hintStyle: TextStyle(
-          color: AppColors.gray,
+          color: AppColors.grey,
           fontSize: hintFontSize,
         ),
         border: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.gray),
+          borderSide: BorderSide(color: AppColors.grey),
           borderRadius: BorderRadius.circular(radius),
         ),
       ),

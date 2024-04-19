@@ -39,11 +39,11 @@ class _AppTileWithButtonState extends State<AppTileWithButton> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: widget.isSelected ? AppColors.blue : AppColors.gray,
+            color: widget.isSelected ? AppColors.blue : AppColors.grey,
           ),
         ),
         child: ListTile(
-          leading: Icon(widget.iconData,color: widget.isSelected ? AppColors.blue : AppColors.gray),
+          leading: Icon(widget.iconData,color: widget.isSelected ? AppColors.blue : AppColors.grey),
           title: Text(
             widget.title,
 

@@ -38,7 +38,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
           ),
           actions: <Widget>[
-        Divider(color: AppColors.gray,height: 0.5),
+        Divider(color: AppColors.grey,height: 0.5),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();

@@ -39,7 +39,7 @@ class _TripsTabBarState extends State<TripsTabBar> {
                 height: 40,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
-                    color: AppColors.gray.withOpacity(.2)),
+                    color: AppColors.grey.withOpacity(.2)),
                 child: TabBar(
                   indicatorPadding: EdgeInsets.only(left:15 ,right:15,top: 6,bottom: 6,),
                   splashBorderRadius: BorderRadius.circular(12),

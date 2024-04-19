@@ -1,3 +1,4 @@
+import 'package:epic_expolre/Widgets/app_AppBar.dart';
 import 'package:flutter/material.dart';
 
 import '../../Widgets/bottomNavigationBar.dart';
@@ -9,37 +10,7 @@ class StateScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        elevation: 1,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: AppColors.gray, width: 1),
-            ),
-            child: InkWell(
-              borderRadius: BorderRadius.circular(10),
-              child: Icon(
-                Icons.arrow_back_ios_outlined,
-                color: AppColors.gray,
-              ),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => bottomNavigationBar(),));
-              },
-            ),
-          ),
-        ),
-        title: Text(
-          "    Profile",
-          style: TextStyle(
-            color: AppColors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
-        ),
-      ),
+      appBar: AppAppBar(title: "Select State",),
       body: Container(
         padding: EdgeInsets.all(8),
         child: GridView.builder(

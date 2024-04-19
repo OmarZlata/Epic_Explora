@@ -16,13 +16,13 @@ class SearchScreen extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: AppColors.gray, width: 1),
+              border: Border.all(color: AppColors.grey, width: 1),
             ),
             child: InkWell(
               borderRadius: BorderRadius.circular(10),
               child: Icon(
                 Icons.arrow_back_ios_outlined,
-                color: AppColors.gray,
+                color: AppColors.grey,
               ),
               onTap: () {
                 Navigator.pop(context);

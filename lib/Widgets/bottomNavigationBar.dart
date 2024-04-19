@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import '../Views/Home/view.dart';
 import '../Views/MainScreens/favorites_screen.dart';
-import '../Views/MainScreens/home_screen.dart';
+
 import '../Views/Profile/profile_main.dart';
 import '../core/app_colors/app_colors.dart';
 import 'trips_tabBar.dart';
@@ -14,7 +15,7 @@ class bottomNavigationBar extends StatefulWidget {
 
 class _bottomNavigationBarState extends State<bottomNavigationBar> {
   final List<Widget> _pages = [
-    HomeScreen(),
+    HomeView(),
     FavoriteScreen(),
     TripsTabBar(),
     ProfileMainScreen(),
@@ -30,7 +31,7 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
         fixedColor: AppColors.blue,
-        unselectedItemColor:AppColors.gray ,
+        unselectedItemColor:AppColors.grey ,
 
         onTap: (index) {
           setState(() {
@@ -59,3 +60,4 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
     );
   }
 }
+

@@ -14,25 +14,6 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget{
     return AppBar(
       backgroundColor: AppColors.white,
       elevation: .2,
-      leading: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: AppColors.gray.withOpacity(.4), width: 1),
-          ),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(10),
-            child: Icon(
-              Icons.arrow_back_ios_outlined,
-              color: AppColors.gray,
-            ),
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => bottomNavigationBar(),));
-            },
-          ),
-        ),
-      ),
       title: Text(
         title,
         style: TextStyle(

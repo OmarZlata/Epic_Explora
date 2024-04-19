@@ -266,7 +266,7 @@ class _reviewsPlaceDetialsState extends State<reviewsPlaceDetials> {
                     "36 Reviews",
                     style: TextStyle(
                       fontSize: 12,
-                      color: AppColors.gray,
+                      color: AppColors.grey,
                       fontWeight: FontWeight.w400,
                     ),
                   ),

@@ -99,7 +99,7 @@ class _SliderScreenState extends State<SliderScreen> {
                     _endValue = values.end;
                   });
                 },
-                inactiveColor: AppColors.gray.withOpacity(.5),
+                inactiveColor: AppColors.grey.withOpacity(.5),
                 activeColor: AppColors.blue,
                 min: 0,
                 max: 500,
