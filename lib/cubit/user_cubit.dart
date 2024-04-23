@@ -8,7 +8,7 @@ import 'package:epic_expolre/core/models/user_model.dart';
 import 'package:epic_expolre/cubit/user_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
+import 'dart:developer';
 
 class UserCubit extends Cubit<UserState> {
   UserCubit(this.api) : super(UserInitial());
@@ -33,25 +33,25 @@ class UserCubit extends Cubit<UserState> {
   //Sign up confirm password
   TextEditingController confirmPassword = TextEditingController();
   SignInModel? user;
-  // signUp() async {
-  //   try {
-  //     emit(SignUpLoading());
-  //     final response = await api.post(
-  //       EndPoint.register,
-  //       isFromData: true,
-  //       data: {
-  //         ApiKey.name: signUpName.text,
-  //         ApiKey.email: signUpEmail.text,
-  //         ApiKey.password: signUpPassword.text,
-  //         ApiKey.confirmPassword: confirmPassword.text,
-  //       },
-  //     );
-  //     final signUPModel = SignUpModel.fromJson(response);
-  //     emit(SignUpSuccess(message: signUPModel.message));
-  //   } on ServerException catch (e) {
-  //     emit(SignUpFailure(errMessage: e.errModel.errorMessage));
-  //   }
-  // }
+  signUp() async {
+    try {
+      emit(SignUpLoading());
+      final response = await api.post(
+        EndPoint.register,
+        isFromData: true,
+        data: {
+          ApiKey.name: signUpName.text,
+          ApiKey.email: signUpEmail.text,
+          ApiKey.password: signUpPassword.text,
+          ApiKey.confirmPassword: confirmPassword,
+        },
+      );
+      final signUPModel = SignUpModel.fromJson(response);
+      emit(SignUpSuccess(message: signUPModel.message));
+    } on ServerException catch (e) {
+      emit(SignUpFailure(errMessage: e.errModel.errorMessage));
+    }
+  }
 
 
 
@@ -67,10 +67,10 @@ class UserCubit extends Cubit<UserState> {
         },
       );
       user = SignInModel.fromJson(response);
-      final decodedToken = JwtDecoder.decode(user!.token);
+      // var id = user!.token[0]+user!.token[1];
       CacheHelper().saveData(key: ApiKey.token, value: user!.token);
-      CacheHelper().saveData(key: ApiKey.id, value: decodedToken[ApiKey.id]);
-
+      // CacheHelper().saveData(key: ApiKey.id, value: id);
+      // log(id);
       emit(SignInSuccess());
     } on ServerException catch (e) {
       emit(SignInFailure(errMessage: e.errModel.errorMessage));

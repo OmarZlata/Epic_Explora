@@ -1,5 +1,5 @@
 class EndPoint {
-  static String baseUrl = "https://a894-156-197-112-27.ngrok-free.app/";
+  static String baseUrl = "https://f870-156-197-95-10.ngrok-free.app/";
   static String signIn = "api/user/login/";
   static String register = "api/user/register";
   static String getUserDataEndPoint(id) {
@@ -8,6 +8,7 @@ class EndPoint {
 }
 
 class ApiKey {
+  static String success = 'success' ;
   static String img = "image";
   static String status = "status";
   static String errorMessage = "message";

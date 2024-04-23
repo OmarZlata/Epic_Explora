@@ -29,10 +29,15 @@ class _SignInViewState extends State<SignInView> {
           if (state is SignInSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                content: Text("success"),
+                backgroundColor: AppColors.blue,
+
+                elevation: 1,
+                padding: EdgeInsets.all(8),
+                content: Text("Success" ,style: TextStyle(
+                  color: AppColors.white,
+                ),),
               ),
             );
-            context.read<UserCubit>().signIn();
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -42,7 +47,13 @@ class _SignInViewState extends State<SignInView> {
           } else if (state is SignInFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text("SignIn Failed"),
+                elevation: 1,
+                backgroundColor: AppColors.blue,
+                padding: EdgeInsets.all(8),
+                content: Text("E-mail or Password are not correct",
+                  style: TextStyle(
+                    color: AppColors.white,
+                  ),),
               ),
             );
           }
@@ -127,7 +138,7 @@ class _SignInViewState extends State<SignInView> {
                                         });
                                       },
                                       icon: Icon(
-                                        color: AppColors.blue,
+                                        color: obscurePassword ?AppColors.grey:AppColors.blue,
                                         obscurePassword
                                             ? Icons.visibility_off
                                             : Icons.visibility,
@@ -178,12 +189,6 @@ class _SignInViewState extends State<SignInView> {
                             title: "Sign in",
                             onTap: () {
                               context.read<UserCubit>().signIn();
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const GoogleMapsView(),
-                                ),
-                              );
                             },
                           ),
                     SizedBox(
@@ -199,7 +204,7 @@ class _SignInViewState extends State<SignInView> {
                         GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => SignupScreen(),
+                              builder: (context) => SignUpView(),
                             ));
                           },
                           child: AppText(

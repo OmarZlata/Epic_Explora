@@ -57,7 +57,7 @@ class WelcomeScreen3 extends StatelessWidget {
             color: AppColors.blue,
             font_color: AppColors.white,
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignupScreen(),));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUpView(),));
             },
           ),
           SizedBox(height: 24,),
