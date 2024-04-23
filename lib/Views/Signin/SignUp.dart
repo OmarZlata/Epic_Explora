@@ -1,4 +1,8 @@
+import 'package:epic_expolre/Views/Home/view.dart';
+import 'package:epic_expolre/cubit/user_cubit.dart';
+import 'package:epic_expolre/cubit/user_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../Widgets/app_button.dart';
 import '../../../Widgets/app_text.dart';
@@ -14,15 +18,16 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   bool obscurePassword = true;
+  bool obscurePasswordConfirm = true;
   bool isChecked = false;
 
   TextEditingController emailController = TextEditingController();
 
   TextEditingController passwordController = TextEditingController();
 
-  Widget EmailTextField() {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
+  Widget EmailTextField(dynamic signUpEmailController) {
+    return Container(
+      padding: EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -59,9 +64,9 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  Widget NameTextField() {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
+  Widget NameTextField(dynamic nameController) {
+    return Container(
+      padding: EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -86,10 +91,9 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  Widget PasswordTextField() {
-    return Padding(
-      padding:
-          const EdgeInsets.only(left: 20.0, top: 20, right: 20, bottom: 20),
+  Widget PasswordTextField(dynamic signUpPassword) {
+    return Container(
+      padding: EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -126,10 +130,9 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  Widget ConfirmPasswordTextField() {
-    return Padding(
-      padding:
-          const EdgeInsets.only(left: 20.0, top: 20, right: 20, bottom: 20),
+  Widget ConfirmPasswordTextField(dynamic signUpConfirmPassword) {
+    return Container(
+      padding: EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -149,12 +152,12 @@ class _SignupScreenState extends State<SignupScreen> {
             suffixicon: IconButton(
               onPressed: () {
                 setState(() {
-                  obscurePassword = !obscurePassword;
+                  obscurePasswordConfirm = !obscurePasswordConfirm;
                 });
               },
               icon: Icon(
-                color: obscurePassword ? AppColors.grey : AppColors.blue,
-                obscurePassword ? Icons.visibility_off : Icons.visibility,
+                color: obscurePasswordConfirm ? AppColors.grey : AppColors.blue,
+                obscurePasswordConfirm ? Icons.visibility_off : Icons.visibility,
               ),
             ),
             obscureText: obscurePassword,
@@ -168,7 +171,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
   Widget SiginUpButton() {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.all(16),
       child: AppButton(
         border_color: AppColors.white,
         font_color: AppColors.white,
@@ -179,6 +182,8 @@ class _SignupScreenState extends State<SignupScreen> {
             ? () {
                 final email = emailController.text;
                 final password = passwordController.text;
+                // context.read<UserCubit>().signUp();
+
               }
             : null,
       ),
@@ -213,29 +218,65 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: AppText(
-            title: "Sign Up",
-            fontWeight: FontWeight.bold,
-            color: AppColors.black,
-            fontSize: 24),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            NameTextField(),
-            EmailTextField(),
-            PasswordTextField(),
-            ConfirmPasswordTextField(),
-            Terms(),
-            SiginUpButton(),
-          ],
-        ),
+    TextEditingController nameController =
+        BlocProvider.of<UserCubit>(context).signUpName;
+    TextEditingController signUpEmailController =
+        BlocProvider.of<UserCubit>(context).signUpEmail;
+    TextEditingController signUpPassword =
+        BlocProvider.of<UserCubit>(context).signUpPassword;
+    TextEditingController signUpConfirmPassword =
+        BlocProvider.of<UserCubit>(context).signUpPassword;
+    return SafeArea(
+      child: BlocConsumer<UserCubit, UserState>(
+        listener: (context, state) {
+          if (state is SignInSuccess) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("success"),
+              ),
+            );
+            context.read<UserCubit>().signIn();
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomeView(),
+              ),
+            );
+          } else if (state is SignInFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.errMessage),
+              ),
+            );
+          }
+        },
+        builder: (context, state) {
+          return Scaffold(
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  AppText(
+                    title: "Sign Up",
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.blue,
+                    fontSize: 24,
+                  ),
+                  SizedBox(height: 20,),
+                  Image.asset('assets/images/amico.png'),
+                  NameTextField(nameController),
+                  EmailTextField(signUpEmailController),
+                  PasswordTextField(signUpPassword),
+                  ConfirmPasswordTextField(signUpConfirmPassword),
+                  Terms(),
+                  SiginUpButton(),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
 }
+
+

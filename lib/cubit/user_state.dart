@@ -1,5 +1,3 @@
-
-
 import 'package:epic_expolre/core/models/user_model.dart';
 
 class UserState {}

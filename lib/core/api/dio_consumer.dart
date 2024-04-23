@@ -2,13 +2,20 @@ import 'package:dio/dio.dart';
 import '../errors/exceptions.dart';
 import 'api_consumer.dart';
 import 'api_interceptors.dart';
-import 'end_ponits.dart';
+import 'const_end_ponits.dart';
 
 class DioConsumer extends ApiConsumer {
   final Dio dio;
 
   DioConsumer({required this.dio}) {
     dio.options.baseUrl = EndPoint.baseUrl;
+    dio.options.headers = {
+      'Authorization':
+          "Bearer 43|JIRkJ4l5lm2hFRGRrWtkXu3W5yVkzrpBrNWDCBU8ee125321",
+      'Accept-Encoding': 'gzip, deflate, br',
+      'Connection': 'keep-alive',
+    };
+
     dio.interceptors.add(ApiInterceptor());
     dio.interceptors.add(LogInterceptor(
       request: true,
