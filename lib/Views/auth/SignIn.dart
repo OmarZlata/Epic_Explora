@@ -62,8 +62,9 @@ class _SignInViewState extends State<SignInView> {
           return Scaffold(
             body: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 23),
+                padding: const EdgeInsets.symmetric(horizontal: 22,vertical:20 ),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const AppText(

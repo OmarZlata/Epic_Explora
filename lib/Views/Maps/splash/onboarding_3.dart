@@ -1,3 +1,4 @@
+import 'package:epic_expolre/Views/auth/SignIn.dart';
 import 'package:flutter/material.dart';
 
 import '../../../Widgets/app_button.dart';
@@ -77,7 +78,7 @@ class _GoogleMapSplashViewState extends State<GoogleMapSplashView> {
             font_color: AppColors.white,
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => GoogleMapsView(),
+                builder: (context) => SignInView(),
               ));
             },
           ),

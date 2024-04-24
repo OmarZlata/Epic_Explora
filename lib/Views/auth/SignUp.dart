@@ -225,7 +225,7 @@ class _SignUpViewState extends State<SignUpView> {
                   AppButton(
                     border_color: AppColors.white,
                     font_color: AppColors.white,
-                    color: isChecked ? AppColors.blue : AppColors.grey.withOpacity(.7),
+                    color: isChecked ? AppColors.blue : AppColors.grey.withOpacity(.3),
                     title: "Sign Up",
                     onTap: isChecked
                         ? () {

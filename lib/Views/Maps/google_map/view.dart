@@ -65,7 +65,7 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
                       : Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: AppButton(
-                          color: cubit.markers.isEmpty?AppColors.grey:AppColors.blue,
+                          color: cubit.markers.isEmpty?AppColors.grey.withOpacity(.3):AppColors.blue,
                           font_color:AppColors.white,
                             border_color: AppColors.white,
                             onTap:

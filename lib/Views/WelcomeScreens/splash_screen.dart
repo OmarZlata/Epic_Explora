@@ -56,26 +56,32 @@ class _SplashScreenState extends State<SplashScreen>
                 scale: _animation.value,
                 child: Opacity(
                   opacity: _animation.value,
-                  child: Container(
-                    height: 150,
-                    width: 150,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      children: [
-                        SizedBox(height: 12),
-                        Image.asset('assets/images/logo.png'),
-                        SizedBox(height: 10),
-                        Text(
-                          "Epic Explore",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.black,
+                  child: Material(
+                    borderRadius:  BorderRadius.circular(25),
+                      color: Colors.white.withOpacity(.9),
+                    elevation: 1,
+
+                    child: Container(
+                      height: 150,
+                      width: 150,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                        color: Colors.white.withOpacity(.5),
+                      ),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 12),
+                          Image.asset('assets/images/logo.png'),
+                          SizedBox(height: 10),
+                          Text(
+                            "Epic Explore",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.black,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
