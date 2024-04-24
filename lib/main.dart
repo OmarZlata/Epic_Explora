@@ -1,6 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:epic_expolre/Views/BookingScreens/BookingDetails/Booking_Details.dart';
-import 'package:epic_expolre/Views/Signin/SignIn.dart';
+import 'package:epic_expolre/Views/States/alex/trips_screen.dart';
+import 'package:epic_expolre/Views/auth/SignIn.dart';
+import 'package:epic_expolre/Views/loading_screens/signIn_loading.dart';
+import 'package:epic_expolre/Views/loading_screens/signUp_loading.dart';
+import 'package:epic_expolre/Widgets/states_tab_bar.dart';
 import 'package:epic_expolre/core/api/dio_consumer.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:epic_expolre/cubit/user_cubit.dart';
@@ -13,11 +17,6 @@ import 'Views/Profile/AppMode.dart';
 import 'Views/Profile/Edit_Profile.dart';
 import 'Views/Profile/Settings.dart';
 import 'Views/Profile/Terms.dart';
-import 'Views/Signin/Forget_Password.dart';
-import 'Views/Signin/Reset_Password.dart';
-import 'Views/Signin/SignUp.dart';
-import 'Views/Signin/Verification.dart';
-import 'Views/translator/view.dart';
 import 'Widgets/booking_tabBar.dart';
 import 'Widgets/bottomNavigationBar.dart';
 import 'Widgets/trips_tabBar.dart';
@@ -50,7 +49,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primaryColor: Color(0xFF2F3C7E),
           ),
-          home: SignUpView(),
+          home: StatesTabBar  (),
         );
       },
     );

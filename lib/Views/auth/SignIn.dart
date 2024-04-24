@@ -1,6 +1,6 @@
 import 'package:epic_expolre/Views/Home/view.dart';
 import 'package:epic_expolre/Views/Maps/google_map/view.dart';
-import 'package:epic_expolre/Views/Signin/SignUp.dart';
+import 'package:epic_expolre/Views/auth/SignUp.dart';
 import 'package:epic_expolre/cubit/user_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
