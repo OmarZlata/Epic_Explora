@@ -24,7 +24,7 @@ class WelcomeScreen1 extends StatelessWidget {
                 ),
                 Positioned(
                   child: Image.asset(
-                    'assets/images/Welcome1.png',
+                    'assets/images/Welcome3.png',
                     width: double.infinity,
                     height: double.infinity,
                   ),
@@ -51,6 +51,13 @@ class WelcomeScreen1 extends StatelessWidget {
             fontSize: 18 ,
 
           ),
+          SizedBox(height:24 ,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('assets/images/indicators1.png')
+
+            ],),
           Spacer(),
           AppButton(
             title: "Next",

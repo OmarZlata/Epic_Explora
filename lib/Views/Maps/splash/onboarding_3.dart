@@ -1,12 +1,24 @@
-import 'package:epic_expolre/Views/Maps/splash/onboarding_3.dart';
 import 'package:flutter/material.dart';
-import '../../Widgets/app_button.dart';
-import '../../Widgets/app_text.dart';
-import '../../core/app_colors/app_colors.dart';
 
+import '../../../Widgets/app_button.dart';
+import '../../../Widgets/app_text.dart';
+import '../../../core/Location_utlis/location_utils.dart';
+import '../../../core/app_colors/app_colors.dart';
+import '../google_map/view.dart';
 
-class WelcomeScreen2 extends StatelessWidget {
-  const WelcomeScreen2({super.key});
+class GoogleMapSplashView extends StatefulWidget {
+  const GoogleMapSplashView({Key? key}) : super(key: key);
+
+  @override
+  State<GoogleMapSplashView> createState() => _GoogleMapSplashViewState();
+}
+
+class _GoogleMapSplashViewState extends State<GoogleMapSplashView> {
+  @override
+  void initState() {
+    LocationUtils.getCurrentLocation();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +36,7 @@ class WelcomeScreen2 extends StatelessWidget {
                 ),
                 Positioned(
                   child: Image.asset(
-                    'assets/images/Welcome2.png',
+                    'assets/images/Welcome1.png',
                     width: double.infinity,
                     height: double.infinity,
                   ),
@@ -33,41 +45,43 @@ class WelcomeScreen2 extends StatelessWidget {
             ),
           ),
           AppText(
-            title: "Book Cheapest Fight",
+            title: "Find Your Location ",
             color: AppColors.black,
-            fontSize: 22 ,
+            fontSize: 22,
             fontWeight: FontWeight.w700,
           ),
-          SizedBox(height: 10,),
-          AppText(
-            title: "We compare prices from 200+ booking",
-            color: AppColors.grey,
-            fontSize: 18 ,
-
+          SizedBox(
+            height: 5,
           ),
           AppText(
-            title: "site to help you find the lowest price .",
+            title: "Find Every Place Around You ",
             color: AppColors.grey,
-            fontSize: 18 ,
-
+            fontSize: 18,
           ),
-          SizedBox(height:24 ,),
+          AppText(
+            title: "Let's Explore",
+            color: AppColors.grey,
+            fontSize: 18,
+          ),
+          SizedBox(
+            height: 24,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('assets/images/indicators2.png')
-
-            ],),
+            children: [Image.asset('assets/images/indicators3.png')],
+          ),
           Spacer(),
           AppButton(
             title: "Next",
             color: AppColors.blue,
             font_color: AppColors.white,
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => GoogleMapSplashView(),));
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => GoogleMapsView(),
+              ));
             },
           ),
-          SizedBox(height: 24,),
+          SizedBox(height: 24),
           AppButton(
             title: "Back",
             color: AppColors.white,
@@ -76,7 +90,9 @@ class WelcomeScreen2 extends StatelessWidget {
               Navigator.pop(context);
             },
           ),
-          SizedBox(height: 25,),
+          SizedBox(
+            height: 25,
+          ),
         ],
       ),
     );

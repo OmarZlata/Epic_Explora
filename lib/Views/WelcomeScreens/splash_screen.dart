@@ -22,28 +22,30 @@ class _SplashScreenState extends State<SplashScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.blue,
-      body  : Center(
-        child: Container(
-          height: 150,
-          width: 150,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(25),
-            color: Colors.white
-          ),
-            child: Column(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: AppColors.blue,
+        body  : Center(
+          child: Container(
+            height: 150,
+            width: 150,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(25),
+              color: Colors.white
+            ),
+              child: Column(
 
-              children: [
-                SizedBox(height: 12,),
-                Image.asset('assets/images/logo.png'),
-                SizedBox(height: 10,),
-                Text("Epic Explore",style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.black
-                ),)
-              ],
-            )
+                children: [
+                  SizedBox(height: 12,),
+                  Image.asset('assets/images/logo.png'),
+                  SizedBox(height: 10,),
+                  Text("Epic Explore",style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.black
+                  ),)
+                ],
+              )
+          ),
         ),
       ),
     );
