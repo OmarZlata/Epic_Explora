@@ -1,9 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:epic_expolre/Views/BookingScreens/BookingDetails/Booking_Details.dart';
-import 'package:epic_expolre/Views/Profile/Currency_Convertor.dart';
-
+import 'package:epic_expolre/Views/Maps/splash/onboarding_3.dart';
+import 'package:epic_expolre/Views/States/alex/trips_screen.dart';
 import 'package:epic_expolre/Views/WelcomeScreens/splash_screen.dart';
-
+import 'package:epic_expolre/Views/auth/SignIn.dart';
+import 'package:epic_expolre/Views/loading_screens/signIn_loading.dart';
+import 'package:epic_expolre/Views/loading_screens/signUp_loading.dart';
+import 'package:epic_expolre/Widgets/states_tab_bar.dart';
 import 'package:epic_expolre/core/api/dio_consumer.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:epic_expolre/cubit/user_cubit.dart';
@@ -49,7 +52,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primaryColor: Color(0xFF2F3C7E),
           ),
-          home: Currency(),
+          home: HomeView(),
         );
       },
     );

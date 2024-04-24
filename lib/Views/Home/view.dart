@@ -1,6 +1,6 @@
 import 'dart:developer';
-
 import 'package:epic_expolre/core/api/AllPlaces_API.dart';
+import 'package:epic_expolre/core/api/const_end_ponits.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../Widgets/app_home_card.dart';
@@ -47,12 +47,13 @@ void _showBottomSheet(BuildContext context) {
 }
 
 class PlaceService {
+
   final String baseUrl = 'https://c0bd-156-197-50-97.ngrok-free.app';
 
   Future<List<Recommended>> getAllPlaces() async {
     final BaseOptions baseOption = BaseOptions(headers: {
       "Authorization":
-          "Bearer 15|itUINYzlaSxfVOyDVMUjhlRrl2civqwiVs1yLwnTa95864a8",
+      "Bearer 15|itUINYzlaSxfVOyDVMUjhlRrl2civqwiVs1yLwnTa95864a8",
       "Accept": "*/*",
       "Accept-Encoding": "gzip, deflate, br",
     });
@@ -86,7 +87,7 @@ class _HomeViewState extends State<HomeView> {
   void printdata() async {
     final BaseOptions baseOption = BaseOptions(headers: {
       "Authorization":
-          "Bearer 38|WGCBg2vlkOAru2RUAVzMn7MhGIEx8GaoTAGXGzY8553dcf19",
+      "Bearer 38|WGCBg2vlkOAru2RUAVzMn7MhGIEx8GaoTAGXGzY8553dcf19",
       "Accept": "*/*",
       "Accept-Encoding": "gzip, deflate, br",
     });
@@ -153,7 +154,7 @@ class _HomeViewState extends State<HomeView> {
                       Spacer(),
                       InkWell(
                         child:
-                            Image.asset('assets/images/Notification-icon.png'),
+                        Image.asset('assets/images/Notification-icon.png'),
                         onTap: () {},
                       ),
                     ],
@@ -272,7 +273,7 @@ class _HomeViewState extends State<HomeView> {
                                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
                                     image: DecorationImage(fit: BoxFit.fill,
                                       image:
-                                          AssetImage("assets/images/alex.jpeg"),
+                                      AssetImage("assets/images/alex.jpg"),
                                     ),
                                   )),
                             ),
@@ -292,7 +293,7 @@ class _HomeViewState extends State<HomeView> {
                                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
                                     image: DecorationImage(fit: BoxFit.fill,
                                       image:
-                                      AssetImage("assets/images/cairo.jpeg"),
+                                      AssetImage("assets/images/cairo.jpg"),
                                     ),
                                   )),
                             ),
@@ -372,15 +373,15 @@ class _HomeViewState extends State<HomeView> {
                   Container(
                     height:isloading? 50:248,
                     width: isloading? 50:210,
-                    child:isloading?Container(child:CircularProgressIndicator(),): ListView.builder(
+                    child:isloading?Center(child:CircularProgressIndicator(),): ListView.builder(
                         itemCount: 9,
                         scrollDirection: Axis.horizontal,
                         clipBehavior: Clip.hardEdge,
                         itemBuilder: (context, index) => AppHomeCard(
-                              cardText: recommended![index].name!,
-                              cardAddress: recommended![index].address!,
-                              cardimgUrl: recommended![index].img_url!,
-                            )),
+                          cardText: recommended![index].name!,
+                          cardAddress: recommended![index].address!,
+                          cardimgUrl: recommended![index].img_url!,
+                        )),
                   ),
                   SizedBox(height: 16),
                   Row(

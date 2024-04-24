@@ -1,6 +1,6 @@
 import 'package:epic_expolre/cache/cache_helper.dart';
 import 'package:epic_expolre/core/api/api_consumer.dart';
-import 'package:epic_expolre/core/api/end_ponits.dart';
+import 'package:epic_expolre/core/api/const_end_ponits.dart';
 import 'package:epic_expolre/core/errors/exceptions.dart';
 import 'package:epic_expolre/core/models/sign_in_model.dart';
 import 'package:epic_expolre/core/models/sign_up_model.dart';
@@ -8,7 +8,7 @@ import 'package:epic_expolre/core/models/user_model.dart';
 import 'package:epic_expolre/cubit/user_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
+import 'dart:developer';
 
 class UserCubit extends Cubit<UserState> {
   UserCubit(this.api) : super(UserInitial());
@@ -37,17 +37,13 @@ class UserCubit extends Cubit<UserState> {
     try {
       emit(SignUpLoading());
       final response = await api.post(
-        EndPoint.signUp,
+        EndPoint.register,
         isFromData: true,
         data: {
           ApiKey.name: signUpName.text,
-          ApiKey.phone: signUpPhoneNumber.text,
           ApiKey.email: signUpEmail.text,
           ApiKey.password: signUpPassword.text,
-          ApiKey.confirmPassword: confirmPassword.text,
-          ApiKey.location:
-              '{"name":"methalfa","address":"meet halfa","coordinates":[30.1572709,31.224779]}',
-
+          ApiKey.confirmPassword: confirmPassword,
         },
       );
       final signUPModel = SignUpModel.fromJson(response);
@@ -56,6 +52,9 @@ class UserCubit extends Cubit<UserState> {
       emit(SignUpFailure(errMessage: e.errModel.errorMessage));
     }
   }
+
+
+
 
   signIn() async {
     try {
@@ -68,26 +67,27 @@ class UserCubit extends Cubit<UserState> {
         },
       );
       user = SignInModel.fromJson(response);
-      final decodedToken = JwtDecoder.decode(user!.token);
+      // var id = user!.token[0]+user!.token[1];
       CacheHelper().saveData(key: ApiKey.token, value: user!.token);
-      CacheHelper().saveData(key: ApiKey.id, value: decodedToken[ApiKey.id]);
+      // CacheHelper().saveData(key: ApiKey.id, value: id);
+      // log(id);
       emit(SignInSuccess());
     } on ServerException catch (e) {
       emit(SignInFailure(errMessage: e.errModel.errorMessage));
     }
   }
 
-  getUserProfile() async {
-    try {
-      emit(GetUserLoading());
-      final response = await api.get(
-        EndPoint.getUserDataEndPoint(
-          CacheHelper().getData(key: ApiKey.id),
-        ),
-      );
-      emit(GetUserSuccess(user: UserModel.fromJson(response)));
-    } on ServerException catch (e) {
-      emit(GetUserFailure(errMessage: e.errModel.errorMessage));
-    }
-  }
+  // getUserProfile() async {
+  //   try {
+  //     emit(GetUserLoading());
+  //     final response = await api.get(
+  //       EndPoint.getUserDataEndPoint(
+  //         CacheHelper().getData(key: ApiKey.id),
+  //       ),
+  //     );
+  //     emit(GetUserSuccess(user: UserModel.fromJson(response)));
+  //   } on ServerException catch (e) {
+  //     emit(GetUserFailure(errMessage: e.errModel.errorMessage));
+  //   }
+  // }
 }

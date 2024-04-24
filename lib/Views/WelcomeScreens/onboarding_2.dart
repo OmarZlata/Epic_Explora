@@ -1,8 +1,9 @@
+import 'package:epic_expolre/Views/Maps/splash/onboarding_3.dart';
 import 'package:flutter/material.dart';
 import '../../Widgets/app_button.dart';
 import '../../Widgets/app_text.dart';
 import '../../core/app_colors/app_colors.dart';
-import 'onboarding_3.dart';
+
 
 class WelcomeScreen2 extends StatelessWidget {
   const WelcomeScreen2({super.key});
@@ -50,13 +51,20 @@ class WelcomeScreen2 extends StatelessWidget {
             fontSize: 18 ,
 
           ),
+          SizedBox(height:24 ,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('assets/images/indicators2.png')
+
+            ],),
           Spacer(),
           AppButton(
             title: "Next",
             color: AppColors.blue,
             font_color: AppColors.white,
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => WelcomeScreen3(),));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => GoogleMapSplashView(),));
             },
           ),
           SizedBox(height: 24,),
@@ -68,7 +76,7 @@ class WelcomeScreen2 extends StatelessWidget {
               Navigator.pop(context);
             },
           ),
-          SizedBox(height: 100,),
+          SizedBox(height: 25,),
         ],
       ),
     );

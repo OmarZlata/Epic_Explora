@@ -1,3 +1,4 @@
+import 'package:epic_expolre/Views/auth/SignIn.dart';
 import 'package:flutter/material.dart';
 
 import '../../../Widgets/app_button.dart';
@@ -6,15 +7,14 @@ import '../../../core/Location_utlis/location_utils.dart';
 import '../../../core/app_colors/app_colors.dart';
 import '../google_map/view.dart';
 
-
-class SplashView extends StatefulWidget {
-  const SplashView({Key? key}) : super(key: key);
+class GoogleMapSplashView extends StatefulWidget {
+  const GoogleMapSplashView({Key? key}) : super(key: key);
 
   @override
-  State<SplashView> createState() => _SplashViewState();
+  State<GoogleMapSplashView> createState() => _GoogleMapSplashViewState();
 }
 
-class _SplashViewState extends State<SplashView> {
+class _GoogleMapSplashViewState extends State<GoogleMapSplashView> {
   @override
   void initState() {
     LocationUtils.getCurrentLocation();
@@ -59,7 +59,18 @@ class _SplashViewState extends State<SplashView> {
             color: AppColors.grey,
             fontSize: 18,
           ),
-
+          AppText(
+            title: "Let's Explore",
+            color: AppColors.grey,
+            fontSize: 18,
+          ),
+          SizedBox(
+            height: 24,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [Image.asset('assets/images/indicators3.png')],
+          ),
           Spacer(),
           AppButton(
             title: "Next",
@@ -67,11 +78,22 @@ class _SplashViewState extends State<SplashView> {
             font_color: AppColors.white,
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => GoogleMapsView(),
+                builder: (context) => SignInView(),
               ));
             },
           ),
-          SizedBox(height: 25,)
+          SizedBox(height: 24),
+          AppButton(
+            title: "Back",
+            color: AppColors.white,
+            font_color: AppColors.blue,
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          SizedBox(
+            height: 25,
+          ),
         ],
       ),
     );
