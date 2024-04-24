@@ -2,7 +2,11 @@ import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class AppHomeCard extends StatefulWidget {
-  AppHomeCard({super.key});
+
+  late String cardText;
+  late String cardAddress;
+  late List?cardimgUrl;
+   AppHomeCard({Key? key, required this.cardText,required this.cardAddress,required this.cardimgUrl}) : super(key: key);
 
   @override
   State<AppHomeCard> createState() => _AppHomeCardState();
@@ -11,8 +15,10 @@ class AppHomeCard extends StatefulWidget {
 class _AppHomeCardState extends State<AppHomeCard> {
   bool isFavorite = false;
 
+
   @override
   Widget build(BuildContext context) {
+    print("Card Text: ${widget.cardText}");
     return Row(
       children: [
         Container(
@@ -27,7 +33,7 @@ class _AppHomeCardState extends State<AppHomeCard> {
               Stack(
                 children: [
                   ClipRRect(
-                    child: Image.asset('assets/images/cards.png'),
+                    child: Image.network( '${widget.cardimgUrl![0]}',),
                     borderRadius: BorderRadius.only(
                       topRight: Radius.circular(15),
                       topLeft: Radius.circular(15),
@@ -40,6 +46,7 @@ class _AppHomeCardState extends State<AppHomeCard> {
                       children: [
                         Image.asset(
                           'assets/images/favbg.png',
+
                           fit: BoxFit.cover,
                           height: 28,
                           width: 28,
@@ -70,19 +77,19 @@ class _AppHomeCardState extends State<AppHomeCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Classic Lorem ipsum ",
+                      "${widget.cardText}",maxLines: 1,
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 14,
                       ),
                     ),
-                    Text(
-                      "dolor. ",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 14,
-                      ),
-                    ),
+                    // Text(
+                    //   "dolor. ",
+                    //   style: TextStyle(
+                    //     fontWeight: FontWeight.w700,
+                    //     fontSize: 14,
+                    //   ),
+                    // ),
                     SizedBox(
                       height: 12,
                     ),
@@ -97,7 +104,7 @@ class _AppHomeCardState extends State<AppHomeCard> {
                             color: AppColors.blue,
                           ),
                           Text(
-                            "Alexandria ,Egypt",
+                            "${widget.cardAddress}",
                             style: TextStyle(
                               fontSize: 12,
                             ),
@@ -122,6 +129,7 @@ class _AppHomeCardState extends State<AppHomeCard> {
                         Row(
                           children: [
                             Image.asset('assets/images/rate.png'),
+
                             Text("4.5",style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 12,
@@ -136,6 +144,7 @@ class _AppHomeCardState extends State<AppHomeCard> {
             ],
           ),
         ),
+
         SizedBox(
           width: 15,
         ),
