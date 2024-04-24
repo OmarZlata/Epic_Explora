@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart'; // Import for AnimationController
+import 'package:flutter/widgets.dart';
 import '../../core/app_colors/app_colors.dart';
 import 'onboarding_1.dart';
 
@@ -18,12 +18,12 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(seconds: 2), // Adjust duration as needed
+      duration: const Duration(seconds: 2),
       vsync: this,
     );
     _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
 
-    // Start animation
+
     _controller.forward();
 
     Timer(
@@ -39,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   void dispose() {
-    _controller.dispose(); // Dispose the controller when not needed
+    _controller.dispose();
     super.dispose();
   }
 
@@ -53,9 +53,9 @@ class _SplashScreenState extends State<SplashScreen>
             animation: _animation,
             builder: (context, child) {
               return Transform.scale(
-                scale: _animation.value, // Apply scale animation
+                scale: _animation.value,
                 child: Opacity(
-                  opacity: _animation.value, // Apply opacity animation
+                  opacity: _animation.value,
                   child: Container(
                     height: 150,
                     width: 150,
