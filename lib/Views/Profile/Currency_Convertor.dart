@@ -1,240 +1,264 @@
-import 'package:epic_expolre/Widgets/app_text.dart';
-import 'package:epic_expolre/core/app_colors/app_colors.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
+import 'package:epic_expolre/core/app_colors/app_colors.dart';
+import 'package:epic_expolre/Widgets/app_AppBar.dart';
+import 'package:epic_expolre/Widgets/app_button.dart';
+import 'package:epic_expolre/Widgets/app_text.dart';
 
 class Currency extends StatefulWidget {
-  Currency({super.key});
+  Currency({Key? key}) : super(key: key);
 
   @override
   _CurrencyState createState() => _CurrencyState();
 }
 
 class _CurrencyState extends State<Currency> {
+  late String selectedSourceCurrency;
+  late String selectedTargetCurrency;
   String displayedText = '';
-  String DropDownValue = 'one';
+  String result = "0.00";
+  List<String> currencyCodes = [];
+  List<DropdownMenuItem<String>> sourceCurrencyItems = [];
+  List<DropdownMenuItem<String>> targetCurrencyItems = [];
+  Map<String, dynamic>? jsonData;
+  bool isLoading = true;
 
-  Widget NumButton(String num) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: InkWell(
-        onTap: () {
-          setState(() {
-            displayedText += num;
-          });
-        },
-        child: Container(
-          width: 72,
-          height: 72,
-          decoration: BoxDecoration(
-            color: AppColors.light_blue,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Center(
-            child: AppText(
-              title: num,
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-            ),
-          ),
-        ),
-      ),
-    );
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
   }
 
-  Widget zeroButton(String zero) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: InkWell(
-        onTap: () {
-          setState(() {
-            displayedText += zero;
+  Future<void> fetchData() async {
+    try {
+      Response response = await Dio().get(
+          'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json');
+      if (response.statusCode == 200) {
+        Map<String, dynamic> responseData = response.data['usd'];
+        setState(() {
+          jsonData = responseData;
+          List<String> currencies = [
+            "egp",
+            "sar",
+            "eur",
+            "usd",
+            "jpy",
+            "gbp",
+            "aud",
+            "cad",
+            "chf",
+            "cny",
+            "sek",
+            "nzd",
+            "krw",
+            "mxn",
+            "sgd",
+            "nok",
+            "inr",
+            "rub",
+            "brl",
+            "zar",
+            "hkd",
+            "try"
+          ];
+          currencyCodes = currencies
+              .where((currency) => responseData.containsKey(currency))
+              .toList();
+          selectedSourceCurrency = 'eur';
+          selectedTargetCurrency = currencyCodes.first;
+          currencyCodes.forEach((code) {
+            sourceCurrencyItems.add(
+              DropdownMenuItem<String>(
+                value: code,
+                child: Text(code),
+              ),
+            );
+            targetCurrencyItems.add(
+              DropdownMenuItem<String>(
+                value: code,
+                child: Text(code),
+              ),
+            );
           });
-        },
-        child: Container(
-          width: 180,
-          height: 72,
-          decoration: BoxDecoration(
-            color: AppColors.light_blue,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Center(
-            child: AppText(
-              title: zero,
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-            ),
-          ),
-        ),
-      ),
-    );
+          isLoading = false;
+        });
+      } else {
+        print("Failed to fetch data: ${response.statusCode}");
+      }
+    } catch (error) {
+      print("Error fetching data: $error");
+    }
   }
 
-  Widget AcButton(String AC) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: InkWell(
-        onTap: () {
+  void convertCurrency() {
+    if (jsonData != null) {
+      double amount = double.tryParse(displayedText) ?? 0;
+
+      // If the first dropdown is set to 'usd'
+      if (selectedSourceCurrency == 'usd') {
+        // Multiply the second dropdown value by the text field value
+        double? targetRate = jsonData![selectedTargetCurrency];
+        if (targetRate != null) {
+          double convertedAmount = amount * targetRate;
           setState(() {
-            displayedText = '';
+            result = convertedAmount.toStringAsFixed(2);
           });
-        },
-        child: Container(
-          width: 72,
-          height: 180,
-          decoration: BoxDecoration(
-            color: AppColors.blue,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Center(
-            child: AppText(
-              title: AC,
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-              color: AppColors.white,
-            ),
-          ),
-        ),
-      ),
-    );
+        } else {
+          setState(() {
+            result = 'Rates for selected currencies are not available';
+          });
+        }
+      }
+      // If the second dropdown is set to 'usd'
+      else if (selectedTargetCurrency == 'usd') {
+        double? sourceRate = jsonData![selectedSourceCurrency];
+        if (sourceRate != null) {
+          double convertedAmount = amount / sourceRate;
+          setState(() {
+            result = convertedAmount.toStringAsFixed(2);
+          });
+        } else {
+          setState(() {
+            result = 'Rates for selected currencies are not available';
+          });
+        }
+      } else {
+        // Default currency conversion logic
+        double? sourceRate = jsonData![selectedSourceCurrency];
+        double? targetRate = jsonData![selectedTargetCurrency];
+        if (sourceRate != null && targetRate != null) {
+          double convertedAmount = (amount / sourceRate) * targetRate;
+          setState(() {
+            result = convertedAmount.toStringAsFixed(2);
+          });
+        } else {
+          setState(() {
+            result = 'Rates for selected currencies are not available';
+          });
+        }
+      }
+    }
   }
-  Widget BackButton() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: InkWell(
-        onTap: () {
-          setState(() {
-            displayedText = '';
-          });
-        },
-        child: Container(
-          width: 72,
-          height: 180,
-          decoration: BoxDecoration(
-            color: AppColors.blue,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Center(
-            child: Icon(Icons.backspace_outlined,color: AppColors.white,)
-          ),
-        ),
-      ),
-    );
+
+  void swapCurrencies() {
+    setState(() {
+      String temp = selectedSourceCurrency;
+      selectedSourceCurrency = selectedTargetCurrency;
+      selectedTargetCurrency = temp;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(top: 50),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                
-                Expanded(
-                  child: DropdownButton<String>(
-                    isExpanded: true,
-                    style: TextStyle(fontSize: 30,color: Colors.black),
-                    value: DropDownValue,
-                    onChanged: (newvalue) {setState(() {
-                      DropDownValue=newvalue!;
-                    });},
-                    items: [
-                      DropdownMenuItem(value: 'one', child: Text("EGP")),
-                      DropdownMenuItem(value: 'Two', child: Text("USD")),
-                      DropdownMenuItem(value: 'Three', child: Text("UAE")),
-
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: AppText(
-                    title: displayedText,
-                    textAlign: TextAlign.right,
-                    fontSize: 30,
-                  ),
-                ),
-              ],
-            ),
-            Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.end,
+      appBar: AppAppBar(title: "Currency Converter"),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: isLoading
+              ? CircularProgressIndicator()
+              : Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AppText(
-                    title: "Egyptian Pound",
-                    color: AppColors.grey,
-                  )
-                ]),
-            Row(
-              children: [
-                AppText(title: "EGP", fontSize: 30),
-                Expanded(
-                  child: AppText(
-                    title: "displayedText",
-                    textAlign: TextAlign.right,
-                    fontSize: 30,
+                  SizedBox(
+                    width: 100,
+                    child: DropdownButton<String>(
+                      value: selectedSourceCurrency,
+                      onChanged: (newValue) {
+                        setState(() {
+                          selectedSourceCurrency = newValue!;
+                        });
+                      },
+                      items: sourceCurrencyItems.map((item) {
+                        return DropdownMenuItem<String>(
+                          value: item.value,
+                          child: Text(
+                            item.value!, // Use the value of the item
+                            style: TextStyle(
+                                fontSize: 20), // Adjust the font size
+                          ),
+                        );
+                      }).toList(),
+                      iconSize: 30, // Adjust the icon size
+                    ),
                   ),
+                  ElevatedButton(
+                      style: ButtonStyle(
+                          shape: MaterialStatePropertyAll(CircleBorder()),
+                          backgroundColor:
+                          MaterialStatePropertyAll(AppColors.blue)),
+                      onPressed: () {
+                        swapCurrencies();
+                      },
+                      child: Icon(Icons.swap_horiz)),
+                  SizedBox(
+                    width: 100, // Adjust the width as needed
+                    child: DropdownButton<String>(
+                      value: selectedTargetCurrency,
+                      onChanged: (newValue) {
+                        setState(() {
+                          selectedTargetCurrency = newValue!;
+                        });
+                      },
+                      items: targetCurrencyItems.map((item) {
+                        return DropdownMenuItem<String>(
+                          value: item.value,
+                          child: Text(
+                            item.value!, // Use the value of the item
+                            style: TextStyle(
+                                fontSize: 20), // Adjust the font size
+                          ),
+                        );
+                      }).toList(),
+                      iconSize: 30, // Adjust the icon size
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              TextField(
+                onChanged: (value) {
+                  setState(() {
+                    displayedText = value;
+                  });
+                },
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Enter amount',
                 ),
-              ],
-            ),
-            SizedBox(height: 150,),
-            Padding(
-              padding: const EdgeInsets.only(left: 12,right: 12),
-              child: Divider(color: AppColors.grey,height: 3),
-            ),
-            Row(
-              children: [
-                Column(
+              ),
+              SizedBox(height: 20),
+              Center(
+                child: Row(
                   children: [
-                    Row(
-                      children: [
-                        NumButton("7"),
-                        SizedBox(width: 12),
-                        NumButton("8"),
-                        SizedBox(width: 12),
-                        NumButton("9"),
-                      ],
-                    ),
-                    SizedBox(height: 12),
-                    Row(
-                      children: [
-                        NumButton("4"),
-                        SizedBox(width: 12),
-                        NumButton("5"),
-                        SizedBox(width: 12),
-                        NumButton("6"),
-                      ],
-                    ),
-                    SizedBox(height: 12),
-                    Row(
-                      children: [
-                        NumButton("1"),
-                        SizedBox(width: 12),
-                        NumButton("2"),
-                        SizedBox(width: 12),
-                        NumButton("3"),
-                      ],
-                    ),
-                    SizedBox(height: 12),
-                    Row(
-                      children: [
-                        zeroButton("0"),
-                        SizedBox(width: 0),
-                        NumButton("."),
-                      ],
+                    Expanded(
+                      child: AppButton(
+                        color: AppColors.blue,
+                        title: "Convert",
+                        font_color: AppColors.white,
+                        onTap: () {
+                          convertCurrency();
+                        },
+                      ),
                     ),
                   ],
                 ),
-                Column(
-                  children: [
-                    AcButton('AC'),
-                    SizedBox(height: 12),
-                    BackButton(),
-                  ],
+              ),
+              SizedBox(height: 20),
+              Center(
+                child: Text(
+                  'Result: $result ${selectedTargetCurrency.toUpperCase()}',
+                  style: TextStyle(fontSize: 20),
                 ),
-              ],
-            ),
-          ],
+              ),
+              SizedBox(height: 10),
+            ],
+          ),
         ),
       ),
     );

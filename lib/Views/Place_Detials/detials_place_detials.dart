@@ -2,6 +2,7 @@ import 'package:epic_expolre/Views/Place_Detials/reviews_place_detials.dart';
 import 'package:flutter/material.dart';
 import '../../Widgets/app_home_card.dart';
 import '../../core/app_colors/app_colors.dart';
+import '../Home/view.dart';
 
 class detialsPlaceDetials extends StatefulWidget {
   const detialsPlaceDetials({super.key});
@@ -393,7 +394,7 @@ class _detialsPlaceDetialsState extends State<detialsPlaceDetials> {
                 child: ListView.builder(
                   itemCount: 9,
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => AppHomeCard(),
+                  itemBuilder: (context, index) => AppHomeCard(cardText: 'ss', cardAddress: 'aaa',cardimgUrl: recommended![index].img_url!,),
                 ),
               ),
             ),
