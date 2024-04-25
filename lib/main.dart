@@ -20,6 +20,7 @@ import 'Views/Profile/AppMode.dart';
 import 'Views/Profile/Edit_Profile.dart';
 import 'Views/Profile/Settings.dart';
 import 'Views/Profile/Terms.dart';
+import 'Views/States/alex/hotels_screen.dart';
 import 'Widgets/booking_tabBar.dart';
 import 'Widgets/bottomNavigationBar.dart';
 import 'Widgets/trips_tabBar.dart';
@@ -52,7 +53,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primaryColor: Color(0xFF2F3C7E),
           ),
-          home: HomeView(),
+          home: TripsView(),
         );
       },
     );

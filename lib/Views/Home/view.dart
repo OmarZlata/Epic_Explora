@@ -59,7 +59,7 @@ class PlaceService {
     });
     final Dio dio = Dio(baseOption);
     try {
-      Response response = await dio.get('$baseUrl/api/user/recommended/');
+      Response response = await dio.get('${baseUrl} api/user/recommended/');
       if (response.statusCode == 200) {
         List<dynamic> data = response.data['data']['recommendedData'];
 
