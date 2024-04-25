@@ -48,7 +48,7 @@ void _showBottomSheet(BuildContext context) {
 
 class PlaceService {
 
-  final String baseUrl = 'https://c0bd-156-197-50-97.ngrok-free.app';
+  final String baseUrl = EndPoint.baseUrl;
 
   Future<List<Recommended>> getAllPlaces() async {
     final BaseOptions baseOption = BaseOptions(headers: {
