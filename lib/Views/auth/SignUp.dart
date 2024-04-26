@@ -172,7 +172,7 @@ class _SignUpViewState extends State<SignUpView> {
                                 height: 10,
                               ),
                               AppTextField(
-                                hint: "Password",
+                                hint: "Confirm Password",
                                 radius: 8,
                                 icon: Icons.lock_outline,
                                 hintFontSize: 12,
@@ -189,7 +189,7 @@ class _SignUpViewState extends State<SignUpView> {
                                         : Icons.visibility,
                                   ),
                                 ),
-                                obscureText: obscurePassword,
+                                obscureText: obscurePasswordConfirm,
                                 maxLines: 1,
                                 controller: context.read<UserCubit>().confirmPassword,
                               ),
@@ -209,6 +209,7 @@ class _SignUpViewState extends State<SignUpView> {
                             isChecked = value!;
                           });
                         },
+
                       ),
                       AppText(
                         title: "I agree",
@@ -222,6 +223,12 @@ class _SignUpViewState extends State<SignUpView> {
                           ))
                     ],
                   ),
+                  state is SignInLoading?
+                  Center(
+                    child: CircularProgressIndicator(
+                      color: AppColors.blue,
+                    ),
+                  ):
                   AppButton(
                     border_color: AppColors.white,
                     font_color: AppColors.white,

@@ -10,10 +10,10 @@ class DioConsumer extends ApiConsumer {
   DioConsumer({required this.dio}) {
     dio.options.baseUrl = EndPoint.baseUrl;
     dio.options.headers = {
-      'Authorization':
-          "Bearer 43|JIRkJ4l5lm2hFRGRrWtkXu3W5yVkzrpBrNWDCBU8ee125321",
+      'Accept': 'application/vnd.api+json',
       'Accept-Encoding': 'gzip, deflate, br',
       'Connection': 'keep-alive',
+      'Content-Type': "application/vnd.api+json"
     };
 
     dio.interceptors.add(ApiInterceptor());
@@ -31,6 +31,7 @@ class DioConsumer extends ApiConsumer {
   Future delete(
     String path, {
     dynamic data,
+    Options? option,
     Map<String, dynamic>? queryParameters,
     bool isFromData = false,
   }) async {
@@ -38,6 +39,7 @@ class DioConsumer extends ApiConsumer {
       final response = await dio.delete(
         path,
         data: isFromData ? FormData.fromMap(data) : data,
+        options: option,
         queryParameters: queryParameters,
       );
       return response.data;
@@ -47,12 +49,17 @@ class DioConsumer extends ApiConsumer {
   }
 
   @override
-  Future get(String path,
-      {Object? data, Map<String, dynamic>? queryParameters}) async {
+  Future get(
+    String path, {
+    Object? data,
+    Options? option,
+    Map<String, dynamic>? queryParameters,
+  }) async {
     try {
       final response = await dio.get(
         path,
         data: data,
+        options: option,
         queryParameters: queryParameters,
       );
       return response.data;
@@ -65,6 +72,7 @@ class DioConsumer extends ApiConsumer {
   Future patch(
     String path, {
     dynamic data,
+    Options? option,
     Map<String, dynamic>? queryParameters,
     bool isFromData = false,
   }) async {
@@ -72,6 +80,7 @@ class DioConsumer extends ApiConsumer {
       final response = await dio.patch(
         path,
         data: isFromData ? FormData.fromMap(data) : data,
+        options: option,
         queryParameters: queryParameters,
       );
       return response.data;
@@ -84,6 +93,7 @@ class DioConsumer extends ApiConsumer {
   Future post(
     String path, {
     dynamic data,
+    Options? option,
     Map<String, dynamic>? queryParameters,
     bool isFromData = false,
   }) async {
@@ -91,6 +101,7 @@ class DioConsumer extends ApiConsumer {
       final response = await dio.post(
         path,
         data: isFromData ? FormData.fromMap(data) : data,
+        options: option,
         queryParameters: queryParameters,
       );
       return response.data;

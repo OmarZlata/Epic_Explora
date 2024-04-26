@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:epic_expolre/cache/cache_helper.dart';
 import 'package:epic_expolre/core/api/api_consumer.dart';
 import 'package:epic_expolre/core/api/const_end_ponits.dart';
@@ -43,9 +45,11 @@ class UserCubit extends Cubit<UserState> {
           ApiKey.name: signUpName.text,
           ApiKey.email: signUpEmail.text,
           ApiKey.password: signUpPassword.text,
-          ApiKey.confirmPassword: confirmPassword,
+          ApiKey.confirmPassword: confirmPassword.text,
         },
       );
+      var x = jsonDecode(jsonEncode(response));
+
       final signUPModel = SignUpModel.fromJson(response);
       emit(SignUpSuccess(message: signUPModel.message));
     } on ServerException catch (e) {
