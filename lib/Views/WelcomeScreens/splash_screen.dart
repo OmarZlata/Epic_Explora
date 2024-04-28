@@ -27,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen>
     _controller.forward();
 
     Timer(
-      Duration(seconds: 3),
+      Duration(seconds: 5),
           () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -47,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: AppColors.blue,
+        backgroundColor: AppColors.white,
         body: Center(
           child: AnimatedBuilder(
             animation: _animation,
@@ -56,32 +56,20 @@ class _SplashScreenState extends State<SplashScreen>
                 scale: _animation.value,
                 child: Opacity(
                   opacity: _animation.value,
-                  child: Material(
-                    borderRadius:  BorderRadius.circular(25),
-                      color: Colors.white.withOpacity(.9),
-                    elevation: 1,
-
-                    child: Container(
-                      height: 150,
-                      width: 150,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        color: Colors.white.withOpacity(.5),
-                      ),
-                      child: Column(
-                        children: [
-                          SizedBox(height: 12),
-                          Image.asset('assets/images/logo.png'),
-                          SizedBox(height: 10),
-                          Text(
-                            "Epic Explore",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.black,
-                            ),
+                  child: Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset('assets/images/logo.png'),
+                        SizedBox(height: 10),
+                        Text(
+                          "Epic Explore",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.black,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

@@ -1,4 +1,6 @@
 import 'package:epic_expolre/Views/Home/view.dart';
+import 'package:epic_expolre/Views/Maps/google_map/view.dart';
+import 'package:epic_expolre/Views/Profile/Terms.dart';
 import 'package:epic_expolre/cubit/user_cubit.dart';
 import 'package:epic_expolre/cubit/user_state.dart';
 import 'package:flutter/material.dart';
@@ -216,7 +218,9 @@ class _SignUpViewState extends State<SignUpView> {
                         color: AppColors.black,
                       ),
                       TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => TermsScreen(),));
+                          },
                           child: AppText(
                             title: "Terms & Conditions",
                             color: AppColors.blue,
@@ -237,6 +241,7 @@ class _SignUpViewState extends State<SignUpView> {
                     onTap: isChecked
                         ? () {
                       context.read<UserCubit>().signUp();
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => GoogleMapsView(),));
                     } : null,
                   ),
                 ],

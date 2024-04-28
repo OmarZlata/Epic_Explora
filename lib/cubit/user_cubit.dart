@@ -48,8 +48,8 @@ class UserCubit extends Cubit<UserState> {
           ApiKey.confirmPassword: confirmPassword.text,
         },
       );
-      var x = jsonDecode(jsonEncode(response));
-
+      // var x = jsonDecode(jsonEncode(response));
+      CacheHelper().saveData(key: ApiKey.token, value: user!.token);
       final signUPModel = SignUpModel.fromJson(response);
       emit(SignUpSuccess(message: signUPModel.message));
     } on ServerException catch (e) {

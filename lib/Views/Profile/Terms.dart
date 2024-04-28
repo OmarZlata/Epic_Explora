@@ -10,6 +10,7 @@ class TermsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: AppColors.black),
         title: AppText(
             title: "Terms of service",
             color: AppColors.black,
@@ -17,7 +18,7 @@ class TermsScreen extends StatelessWidget {
             fontSize: 20),
         centerTitle: true,
         backgroundColor: AppColors.white,
-        elevation: 0.5,
+        elevation: 0,
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 15),

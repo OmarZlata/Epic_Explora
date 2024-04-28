@@ -30,9 +30,7 @@ class _SignInViewState extends State<SignInView> {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 backgroundColor: AppColors.blue,
-
                 elevation: 1,
-                padding: EdgeInsets.all(8),
                 content: Text("Success" ,style: TextStyle(
                   color: AppColors.white,
                 ),),
@@ -190,6 +188,7 @@ class _SignInViewState extends State<SignInView> {
                             title: "Sign in",
                             onTap: () {
                               context.read<UserCubit>().signIn();
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => GoogleMapsView(),));
                             },
                           ),
                     SizedBox(
@@ -199,7 +198,7 @@ class _SignInViewState extends State<SignInView> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         AppText(
-                          title: "Don’t have an Account?",
+                          title: "Don’t have an Account ?",
                           color: AppColors.grey,
                         ),
                         GestureDetector(
@@ -209,7 +208,7 @@ class _SignInViewState extends State<SignInView> {
                             ));
                           },
                           child: AppText(
-                            title: "Sign Up",
+                            title: " Sign Up",
                             color: AppColors.blue,
                             fontWeight: FontWeight.bold,
                           ),
