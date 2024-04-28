@@ -59,9 +59,9 @@ class PlaceService {
     });
     final Dio dio = Dio(baseOption);
     try {
-      Response response = await dio.get('${baseUrl} api/user/recommended/');
+      Response response = await dio.get('${baseUrl}api/user/recommended/');
       if (response.statusCode == 200) {
-        List<dynamic> data = response.data['data']['recommendedData'];
+          List<dynamic> data = response.data['data']['recommendedData'];
 
         var x = data.map((e) => Recommended.fromJson(e)).toList();
         isloading=false;
@@ -374,7 +374,7 @@ class _HomeViewState extends State<HomeView> {
                     height:isloading? 50:248,
                     width: isloading? 50:210,
                     child:isloading?Center(child:CircularProgressIndicator(),): ListView.builder(
-                        itemCount: 9,
+                        itemCount: recommended!.length,
                         scrollDirection: Axis.horizontal,
                         clipBehavior: Clip.hardEdge,
                         itemBuilder: (context, index) => AppHomeCard(

@@ -33,7 +33,7 @@ class PlaceAPI{
       "Accept-Encoding": "gzip, deflate, br",});
     final Dio dio = Dio(baseOptions);
     try{
-      Response response = await dio.get('${baseUrl}api/user/place/Alexandria');
+      Response response = await dio.get('${baseUrl}api/user/hotel/Alexandria');
       if (response.statusCode == 200) {
         List<dynamic> data = response.data['data'];
 
@@ -73,7 +73,7 @@ class _TripsViewState extends State<TripsView> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
+      body:isloading?Center(child:CircularProgressIndicator(),): ListView.builder(
         itemCount: alextrip!.length,
         itemBuilder: (context, index) => APIAppCard(cardText: alextrip![index].name!, cardAddress: alextrip![index].address!, cardimgUrl: alextrip![index].img_url!,
 
