@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:epic_expolre/cache/cache_helper.dart';
 import 'package:epic_expolre/core/api/api_consumer.dart';
@@ -57,9 +58,6 @@ class UserCubit extends Cubit<UserState> {
     }
   }
 
-
-
-
   signIn() async {
     try {
       emit(SignInLoading());
@@ -71,27 +69,49 @@ class UserCubit extends Cubit<UserState> {
         },
       );
       user = SignInModel.fromJson(response);
-      // var id = user!.token[0]+user!.token[1];
       CacheHelper().saveData(key: ApiKey.token, value: user!.token);
       // CacheHelper().saveData(key: ApiKey.id, value: id);
       // log(id);
       emit(SignInSuccess());
+
     } on ServerException catch (e) {
       emit(SignInFailure(errMessage: e.errModel.errorMessage));
     }
   }
 
-  // getUserProfile() async {
-  //   try {
-  //     emit(GetUserLoading());
-  //     final response = await api.get(
-  //       EndPoint.getUserDataEndPoint(
-  //         CacheHelper().getData(key: ApiKey.id),
-  //       ),
-  //     );
-  //     emit(GetUserSuccess(user: UserModel.fromJson(response)));
-  //   } on ServerException catch (e) {
-  //     emit(GetUserFailure(errMessage: e.errModel.errorMessage));
-  //   }
-  // }
+
+  logout() async {
+    try {
+      emit(LogoutLoading());
+      await CacheHelper().removeData(key: ApiKey.token);
+      emit(LogoutSuccess());
+    } catch (e) {
+      emit(LogoutFailure(errMessage: 'Logout failed'));
+    }
+  }
+
+
+
 }
+
+
+
+
+
+
+
+
+
+// getUserProfile() async {
+//   try {
+//     emit(GetUserLoading());
+//     final response = await api.get(
+//       EndPoint.getUserDataEndPoint(
+//         CacheHelper().getData(key: ApiKey.id),
+//       ),
+//     );
+//     emit(GetUserSuccess(user: UserModel.fromJson(response)));
+//   } on ServerException catch (e) {
+//     emit(GetUserFailure(errMessage: e.errModel.errorMessage));
+//   }
+// }

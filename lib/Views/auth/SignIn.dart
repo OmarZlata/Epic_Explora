@@ -1,5 +1,6 @@
 import 'package:epic_expolre/Views/Home/view.dart';
 import 'package:epic_expolre/Views/Maps/google_map/view.dart';
+import 'package:epic_expolre/Views/Profile/profile_main.dart';
 import 'package:epic_expolre/Views/auth/SignUp.dart';
 import 'package:epic_expolre/cubit/user_state.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class _SignInViewState extends State<SignInView> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const HomeView(),
+                builder: (context) => const ProfileMainScreen(),
               ),
             );
           } else if (state is SignInFailure) {
@@ -188,7 +189,6 @@ class _SignInViewState extends State<SignInView> {
                             title: "Sign in",
                             onTap: () {
                               context.read<UserCubit>().signIn();
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => GoogleMapsView(),));
                             },
                           ),
                     SizedBox(

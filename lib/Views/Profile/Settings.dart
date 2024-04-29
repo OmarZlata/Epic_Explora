@@ -34,6 +34,7 @@ class SettingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: AppColors.grey),
         title: AppText(
             title: "Settings",
             color: AppColors.black,

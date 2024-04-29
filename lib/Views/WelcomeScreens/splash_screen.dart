@@ -23,7 +23,6 @@ class _SplashScreenState extends State<SplashScreen>
     );
     _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
 
-
     _controller.forward();
 
     Timer(
@@ -60,13 +59,19 @@ class _SplashScreenState extends State<SplashScreen>
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset('assets/images/logo.png'),
+                        Image.asset(
+                          'assets/images/logo.png',
+                        ),
                         SizedBox(height: 10),
-                        Text(
-                          "Epic Explore",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.black,
+                        Transform.translate(
+                          offset: Offset(-100 * (1 - _animation.value), 0),
+                          child: Text(
+                            "Epic Explore",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.black,
+                              fontSize: 25,
+                            ),
                           ),
                         ),
                       ],

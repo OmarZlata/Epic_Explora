@@ -1,7 +1,11 @@
+import 'package:epic_expolre/core/models/sign_up_model.dart';
+
 class EndPoint {
-  static String baseUrl = "https://2a62-156-197-45-20.ngrok-free.app/";
+
+  static String baseUrl = "https://e59e-156-197-45-20.ngrok-free.app/";
   static String signIn = "api/user/login/";
   static String register = "api/user/register/";
+  static String logout="api/user/logout/";
   static String getUserDataEndPoint(id) {
     return "user/get-user/$id";
   }

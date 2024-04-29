@@ -9,12 +9,14 @@ final class SignInSuccess extends UserState {}
 final class UploadProfilePic extends UserState {}
 
 final class SignInLoading extends UserState {}
+final class LogoutLoading extends UserState {}
 
 final class SignInFailure extends UserState {
   final String errMessage;
 
   SignInFailure({required this.errMessage});
 }
+
 
 final class SignUpSuccess extends UserState {
   final String message;
@@ -24,10 +26,18 @@ final class SignUpSuccess extends UserState {
 
 final class SignUpLoading extends UserState {}
 
+final class LogoutSuccess extends UserState {}
+
 final class SignUpFailure extends UserState {
   final String errMessage;
 
   SignUpFailure({required this.errMessage});
+}
+
+final class LogoutFailure extends UserState {
+  final String errMessage;
+
+  LogoutFailure({required this.errMessage});
 }
 
 final class GetUserSuccess extends UserState {
