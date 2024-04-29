@@ -20,7 +20,9 @@ class ProfileMainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<UserCubit, UserState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+
+      },
       builder: (context, state) {
         return Scaffold(
             body: Padding(
@@ -196,3 +198,5 @@ class ProfileMainScreen extends StatelessWidget {
     );
   }
 }
+
+

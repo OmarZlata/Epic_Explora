@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:dio/dio.dart';
 import 'package:epic_expolre/cache/cache_helper.dart';
 import 'package:epic_expolre/core/api/api_consumer.dart';
 import 'package:epic_expolre/core/api/const_end_ponits.dart';
@@ -51,6 +52,7 @@ class UserCubit extends Cubit<UserState> {
       );
       // var x = jsonDecode(jsonEncode(response));
       CacheHelper().saveData(key: ApiKey.token, value: user!.token);
+      CacheHelper().saveData(key: ApiKey.id, value: user!.id);
       final signUPModel = SignUpModel.fromJson(response);
       emit(SignUpSuccess(message: signUPModel.message));
     } on ServerException catch (e) {
@@ -70,8 +72,8 @@ class UserCubit extends Cubit<UserState> {
       );
       user = SignInModel.fromJson(response);
       CacheHelper().saveData(key: ApiKey.token, value: user!.token);
-      // CacheHelper().saveData(key: ApiKey.id, value: id);
-      // log(id);
+      CacheHelper().saveData(key: ApiKey.id, value: user!.id);
+      print("This is id ididididid:  ${user!.id}");
       emit(SignInSuccess());
 
     } on ServerException catch (e) {
@@ -83,6 +85,13 @@ class UserCubit extends Cubit<UserState> {
   logout() async {
     try {
       emit(LogoutLoading());
+      final response = await api.post(
+        EndPoint.logout,
+        data: {
+          ApiKey.email: signInEmail.text,
+          ApiKey.password: signInPassword.text,
+        },
+      );
       await CacheHelper().removeData(key: ApiKey.token);
       emit(LogoutSuccess());
     } catch (e) {
@@ -90,14 +99,7 @@ class UserCubit extends Cubit<UserState> {
     }
   }
 
-
-
 }
-
-
-
-
-
 
 
 
