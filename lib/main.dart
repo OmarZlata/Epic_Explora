@@ -1,27 +1,31 @@
 import 'package:dio/dio.dart';
 import 'package:epic_expolre/Views/BookingScreens/BookingDetails/Booking_Details.dart';
+import 'package:epic_expolre/Views/Home/view.dart';
 import 'package:epic_expolre/Views/Maps/splash/onboarding_3.dart';
-import 'package:epic_expolre/Views/Profile/Currency_Convertor.dart';
-import 'package:epic_expolre/Views/States/alex/trips_screen.dart';
+import 'package:epic_expolre/Views/States/alex/Alex_hotels_screen.dart';
+import 'package:epic_expolre/Views/States/cairo/Cairo_tab_bar.dart';
 import 'package:epic_expolre/Views/WelcomeScreens/splash_screen.dart';
 import 'package:epic_expolre/Views/auth/SignIn.dart';
-import 'package:epic_expolre/Views/loading_screens/signIn_loading.dart';
-import 'package:epic_expolre/Views/loading_screens/signUp_loading.dart';
-import 'package:epic_expolre/Widgets/states_tab_bar.dart';
+import 'package:epic_expolre/Views/auth/SignUp.dart';
+import 'package:epic_expolre/Views/States/alex/Alex_tab_bar.dart';
+import 'package:epic_expolre/core/api/AlexTripAPI.dart';
 import 'package:epic_expolre/core/api/dio_consumer.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:epic_expolre/cubit/user_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'Views/Home/view.dart';
 import 'Views/My_Trips/Add_Trip/add_trip.dart';
 import 'Views/Place_Detials/detials_place_detials.dart';
 import 'Views/Profile/AppMode.dart';
 import 'Views/Profile/Edit_Profile.dart';
 import 'Views/Profile/Settings.dart';
 import 'Views/Profile/Terms.dart';
-import 'Views/States/alex/hotels_screen.dart';
+import 'Views/States/Aswan/Aswan_Hotels.dart';
+import 'Views/States/Aswan/Aswan_tab_bar.dart';
+import 'Views/States/RedSea/Red_Sea_tab_bar.dart';
+import 'Views/States/alex/places_screen.dart';
+import 'Views/States/cairo/Cairo_Hotels.dart';
 import 'Widgets/booking_tabBar.dart';
 import 'Widgets/bottomNavigationBar.dart';
 import 'Widgets/trips_tabBar.dart';
@@ -31,7 +35,7 @@ void main() {
   CacheHelper().init();
   runApp(
     BlocProvider(
-      create: (context) => UserCubit(DioConsumer(dio: Dio())),
+      create: (context) => UserCubit(DioConsumer(dio: Dio()),),
       child: const MyApp(),
     ),
   );
@@ -54,7 +58,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primaryColor: Color(0xFF2F3C7E),
           ),
-          home: Currency(),
+          home: HomeView(),
         );
       },
     );

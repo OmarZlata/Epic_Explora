@@ -1,6 +1,11 @@
+
 import 'dart:developer';
+import 'package:epic_expolre/Views/States/Aswan/Aswan_tab_bar.dart';
+import 'package:epic_expolre/Views/States/RedSea/Red_Sea_tab_bar.dart';
+import 'package:epic_expolre/Views/States/cairo/Cairo_tab_bar.dart';
 import 'package:epic_expolre/core/api/AllPlaces_API.dart';
 import 'package:epic_expolre/core/api/const_end_ponits.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../Widgets/app_home_card.dart';
@@ -12,6 +17,7 @@ import '../../core/api/AllPlaces_API.dart';
 import '../../core/api/AllPlaces_API.dart';
 import '../MainScreens/search_screen.dart';
 import '../MainScreens/states_screen.dart';
+import '../States/alex/Alex_tab_bar.dart';
 import 'cubit.dart';
 import 'package:dio/dio.dart';
 
@@ -266,7 +272,9 @@ class _HomeViewState extends State<HomeView> {
                         Column(
                           children: [
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => AlexTabBar(),));
+                              },
                               child: Container(
                                   width: 97,
                                   height: 97,
@@ -286,7 +294,7 @@ class _HomeViewState extends State<HomeView> {
                         Column(
                           children: [
                             InkWell(
-                              onTap: () {},
+                              onTap: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => CairoTabbar(),));},
                               child: Container(
                                   width: 97,
                                   height: 97,
@@ -306,7 +314,7 @@ class _HomeViewState extends State<HomeView> {
                         Column(
                           children: [
                             InkWell(
-                              onTap: () {},
+                              onTap: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => RedSeaTabbar(),));},
                               child: Container(
                                   width: 97,
                                   height: 97,
@@ -326,7 +334,7 @@ class _HomeViewState extends State<HomeView> {
                         Column(
                           children: [
                             InkWell(
-                              onTap: () {},
+                              onTap: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => AswanTabbar(),));},
                               child: Container(
                                   width: 97,
                                   height: 97,

@@ -1,11 +1,11 @@
-import 'package:epic_expolre/Views/States/alex/hotels_screen.dart';
-import 'package:epic_expolre/Views/States/alex/trips_screen.dart';
+import 'package:epic_expolre/Views/States/alex/places_screen.dart';
+import 'package:epic_expolre/Views/States/alex/Alex_hotels_screen.dart';
 import 'package:epic_expolre/Widgets/app_text.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class StatesTabBar extends StatelessWidget {
-  const StatesTabBar({super.key});
+class AlexTabBar extends StatelessWidget {
+  const AlexTabBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +13,14 @@ class StatesTabBar extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.black),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
           backgroundColor: AppColors.white,
           elevation: 1,
           title: Text(
-            "Alexandra",
+            "Alexandria",
             style: TextStyle(
                 color: AppColors.black,
                 fontSize: 20,
@@ -46,19 +50,20 @@ class StatesTabBar extends StatelessWidget {
                   tabs: [
                     Tab(
                         child: AppText(
-                          title: 'Trips',
+                          title: 'Hotels',
                         )),
                     Tab(
                         child: AppText(
-                          title: 'Hotels  ',
+                          title: 'Places  ',
                         )),
                   ],
                 ),
               ),
               Expanded(
                 child: TabBarView(children: [
-                  TripsView(),
                   HotelsView(),
+                  AlexPlacesView(),
+
                 ]),
               )
             ],

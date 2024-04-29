@@ -1,7 +1,7 @@
 class EndPoint {
-  static String baseUrl = "https://2a62-156-197-45-20.ngrok-free.app/";
+  static String baseUrl = "https://04e2-197-35-194-56.ngrok-free.app/";
   static String signIn = "api/user/login/";
-  static String register = "api/user/register";
+  static String register = "api/user/register/";
   static String getUserDataEndPoint(id) {
     return "user/get-user/$id";
   }
@@ -10,6 +10,8 @@ class EndPoint {
 class ApiKey {
   static String success = 'success' ;
   static String img = "image";
+  static String updatedAt = "updated_at";
+  static String createdAt = "created_at";
   static String status = "status";
   static String errorMessage = "message";
   static String email = "email";
@@ -19,7 +21,8 @@ class ApiKey {
   static String id = "id";
   static String name = "name";
   static String phone = "phone";
-  static String confirmPassword = "confirmPassword";
+  static String confirmPassword = "password_confirmation";
   static String location = "location";
   static String profilePic = "profilePic";
+  static String image ="image";
 }
