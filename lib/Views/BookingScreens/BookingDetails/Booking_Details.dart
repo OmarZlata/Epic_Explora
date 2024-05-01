@@ -318,41 +318,37 @@ class _BookingDetailsState extends State<BookingDetails> {
                 state: _index >= 1 ? StepState.complete : StepState.indexed,
                 isActive: _index >= 1,
                 content: Container(
-                  padding: EdgeInsets.zero,
+                  padding: EdgeInsets.all(8),
                   alignment: Alignment.centerLeft,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AppText(
-                            title: "Full name ",
-                            color: AppColors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            height: 47,
-                            width: 344,
-                            child: const TextField(
-                              decoration: InputDecoration(
-                                fillColor: Colors.white,
-                                filled: true,
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(8)),
-                                  borderSide: BorderSide(color: Colors.grey),
-                                ),
-                                prefixIcon: Icon(CupertinoIcons.person),
-                                hintText: "Name",
-                                hintStyle: TextStyle(
-                                    fontSize: 12, color: Colors.black26),
-                              ),
+                      AppText(
+                        title: "Full name ",
+                        color: AppColors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        height: 47,
+                        width: 344,
+                        child: const TextField(
+                          decoration: InputDecoration(
+                            fillColor: Colors.white,
+                            filled: true,
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8)),
+                              borderSide: BorderSide(color: Colors.grey),
                             ),
+                            prefixIcon: Icon(CupertinoIcons.person),
+                            hintText: "Name",
+                            hintStyle: TextStyle(
+                                fontSize: 12, color: Colors.black26),
                           ),
-                        ],
+                        ),
                       ),
                       SizedBox(
                         height: 16,
@@ -472,54 +468,60 @@ class _BookingDetailsState extends State<BookingDetails> {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: Image.asset(
-                                    "assets/images/trip photo.png",
-                                    width: 120,
-                                    height: 80,
-                                    fit: BoxFit.fill,
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Image.asset(
+                                      "assets/images/trip photo.png",
+                                      width: 120,
+                                      height: 80,
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(
                                   width: 16,
                                 ),
                                 Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      const Text(
-                                        "Classic Lorem ipsum dolor ",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16),
-                                      ),
-                                      SizedBox(
-                                        height: 8,
-                                      ),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            color: AppColors.light_blue,
-                                            borderRadius:
-                                                BorderRadius.circular(8)),
-                                        child: Row(
-                                          children: [
-                                            Icon(
-                                              Icons.location_on_outlined,
-                                              color: AppColors.blue,
-                                            ),
-                                            Text(
-                                              "Alexandria ,Egypt",
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                          ],
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          "Classic Lorem ipsum dolor ",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16),
                                         ),
-                                      ),
-                                    ],
+                                        SizedBox(
+                                          height: 8,
+                                        ),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                              color: AppColors.light_blue,
+                                              borderRadius:
+                                              BorderRadius.circular(8)),
+                                          child: Row(
+                                            children: [
+                                              Icon(
+                                                Icons.location_on_outlined,
+                                                color: AppColors.blue,
+                                              ),
+                                              Text(
+                                                "Alexandria ,Egypt",
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ],
@@ -550,28 +552,28 @@ class _BookingDetailsState extends State<BookingDetails> {
                                   )),
                               Expanded(
                                   child: Container(
-                                height: 30,
-                                decoration: BoxDecoration(
-                                    border:
+                                    height: 30,
+                                    decoration: BoxDecoration(
+                                        border:
                                         Border.all(color: AppColors.light_blue),
-                                    borderRadius: BorderRadius.circular(8)),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      CupertinoIcons.moon,
-                                      color: AppColors.blue,
-                                      size: 15,
+                                        borderRadius: BorderRadius.circular(8)),
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          CupertinoIcons.moon,
+                                          color: AppColors.blue,
+                                          size: 15,
+                                        ),
+                                        AppText(
+                                          title: "13 nights",
+                                          fontSize: 12,
+                                          color: AppColors.grey,
+                                        )
+                                      ],
                                     ),
-                                    AppText(
-                                      title: "13 nights",
-                                      fontSize: 12,
-                                      color: AppColors.grey,
-                                    )
-                                  ],
-                                ),
-                              )),
+                                  )),
                               Expanded(
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -635,31 +637,6 @@ class _BookingDetailsState extends State<BookingDetails> {
                         ),
                       ),
                     ),
-                    AppTileWithButton(
-                      iconData: Icons.account_balance_wallet_outlined,
-                      title: "App Wallet",
-                      isSelected: isAppWalletSelected,
-                      onSelect: (isSelected) {
-                        setState(() {
-                          isAppWalletSelected = isSelected;
-                          isCCSelected = !isSelected;
-                          isEWalletSelected = !isSelected;
-                        });
-                      },
-                    ),
-                    SizedBox(height: 16,),
-                    AppTileWithButton(
-                      iconData: Icons.wallet,
-                      title: "E - Wallet",
-                      isSelected: isEWalletSelected,
-                      onSelect: (isSelected) {
-                        setState(() {
-                          isEWalletSelected = isSelected;
-                          isAppWalletSelected= !isSelected;
-                          isCCSelected = !isSelected;
-                        });
-                      },
-                    ),
                     SizedBox(height: 16,),
                     AppTileWithButton(
                       iconData: FontAwesomeIcons.creditCard,
@@ -697,9 +674,9 @@ class _BookingDetailsState extends State<BookingDetails> {
                             ),
                             child: const Center(
                                 child: Text(
-                              "Pay - 100 LE",
-                              style: TextStyle(color: AppColors.white),
-                            )),
+                                  "Pay - 100 LE",
+                                  style: TextStyle(color: AppColors.white),
+                                )),
                           ),
                         ),
                       ),
@@ -714,3 +691,5 @@ class _BookingDetailsState extends State<BookingDetails> {
     );
   }
 }
+
+
