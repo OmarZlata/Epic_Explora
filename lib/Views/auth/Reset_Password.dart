@@ -1,3 +1,4 @@
+import 'package:epic_expolre/Views/auth/SignIn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../Widgets/app_button.dart';
@@ -24,26 +25,31 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: Container(height: 110,
+          content: Container(
+            height: 110,
             child: Column(
-              children: [Image.asset('assets/images/icon.png'),
+              children: [
+                Image.asset('assets/images/icon.png'),
                 AppText(
                   title: "Reset Password successfully",
                   color: AppColors.green,
                   fontWeight: FontWeight.bold,
                 ),
-
               ],
             ),
-
           ),
           actions: <Widget>[
-        Divider(color: AppColors.grey,height: 0.5),
+            Divider(color: AppColors.grey, height: 0.5),
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignInView(),));
               },
-              child: Center(child: AppText(title: "Ok",color: AppColors.black,fontWeight: FontWeight.bold,)),
+              child: Center(
+                  child: AppText(
+                title: "Ok",
+                color: AppColors.black,
+                fontWeight: FontWeight.bold,
+              )),
             ),
           ],
         );
@@ -51,131 +57,111 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     );
   }
 
-  Widget Image_() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 20),
-      child: Image.asset(
-        'assets/images/reset.png',
-      ),
-    );
-  }
-
-  Widget PasswordTextField() {
-    return Padding(
-      padding:
-          const EdgeInsets.only(left: 20.0, top: 20, right: 20, bottom: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AppText(
-            title: "New Password",
-            color: AppColors.black,
-            fontWeight: FontWeight.bold,
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          AppTextField(
-            hint: "Password",
-            radius: 8,
-            icon: Icons.lock_outline,
-            hintFontSize: 12,
-            suffixicon: IconButton(
-              onPressed: () {
-                setState(() {
-                  obscurePassword = !obscurePassword;
-                });
-              },
-              icon: Icon(
-                obscurePassword ? Icons.visibility_off : Icons.visibility,
-              ),
-            ),
-            obscureText: obscurePassword,
-            maxLines: 1,
-            controller: passwordController,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget ConfirmPasswordTextField() {
-    return Padding(
-      padding:
-          const EdgeInsets.only(left: 20.0, top: 20, right: 20, bottom: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AppText(
-            title: "Confirm New Password",
-            color: AppColors.black,
-            fontWeight: FontWeight.bold,
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          AppTextField(
-            hint: "Password",
-            radius: 8,
-            icon: Icons.lock_outline,
-            hintFontSize: 12,
-            suffixicon: IconButton(
-              onPressed: () {
-                setState(() {
-                  obscurePassword2 = !obscurePassword2;
-                });
-              },
-              icon: Icon(
-                obscurePassword2 ? Icons.visibility_off : Icons.visibility,
-              ),
-            ),
-            obscureText: obscurePassword2,
-            maxLines: 1,
-            controller: ConfirmpasswordController,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget ContinueButton() {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: AppButton(
-        title: "Confirm",
-        color: AppColors.blue,
-        font_color: AppColors.white,
-        onTap: () {
-          _showAlertDialog(context);
-        },
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: AppText(
-            title: "Reset Password",
-            color: AppColors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 20),
-        centerTitle: true,
-        backgroundColor: AppColors.white,
-        elevation: 0.5,
-      ),
-      body: SingleChildScrollView(
-        child: Center(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor:AppColors.white  ,
+        appBar: AppBar(
+          title: AppText(
+              title: "Reset Password",
+              color: AppColors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 20),
+          centerTitle: true,
+          backgroundColor: AppColors.white,
+          elevation: 0,
+        ),
+        body: SingleChildScrollView(
+          padding: EdgeInsets.all(18),
           child: Column(
             children: [
-              Image_(),
-              PasswordTextField(),
-              ConfirmPasswordTextField(),
-              SizedBox(
-                height: 50,
+              Image.asset(
+                'assets/images/reset.png',
               ),
-              ContinueButton(),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppText(
+                    title: "New Password",
+                    color: AppColors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  AppTextField(
+                    hint: "Password",
+                    radius: 8,
+                    icon: Icons.lock_outline,
+                    hintFontSize: 12,
+                    suffixicon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          obscurePassword = !obscurePassword;
+                        });
+                      },
+                      icon: Icon(
+                        color:
+                        obscurePassword ? AppColors.grey : AppColors.blue,
+                        obscurePassword
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                      ),
+                    ),
+                    obscureText: obscurePassword,
+                    maxLines: 1,
+                  ),
+                  SizedBox(height: 20,),
+                  AppText(
+                    title: "Confirm New Password",
+                    color: AppColors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  AppTextField(
+                    hint: "Password",
+                    radius: 8,
+                    icon: Icons.lock_outline,
+                    hintFontSize: 12,
+                    suffixicon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          obscurePassword2 = !obscurePassword2;
+                        });
+                      },
+                      icon: Icon(
+                        color:
+                        obscurePassword2 ? AppColors.grey : AppColors.blue,
+                        obscurePassword2
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                      ),
+                    ),
+                    obscureText: obscurePassword2,
+                    maxLines: 1,
+                  ),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AppButton(
+                        title: "Confirm",
+                        color: AppColors.blue,
+                        font_color: AppColors.white,
+                        onTap: () {
+                          _showAlertDialog(context);
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+
             ],
           ),
         ),

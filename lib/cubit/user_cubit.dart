@@ -48,6 +48,7 @@ class UserCubit extends Cubit<UserState> {
 
   signUp() async {
     try {
+
       emit(SignUpLoading());
       final response = await api.post(
         EndPoint.register,
@@ -59,10 +60,10 @@ class UserCubit extends Cubit<UserState> {
           ApiKey.confirmPassword: confirmPassword.text,
         },
       );
-      // var x = jsonDecode(jsonEncode(response));
+      final signUPModel = SignUpModel.fromJson(response);
       CacheHelper().saveData(key: ApiKey.token, value: user!.token);
       CacheHelper().saveData(key: ApiKey.id, value: user!.id);
-      final signUPModel = SignUpModel.fromJson(response);
+      print("SignUp Done And ID is :${user!.id}");
       emit(SignUpSuccess(message: signUPModel.message));
     } on ServerException catch (e) {
       emit(SignUpFailure(errMessage: e.errModel.errorMessage));
@@ -82,7 +83,7 @@ class UserCubit extends Cubit<UserState> {
       user = SignInModel.fromJson(response);
       CacheHelper().saveData(key: ApiKey.token, value: user!.token);
       CacheHelper().saveData(key: ApiKey.id, value: user!.id);
-      print("This is id ididididid:  ${user!.id}");
+      print("LogIn Done And ID is :  ${user!.id}");
       emit(SignInSuccess());
     } on ServerException catch (e) {
       emit(SignInFailure(errMessage: e.errModel.errorMessage));
@@ -96,11 +97,11 @@ class UserCubit extends Cubit<UserState> {
       final response = await api.post(
         EndPoint.logout,
         // data: {
-        //   ApiKey.email: signInEmail.text,
-        //   ApiKey.password: signInPassword.text,
+        //   // ApiKey.email: signInEmail.text,
+        //   // ApiKey.password: signInPassword.text,
         // },
         option: Options(headers: {
-          'Authorization': user!.token
+          'Authorization': 'Bearer ${user!.token}',
         }),
 
       );
@@ -110,18 +111,24 @@ class UserCubit extends Cubit<UserState> {
       emit(LogoutFailure(errMessage: 'Logout failed'));
     }
   }
+  forgotPassword() async {
+
+    try {
+      emit(LogoutLoading());
+      final response = await api.post(
+        EndPoint.forgot_password,
+         data: {
+         ApiKey.email: signInEmail.text,
+
+         },
+        option: Options(headers: {
+        }),
+
+      );
+      emit(LogoutSuccess());
+    } catch (e) {
+      emit(LogoutFailure(errMessage: 'Logout failed'));
+    }
+  }
 }
 
-// getUserProfile() async {
-//   try {
-//     emit(GetUserLoading());
-//     final response = await api.get(
-//       EndPoint.getUserDataEndPoint(
-//         CacheHelper().getData(key: ApiKey.id),
-//       ),
-//     );
-//     emit(GetUserSuccess(user: UserModel.fromJson(response)));
-//   } on ServerException catch (e) {
-//     emit(GetUserFailure(errMessage: e.errModel.errorMessage));
-//   }
-// }

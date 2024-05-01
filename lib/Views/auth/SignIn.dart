@@ -1,6 +1,7 @@
 import 'package:epic_expolre/Views/Home/view.dart';
 import 'package:epic_expolre/Views/Maps/google_map/view.dart';
 import 'package:epic_expolre/Views/Profile/profile_main.dart';
+import 'package:epic_expolre/Views/auth/Forget_Password.dart';
 import 'package:epic_expolre/Views/auth/SignUp.dart';
 import 'package:epic_expolre/cubit/user_state.dart';
 import 'package:flutter/material.dart';
@@ -89,71 +90,68 @@ class _SignInViewState extends State<SignInView> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Form(
-                          key: context.read<UserCubit>().signInFormKey,
-                          child: Column(
-                            children: [
-                              AppTextField(
-                                hint: "Email",
-                                radius: 8,
-                                icon: Icons.email_outlined,
-                                hintFontSize: 12,
-                                obscureText: false,
-                                maxLines: 1,
-                                controller:
-                                    context.read<UserCubit>().signInEmail,
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return "Email can't be empty";
-                                  }
-                                  final emailRegex = RegExp(
-                                      r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
-                                  if (!emailRegex.hasMatch(value)) {
-                                    return "Invalid email address";
-                                  }
-                                  return null;
-                                },
-                              ),
-                              SizedBox(height: 23),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  AppText(
-                                    title: "Password",
-                                    color: AppColors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  AppTextField(
-                                    hint: "Password",
-                                    radius: 8,
-                                    icon: Icons.lock_outline,
-                                    hintFontSize: 12,
-                                    suffixicon: IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          obscurePassword = !obscurePassword;
-                                        });
-                                      },
-                                      icon: Icon(
-                                        color: obscurePassword ?AppColors.grey:AppColors.blue,
-                                        obscurePassword
-                                            ? Icons.visibility_off
-                                            : Icons.visibility,
-                                      ),
+                        Column(
+                          children: [
+                            AppTextField(
+                              hint: "Email",
+                              radius: 8,
+                              icon: Icons.email_outlined,
+                              hintFontSize: 12,
+                              obscureText: false,
+                              maxLines: 1,
+                              controller:
+                                  context.read<UserCubit>().signInEmail,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Email can't be empty";
+                                }
+                                final emailRegex = RegExp(
+                                    r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+                                if (!emailRegex.hasMatch(value)) {
+                                  return "Invalid email address";
+                                }
+                                return null;
+                              },
+                            ),
+                            SizedBox(height: 23),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                AppText(
+                                  title: "Password",
+                                  color: AppColors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                AppTextField(
+                                  hint: "Password",
+                                  radius: 8,
+                                  icon: Icons.lock_outline,
+                                  hintFontSize: 12,
+                                  suffixicon: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        obscurePassword = !obscurePassword;
+                                      });
+                                    },
+                                    icon: Icon(
+                                      color: obscurePassword ?AppColors.grey:AppColors.blue,
+                                      obscurePassword
+                                          ? Icons.visibility_off
+                                          : Icons.visibility,
                                     ),
-                                    obscureText: obscurePassword,
-                                    maxLines: 1,
-                                    controller: context
-                                        .read<UserCubit>()
-                                        .signInPassword,
                                   ),
-                                ],
-                              ),
-                            ],
-                          ),
+                                  obscureText: obscurePassword,
+                                  maxLines: 1,
+                                  controller: context
+                                      .read<UserCubit>()
+                                      .signInPassword,
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -165,7 +163,7 @@ class _SignInViewState extends State<SignInView> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            log("Forget Password");
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => ForgetPasswordScreen(),));
                           },
                           child: AppText(
                               title: "Forget Password",

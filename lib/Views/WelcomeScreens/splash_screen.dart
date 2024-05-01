@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen>
     _controller.forward();
 
     Timer(
-      Duration(seconds: 10),
+      Duration(seconds: 3),
           () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(

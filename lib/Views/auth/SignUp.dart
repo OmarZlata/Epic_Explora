@@ -1,6 +1,7 @@
 import 'package:epic_expolre/Views/Home/view.dart';
 import 'package:epic_expolre/Views/Maps/google_map/view.dart';
 import 'package:epic_expolre/Views/Profile/Terms.dart';
+import 'package:epic_expolre/Widgets/bottomNavigationBar.dart';
 import 'package:epic_expolre/cubit/user_cubit.dart';
 import 'package:epic_expolre/cubit/user_state.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class _SignUpViewState extends State<SignUpView> {
     return SafeArea(
       child: BlocConsumer<UserCubit, UserState>(
         listener: (context, state) {
-          if (state is SignInSuccess) {
+          if (state is SignUpSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text("success"),
@@ -38,10 +39,10 @@ class _SignUpViewState extends State<SignUpView> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const HomeView(),
+                builder: (context) => const bottomNavigationBar(),
               ),
             );
-          } else if (state is SignInFailure) {
+          } else if (state is SignUpFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.errMessage),
@@ -67,141 +68,138 @@ class _SignUpViewState extends State<SignUpView> {
                   Image.asset('assets/images/amico.png'),
                   SizedBox(height: 24,),
                   Container(
-                    child: Form(
-                      key: context.read<UserCubit>().signUpFormKey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AppText(
-                            title: "Full Name",
-                            color: AppColors.black,
-                            fontWeight: FontWeight.bold,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppText(
+                          title: "Full Name",
+                          color: AppColors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        AppTextField(
+                          hint: "Name",
+                          radius: 8,
+                          icon: Icons.person,
+                          hintFontSize: 12,
+                          obscureText: false,
+                          maxLines: 1,
+                          controller: context.read<UserCubit>().signUpName,
+                        ),
+                        SizedBox(height: 24,),
+                        Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AppText(
+                                title: "Email",
+                                color: AppColors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              AppTextField(
+                                hint: "Email",
+                                radius: 8,
+                                icon: Icons.email_outlined,
+                                hintFontSize: 12,
+                                obscureText: false,
+                                maxLines: 1,
+                                controller: context.read<UserCubit>().signUpEmail,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "Email can't be empty";
+                                  }
+                                  final emailRegex =
+                                  RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+                                  if (!emailRegex.hasMatch(value)) {
+                                    return "Invalid email address";
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ],
                           ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          AppTextField(
-                            hint: "Name",
-                            radius: 8,
-                            icon: Icons.person,
-                            hintFontSize: 12,
-                            obscureText: false,
-                            maxLines: 1,
-                            controller: context.read<UserCubit>().signUpName,
-                          ),
-                          SizedBox(height: 24,),
-                          Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                AppText(
-                                  title: "Email",
-                                  color: AppColors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                AppTextField(
-                                  hint: "Email",
-                                  radius: 8,
-                                  icon: Icons.email_outlined,
-                                  hintFontSize: 12,
-                                  obscureText: false,
-                                  maxLines: 1,
-                                  controller: context.read<UserCubit>().signUpEmail,
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return "Email can't be empty";
-                                    }
-                                    final emailRegex =
-                                    RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
-                                    if (!emailRegex.hasMatch(value)) {
-                                      return "Invalid email address";
-                                    }
-                                    return null;
+                        ),
+                        SizedBox(height: 24,),
+                        Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AppText(
+                                title: "Password",
+                                color: AppColors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              AppTextField(
+                                hint: "Password",
+                                radius: 8,
+                                icon: Icons.lock_outline,
+                                hintFontSize: 12,
+                                suffixicon: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      obscurePassword = !obscurePassword;
+                                    });
                                   },
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 24,),
-                          Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                AppText(
-                                  title: "Password",
-                                  color: AppColors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                AppTextField(
-                                  hint: "Password",
-                                  radius: 8,
-                                  icon: Icons.lock_outline,
-                                  hintFontSize: 12,
-                                  suffixicon: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        obscurePassword = !obscurePassword;
-                                      });
-                                    },
-                                    icon: Icon(
-                                      color: obscurePassword ? AppColors.grey : AppColors.blue,
-                                      obscurePassword ? Icons.visibility_off : Icons.visibility,
-                                    ),
+                                  icon: Icon(
+                                    color: obscurePassword ? AppColors.grey : AppColors.blue,
+                                    obscurePassword ? Icons.visibility_off : Icons.visibility,
                                   ),
-                                  obscureText: obscurePassword,
-                                  maxLines: 1,
-                                  controller: context.read<UserCubit>().signUpPassword,
                                 ),
-                              ],
-                            ),
+                                obscureText: obscurePassword,
+                                maxLines: 1,
+                                controller: context.read<UserCubit>().signUpPassword,
+                              ),
+                            ],
                           ),
-                          SizedBox(height: 24,),
-                          Container(
+                        ),
+                        SizedBox(height: 24,),
+                        Container(
 
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                AppText(
-                                  title: "Confirm Password",
-                                  color: AppColors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                AppTextField(
-                                  hint: "Confirm Password",
-                                  radius: 8,
-                                  icon: Icons.lock_outline,
-                                  hintFontSize: 12,
-                                  suffixicon: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        obscurePasswordConfirm = !obscurePasswordConfirm;
-                                      });
-                                    },
-                                    icon: Icon(
-                                      color: obscurePasswordConfirm ? AppColors.grey : AppColors.blue,
-                                      obscurePasswordConfirm
-                                          ? Icons.visibility_off
-                                          : Icons.visibility,
-                                    ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AppText(
+                                title: "Confirm Password",
+                                color: AppColors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              AppTextField(
+                                hint: "Confirm Password",
+                                radius: 8,
+                                icon: Icons.lock_outline,
+                                hintFontSize: 12,
+                                suffixicon: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      obscurePasswordConfirm = !obscurePasswordConfirm;
+                                    });
+                                  },
+                                  icon: Icon(
+                                    color: obscurePasswordConfirm ? AppColors.grey : AppColors.blue,
+                                    obscurePasswordConfirm
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
                                   ),
-                                  obscureText: obscurePasswordConfirm,
-                                  maxLines: 1,
-                                  controller: context.read<UserCubit>().confirmPassword,
                                 ),
-                              ],
-                            ),
+                                obscureText: obscurePasswordConfirm,
+                                maxLines: 1,
+                                controller: context.read<UserCubit>().confirmPassword,
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                   Row(

@@ -46,7 +46,9 @@ class _HomeViewState extends State<HomeView> {
             final cubit = BlocProvider.of<HomeCubit>(context);
             if (state is HomeLoading) {
               return Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  color: AppColors.blue,
+                ),
               );
             }
             final location = cubit.location;
@@ -54,7 +56,7 @@ class _HomeViewState extends State<HomeView> {
               return Center(child: Text('Something went wrong!'));
             }
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 3 ),
+              padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 14 ),
               child: ListView(
                 children: [
                   Row(
