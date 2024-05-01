@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:epic_expolre/cache/cache_helper.dart';
@@ -17,26 +15,37 @@ import 'dart:developer';
 class UserCubit extends Cubit<UserState> {
   UserCubit(this.api) : super(UserInitial());
   final ApiConsumer api;
+
   //Sign in Form key
   GlobalKey<FormState> signInFormKey = GlobalKey();
+
+
   //Sign in email
   TextEditingController signInEmail = TextEditingController();
+
   //Sign in password
   TextEditingController signInPassword = TextEditingController();
+
   //Sign Up Form key
   GlobalKey<FormState> signUpFormKey = GlobalKey();
+
   //Profile Pic
   //Sign up name
   TextEditingController signUpName = TextEditingController();
+
   //Sign up phone number
   TextEditingController signUpPhoneNumber = TextEditingController();
+
   //Sign up email
   TextEditingController signUpEmail = TextEditingController();
+
   //Sign up password
   TextEditingController signUpPassword = TextEditingController();
+
   //Sign up confirm password
   TextEditingController confirmPassword = TextEditingController();
   SignInModel? user;
+
   signUp() async {
     try {
       emit(SignUpLoading());
@@ -75,34 +84,33 @@ class UserCubit extends Cubit<UserState> {
       CacheHelper().saveData(key: ApiKey.id, value: user!.id);
       print("This is id ididididid:  ${user!.id}");
       emit(SignInSuccess());
-
     } on ServerException catch (e) {
       emit(SignInFailure(errMessage: e.errModel.errorMessage));
     }
   }
 
-
   logout() async {
+
     try {
       emit(LogoutLoading());
       final response = await api.post(
         EndPoint.logout,
-        data: {
-          ApiKey.email: signInEmail.text,
-          ApiKey.password: signInPassword.text,
-        },
+        // data: {
+        //   ApiKey.email: signInEmail.text,
+        //   ApiKey.password: signInPassword.text,
+        // },
+        option: Options(headers: {
+          'Authorization': user!.token
+        }),
+
       );
-      await CacheHelper().removeData(key: ApiKey.token);
+      CacheHelper().removeData(key: ApiKey.token);
       emit(LogoutSuccess());
     } catch (e) {
       emit(LogoutFailure(errMessage: 'Logout failed'));
     }
   }
-
 }
-
-
-
 
 // getUserProfile() async {
 //   try {

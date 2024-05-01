@@ -12,7 +12,6 @@ class DioConsumer extends ApiConsumer {
   DioConsumer({required this.dio}) {
     dio.options.baseUrl = EndPoint.baseUrl;
     dio.options.headers = {
-      'Authorization': '',
       'Accept': 'application/vnd.api+json',
       'Accept-Encoding': 'gzip, deflate, br',
       'Connection': 'keep-alive',
