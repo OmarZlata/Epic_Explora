@@ -67,7 +67,7 @@ class PlaceService {
     try {
       Response response = await dio.get('${baseUrl}api/user/recommended/');
       if (response.statusCode == 200) {
-          List<dynamic> data = response.data['data']['recommendedData'];
+        List<dynamic> data = response.data['data']['recommendedData'];
 
         var x = data.map((e) => Recommended.fromJson(e)).toList();
         isloading=false;
