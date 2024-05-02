@@ -391,11 +391,8 @@ class _detialsPlaceDetialsState extends State<detialsPlaceDetials> {
               child: Container(
                 height: 248,
                 width: 450,
-                child: ListView.builder(
-                  itemCount: 9,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => AppHomeCard(cardText: 'ss', cardAddress: 'aaa',cardimgUrl: recommended![index].img_url!,),
-                ),
+
+                
               ),
             ),
             const SizedBox(

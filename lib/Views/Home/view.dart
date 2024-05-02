@@ -236,11 +236,7 @@ class _HomeViewState extends State<HomeView> {
                   Container(
                     height: 248,
                     width: 210,
-                    child: ListView.builder(
-                        itemCount: 9,
-                        scrollDirection: Axis.horizontal,
-                        clipBehavior: Clip.hardEdge,
-                        itemBuilder: (context, index) => AppHomeCard()),
+
                   ),
                   SizedBox(height: 16),
                   Row(
@@ -268,11 +264,7 @@ class _HomeViewState extends State<HomeView> {
                   Container(
                     height: 248,
                     width: 210,
-                    child: ListView.builder(
-                      itemCount: 9,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => AppHomeCard(),
-                    ),
+
                   ),
                 ],
               ),
