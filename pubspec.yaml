@@ -28,6 +28,8 @@ dependencies:
   im_stepper: ^1.0.1+1
   easy_stepper: ^0.8.3
   dotted_border: ^2.1.0
+  flutter_bloc: ^8.1.5
+  dio: ^5.4.3+1
 
 dev_dependencies:
   flutter_test:
