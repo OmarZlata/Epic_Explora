@@ -43,6 +43,7 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   @override
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -59,12 +60,15 @@ class _SplashScreenState extends State<SplashScreen>
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset(
-                          'assets/images/logo.png',
+                        Transform.translate(
+                          offset: Offset(0, -50 * (1 - _animation.value)),
+                          child: Image.asset(
+                            'assets/images/logo.png',
+                          ),
                         ),
                         SizedBox(height: 10),
                         Transform.translate(
-                          offset: Offset(-100 * (1 - _animation.value), 0),
+                          offset: Offset(0, -50 * (1 - _animation.value)),
                           child: Text(
                             "Epic Explore",
                             style: TextStyle(
@@ -85,4 +89,5 @@ class _SplashScreenState extends State<SplashScreen>
       ),
     );
   }
+
 }
