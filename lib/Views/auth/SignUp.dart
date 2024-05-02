@@ -1,6 +1,7 @@
 import 'package:epic_expolre/Views/Home/view.dart';
 import 'package:epic_expolre/Views/Maps/google_map/view.dart';
 import 'package:epic_expolre/Views/Profile/Terms.dart';
+import 'package:epic_expolre/Widgets/app_AppBar.dart';
 import 'package:epic_expolre/Widgets/bottomNavigationBar.dart';
 import 'package:epic_expolre/cubit/user_cubit.dart';
 import 'package:epic_expolre/cubit/user_state.dart';
@@ -52,16 +53,15 @@ class _SignUpViewState extends State<SignUpView> {
         },
         builder: (context, state) {
           return Scaffold(
+            backgroundColor: AppColors.white,
+            appBar: const AppAppBar(
+              title: 'Sign Up',
+              centerTitle: true,
+            ),
             body: SingleChildScrollView(
               padding: EdgeInsets.all(16),
               child: Column(
                 children: [
-                  AppText(
-                    title: "Sign Up",
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.blue,
-                    fontSize: 24,
-                  ),
                   SizedBox(
                     height: 20,
                   ),

@@ -3,6 +3,7 @@ import 'package:epic_expolre/Views/Maps/google_map/view.dart';
 import 'package:epic_expolre/Views/Profile/profile_main.dart';
 import 'package:epic_expolre/Views/auth/Forget_Password.dart';
 import 'package:epic_expolre/Views/auth/SignUp.dart';
+import 'package:epic_expolre/Widgets/app_AppBar.dart';
 import 'package:epic_expolre/cubit/user_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -60,6 +61,11 @@ class _SignInViewState extends State<SignInView> {
         },
         builder: (context, state) {
           return Scaffold(
+            backgroundColor: AppColors.white,
+            appBar:AppAppBar(
+              title: "Sign in",
+              centerTitle: true,
+            ),
             body: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 22,vertical:20 ),
@@ -67,12 +73,6 @@ class _SignInViewState extends State<SignInView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const AppText(
-                      title: "Sign in",
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.blue,
-                      fontSize: 24,
-                    ),
                     SizedBox(
                       height: 50,
                     ),

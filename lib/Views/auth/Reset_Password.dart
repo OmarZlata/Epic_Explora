@@ -1,4 +1,5 @@
 import 'package:epic_expolre/Views/auth/SignIn.dart';
+import 'package:epic_expolre/Widgets/app_AppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../Widgets/app_button.dart';
@@ -42,7 +43,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             Divider(color: AppColors.grey, height: 0.5),
             TextButton(
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignInView(),));
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => SignInView(),
+                ));
               },
               child: Center(
                   child: AppText(
@@ -61,16 +64,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor:AppColors.white  ,
-        appBar: AppBar(
-          title: AppText(
-              title: "Reset Password",
-              color: AppColors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: 20),
-          centerTitle: true,
-          backgroundColor: AppColors.white,
-          elevation: 0,
+        backgroundColor: AppColors.white,
+        appBar: AppAppBar(
+          title: 'Reset Password',
         ),
         body: SingleChildScrollView(
           padding: EdgeInsets.all(18),
@@ -103,7 +99,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       },
                       icon: Icon(
                         color:
-                        obscurePassword ? AppColors.grey : AppColors.blue,
+                            obscurePassword ? AppColors.grey : AppColors.blue,
                         obscurePassword
                             ? Icons.visibility_off
                             : Icons.visibility,
@@ -112,7 +108,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     obscureText: obscurePassword,
                     maxLines: 1,
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   AppText(
                     title: "Confirm New Password",
                     color: AppColors.black,
@@ -134,7 +132,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       },
                       icon: Icon(
                         color:
-                        obscurePassword2 ? AppColors.grey : AppColors.blue,
+                            obscurePassword2 ? AppColors.grey : AppColors.blue,
                         obscurePassword2
                             ? Icons.visibility_off
                             : Icons.visibility,
@@ -161,7 +159,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   ),
                 ],
               ),
-
             ],
           ),
         ),

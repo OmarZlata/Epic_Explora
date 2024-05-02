@@ -23,6 +23,9 @@ class UserCubit extends Cubit<UserState> {
   //Sign in email
   TextEditingController signInEmail = TextEditingController();
 
+  TextEditingController otp = TextEditingController();
+  TextEditingController resetPasswordEmail = TextEditingController();
+
   //Sign in password
   TextEditingController signInPassword = TextEditingController();
 
