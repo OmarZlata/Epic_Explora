@@ -2,7 +2,6 @@ import 'package:epic_expolre/Views/Place_Detials/reviews_place_detials.dart';
 import 'package:flutter/material.dart';
 import '../../Widgets/app_home_card.dart';
 import '../../core/app_colors/app_colors.dart';
-import '../Home/view.dart';
 
 class detialsPlaceDetials extends StatefulWidget {
   const detialsPlaceDetials({super.key});
@@ -388,12 +387,15 @@ class _detialsPlaceDetialsState extends State<detialsPlaceDetials> {
             const SizedBox(height: 16),
             Padding(
               padding: const EdgeInsets.only(left: 24.0),
-              child: Container(
-                height: 248,
-                width: 450,
-
-                
-              ),
+              // child: Container(
+              //   height: 248,
+              //   width: 450,
+              //   child: ListView.builder(
+              //     itemCount: 9,
+              //     scrollDirection: Axis.horizontal,
+              //     itemBuilder: (context, index) => AppHomeCard(),
+              //   ),
+              // ),
             ),
             const SizedBox(
               height: 23,

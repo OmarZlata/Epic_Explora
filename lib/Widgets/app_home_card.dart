@@ -6,7 +6,7 @@ class AppHomeCard extends StatefulWidget {
   late String cardText;
   late String cardAddress;
   late List?cardimgUrl;
-   AppHomeCard({Key? key, required this.cardText,required this.cardAddress,required this.cardimgUrl}) : super(key: key);
+  AppHomeCard({Key? key, required this.cardText,required this.cardAddress,required this.cardimgUrl}) : super(key: key);
 
   @override
   State<AppHomeCard> createState() => _AppHomeCardState();

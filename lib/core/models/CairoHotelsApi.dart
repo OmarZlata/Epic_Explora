@@ -1,21 +1,23 @@
-class Recommended{
+class CairoHotels {
   int? id;
   int? stateId;
   String? name;
   String? description;
   String? address;
-  List?img_url;
+  List? img_url;
   double? averageRating;
-  Recommended({ this.id,
+
+  CairoHotels({
+    this.id,
     this.stateId,
     this.name,
     this.description,
     this.address,
     this.img_url,
-    this.averageRating,});
-
-  factory Recommended.fromJson(Map<String, dynamic> json) {
-    return Recommended(
+    this.averageRating,
+  });
+  factory CairoHotels.fromJson(Map<String, dynamic> json) {
+    return CairoHotels(
       id: json['id'],
       stateId: json['state_id'],
       name: json['name'],
@@ -25,5 +27,8 @@ class Recommended{
       averageRating: json['average_rating'] != null ? json['average_rating'].toDouble() : null,
     );
   }
-
+  @override
+  String toString() {
+    return 'CairoHotels{id: $id, stateId: $stateId, name: $name, description: $description}';
+  }
 }
