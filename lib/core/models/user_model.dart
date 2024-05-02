@@ -1,6 +1,6 @@
 
 
-import 'package:epic_expolre/core/api/end_ponits.dart';
+import 'package:epic_expolre/core/api/const_end_ponits.dart';
 
 class UserModel {
   final String profilePic;
