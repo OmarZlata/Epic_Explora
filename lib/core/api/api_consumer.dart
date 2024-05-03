@@ -16,7 +16,7 @@ abstract class ApiConsumer {
     bool isFromData = false,
   });
 
-  Future<dynamic> patch(
+  Future<dynamic> put(
     String path, {
     Object? data,
     Options option,

@@ -14,6 +14,7 @@ class ForgetPasswordScreen extends StatelessWidget {
   ForgetPasswordScreen({super.key});
 
   bool obscurePassword = true;
+  final ForgetPasswordFormKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
 
   @override
@@ -21,6 +22,40 @@ class ForgetPasswordScreen extends StatelessWidget {
     return SafeArea(
       child: BlocConsumer<UserCubit, UserState>(
         listener: (context, state) {
+          if (state is ForgetPasswordSuccess) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                backgroundColor: AppColors.blue,
+                elevation: 1,
+                content: Center(
+                  child: Text("Check your E-mail" ,style: TextStyle(
+                    color: AppColors.white,
+                  ),),
+                ),
+              ),
+            );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>  VerificationScreen(),
+              ),
+            );
+          } else if (state is ForgetPasswordFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                elevation: 1,
+                backgroundColor: AppColors.blue,
+                padding: EdgeInsets.all(8),
+                content: Center(
+                  child: Text("E-mail are not correct",
+                    style: TextStyle(
+                      color: AppColors.white,
+                    ),),
+                ),
+              ),
+            );
+          }
+
         },
         builder: (context, state) {
           return Scaffold(
@@ -55,24 +90,28 @@ class ForgetPasswordScreen extends StatelessWidget {
                         SizedBox(
                           height: 10,
                         ),
-                        AppTextField(
-                          hint: "Email",
-                          radius: 8,
-                          icon: Icons.email_outlined,
-                          hintFontSize: 12,
-                          obscureText: false,
-                          maxLines: 1,
-                          controller: context.read<UserCubit>().resetPasswordEmail,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Email can't be empty";
-                            }
-                            final emailRegex = RegExp(
-                                r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
-                            if (!emailRegex.hasMatch(value)) {
-                            }
-                            else return "Invalid email address";
-                          },
+                        Form(
+                          // key: ForgetPasswordFormKey,
+                          child: AppTextField(
+                            hint: "Email",
+                            radius: 8,
+                            icon: Icons.email_outlined,
+                            hintFontSize: 12,
+                            obscureText: false,
+                            maxLines: 1,
+                            controller: context.read<UserCubit>().resetPasswordEmail,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Email can't be empty";
+                              }
+                              final emailRegex = RegExp(
+                                  r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+                              if (!emailRegex.hasMatch(value)) {
+                                return "Invalid email address";
+                              }
+                              return null;
+                            },
+                          ),
                         ),
                       ],
                     ),
@@ -80,14 +119,19 @@ class ForgetPasswordScreen extends StatelessWidget {
                   SizedBox(
                     height: 50,
                   ),
+                  state is ForgetPasswordLoading?Center(child: CircularProgressIndicator(
+                    color: AppColors.blue,
+                  ),):
                   AppButton(
                     title: "Continue",
                     color: AppColors.blue,
                     font_color: AppColors.white,
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => VerificationScreen(),
-                      ));
+                      context.read<UserCubit>().forgotPassword();
+                      // if (ForgetPasswordFormKey.currentState!.validate()) {
+                      //   ForgetPasswordFormKey.currentState!.save();
+                      //   context.read<UserCubit>().forgotPassword();
+                      // }
                     },
                   ),
                 ],
