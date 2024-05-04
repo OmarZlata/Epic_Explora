@@ -13,6 +13,36 @@ class SliderScreen extends StatefulWidget {
 }
 
 class _SliderScreenState extends State<SliderScreen> {
+  int _selectedState = -1;
+  int _selectedStar = -1;
+
+  void _selectState(int index) {
+    setState(() {
+      _selectedState = index;
+    });
+  }
+
+  void _selectStar(int index) {
+    setState(() {
+      _selectedStar = index;
+    });
+  }
+
+  Color? _getStateButtonColor(int index) {
+    return _selectedState == index ? AppColors.blue : Colors.grey[200];
+  }
+
+  Color? _getStarButtonColor(int index) {
+    return _selectedStar == index ? AppColors.blue : Colors.grey[200];
+  }
+  Color _getStateTextColor(int index) {
+    return _selectedState == index ? Colors.white : Colors.black;
+  }
+
+  Color _getStarTextColor(int index) {
+    return _selectedStar == index ? Colors.white : Colors.black;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,72 +50,47 @@ class _SliderScreenState extends State<SliderScreen> {
       height: 330.h,
       decoration: BoxDecoration(
         color: AppColors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(25), topRight: Radius.circular(25),
-          )),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(25),
+          topRight: Radius.circular(25),
+        ),
+      ),
       child: Column(
         children: [
           Image.asset('assets/images/Group 101.png'),
           SizedBox(height: 8.h),
           Center(
-              child: AppText(
-                  title: 'Filter',
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.blue)),
+            child: AppText(
+              title: 'Filter',
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: AppColors.blue,
+            ),
+          ),
           SizedBox(height: 8.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               AppText(
-                  title: "States", fontSize: 16, fontWeight: FontWeight.bold)
+                title: "States",
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
             ],
           ),
           SizedBox(height: 16.h),
           Row(
             children: [
-              Expanded(
-                child: AppButton(
-                  title: 'All',
-                  height: 37.h,
+              for (int i = 0; i < 5; i++)
+                Expanded(
+                  child: AppButton(
+                    title: ['All', 'Alex', 'Red Sea', 'Cairo', 'Aswan'][i],
+                    height: 37.h,
+                    color: _getStateButtonColor(i),
+                    font_color: _getStateTextColor(i),
+                    onTap: () => _selectState(i),
+                  ),
                 ),
-              ),
-              SizedBox(
-                width: 8,
-              ),
-              Expanded(
-                child: AppButton(
-                  title: 'Alex',
-                  height: 37.h,
-                ),
-              ),
-              SizedBox(
-                width: 8,
-              ),
-              Expanded(
-                child: AppButton(
-                  title: 'Red Sea',
-                  height: 37.h,
-                ),
-              ),
-              SizedBox(
-                width: 8,
-              ),
-              Expanded(
-                child: AppButton(
-                  title: 'Cairo',
-                  height: 37.h,
-                ),
-              ),
-              SizedBox(
-                width: 8,
-              ),
-              Expanded(
-                child: AppButton(
-                  title: 'Aswan',
-                  height: 37.h,
-                ),
-              ),
             ],
           ),
           SizedBox(height: 24.h),
@@ -93,63 +98,25 @@ class _SliderScreenState extends State<SliderScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               AppText(
-                  title: "Stars", fontSize: 16, fontWeight: FontWeight.bold),
+                title: "Stars",
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
             ],
           ),
           SizedBox(height: 16.h),
           Row(
             children: [
-              Expanded(
-                child: AppButton(
-                  title: 'All',
-                  height: 37.h,
+              for (int i = 0; i < 6; i++)
+                Expanded(
+                  child: AppButton(
+                    title: i == 0 ? 'All' : '$i Star',
+                    height: 37.h,
+                    color: _getStarButtonColor(i),
+                    font_color: _getStarTextColor(i),
+                    onTap: () => _selectStar(i),
+                  ),
                 ),
-              ),
-              SizedBox(
-                width: 8,
-              ),
-              Expanded(
-                child: AppButton(
-                  title: '1 Star',
-                  height: 37.h,
-                ),
-              ),
-              SizedBox(
-                width: 8,
-              ),
-              Expanded(
-                child: AppButton(
-                  title: '2 Star',
-                  height: 37.h,
-                ),
-              ),
-              SizedBox(
-                width: 8,
-              ),
-              Expanded(
-                child: AppButton(
-                  title: '3 Star',
-                  height: 37.h,
-                ),
-              ),
-              SizedBox(
-                width: 8,
-              ),
-              Expanded(
-                child: AppButton(
-                  title: '4 Star',
-                  height: 37.h,
-                ),
-              ),
-              SizedBox(
-                width: 8,
-              ),
-              Expanded(
-                child: AppButton(
-                  title: '5 Star',
-                  height: 37.h,
-                ),
-              ),
             ],
           ),
           SizedBox(height: 16),
@@ -163,6 +130,12 @@ class _SliderScreenState extends State<SliderScreen> {
                     title: "Reset",
                     color: AppColors.light_blue,
                     border_color: AppColors.light_blue,
+                    onTap: () {
+                      setState(() {
+                        _selectedState = -1;
+                        _selectedStar = -1;
+                      });
+                    },
                   ),
                 ),
                 SizedBox(
