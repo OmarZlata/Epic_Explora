@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/Views/Place_Detials/place_details/repo.dart';
 import 'package:graduation_project/Views/Place_Detials/place_details/state.dart';
+import 'package:graduation_project/Views/Place_Detials/reviews_place_dwtials.dart';
 import '../../../Widgets/app_home_card.dart';
 import '../../../core/app_colors/app_colors.dart';
-import '../reviews_place_dwtials.dart';
 import 'cubit.dart';
 import 'details_model.dart';
 

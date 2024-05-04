@@ -1,17 +1,58 @@
+
 import 'package:flutter/material.dart';
 
-import '../../core/app_colors/app_colors.dart';
+import '../core/app_colors/app_colors.dart';
 
-class Futuree extends StatelessWidget {
-  const Futuree({super.key});
+
+
+class TripsTabBar extends StatefulWidget {
+  const TripsTabBar({super.key});
 
   @override
+  State<TripsTabBar> createState() => _TripsTabBarState();
+}
+
+class _TripsTabBarState extends State<TripsTabBar> {
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Center(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
+    return DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: AppColors.white,
+            elevation: 1,
+            title: Text(
+              "My Trips",
+              style: TextStyle(
+                  color: AppColors.Black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600),
+            ),
+            centerTitle: true,
+            actions: [
+              DropdownButton(
+                padding: EdgeInsets.only(right: 16),
+                elevation: 0,
+                icon: Icon(Icons.menu),
+                iconSize: 32,
+                items:
+                <String>['Add Trip'].map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Row(
+                      children: <Widget>[
+                        Icon(Icons.add),
+                        // Adjust the spacing between icon and text
+                        Text(value),
+                      ],
+                    ),
+                  );
+                }).toList(),
+                onChanged: (String? value) {},
+              )
+            ],
+          ),
+          body: Center(
             child: Column(
               children: [
                 Column(
@@ -61,7 +102,9 @@ class Futuree extends StatelessWidget {
                                       size: 18,
                                       color: AppColors.Blue,
                                     ),
-                                    SizedBox(width: 3,),
+                                    SizedBox(
+                                      width: 3,
+                                    ),
                                     Text(
                                       "Mon,Nov 20 18 - Fri,Nov 2018",
                                       style: TextStyle(fontSize: 12),
@@ -83,20 +126,21 @@ class Futuree extends StatelessWidget {
                                       style: TextStyle(fontSize: 12),
                                     ),
                                     const SizedBox(
-                                      width: 44,
+                                      width: 75,
                                     ),
                                     Container(
-                                      width: 84,
+                                      width: 50,
                                       height: 28,
                                       decoration: BoxDecoration(
-                                        borderRadius:
-                                        BorderRadius.circular(20),
-                                        color: AppColors.MediumBlue,
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: AppColors.Green,
                                       ),
                                       child: const Center(
                                           child: Text(
-                                            "upcoming ",
-                                            style: TextStyle(fontSize: 15,color:AppColors.white),
+                                            "Done ",
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                color: AppColors.white),
                                           )),
                                     )
                                   ],
@@ -107,7 +151,9 @@ class Futuree extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 12,),
+                    SizedBox(
+                      height: 12,
+                    ),
                     Container(
                       width: 327,
                       height: 120,
@@ -153,7 +199,9 @@ class Futuree extends StatelessWidget {
                                       size: 18,
                                       color: AppColors.Blue,
                                     ),
-                                    SizedBox(width: 3,),
+                                    SizedBox(
+                                      width: 3,
+                                    ),
                                     Text(
                                       "Mon,Nov 20 18 - Fri,Nov 2018",
                                       style: TextStyle(fontSize: 12),
@@ -181,14 +229,15 @@ class Futuree extends StatelessWidget {
                                       width: 83,
                                       height: 28,
                                       decoration: BoxDecoration(
-                                        borderRadius:
-                                        BorderRadius.circular(20),
+                                        borderRadius: BorderRadius.circular(20),
                                         color: AppColors.Red,
                                       ),
                                       child: const Center(
                                           child: Text(
                                             "Cancelled ",
-                                            style: TextStyle(fontSize: 15,color:AppColors.white),
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                color: AppColors.white),
                                           )),
                                     )
                                   ],
@@ -199,7 +248,9 @@ class Futuree extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 12,),
+                    SizedBox(
+                      height: 12,
+                    ),
                     Container(
                       width: 327,
                       height: 120,
@@ -245,7 +296,9 @@ class Futuree extends StatelessWidget {
                                       size: 18,
                                       color: AppColors.Blue,
                                     ),
-                                    SizedBox(width: 3,),
+                                    SizedBox(
+                                      width: 3,
+                                    ),
                                     Text(
                                       "Mon,Nov 20 18 - Fri,Nov 2018",
                                       style: TextStyle(fontSize: 12),
@@ -267,20 +320,21 @@ class Futuree extends StatelessWidget {
                                       style: TextStyle(fontSize: 12),
                                     ),
                                     const SizedBox(
-                                      width: 44,
+                                      width: 75,
                                     ),
                                     Container(
-                                      width: 84,
+                                      width: 50,
                                       height: 28,
                                       decoration: BoxDecoration(
-                                        borderRadius:
-                                        BorderRadius.circular(20),
-                                        color: AppColors.MediumBlue,
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: AppColors.Green,
                                       ),
                                       child: const Center(
                                           child: Text(
-                                            "upcoming ",
-                                            style: TextStyle(fontSize: 15,color:AppColors.white),
+                                            "Done ",
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                color: AppColors.white),
                                           )),
                                     )
                                   ],
@@ -291,7 +345,9 @@ class Futuree extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 12,),
+                    SizedBox(
+                      height: 12,
+                    ),
                     Container(
                       width: 327,
                       height: 120,
@@ -337,7 +393,9 @@ class Futuree extends StatelessWidget {
                                       size: 18,
                                       color: AppColors.Blue,
                                     ),
-                                    SizedBox(width: 3,),
+                                    SizedBox(
+                                      width: 3,
+                                    ),
                                     Text(
                                       "Mon,Nov 20 18 - Fri,Nov 2018",
                                       style: TextStyle(fontSize: 12),
@@ -365,14 +423,15 @@ class Futuree extends StatelessWidget {
                                       width: 83,
                                       height: 28,
                                       decoration: BoxDecoration(
-                                        borderRadius:
-                                        BorderRadius.circular(20),
+                                        borderRadius: BorderRadius.circular(20),
                                         color: AppColors.Red,
                                       ),
                                       child: const Center(
                                           child: Text(
                                             "Cancelled ",
-                                            style: TextStyle(fontSize: 15,color:AppColors.white),
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                color: AppColors.white),
                                           )),
                                     )
                                   ],
@@ -384,13 +443,10 @@ class Futuree extends StatelessWidget {
                       ),
                     ),
                   ],
-
                 ),
               ],
             ),
           ),
-        ),
-      ],
-    );
+        ));
   }
 }

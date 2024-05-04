@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:graduation_project/Views/My_Trips/Add_Trip/add_trip.dart';
 import 'package:graduation_project/Views/My_Trips/alexandria_trip.dart';
 import 'package:graduation_project/Views/My_Trips/map.dart';
-import 'package:graduation_project/Views/Place_Detials/detials_place_detials.dart';
-import 'package:graduation_project/Views/Place_Detials/reviews_place_dwtials.dart';
 import 'package:graduation_project/Views/Signin/Signin.dart';
 import 'package:graduation_project/Views/WelcomeScreens/splash_screen.dart';
 import 'package:graduation_project/core/app_colors/app_colors.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'Views/My_Trips/previous.dart';
+import 'Views/Place_Detials/place_details/detials_place_detials.dart';
 import 'Views/Signin/Forget_Password.dart';
 import 'Views/Signin/Reset_Password.dart';
 import 'Views/Signin/SignUp.dart';

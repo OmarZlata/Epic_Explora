@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project/core/app_colors/app_colors.dart';
 
-import 'detials_place_detials.dart';
+import 'place_details/detials_place_detials.dart';
+
 
 class reviewsPlaceDetials extends StatefulWidget {
   const reviewsPlaceDetials({super.key});
