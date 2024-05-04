@@ -14,7 +14,6 @@ class ForgetPasswordScreen extends StatelessWidget {
   ForgetPasswordScreen({super.key});
 
   bool obscurePassword = true;
-  final ForgetPasswordFormKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
 
   @override
@@ -91,26 +90,30 @@ class ForgetPasswordScreen extends StatelessWidget {
                           height: 10,
                         ),
                         Form(
-                          // key: ForgetPasswordFormKey,
-                          child: AppTextField(
-                            hint: "Email",
-                            radius: 8,
-                            icon: Icons.email_outlined,
-                            hintFontSize: 12,
-                            obscureText: false,
-                            maxLines: 1,
-                            controller: context.read<UserCubit>().resetPasswordEmail,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Email can't be empty";
-                              }
-                              final emailRegex = RegExp(
-                                  r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
-                              if (!emailRegex.hasMatch(value)) {
-                                return "Invalid email address";
-                              }
-                              return null;
-                            },
+                          key: context.read<UserCubit>().ForgetPasswordFormKey,
+                          child: Column(
+                            children: [
+                              AppTextField(
+                                hint: "Email",
+                                radius: 8,
+                                icon: Icons.email_outlined,
+                                hintFontSize: 12,
+                                obscureText: false,
+                                maxLines: 1,
+                                controller: context.read<UserCubit>().resetPasswordEmail,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "Email can't be empty";
+                                  }
+                                  final emailRegex = RegExp(
+                                      r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+                                  if (!emailRegex.hasMatch(value)) {
+                                    return "Invalid email address";
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ],
                           ),
                         ),
                       ],
@@ -127,11 +130,10 @@ class ForgetPasswordScreen extends StatelessWidget {
                     color: AppColors.blue,
                     font_color: AppColors.white,
                     onTap: () {
-                      context.read<UserCubit>().forgotPassword();
-                      // if (ForgetPasswordFormKey.currentState!.validate()) {
-                      //   ForgetPasswordFormKey.currentState!.save();
-                      //   context.read<UserCubit>().forgotPassword();
-                      // }
+                      if (context.read<UserCubit>().ForgetPasswordFormKey.currentState!.validate()) {
+                        context.read<UserCubit>().ForgetPasswordFormKey.currentState!.save();
+                        context.read<UserCubit>().forgotPassword();
+                      }
                     },
                   ),
                 ],

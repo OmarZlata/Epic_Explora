@@ -150,21 +150,25 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   SizedBox(height: 30,),
                   Container(
                     child: Form(
-                      // key: context.read<UserCubit>().VerificationFormkey,
-                      child: AppTextField(
-                        hint: "Enter Your OTP",
-                        radius: 8,
-                        icon: Icons.verified_user,
-                        hintFontSize: 12,
-                        obscureText: false,
-                        maxLines: 1,
-                        controller: context.read<UserCubit>().otp,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Email can't be empty";
-                          }
-                          else return "Invalid OTP";
-                        },
+                      key: context.read<UserCubit>().VerificationFormkey,
+                      child: Column(
+                        children: [
+                          AppTextField(
+                            hint: "Enter Your OTP",
+                            radius: 8,
+                            icon: Icons.verified_user,
+                            hintFontSize: 12,
+                            obscureText: false,
+                            maxLines: 1,
+                            controller: context.read<UserCubit>().otp,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Email can't be empty";
+                              }
+                              else return "Invalid OTP";
+                            },
+                          ),
+                        ],
                       ),
                     ),
                   ),

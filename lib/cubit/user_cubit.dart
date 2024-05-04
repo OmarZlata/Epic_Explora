@@ -18,6 +18,10 @@ class UserCubit extends Cubit<UserState> {
   final ApiConsumer api;
 
   GlobalKey<FormState> resstPasswordFormKey = GlobalKey();
+  GlobalKey<FormState> ForgetPasswordFormKey = GlobalKey();
+
+  GlobalKey<FormState> VerificationFormkey = GlobalKey();
+
   TextEditingController newPassword = TextEditingController();
   TextEditingController confirmNewPassword = TextEditingController();
   //Sign in email
