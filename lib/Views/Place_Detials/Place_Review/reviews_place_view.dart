@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project/core/app_colors/app_colors.dart';
-
-import 'detials_place_detials.dart';
+import '../../../core/app_colors/app_colors.dart';
+import '../place_details/detials_place_detials.dart';
 
 class reviewsPlaceDetials extends StatefulWidget {
   const reviewsPlaceDetials({super.key});
@@ -264,10 +263,10 @@ class _reviewsPlaceDetialsState extends State<reviewsPlaceDetials> {
                   child: Text(
                     "36 Reviews",
                     style: TextStyle(
-                        fontSize: 12,
-                        color: AppColors.gray,
-                        fontWeight: FontWeight.w400,
-                        ),
+                      fontSize: 12,
+                      color: AppColors.gray,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ),
                 SizedBox(width: 84,),
@@ -443,12 +442,6 @@ class _reviewsPlaceDetialsState extends State<reviewsPlaceDetials> {
                     )),
               ),
             ),
-
-
-
-
-
-
           ],
         ),
       ),
@@ -566,4 +559,3 @@ class CustomButton extends StatelessWidget {
     );
   }
 }
-
