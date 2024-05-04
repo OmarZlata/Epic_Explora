@@ -4,6 +4,7 @@ import 'package:epic_expolre/Views/Profile/profile_main.dart';
 import 'package:epic_expolre/Views/auth/Forget_Password.dart';
 import 'package:epic_expolre/Views/auth/SignUp.dart';
 import 'package:epic_expolre/Widgets/app_AppBar.dart';
+import 'package:epic_expolre/Widgets/bottomNavigationBar.dart';
 import 'package:epic_expolre/cubit/user_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,10 +43,10 @@ class _SignInViewState extends State<SignInView> {
                 ),
               ),
             );
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => const ProfileMainScreen(),
+                builder: (context) => const bottomNavigationBar(),
               ),
             );
           } else if (state is SignInFailure) {

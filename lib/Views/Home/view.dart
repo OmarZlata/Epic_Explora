@@ -17,20 +17,10 @@ class HomeView extends StatefulWidget {
 }
 void _showBottomSheet(BuildContext context) {
   showModalBottomSheet(
-    isScrollControlled: true,
+    backgroundColor: AppColors.white.withOpacity(.01),
     context: context,
     builder: (BuildContext context) {
-      return Container(
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(16.0),
-              topRight: Radius.circular(16.0),
-            ),
-          ),
-          child: SliderScreen(),
-        ),
-      );
+      return SliderScreen();
     },
   );
 }
@@ -41,6 +31,7 @@ class _HomeViewState extends State<HomeView> {
     return BlocProvider(
       create: (context) => HomeCubit()..getCurrentLocation(),
       child: Scaffold(
+        backgroundColor: AppColors.white,
         body: BlocBuilder<HomeCubit, HomeStates>(
           builder: (context, state) {
             final cubit = BlocProvider.of<HomeCubit>(context);
@@ -98,8 +89,7 @@ class _HomeViewState extends State<HomeView> {
                       Expanded(
                         flex: 5,
                         child: Container(
-                          width: 285,
-                          height: 60,
+                          height: 55,
                           child: TextFormField(
                             onFieldSubmitted: (value) {
                               Navigator.of(context).push(MaterialPageRoute(
@@ -122,8 +112,8 @@ class _HomeViewState extends State<HomeView> {
                       Expanded(
                         flex: 1,
                         child: Container(
-                          width: 60,
-                          height: 60,
+                          width: 55,
+                          height: 55,
                           decoration: BoxDecoration(
                             color: AppColors.blue,
                             borderRadius: BorderRadius.circular(10),
