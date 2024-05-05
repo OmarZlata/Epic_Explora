@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'Views/Home/view.dart';
+import 'Views/MainScreens/New_Search.dart';
 import 'Views/My_Trips/Add_Trip/add_trip.dart';
 import 'Views/Place_Detials/detials_place_detials.dart';
 import 'Views/Profile/AppMode.dart';
@@ -52,7 +53,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primaryColor: Color(0xFF2F3C7E),
           ),
-          home:HomeView(),
+          home:NewSearchScreen(),
         );
       },
     );
