@@ -16,6 +16,7 @@ class AppTextField extends StatelessWidget {
     this.suffixicon,
     required this.obscureText,
     this.maxLines = 1, this.controller,
+    this.textInputType,
   }) : super(key: key);
 
   final String hint;
@@ -30,6 +31,7 @@ class AppTextField extends StatelessWidget {
   final Widget? suffixicon;
   final bool obscureText;
   final int maxLines;
+  final TextInputType? textInputType;
   final TextEditingController? controller;
 
   @override
@@ -47,6 +49,7 @@ class AppTextField extends StatelessWidget {
       textInputAction: TextInputAction.newline,
       onChanged: onChanged,
       validator: validator,
+      keyboardType: textInputType,
       maxLength: maxLength,
       decoration: InputDecoration(
         prefixIcon: Icon(icon, color: AppColors.grey),
