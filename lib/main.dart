@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:epic_expolre/Views/BookingScreens/BookingDetails/Booking_Details.dart';
+import 'package:epic_expolre/Views/BookingScreens/future_booking.dart';
 import 'package:epic_expolre/Views/Maps/google_map/view.dart';
 import 'package:epic_expolre/Views/Maps/splash/onboarding_3.dart';
 import 'package:epic_expolre/Views/Profile/profile_main.dart';
@@ -52,7 +53,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primaryColor: Color(0xFF2F3C7E),
           ),
-          home:SplashScreen(),
+          home:BookingDetails(),
         );
       },
     );

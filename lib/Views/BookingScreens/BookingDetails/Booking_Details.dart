@@ -1,4 +1,5 @@
 import 'package:dotted_border/dotted_border.dart';
+import 'package:epic_expolre/Views/BookingScreens/BookingDetails/card_details.dart';
 import 'package:epic_expolre/Widgets/app_AppBar.dart';
 import 'package:epic_expolre/Widgets/app_card.dart';
 import 'package:epic_expolre/Widgets/app_tileWithButton.dart';
@@ -654,11 +655,11 @@ class _BookingDetailsState extends State<BookingDetails> {
                     Center(
                       child: InkWell(
                         onTap: () {
-                          //Navigator.of(context).push(MaterialPageRoute(
-                          //   builder: (context) => const ArrivalTrip()));
                         },
                         child: InkWell(
                           onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const CardDetails()));
                             if (_index <= 1) {
                               setState(() {
                                 _index += 1;
