@@ -1,6 +1,9 @@
 import 'package:epic_expolre/Views/auth/SignIn.dart';
 import 'package:epic_expolre/Widgets/app_AppBar.dart';
+import 'package:epic_expolre/cubit/user_cubit.dart';
+import 'package:epic_expolre/cubit/user_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../Widgets/app_button.dart';
 import '../../Widgets/app_text.dart';
@@ -43,9 +46,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             Divider(color: AppColors.grey, height: 0.5),
             TextButton(
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => SignInView(),
-                ));
+                Navigator.of(context).pop();
               },
               child: Center(
                   child: AppText(
@@ -59,109 +60,190 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       },
     );
   }
+  void _showErrorAlertDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Container(
+            height: 110,
+            child: Column(
+              children: [
+                Image.asset('assets/images/icon.png'),
+                AppText(
+                  title: "Passwords do not match",
+                  color: AppColors.green,
+                  fontWeight: FontWeight.bold,
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            Divider(color: AppColors.grey, height: 0.5),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Center(
+                  child: AppText(
+                    title: "Ok",
+                    color: AppColors.black,
+                    fontWeight: FontWeight.bold,
+                  )),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppColors.white,
-        appBar: AppAppBar(
-          title: 'Reset Password',
-        ),
-        body: SingleChildScrollView(
-          padding: EdgeInsets.all(18),
-          child: Column(
-            children: [
-              Image.asset(
-                'assets/images/reset.png',
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      child: BlocConsumer<UserCubit, UserState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return Scaffold(
+            backgroundColor: AppColors.white,
+            appBar: AppAppBar(
+              title: 'Reset Password',
+            ),
+            body: SingleChildScrollView(
+              padding: EdgeInsets.all(18),
+              child: Column(
                 children: [
-                  AppText(
-                    title: "New Password",
-                    color: AppColors.black,
-                    fontWeight: FontWeight.bold,
+                  Image.asset(
+                    'assets/images/reset.png',
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  AppTextField(
-                    hint: "Password",
-                    radius: 8,
-                    icon: Icons.lock_outline,
-                    hintFontSize: 12,
-                    suffixicon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          obscurePassword = !obscurePassword;
-                        });
-                      },
-                      icon: Icon(
-                        color:
-                            obscurePassword ? AppColors.grey : AppColors.blue,
-                        obscurePassword
-                            ? Icons.visibility_off
-                            : Icons.visibility,
-                      ),
+                  Form(
+                    key: context.read<UserCubit>().resstPasswordFormKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppText(
+                          title: "New Password",
+                          color: AppColors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        AppTextField(
+                          hint: "Password",
+                          radius: 8,
+                          icon: Icons.lock_outline,
+                          hintFontSize: 12,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter your password';
+                            }
+                            if (value.length < 8) {
+                              return 'Password must be at least 8 characters long';
+                            }
+                            return null;
+                          },
+                          controller: context.read<UserCubit>().newPassword,
+                          suffixicon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                obscurePassword = !obscurePassword;
+                              });
+                            },
+                            icon: Icon(
+                              color: obscurePassword
+                                  ? AppColors.grey
+                                  : AppColors.blue,
+                              obscurePassword
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                            ),
+                          ),
+                          obscureText: obscurePassword,
+                          maxLines: 1,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        AppText(
+                          title: "Confirm New Password",
+                          color: AppColors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        AppTextField(
+                          hint: "Confirm New Password",
+                          radius: 8,
+                          icon: Icons.lock_outline,
+                          hintFontSize: 12,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please confirm your password';
+                            }
+                            if (value !=
+                                context.read<UserCubit>().newPassword.text) {
+                              return 'Passwords do not match';
+                            }
+                            return null;
+                          },
+                          controller:
+                              context.read<UserCubit>().confirmNewPassword,
+                          suffixicon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                obscurePassword2 = !obscurePassword2;
+                              });
+                            },
+                            icon: Icon(
+                              color: obscurePassword2
+                                  ? AppColors.grey
+                                  : AppColors.blue,
+                              obscurePassword2
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                            ),
+                          ),
+                          obscureText: obscurePassword2,
+                          maxLines: 1,
+                        ),
+                        SizedBox(
+                          height: 50,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            AppButton(
+                              title: "Confirm",
+                              color: AppColors.blue,
+                              font_color: AppColors.white,
+                              onTap: () {
+                                if (context
+                                    .read<UserCubit>()
+                                    .resstPasswordFormKey
+                                    .currentState!
+                                    .validate()) {
+                                  context
+                                      .read<UserCubit>()
+                                      .resstPasswordFormKey
+                                      .currentState!
+                                      .save();
+                                  context.read<UserCubit>().resetPassword();
+                                  _showAlertDialog(context);
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    obscureText: obscurePassword,
-                    maxLines: 1,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  AppText(
-                    title: "Confirm New Password",
-                    color: AppColors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  AppTextField(
-                    hint: "Password",
-                    radius: 8,
-                    icon: Icons.lock_outline,
-                    hintFontSize: 12,
-                    suffixicon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          obscurePassword2 = !obscurePassword2;
-                        });
-                      },
-                      icon: Icon(
-                        color:
-                            obscurePassword2 ? AppColors.grey : AppColors.blue,
-                        obscurePassword2
-                            ? Icons.visibility_off
-                            : Icons.visibility,
-                      ),
-                    ),
-                    obscureText: obscurePassword2,
-                    maxLines: 1,
-                  ),
-                  SizedBox(
-                    height: 50,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      AppButton(
-                        title: "Confirm",
-                        color: AppColors.blue,
-                        font_color: AppColors.white,
-                        onTap: () {
-                          _showAlertDialog(context);
-                        },
-                      ),
-                    ],
                   ),
                 ],
               ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }

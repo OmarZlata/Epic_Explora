@@ -1,7 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:epic_expolre/Views/BookingScreens/BookingDetails/Booking_Details.dart';
+import 'package:epic_expolre/Views/BookingScreens/future_booking.dart';
+import 'package:epic_expolre/Views/Maps/google_map/view.dart';
 import 'package:epic_expolre/Views/Maps/splash/onboarding_3.dart';
 import 'package:epic_expolre/Views/Profile/profile_main.dart';
+import 'package:epic_expolre/Views/States/Aswan/Aswan_tab_bar.dart';
+import 'package:epic_expolre/Views/States/alex/Alex_tab_bar.dart';
 import 'package:epic_expolre/Views/States/alex/trips_screen.dart';
 import 'package:epic_expolre/Views/WelcomeScreens/splash_screen.dart';
 import 'package:epic_expolre/Views/auth/SignIn.dart';
@@ -14,15 +18,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'Views/Home/view.dart';
-import 'Views/MainScreens/New_Search.dart';
 import 'Views/My_Trips/Add_Trip/add_trip.dart';
 import 'Views/Place_Detials/detials_place_detials.dart';
 import 'Views/Profile/AppMode.dart';
-import 'Views/Profile/Currency_Convertor.dart';
 import 'Views/Profile/Edit_Profile.dart';
 import 'Views/Profile/Settings.dart';
 import 'Views/Profile/Terms.dart';
-import 'Views/States/alex/Alex_tab_bar.dart';
 import 'Widgets/booking_tabBar.dart';
 import 'Widgets/bottomNavigationBar.dart';
 import 'Widgets/trips_tabBar.dart';
@@ -55,7 +56,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primaryColor: Color(0xFF2F3C7E),
           ),
-          home:AlexTabBar(),
+          home:SignInView(),
         );
       },
     );

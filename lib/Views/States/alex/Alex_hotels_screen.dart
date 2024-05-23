@@ -22,8 +22,7 @@ class PlaceAPI {
 
   Future<List<AlexTrip>> getAllTrips({int page = 1}) async {
     final BaseOptions baseOptions = BaseOptions(headers: {
-      "Authorization":
-          "Bearer 15|itUINYzlaSxfVOyDVMUjhlRrl2civqwiVs1yLwnTa95864a8",
+      "Authorization": "Bearer 176|gJ4ezAnO2yJfDDW4MOqdFUx2kd6TBfZT1urjJvYE17df0b0a",
       "Accept": "*/*",
       "Accept-Encoding": "gzip, deflate, br",
     });

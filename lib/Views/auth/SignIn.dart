@@ -4,6 +4,7 @@ import 'package:epic_expolre/Views/Profile/profile_main.dart';
 import 'package:epic_expolre/Views/auth/Forget_Password.dart';
 import 'package:epic_expolre/Views/auth/SignUp.dart';
 import 'package:epic_expolre/Widgets/app_AppBar.dart';
+import 'package:epic_expolre/Widgets/bottomNavigationBar.dart';
 import 'package:epic_expolre/cubit/user_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,6 +24,7 @@ class SignInView extends StatefulWidget {
 
 class _SignInViewState extends State<SignInView> {
   bool obscurePassword = true;
+  final signInFormKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +36,17 @@ class _SignInViewState extends State<SignInView> {
               const SnackBar(
                 backgroundColor: AppColors.blue,
                 elevation: 1,
-                content: Text("Success" ,style: TextStyle(
-                  color: AppColors.white,
-                ),),
+                content: Center(
+                  child: Text("Success" ,style: TextStyle(
+                    color: AppColors.white,
+                  ),),
+                ),
               ),
             );
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => const ProfileMainScreen(),
+                builder: (context) => const bottomNavigationBar(),
               ),
             );
           } else if (state is SignInFailure) {
@@ -51,10 +55,12 @@ class _SignInViewState extends State<SignInView> {
                 elevation: 1,
                 backgroundColor: AppColors.blue,
                 padding: EdgeInsets.all(8),
-                content: Text("E-mail or Password are not correct",
-                  style: TextStyle(
-                    color: AppColors.white,
-                  ),),
+                content: Center(
+                  child: Text("E-mail or Password are not correct",
+                    style: TextStyle(
+                      color: AppColors.white,
+                    ),),
+                ),
               ),
             );
           }
@@ -76,84 +82,96 @@ class _SignInViewState extends State<SignInView> {
                     SizedBox(
                       height: 50,
                     ),
-                    Center(
+                     Center(
                       child: Image.asset('assets/images/signup.png'),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const AppText(
-                          title: "Email",
-                          color: AppColors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Column(
-                          children: [
-                            AppTextField(
-                              hint: "Email",
-                              radius: 8,
-                              icon: Icons.email_outlined,
-                              hintFontSize: 12,
-                              obscureText: false,
-                              maxLines: 1,
-                              controller:
-                                  context.read<UserCubit>().signInEmail,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return "Email can't be empty";
-                                }
-                                final emailRegex = RegExp(
-                                    r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
-                                if (!emailRegex.hasMatch(value)) {
-                                  return "Invalid email address";
-                                }
-                                return null;
-                              },
-                            ),
-                            SizedBox(height: 23),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                AppText(
-                                  title: "Password",
-                                  color: AppColors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                AppTextField(
-                                  hint: "Password",
-                                  radius: 8,
-                                  icon: Icons.lock_outline,
-                                  hintFontSize: 12,
-                                  suffixicon: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        obscurePassword = !obscurePassword;
-                                      });
-                                    },
-                                    icon: Icon(
-                                      color: obscurePassword ?AppColors.grey:AppColors.blue,
-                                      obscurePassword
-                                          ? Icons.visibility_off
-                                          : Icons.visibility,
-                                    ),
+                    Form(
+                      key: signInFormKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const AppText(
+                            title: "Email",
+                            color: AppColors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Column(
+                            children: [
+                              AppTextField(
+                                hint: "Email",
+                                radius: 8,
+                                icon: Icons.email_outlined,
+                                hintFontSize: 12,
+                                obscureText: false,
+                                maxLines: 1,
+                                controller:
+                                    context.read<UserCubit>().signInEmail,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "Email can't be empty";
+                                  }
+                                  final emailRegex = RegExp(
+                                      r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+                                  if (!emailRegex.hasMatch(value)) {
+                                    return "Invalid email address";
+                                  }
+                                  return null;
+                                },
+                              ),
+                              SizedBox(height: 23),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  AppText(
+                                    title: "Password",
+                                    color: AppColors.black,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  obscureText: obscurePassword,
-                                  maxLines: 1,
-                                  controller: context
-                                      .read<UserCubit>()
-                                      .signInPassword,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  AppTextField(
+                                    hint: "Password",
+                                    radius: 8,
+                                    icon: Icons.lock_outline,
+                                    hintFontSize: 12,
+                                    suffixicon: IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          obscurePassword = !obscurePassword;
+                                        });
+                                      },
+                                      icon: Icon(
+                                        color: obscurePassword ?AppColors.grey:AppColors.blue,
+                                        obscurePassword
+                                            ? Icons.visibility_off
+                                            : Icons.visibility,
+                                      ),
+                                    ),
+                                    obscureText: obscurePassword,
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'Please enter your password';
+                                      }
+                                      if (value.length < 8) {
+                                        return 'Password must be at least 8 characters long';
+                                      }
+                                      return null;
+                                    },
+                                    maxLines: 1,
+                                    controller: context
+                                        .read<UserCubit>()
+                                        .signInPassword,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: 8,
@@ -186,7 +204,12 @@ class _SignInViewState extends State<SignInView> {
                             font_color: AppColors.white,
                             title: "Sign in",
                             onTap: () {
-                              context.read<UserCubit>().signIn();
+                              if (signInFormKey.currentState!.validate()) {
+                                signInFormKey.currentState!.save();
+                                context.read<UserCubit>().signIn();
+                                print('Email: ${context.read<UserCubit>().signInEmail}');
+                                print('Password: ${context.read<UserCubit>().signInPassword}');
+                              }
                             },
                           ),
                     SizedBox(

@@ -11,13 +11,17 @@ class AppButton extends StatelessWidget {
     this.onTap,
     this.font_color,
     this.color,
-    this.border_color
+    this.border_color,
+    this.height,
+    this.width
   });
 
   final String title;
   final font_color;
   final color;
   final border_color;
+  final double? height;
+  final double? width;
 
 
   final void Function()? onTap;
@@ -29,8 +33,8 @@ class AppButton extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(12),
       child: Container(
-        height: 48,
-        width: 344,
+        height: height ??48,
+        width: width ??344,
         alignment: Alignment.center,
         child: AppText(
           title: title,
@@ -40,9 +44,9 @@ class AppButton extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: color,
+          color: color??AppColors.grey.withOpacity(.2),
           border: Border.all(
-            color: border_color ??AppColors.blue,
+            color: border_color ??AppColors.white,
             width: 1,
           ),
 

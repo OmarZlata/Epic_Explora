@@ -387,15 +387,15 @@ class _detialsPlaceDetialsState extends State<detialsPlaceDetials> {
             const SizedBox(height: 16),
             Padding(
               padding: const EdgeInsets.only(left: 24.0),
-              // child: Container(
-              //   height: 248,
-              //   width: 450,
-              //   child: ListView.builder(
-              //     itemCount: 9,
-              //     scrollDirection: Axis.horizontal,
-              //     itemBuilder: (context, index) => AppHomeCard(),
-              //   ),
-              // ),
+              child: Container(
+                height: 248,
+                width: 450,
+                // child: ListView.builder(
+                //   itemCount: 9,
+                //   scrollDirection: Axis.horizontal,
+                //   itemBuilder: (context, index) => AppHomeCard(),
+                // ),
+              ),
             ),
             const SizedBox(
               height: 23,

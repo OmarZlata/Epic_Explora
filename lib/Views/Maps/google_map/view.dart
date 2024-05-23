@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
 import '../../../Widgets/bottomNavigationBar.dart';
 import '../../../core/Location_utlis/location_utils.dart';
 import 'cubit.dart';

@@ -6,6 +6,35 @@ final class UserInitial extends UserState {}
 
 final class SignInSuccess extends UserState {}
 
+final class ForgetPasswordLoading extends UserState {}
+
+final class ForgetPasswordSuccess extends UserState {}
+
+final class ForgetPasswordFailure extends UserState {
+  final String errMessage;
+
+  ForgetPasswordFailure({required this.errMessage});
+}
+
+final class ResetPasswordLoading extends UserState {}
+
+final class ResetPasswordSuccess extends UserState {}
+
+final class ResetPasswordFailure extends UserState {
+  final String errMessage;
+
+  ResetPasswordFailure({required this.errMessage});
+}
+final class VerificationLoading extends UserState {}
+
+final class VerificationSuccess extends UserState {}
+
+final class VerificationFailure extends UserState {
+  final String errMessage;
+
+  VerificationFailure({required this.errMessage});
+}
+
 final class UploadProfilePic extends UserState {}
 
 final class SignInLoading extends UserState {}
@@ -16,6 +45,8 @@ final class SignInFailure extends UserState {
 
   SignInFailure({required this.errMessage});
 }
+
+
 
 
 final class SignUpSuccess extends UserState {
