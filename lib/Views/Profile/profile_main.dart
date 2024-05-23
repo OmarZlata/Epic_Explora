@@ -1,4 +1,5 @@
 import 'package:epic_expolre/Views/auth/SignIn.dart';
+import 'package:epic_expolre/Widgets/app_AppBar.dart';
 import 'package:epic_expolre/cubit/user_cubit.dart';
 import 'package:epic_expolre/cubit/user_state.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,6 +10,7 @@ import '../../Widgets/app_ListTile.dart';
 import '../../Widgets/app_text.dart';
 import '../../Widgets/booking_tabBar.dart';
 import '../../core/app_colors/app_colors.dart';
+import '../Home/view.dart';
 import 'AppMode.dart';
 import 'Edit_Profile.dart';
 import 'Terms.dart';
@@ -25,6 +27,23 @@ class ProfileMainScreen extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
+            appBar: AppBar(
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back, color: Colors.black),
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => HomeView())),
+              ),
+              backgroundColor: AppColors.white,
+              elevation: 1,
+              title: Text(
+                "Profile Settings",
+                style: TextStyle(
+                    color: AppColors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600),
+              ),
+              centerTitle: true,
+            ),
             body: Padding(
           padding: const EdgeInsets.all(24.0),
           child: ListView(

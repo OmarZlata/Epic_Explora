@@ -115,16 +115,35 @@ class _RedSeaPlacesScreenState extends State<RedSeaPlacesScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            ElevatedButton(
-              style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(AppColors.blue)),
-              onPressed: goToPreviousPage,
-              child: Text('Previous Page'),
+            InkWell(onTap: () {
+              goToPreviousPage();
+            },
+              child: CircleAvatar(
+
+                backgroundColor: AppColors.blue,
+                child: Icon(
+                  Icons.arrow_back_ios_new,
+                  color: AppColors.white,
+                ),
+              ),
             ),
-            Text('Page $currentPage'),
-            ElevatedButton(
-              style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(AppColors.blue)),
-              onPressed: goToNextPage,
-              child: Text('Next Page'),
+
+            Container(
+                padding: EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(width: 1, color: AppColors.grey)),
+                child: Text('$currentPage')),
+            InkWell(onTap: () {
+              goToNextPage();
+            },
+              child: CircleAvatar(
+                backgroundColor: AppColors.blue,
+                child: Icon(
+                  Icons.arrow_forward_ios,
+                  color: AppColors.white,
+                ),
+              ),
             ),
           ],
         ),

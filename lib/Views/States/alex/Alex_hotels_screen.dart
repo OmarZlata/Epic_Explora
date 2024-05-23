@@ -22,14 +22,16 @@ class PlaceAPI {
 
   Future<List<AlexTrip>> getAllTrips({int page = 1}) async {
     final BaseOptions baseOptions = BaseOptions(headers: {
-      "Authorization": "Bearer 15|itUINYzlaSxfVOyDVMUjhlRrl2civqwiVs1yLwnTa95864a8",
+      "Authorization":
+          "Bearer 15|itUINYzlaSxfVOyDVMUjhlRrl2civqwiVs1yLwnTa95864a8",
       "Accept": "*/*",
       "Accept-Encoding": "gzip, deflate, br",
     });
     final Dio dio = Dio(baseOptions);
 
     try {
-      Response response = await dio.get('${baseUrl}api/user/hotel/Alexandria?page=$page');
+      Response response =
+          await dio.get('${baseUrl}api/user/hotel/Alexandria?page=$page');
       if (response.statusCode == 200) {
         List data = response.data['data']['hotels'];
         log("data text${data}");
@@ -62,7 +64,8 @@ class _HotelsViewState extends State<HotelsView> {
 
   void _fetchPlaces() async {
     try {
-      List<AlexTrip> fetchedPlaces = await placeAPI.getAllTrips(page: currentPage);
+      List<AlexTrip> fetchedPlaces =
+          await placeAPI.getAllTrips(page: currentPage);
       setState(() {
         alextrip = fetchedPlaces;
         isloading = false;
@@ -97,28 +100,47 @@ class _HotelsViewState extends State<HotelsView> {
       body: isloading
           ? Center(child: CircularProgressIndicator())
           : ListView.builder(
-        itemCount: alextrip!.length,
-        itemBuilder: (context, index) => APIAppCard(
-          cardText: alextrip![index].name!,
-          cardAddress: alextrip![index].address!,
-          cardimgUrl: alextrip![index].img_url!,
-        ),
-      ),
+              itemCount: alextrip!.length,
+              itemBuilder: (context, index) => APIAppCard(
+                cardText: alextrip![index].name!,
+                cardAddress: alextrip![index].address!,
+                cardimgUrl: alextrip![index].img_url!,
+              ),
+            ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            ElevatedButton(
-              style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(AppColors.blue)),
-              onPressed: goToPreviousPage,
-              child: Text('Previous Page'),
+            InkWell(onTap: () {
+              goToPreviousPage();
+            },
+              child: CircleAvatar(
+
+                backgroundColor: AppColors.blue,
+                child: Icon(
+                  Icons.arrow_back_ios_new,
+                  color: AppColors.white,
+                ),
+              ),
             ),
-            Text('Page $currentPage'),
-            ElevatedButton(
-              style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(AppColors.blue)),
-              onPressed: goToNextPage,
-              child: Text('Next Page'),
+
+            Container(
+                padding: EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(width: 1, color: AppColors.grey)),
+                child: Text('$currentPage')),
+            InkWell(onTap: () {
+              goToNextPage();
+            },
+              child: CircleAvatar(
+                backgroundColor: AppColors.blue,
+                child: Icon(
+                  Icons.arrow_forward_ios,
+                  color: AppColors.white,
+                ),
+              ),
             ),
           ],
         ),
