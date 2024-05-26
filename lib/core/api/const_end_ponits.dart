@@ -1,14 +1,12 @@
 import 'package:epic_expolre/core/models/sign_up_model.dart';
 
 class EndPoint {
-
-  static String baseUrl = "https://fd15-197-35-222-228.ngrok-free.app/";
+  static String baseUrl = "https://epic-explore.vercel.app/api/";
   static String signIn = "api/user/login/";
   static String register = "api/user/register/";
-  static String logout ="api/user/logout/";
-  static String forgot_password ="api/user/forgot_password/";
-  static String reset_password ="api/user/reset_pass/";
-
+  static String logout = "api/user/logout/";
+  static String forgot_password = "api/user/forgot_password/";
+  static String reset_password = "api/user/reset_pass/";
 
   static String getUserDataEndPoint(id) {
     return "user/get-user/$id";
@@ -16,7 +14,7 @@ class EndPoint {
 }
 
 class ApiKey {
-  static String success = 'success' ;
+  static String success = 'success';
   static String img = "image";
   static String updatedAt = "updated_at";
   static String createdAt = "created_at";
@@ -35,5 +33,5 @@ class ApiKey {
   static String confirmPassword = "password_confirmation";
   static String location = "location";
   static String profilePic = "profilePic";
-  static String image ="image";
+  static String image = "image";
 }

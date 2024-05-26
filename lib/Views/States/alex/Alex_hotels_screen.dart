@@ -10,37 +10,32 @@ import '../../../Widgets/API_App_card.dart';
 import '../../../cache/cache_helper.dart';
 import '../../../core/api/AlexTripAPI.dart';
 import '../../../core/api/const_end_ponits.dart';
-import '../../../core/models/AswanHotelsApi.dart';
-import '../../../core/models/CairoHotelsApi.dart';
-import '../../../core/models/RedSeaHotelsAPI.dart';
-import '../../core/api/AllplacesAPI.dart';
 
-class SearchScreen extends StatefulWidget {
-  const SearchScreen({Key? key});
+class HotelsView extends StatefulWidget {
+  const HotelsView({Key? key});
 
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  State<HotelsView> createState() => _HotelsViewState();
 }
 
 class PlaceAPI {
   final String baseUrl = EndPoint.baseUrl;
 
-  Future<List<AllPlaces>> getAllTrips({int page = 1}) async {
+  Future<List<AlexTrip>> getAllTrips({int page = 1}) async {
     final BaseOptions baseOptions = BaseOptions(headers: {
       "Authorization": "Bearer ${CacheHelper().getData(key: ApiKey.token)}",
-      "Accept-Encoding": "gzip, deflate, br",
-      'Content-Type': 'application/json',
-      "Accept": "application/json"
+
     });
     final Dio dio = Dio(baseOptions);
 
     try {
-      Response response = await dio.get('${baseUrl}/api/user/place?page=$page');
+      Response response =
+          await dio.get('${baseUrl}api/user/hotel/Alexandria?page=$page');
       if (response.statusCode == 200) {
-        List data = response.data['data']['allPlaces'];
+        List data = response.data['data']['hotels'];
         log("data text${data}");
 
-        List<AllPlaces> x = data.map((e) => AllPlaces.fromJson(e)).toList();
+        List<AlexTrip> x = data.map((e) => AlexTrip.fromJson(e)).toList();
 
         return x;
       } else {
@@ -54,8 +49,8 @@ class PlaceAPI {
   }
 }
 
-class _SearchScreenState extends State<SearchScreen> {
-  List<AllPlaces>? allplaces;
+class _HotelsViewState extends State<HotelsView> {
+  List<AlexTrip>? alextrip;
   bool isloading = true;
   PlaceAPI placeAPI = PlaceAPI();
   int currentPage = 1;
@@ -68,10 +63,10 @@ class _SearchScreenState extends State<SearchScreen> {
 
   void _fetchPlaces() async {
     try {
-      List<AllPlaces> fetchedPlaces =
+      List<AlexTrip> fetchedPlaces =
           await placeAPI.getAllTrips(page: currentPage);
       setState(() {
-        allplaces = fetchedPlaces;
+        alextrip = fetchedPlaces;
         isloading = false;
       });
     } catch (e) {
@@ -82,7 +77,7 @@ class _SearchScreenState extends State<SearchScreen> {
   void goToNextPage() {
     setState(() {
       currentPage += 1;
-      allplaces = null;
+      alextrip = null;
       isloading = true;
     });
     _fetchPlaces();
@@ -92,7 +87,7 @@ class _SearchScreenState extends State<SearchScreen> {
     if (currentPage > 1) {
       setState(() {
         currentPage -= 1;
-        allplaces = null;
+        alextrip = null;
         isloading = true;
       });
       _fetchPlaces();
@@ -102,17 +97,15 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: isloading
-          ? Center(
-              child: CircularProgressIndicator(
-              color: AppColors.blue,
-            ))
+          ? Center(child: CircularProgressIndicator())
           : ListView.builder(
-              itemCount: allplaces!.length,
+              itemCount: alextrip!.length,
               itemBuilder: (context, index) => APIAppCard(
-                cardText: allplaces![index].name!,
-                cardAddress: allplaces![index].address!,
-                cardimgUrl: allplaces![index].img_url!,
-                cardid: allplaces![index].id!,
+                cardText: alextrip![index].name!,
+                cardAddress: alextrip![index].address!,
+                cardimgUrl: alextrip![index].img_url!,
+                cardid: alextrip![index].id!,
+
               ),
             ),
       bottomNavigationBar: Padding(
@@ -120,11 +113,11 @@ class _SearchScreenState extends State<SearchScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            InkWell(
-              onTap: () {
-                goToPreviousPage();
-              },
+            InkWell(onTap: () {
+              goToPreviousPage();
+            },
               child: CircleAvatar(
+
                 backgroundColor: AppColors.blue,
                 child: Icon(
                   Icons.arrow_back_ios_new,
@@ -132,16 +125,16 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ),
             ),
+
             Container(
                 padding: EdgeInsets.all(15),
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(width: 1, color: AppColors.grey)),
                 child: Text('$currentPage')),
-            InkWell(
-              onTap: () {
-                goToNextPage();
-              },
+            InkWell(onTap: () {
+              goToNextPage();
+            },
               child: CircleAvatar(
                 backgroundColor: AppColors.blue,
                 child: Icon(

@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:epic_expolre/cache/cache_helper.dart';
 import 'package:epic_expolre/core/api/api_consumer.dart';
@@ -36,7 +35,6 @@ class UserCubit extends Cubit<UserState> {
 
   //Sign Up Form key
 
-
   //Profile Pic
   //Sign up name
   TextEditingController signUpName = TextEditingController();
@@ -52,13 +50,11 @@ class UserCubit extends Cubit<UserState> {
 
   //Sign up confirm password
   TextEditingController confirmPassword = TextEditingController();
-  SignInModel? user ;
-  VerificationModel? verificationModel ;
-
+  SignInModel? user;
+  VerificationModel? verificationModel;
 
   signUp() async {
     try {
-
       emit(SignUpLoading());
       final response = await api.post(
         EndPoint.register,
@@ -71,8 +67,8 @@ class UserCubit extends Cubit<UserState> {
         },
       );
       final signUPModel = SignUpModel.fromJson(response);
-      CacheHelper().saveData(key: ApiKey.token, value: user!.token);
-      CacheHelper().saveData(key: ApiKey.id, value: user!.id);
+      // CacheHelper().saveData(key: ApiKey.token, value: user!.token);
+      // CacheHelper().saveData(key: ApiKey.id, value: user!.id);
       print("SignUp Done And ID is :${user!.id}");
       emit(SignUpSuccess(message: signUPModel.message));
     } on ServerException catch (e) {
@@ -101,7 +97,6 @@ class UserCubit extends Cubit<UserState> {
   }
 
   logout() async {
-
     try {
       emit(LogoutLoading());
       final response = await api.post(
@@ -109,25 +104,26 @@ class UserCubit extends Cubit<UserState> {
         option: Options(headers: {
           'Authorization': 'Bearer ${user!.token}',
         }),
-
       );
       CacheHelper().removeData(key: ApiKey.token);
       emit(LogoutSuccess());
-    } on ServerException catch (e)  {
+    } on ServerException catch (e) {
       emit(LogoutFailure(errMessage: e.errModel.errorMessage));
     }
   }
+
   forgotPassword() async {
     try {
       emit(ForgetPasswordLoading());
       final response = await api.post(
         EndPoint.forgot_password,
-         data: {
-         ApiKey.email: resetPasswordEmail.text,
-         },
+        data: {
+          ApiKey.email: resetPasswordEmail.text,
+        },
       );
       verificationModel = VerificationModel.fromJson(response);
-      CacheHelper().saveData(key: ApiKey.otp, value: verificationModel!.token[0].otp);
+      CacheHelper()
+          .saveData(key: ApiKey.otp, value: verificationModel!.token[0].otp);
       emit(ForgetPasswordSuccess());
     } on ServerException catch (e) {
       emit(ForgetPasswordFailure(errMessage: e.errModel.errorMessage));
@@ -140,19 +136,15 @@ class UserCubit extends Cubit<UserState> {
       final response = await api.put(
         EndPoint.reset_password,
         data: {
-          ApiKey.email :resetPasswordEmail.text,
+          ApiKey.email: resetPasswordEmail.text,
           'otp': CacheHelper().getData(key: ApiKey.token),
-          ApiKey.newPassword:newPassword.text,
-          ApiKey.confirmNewPassword:confirmNewPassword.text
-      },
+          ApiKey.newPassword: newPassword.text,
+          ApiKey.confirmNewPassword: confirmNewPassword.text
+        },
       );
       emit(ResetPasswordSuccess());
     } on ServerException catch (e) {
       emit(ResetPasswordFailure(errMessage: e.errModel.errorMessage));
     }
   }
-
 }
-
-
-

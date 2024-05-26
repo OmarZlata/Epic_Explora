@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 import '../../../Widgets/bottomNavigationBar.dart';
 import '../../../core/Location_utlis/location_utils.dart';
 import 'cubit.dart';
@@ -23,9 +24,9 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
   @override
   Widget build(BuildContext context) {
     final currentPosition = LocationUtils.currentPosition;
-    return BlocProvider(
-      create: (context) => GoogleMapsCubit(),
-      child: SafeArea(
+    return SafeArea(
+      child: BlocProvider(
+        create: (context) => GoogleMapsCubit(),
         child: Scaffold(
           body: BlocBuilder<GoogleMapsCubit, GoogleMapsStates>(
             builder: (context, state) {
@@ -57,21 +58,17 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
                   ),
                   state is GoogleMapsLoading
                       ? Center(
-                          child: CircularProgressIndicator(
-                            color: AppColors.blue,
-                          ),
+                          child: CircularProgressIndicator(color: AppColors.blue),
                         )
-                      : Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: AppButton(
-                          color: cubit.markers.isEmpty?AppColors.grey.withOpacity(.3):AppColors.blue,
-                          font_color:AppColors.white,
-                            border_color: AppColors.white,
-                            onTap:
-                                cubit.markers.isEmpty ? null  : cubit.getLocation,
-                            title: "Confirm",
-                          ),
-                      ),
+                      : AppButton(
+
+                    color: AppColors.blue,
+                    font_color: AppColors.white,
+                    title: "Confirm",
+                          onTap:
+                              cubit.markers.isEmpty ? null : cubit.getLocation,
+
+                        ),
                 ],
               );
             },

@@ -10,37 +10,32 @@ import '../../../Widgets/API_App_card.dart';
 import '../../../cache/cache_helper.dart';
 import '../../../core/api/AlexTripAPI.dart';
 import '../../../core/api/const_end_ponits.dart';
-import '../../../core/models/AswanHotelsApi.dart';
 import '../../../core/models/CairoHotelsApi.dart';
-import '../../../core/models/RedSeaHotelsAPI.dart';
-import '../../core/api/AllplacesAPI.dart';
 
-class SearchScreen extends StatefulWidget {
-  const SearchScreen({Key? key});
+class CairoHotelsView extends StatefulWidget {
+  const CairoHotelsView({Key? key});
 
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  State<CairoHotelsView> createState() => _CairoHotelsViewState();
 }
 
 class PlaceAPI {
   final String baseUrl = EndPoint.baseUrl;
 
-  Future<List<AllPlaces>> getAllTrips({int page = 1}) async {
+  Future<List<CairoHotels>> getAllTrips({int page = 1}) async {
     final BaseOptions baseOptions = BaseOptions(headers: {
       "Authorization": "Bearer ${CacheHelper().getData(key: ApiKey.token)}",
-      "Accept-Encoding": "gzip, deflate, br",
-      'Content-Type': 'application/json',
-      "Accept": "application/json"
     });
     final Dio dio = Dio(baseOptions);
 
     try {
-      Response response = await dio.get('${baseUrl}/api/user/place?page=$page');
+      Response response =
+          await dio.get('${baseUrl}api/user/hotel/cairo?page=$page');
       if (response.statusCode == 200) {
-        List data = response.data['data']['allPlaces'];
+        List data = response.data['data']['hotels'];
         log("data text${data}");
 
-        List<AllPlaces> x = data.map((e) => AllPlaces.fromJson(e)).toList();
+        List<CairoHotels> x = data.map((e) => CairoHotels.fromJson(e)).toList();
 
         return x;
       } else {
@@ -54,8 +49,8 @@ class PlaceAPI {
   }
 }
 
-class _SearchScreenState extends State<SearchScreen> {
-  List<AllPlaces>? allplaces;
+class _CairoHotelsViewState extends State<CairoHotelsView> {
+  List<CairoHotels>? cairohotels;
   bool isloading = true;
   PlaceAPI placeAPI = PlaceAPI();
   int currentPage = 1;
@@ -68,10 +63,10 @@ class _SearchScreenState extends State<SearchScreen> {
 
   void _fetchPlaces() async {
     try {
-      List<AllPlaces> fetchedPlaces =
+      List<CairoHotels> fetchedPlaces =
           await placeAPI.getAllTrips(page: currentPage);
       setState(() {
-        allplaces = fetchedPlaces;
+        cairohotels = fetchedPlaces;
         isloading = false;
       });
     } catch (e) {
@@ -82,7 +77,7 @@ class _SearchScreenState extends State<SearchScreen> {
   void goToNextPage() {
     setState(() {
       currentPage += 1;
-      allplaces = null;
+      cairohotels = null;
       isloading = true;
     });
     _fetchPlaces();
@@ -92,7 +87,7 @@ class _SearchScreenState extends State<SearchScreen> {
     if (currentPage > 1) {
       setState(() {
         currentPage -= 1;
-        allplaces = null;
+        cairohotels = null;
         isloading = true;
       });
       _fetchPlaces();
@@ -102,17 +97,14 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: isloading
-          ? Center(
-              child: CircularProgressIndicator(
-              color: AppColors.blue,
-            ))
+          ? Center(child: CircularProgressIndicator())
           : ListView.builder(
-              itemCount: allplaces!.length,
+              itemCount: cairohotels!.length,
               itemBuilder: (context, index) => APIAppCard(
-                cardText: allplaces![index].name!,
-                cardAddress: allplaces![index].address!,
-                cardimgUrl: allplaces![index].img_url!,
-                cardid: allplaces![index].id!,
+                cardText: cairohotels![index].name!,
+                cardAddress: cairohotels![index].address!,
+                cardimgUrl: cairohotels![index].img_url!,
+                cardid: cairohotels![index].id!,
               ),
             ),
       bottomNavigationBar: Padding(
