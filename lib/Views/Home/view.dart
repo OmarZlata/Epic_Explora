@@ -12,6 +12,7 @@ import '../../../Widgets/app_home_card.dart';
 import '../../../Widgets/ranged_slider_app.dart';
 import '../../../core/app_colors/app_colors.dart';
 
+import '../../cache/cache_helper.dart';
 import '../../core/api/AllPlaces_API.dart';
 import '../../core/api/AllPlaces_API.dart';
 import '../../core/api/AllPlaces_API.dart';
@@ -59,7 +60,7 @@ class PlaceService {
   Future<List<Recommended>> getAllPlaces() async {
     final BaseOptions baseOption = BaseOptions(headers: {
       "Authorization":
-      "Bearer 15|itUINYzlaSxfVOyDVMUjhlRrl2civqwiVs1yLwnTa95864a8",
+      "Bearer ${CacheHelper().getData(key: ApiKey.token)}",
       "Accept": "*/*",
       "Accept-Encoding": "gzip, deflate, br",
     });
@@ -389,6 +390,7 @@ class _HomeViewState extends State<HomeView> {
                           cardText: recommended![index].name!,
                           cardAddress: recommended![index].address!,
                           cardimgUrl: recommended![index].img_url!,
+                          cardid: recommended![index].id!,
                         )),
                   ),
                   SizedBox(height: 16),

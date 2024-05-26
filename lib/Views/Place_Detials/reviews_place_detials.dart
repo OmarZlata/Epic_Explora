@@ -99,7 +99,7 @@ class _reviewsPlaceDetialsState extends State<reviewsPlaceDetials> {
                         onPressed: () {
                           setState(() => changeColor = !changeColor);
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const detialsPlaceDetials()));
+                              builder: (context) =>  detialsPlaceDetials(id: null,)));
                         },
                         textColor: changeColor ? Colors.white : Colors.black,
                         borderRadius: const BorderRadius.only(

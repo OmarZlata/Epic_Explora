@@ -4,7 +4,8 @@ import '../../Widgets/app_home_card.dart';
 import '../../core/app_colors/app_colors.dart';
 
 class detialsPlaceDetials extends StatefulWidget {
-  const detialsPlaceDetials({super.key});
+   detialsPlaceDetials({super.key,required this.id,});
+  int? id;
 
   @override
   State<detialsPlaceDetials> createState() => _detialsPlaceDetialsState();
@@ -12,6 +13,7 @@ class detialsPlaceDetials extends StatefulWidget {
 
 class _detialsPlaceDetialsState extends State<detialsPlaceDetials> {
   bool changeColor = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +102,7 @@ class _detialsPlaceDetialsState extends State<detialsPlaceDetials> {
                         onPressed: () {
                           setState(() => changeColor = !changeColor);
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const detialsPlaceDetials()));
+                              builder: (context) =>  detialsPlaceDetials(id: null,)));
                         },
                         textColor: changeColor ? Colors.black : Colors.white,
                         borderRadius: const BorderRadius.only(

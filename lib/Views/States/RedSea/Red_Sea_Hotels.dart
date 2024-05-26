@@ -7,6 +7,7 @@ import 'package:epic_expolre/Widgets/app_card.dart';
 import 'package:flutter/material.dart';
 
 import '../../../Widgets/API_App_card.dart';
+import '../../../cache/cache_helper.dart';
 import '../../../core/api/AlexTripAPI.dart';
 import '../../../core/api/const_end_ponits.dart';
 import '../../../core/models/AswanHotelsApi.dart';
@@ -25,7 +26,7 @@ class PlaceAPI {
 
   Future<List<RedSeaHotels>> getAllTrips({int page = 1}) async {
     final BaseOptions baseOptions = BaseOptions(headers: {
-      "Authorization": "Bearer 15|itUINYzlaSxfVOyDVMUjhlRrl2civqwiVs1yLwnTa95864a8",
+      "Authorization": "Bearer ${CacheHelper().getData(key: ApiKey.token)}",
       "Accept": "*/*",
       "Accept-Encoding": "gzip, deflate, br",
     });
@@ -105,6 +106,7 @@ class _RedSeaHotelsViewState extends State<RedSeaHotelsView> {
           cardText: redseahotels![index].name!,
           cardAddress: redseahotels![index].address!,
           cardimgUrl: redseahotels![index].img_url!,
+          cardid: redseahotels![index].id!,
         ),
       ),
       bottomNavigationBar: Padding(

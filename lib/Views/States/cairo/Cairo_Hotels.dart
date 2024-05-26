@@ -7,6 +7,7 @@ import 'package:epic_expolre/Widgets/app_card.dart';
 import 'package:flutter/material.dart';
 
 import '../../../Widgets/API_App_card.dart';
+import '../../../cache/cache_helper.dart';
 import '../../../core/api/AlexTripAPI.dart';
 import '../../../core/api/const_end_ponits.dart';
 import '../../../core/models/CairoHotelsApi.dart';
@@ -23,7 +24,7 @@ class PlaceAPI {
 
   Future<List<CairoHotels>> getAllTrips({int page = 1}) async {
     final BaseOptions baseOptions = BaseOptions(headers: {
-      "Authorization": "Bearer 15|itUINYzlaSxfVOyDVMUjhlRrl2civqwiVs1yLwnTa95864a8",
+      "Authorization": "Bearer ${CacheHelper().getData(key: ApiKey.token)}",
       "Accept": "*/*",
       "Accept-Encoding": "gzip, deflate, br",
     });
@@ -102,7 +103,7 @@ class _CairoHotelsViewState extends State<CairoHotelsView> {
         itemBuilder: (context, index) => APIAppCard(
           cardText: cairohotels![index].name!,
           cardAddress: cairohotels![index].address!,
-          cardimgUrl: cairohotels![index].img_url!,
+          cardimgUrl: cairohotels![index].img_url!, cardid: cairohotels![index].id!,
         ),
       ),
       bottomNavigationBar: Padding(
