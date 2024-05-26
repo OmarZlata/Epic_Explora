@@ -41,43 +41,45 @@ class _AppHomeCardState extends State<AppHomeCard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Stack(
-                  children: [
-                    ClipRRect(
-                      child: Image.network( '${widget.cardimgUrl![0]}',),
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(15),
-                        topLeft: Radius.circular(15),
+                Flexible(
+                  child: Stack(
+                    children: [
+                      ClipRRect(
+                        child: Image.network( '${widget.cardimgUrl![0]}',),
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(15),
+                          topLeft: Radius.circular(15),
+                        ),
                       ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(12),
-                      alignment: Alignment.topRight,
-                      child: Stack(
-                        children: [
-                          Image.asset(
-                            'assets/images/favbg.png',
+                      Container(
+                        padding: EdgeInsets.all(12),
+                        alignment: Alignment.topRight,
+                        child: Stack(
+                          children: [
+                            Image.asset(
+                              'assets/images/favbg.png',
 
-                            fit: BoxFit.cover,
-                            height: 28,
-                            width: 28,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                isFavorite = !isFavorite;
-                              });
-                            },
-                            child: Icon(
-                              isFavorite ? Icons.favorite : Icons.favorite_border,
-                              color: isFavorite ? Colors.red : Colors.red,
-                              size: 28,
+                              fit: BoxFit.cover,
+                              height: 28,
+                              width: 28,
                             ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  isFavorite = !isFavorite;
+                                });
+                              },
+                              child: Icon(
+                                isFavorite ? Icons.favorite : Icons.favorite_border,
+                                color: isFavorite ? Colors.red : Colors.red,
+                                size: 28,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(

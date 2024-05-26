@@ -26,8 +26,6 @@ class PlaceAPI {
   Future<List<CairoPlaces>> getAllTrips({int page = 1}) async {
     final BaseOptions baseOptions = BaseOptions(headers: {
       "Authorization": "Bearer ${CacheHelper().getData(key: ApiKey.token)}",
-      "Accept": "*/*",
-      "Accept-Encoding": "gzip, deflate, br",
     });
     final Dio dio = Dio(baseOptions);
 

@@ -25,13 +25,12 @@ class PlaceAPI {
   Future<List<CairoHotels>> getAllTrips({int page = 1}) async {
     final BaseOptions baseOptions = BaseOptions(headers: {
       "Authorization": "Bearer ${CacheHelper().getData(key: ApiKey.token)}",
-      "Accept": "*/*",
-      "Accept-Encoding": "gzip, deflate, br",
     });
     final Dio dio = Dio(baseOptions);
 
     try {
-      Response response = await dio.get('${baseUrl}api/user/hotel/cairo?page=$page');
+      Response response =
+          await dio.get('${baseUrl}api/user/hotel/cairo?page=$page');
       if (response.statusCode == 200) {
         List data = response.data['data']['hotels'];
         log("data text${data}");
@@ -64,7 +63,8 @@ class _CairoHotelsViewState extends State<CairoHotelsView> {
 
   void _fetchPlaces() async {
     try {
-      List<CairoHotels> fetchedPlaces = await placeAPI.getAllTrips(page: currentPage);
+      List<CairoHotels> fetchedPlaces =
+          await placeAPI.getAllTrips(page: currentPage);
       setState(() {
         cairohotels = fetchedPlaces;
         isloading = false;
@@ -99,23 +99,24 @@ class _CairoHotelsViewState extends State<CairoHotelsView> {
       body: isloading
           ? Center(child: CircularProgressIndicator())
           : ListView.builder(
-        itemCount: cairohotels!.length,
-        itemBuilder: (context, index) => APIAppCard(
-          cardText: cairohotels![index].name!,
-          cardAddress: cairohotels![index].address!,
-          cardimgUrl: cairohotels![index].img_url!, cardid: cairohotels![index].id!,
-        ),
-      ),
+              itemCount: cairohotels!.length,
+              itemBuilder: (context, index) => APIAppCard(
+                cardText: cairohotels![index].name!,
+                cardAddress: cairohotels![index].address!,
+                cardimgUrl: cairohotels![index].img_url!,
+                cardid: cairohotels![index].id!,
+              ),
+            ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            InkWell(onTap: () {
-              goToPreviousPage();
-            },
+            InkWell(
+              onTap: () {
+                goToPreviousPage();
+              },
               child: CircleAvatar(
-
                 backgroundColor: AppColors.blue,
                 child: Icon(
                   Icons.arrow_back_ios_new,
@@ -123,16 +124,16 @@ class _CairoHotelsViewState extends State<CairoHotelsView> {
                 ),
               ),
             ),
-
             Container(
                 padding: EdgeInsets.all(15),
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(width: 1, color: AppColors.grey)),
                 child: Text('$currentPage')),
-            InkWell(onTap: () {
-              goToNextPage();
-            },
+            InkWell(
+              onTap: () {
+                goToNextPage();
+              },
               child: CircleAvatar(
                 backgroundColor: AppColors.blue,
                 child: Icon(

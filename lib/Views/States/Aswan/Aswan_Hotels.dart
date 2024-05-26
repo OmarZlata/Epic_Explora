@@ -26,13 +26,12 @@ class PlaceAPI {
   Future<List<AswanHotels>> getAllTrips({int page = 1}) async {
     final BaseOptions baseOptions = BaseOptions(headers: {
       "Authorization": "Bearer ${CacheHelper().getData(key: ApiKey.token)}",
-      "Accept": "*/*",
-      "Accept-Encoding": "gzip, deflate, br",
     });
     final Dio dio = Dio(baseOptions);
 
     try {
-      Response response = await dio.get('${baseUrl}api/user/hotel/aswan?page=$page');
+      Response response =
+          await dio.get('${baseUrl}api/user/hotel/aswan?page=$page');
       if (response.statusCode == 200) {
         List data = response.data['data']['hotels'];
         log("data text${data}");
@@ -65,7 +64,8 @@ class _AswanHotelsViewState extends State<AswanHotelsView> {
 
   void _fetchPlaces() async {
     try {
-      List<AswanHotels> fetchedPlaces = await placeAPI.getAllTrips(page: currentPage);
+      List<AswanHotels> fetchedPlaces =
+          await placeAPI.getAllTrips(page: currentPage);
       setState(() {
         aswanhotels = fetchedPlaces;
         isloading = false;
@@ -100,24 +100,24 @@ class _AswanHotelsViewState extends State<AswanHotelsView> {
       body: isloading
           ? Center(child: CircularProgressIndicator())
           : ListView.builder(
-        itemCount: aswanhotels!.length,
-        itemBuilder: (context, index) => APIAppCard(
-          cardText: aswanhotels![index].name!,
-          cardAddress: aswanhotels![index].address!,
-          cardimgUrl: aswanhotels![index].img_url!,
-          cardid: aswanhotels![index].id!,
-        ),
-      ),
+              itemCount: aswanhotels!.length,
+              itemBuilder: (context, index) => APIAppCard(
+                cardText: aswanhotels![index].name!,
+                cardAddress: aswanhotels![index].address!,
+                cardimgUrl: aswanhotels![index].img_url!,
+                cardid: aswanhotels![index].id!,
+              ),
+            ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            InkWell(onTap: () {
-              goToPreviousPage();
-            },
+            InkWell(
+              onTap: () {
+                goToPreviousPage();
+              },
               child: CircleAvatar(
-
                 backgroundColor: AppColors.blue,
                 child: Icon(
                   Icons.arrow_back_ios_new,
@@ -125,16 +125,16 @@ class _AswanHotelsViewState extends State<AswanHotelsView> {
                 ),
               ),
             ),
-
             Container(
                 padding: EdgeInsets.all(15),
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(width: 1, color: AppColors.grey)),
                 child: Text('$currentPage')),
-            InkWell(onTap: () {
-              goToNextPage();
-            },
+            InkWell(
+              onTap: () {
+                goToNextPage();
+              },
               child: CircleAvatar(
                 backgroundColor: AppColors.blue,
                 child: Icon(
