@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 import 'package:epic_expolre/Views/States/Aswan/Aswan_tab_bar.dart';
 import 'package:epic_expolre/Views/States/RedSea/Red_Sea_tab_bar.dart';
@@ -17,7 +16,7 @@ import '../../cache/cache_helper.dart';
 import '../../core/api/Recommended.dart';
 import '../../core/api/Recommended.dart';
 import '../../core/api/Recommended.dart';
-import '../MainScreens/search_screen.dart';
+import '../search/search_screen.dart';
 import '../MainScreens/states_screen.dart';
 import '../States/alex/Alex_tab_bar.dart';
 import 'cubit.dart';
@@ -36,6 +35,7 @@ bool isloading=true;
 
 void _showBottomSheet(BuildContext context) {
   showModalBottomSheet(
+    backgroundColor: AppColors.white.withOpacity(.001),
     isScrollControlled: true,
     context: context,
     builder: (BuildContext context) {
@@ -114,6 +114,7 @@ class _HomeViewState extends State<HomeView> {
     }
   }
 
+
   Widget build(BuildContext context) {
     return SafeArea(
       child: BlocProvider(
@@ -184,7 +185,7 @@ class _HomeViewState extends State<HomeView> {
                             width: 285,
                             height: 60,
                             child: TextFormField(
-                              onFieldSubmitted: (value) {
+                              onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => SearchScreen(),
                                 ));
