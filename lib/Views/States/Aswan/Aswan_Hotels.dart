@@ -98,7 +98,7 @@ class _AswanHotelsViewState extends State<AswanHotelsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: isloading
-          ? Center(child: CircularProgressIndicator())
+          ? Center(child: CircularProgressIndicator(color: AppColors.blue,))
           : ListView.builder(
               itemCount: aswanhotels!.length,
               itemBuilder: (context, index) => APIAppCard(

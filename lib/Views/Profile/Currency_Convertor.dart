@@ -152,6 +152,7 @@ class _CurrencyState extends State<Currency> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
       appBar: AppAppBar(title: "Currency Converter"),
       body: SingleChildScrollView(
         child: Padding(

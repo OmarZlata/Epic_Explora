@@ -23,9 +23,9 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
   @override
   Widget build(BuildContext context) {
     final currentPosition = LocationUtils.currentPosition;
-    return BlocProvider(
-      create: (context) => GoogleMapsCubit(),
-      child: SafeArea(
+    return SafeArea(
+      child: BlocProvider(
+        create: (context) => GoogleMapsCubit(),
         child: Scaffold(
           body: BlocBuilder<GoogleMapsCubit, GoogleMapsStates>(
             builder: (context, state) {
@@ -57,21 +57,17 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
                   ),
                   state is GoogleMapsLoading
                       ? Center(
-                          child: CircularProgressIndicator(
-                            color: AppColors.blue,
-                          ),
+                          child: CircularProgressIndicator(color: AppColors.blue),
                         )
-                      : Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: AppButton(
-                          color: cubit.markers.isEmpty?AppColors.grey.withOpacity(.3):AppColors.blue,
-                          font_color:AppColors.white,
-                            border_color: AppColors.white,
-                            onTap:
-                                cubit.markers.isEmpty ? null  : cubit.getLocation,
-                            title: "Confirm",
-                          ),
-                      ),
+                      : AppButton(
+
+                    color: AppColors.blue,
+                    font_color: AppColors.white,
+                    title: "Confirm",
+                          onTap:
+                              cubit.markers.isEmpty ? null : cubit.getLocation,
+
+                        ),
                 ],
               );
             },

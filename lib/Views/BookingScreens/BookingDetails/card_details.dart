@@ -191,21 +191,23 @@ class CardDetails extends StatelessWidget {
                   SizedBox(
                     height: 25.h,
                   ),
-                  AppButton(
-                    title: "Pay",
-                    color: AppColors.blue,
-                    font_color: AppColors.white,
-                    onTap: () {
-                      if (context
-                          .read<UserCubit>()
-                          .paymentFormKey
-                          .currentState!
-                          .validate()) {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => BookingConfirmation(),
-                        ));
-                      }
-                    },
+                  Center(
+                    child: AppButton(
+                      title: "Pay",
+                      color: AppColors.blue,
+                      font_color: AppColors.white,
+                      onTap: () {
+                        if (context
+                            .read<UserCubit>()
+                            .paymentFormKey
+                            .currentState!
+                            .validate()) {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => BookingConfirmation(),
+                          ));
+                        }
+                      },
+                    ),
                   )
                 ],
               ),

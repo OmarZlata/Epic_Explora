@@ -98,7 +98,7 @@ class _AlexPlacesViewState extends State<AlexPlacesView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: isloading
-          ? Center(child: CircularProgressIndicator())
+          ? Center(child: CircularProgressIndicator(color: AppColors.blue,))
           : ListView.builder(
         itemCount: alexplaces!.length,
         itemBuilder: (context, index) => APIAppCard(
