@@ -111,7 +111,7 @@ class _SearchScreenState extends State<SearchScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.white,
-        appBar: AppAppBar(title: "Search Result"),
+        appBar: AppAppBar(title: "Search"),
         body: isloading
             ? Center(
             child: CircularProgressIndicator(
@@ -127,8 +127,12 @@ class _SearchScreenState extends State<SearchScreen> {
                 },
                 maxLines: 1,
                 decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.blue), // Override the focused border color
+                    ),
                     hintText: "Search",
-                    prefixIcon: Icon(Icons.search),
+                    prefixIcon: Icon(Icons.search,color: AppColors.blue),
+
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     )),
@@ -166,7 +170,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ),
               Container(
-                  padding: EdgeInsets.all(15),
+                  padding: EdgeInsets.all(8),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(width: 1, color: AppColors.grey)),

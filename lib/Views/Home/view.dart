@@ -184,7 +184,9 @@ class _HomeViewState extends State<HomeView> {
                           child: Container(
                             width: 285,
                             height: 60,
+
                             child: TextFormField(
+                              readOnly: true,
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => SearchScreen(),
@@ -193,7 +195,10 @@ class _HomeViewState extends State<HomeView> {
                               maxLines: 1,
                               decoration: InputDecoration(
                                   hintText: "Search",
-                                  prefixIcon: Icon(Icons.search),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: AppColors.blue), // Override the focused border color
+                                  ),
+                                  prefixIcon: Icon(Icons.search,color: AppColors.blue),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   )),
@@ -379,19 +384,17 @@ class _HomeViewState extends State<HomeView> {
                       ),
                       child: isloading
                           ? Center(child: CircularProgressIndicator(color: AppColors.blue))
-                          : Flexible(
-                        child: ListView.builder(
-                          itemCount: recommended!.length,
-                          scrollDirection: Axis.horizontal,
-                          clipBehavior: Clip.hardEdge,
-                          itemBuilder: (context, index) => AppHomeCard(
-                            cardText: recommended![index].name!,
-                            cardAddress: recommended![index].address!,
-                            cardimgUrl: recommended![index].img_url!,
-                            cardid: recommended![index].id!,
+                          : ListView.builder(
+                            itemCount: recommended!.length,
+                            scrollDirection: Axis.horizontal,
+                            clipBehavior: Clip.hardEdge,
+                            itemBuilder: (context, index) => AppHomeCard(
+                              cardText: recommended![index].name!,
+                              cardAddress: recommended![index].address!,
+                              cardimgUrl: recommended![index].img_url!,
+                              cardid: recommended![index].id!,
+                            ),
                           ),
-                        ),
-                      ),
                     ),
 
                     SizedBox(height: 16),
