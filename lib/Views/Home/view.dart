@@ -9,7 +9,7 @@ import 'package:epic_expolre/core/api/const_end_ponits.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../Widgets/app_home_card.dart';
-import '../../../Widgets/ranged_slider_app.dart';
+import '../../../Widgets/filter.dart';
 import '../../../core/app_colors/app_colors.dart';
 
 import '../../cache/cache_helper.dart';

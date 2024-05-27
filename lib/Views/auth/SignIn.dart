@@ -46,7 +46,7 @@ class _SignInViewState extends State<SignInView> {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => const bottomNavigationBar(),
+                builder: (context) => const GoogleMapsView(),
               ),
             );
           } else if (state is SignInFailure) {

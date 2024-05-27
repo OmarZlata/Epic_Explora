@@ -134,21 +134,6 @@ class _SliderScreenState extends State<SliderScreen> {
             ],
           ),
           SizedBox(height: 16.h),
-          Row(
-            children: [
-              for (int i = 0; i < 6; i++)
-                Expanded(
-                  child: AppButton(
-                    title: i == 0 ? 'All' : '$i Star',
-                    height: 37.h,
-                    color: _getStarButtonColor(i),
-                    font_color: _getStarTextColor(i),
-                    onTap: () => _selectStar(i),
-                  ),
-                ),
-            ],
-          ),
-          SizedBox(height: 16),
           Divider(color: AppColors.black.withOpacity(.2), height: 1),
           SizedBox(height: 16.h),
           Container(
