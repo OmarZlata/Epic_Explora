@@ -373,8 +373,8 @@ class _HomeViewState extends State<HomeView> {
                     SizedBox(height: 16),
                     Container(
                       constraints: isloading ? null : BoxConstraints(
-                        maxHeight: 248, // Set a maximum height if needed
-                        maxWidth: 210,  // Set a maximum width if needed
+                        maxHeight: 248,
+                        maxWidth: 210,
                       ),
                       child: isloading
                           ? Center(child: CircularProgressIndicator(color: AppColors.blue))
