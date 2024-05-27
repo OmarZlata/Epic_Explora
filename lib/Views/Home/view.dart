@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:epic_expolre/Views/States/Aswan/Aswan_tab_bar.dart';
 import 'package:epic_expolre/Views/States/RedSea/Red_Sea_tab_bar.dart';
 import 'package:epic_expolre/Views/States/cairo/Cairo_tab_bar.dart';
+import 'package:epic_expolre/Widgets/app_text.dart';
 import 'package:epic_expolre/core/api/Recommended.dart';
 import 'package:epic_expolre/core/api/const_end_ponits.dart';
 
@@ -16,7 +17,7 @@ import '../../cache/cache_helper.dart';
 import '../../core/api/Recommended.dart';
 import '../../core/api/Recommended.dart';
 import '../../core/api/Recommended.dart';
-import '../MainScreens/search_screen.dart';
+import '../search/search_screen.dart';
 import '../MainScreens/states_screen.dart';
 import '../States/alex/Alex_tab_bar.dart';
 import 'cubit.dart';
@@ -123,7 +124,14 @@ class _HomeViewState extends State<HomeView> {
               final cubit = BlocProvider.of<HomeCubit>(context);
               if (state is HomeLoading) {
                 return Center(
-                  child: CircularProgressIndicator(),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircularProgressIndicator(color: AppColors.blue),
+                      SizedBox(height: 5,),
+                      AppText(title: "Loading...")
+                    ],
+                  ),
                 );
               }
               final location = cubit.location;
@@ -246,21 +254,6 @@ class _HomeViewState extends State<HomeView> {
                           style: TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 16),
                         ),
-                        Spacer(),
-                        InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => StateScreen(),
-                            ));
-                          },
-                          child: Text(
-                            "See more",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16,
-                                color: AppColors.blue),
-                          ),
-                        ),
                       ],
                     ),
                     SizedBox(height: 16),
@@ -379,9 +372,14 @@ class _HomeViewState extends State<HomeView> {
                     ),
                     SizedBox(height: 16),
                     Container(
-                      height:isloading? 50:248,
-                      width: isloading? 50:210,
-                      child:isloading?Center(child:CircularProgressIndicator(color: AppColors.blue),): ListView.builder(
+                      constraints: isloading ? null : BoxConstraints(
+                        maxHeight: 248, // Set a maximum height if needed
+                        maxWidth: 210,  // Set a maximum width if needed
+                      ),
+                      child: isloading
+                          ? Center(child: CircularProgressIndicator(color: AppColors.blue))
+                          : Flexible(
+                        child: ListView.builder(
                           itemCount: recommended!.length,
                           scrollDirection: Axis.horizontal,
                           clipBehavior: Clip.hardEdge,
@@ -390,8 +388,11 @@ class _HomeViewState extends State<HomeView> {
                             cardAddress: recommended![index].address!,
                             cardimgUrl: recommended![index].img_url!,
                             cardid: recommended![index].id!,
-                          )),
+                          ),
+                        ),
+                      ),
                     ),
+
                     SizedBox(height: 16),
                     Row(
                       children: [

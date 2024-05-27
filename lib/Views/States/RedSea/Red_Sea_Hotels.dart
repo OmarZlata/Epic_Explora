@@ -97,7 +97,7 @@ class _RedSeaHotelsViewState extends State<RedSeaHotelsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: isloading
-          ? Center(child: CircularProgressIndicator())
+          ? Center(child: CircularProgressIndicator(color: AppColors.blue,))
           : ListView.builder(
         itemCount: redseahotels!.length,
         itemBuilder: (context, index) => APIAppCard(

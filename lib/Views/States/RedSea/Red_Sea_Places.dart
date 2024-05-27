@@ -100,7 +100,7 @@ class _RedSeaPlacesScreenState extends State<RedSeaPlacesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: isloading
-          ? Center(child: CircularProgressIndicator())
+          ? Center(child: CircularProgressIndicator(color: AppColors.blue,))
           : ListView.builder(
         itemCount: redseaplaces!.length,
         itemBuilder: (context, index) => APIAppCard(

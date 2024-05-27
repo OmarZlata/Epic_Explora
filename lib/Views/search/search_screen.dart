@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:epic_expolre/Widgets/app_text.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'dart:developer';
 import 'package:flutter/material.dart';
@@ -100,57 +101,83 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: isloading
-          ? Center(
-              child: CircularProgressIndicator(
-              color: AppColors.blue,
-            ))
-          : ListView.builder(
-              itemCount: allplaces!.length,
-              itemBuilder: (context, index) => APIAppCard(
-                cardText: allplaces![index].name!,
-                cardAddress: allplaces![index].address!,
-                cardimgUrl: allplaces![index].img_url!,
-                cardid: allplaces![index].id!,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: AppColors.white,
+        appBar: AppAppBar(title: "Search Result"),
+        body: isloading
+            ? Center(
+                child: CircularProgressIndicator(
+                color: AppColors.blue,
+              ))
+            : Padding(
+              padding: const EdgeInsets.all(14),
+              child: Column(
+                children: [
+                  TextFormField(
+                    maxLines: 1,
+                    decoration: InputDecoration(
+                        hintText: "Search",
+                        prefixIcon: Icon(Icons.search),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        )),
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                        padding: EdgeInsets.all(14),
+                        itemCount: allplaces!.length,
+                        itemBuilder: (context, index) => APIAppCard(
+                          cardText: allplaces![index].name!,
+                          cardAddress: allplaces![index].address!,
+                          cardimgUrl: allplaces![index].img_url!,
+                          cardid: allplaces![index].id!,
+                        ),
+                      ),
+                  ),
+                ],
               ),
             ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            InkWell(
-              onTap: () {
-                goToPreviousPage();
-              },
-              child: CircleAvatar(
-                backgroundColor: AppColors.blue,
-                child: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.white,
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              InkWell(
+                onTap: () {
+                  goToPreviousPage();
+                },
+                child: CircleAvatar(
+                  backgroundColor: AppColors.blue,
+                  child: Icon(
+                    Icons.arrow_back_ios_new,
+                    color: AppColors.white,
+                  ),
                 ),
               ),
-            ),
-            Container(
-                padding: EdgeInsets.all(15),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(width: 1, color: AppColors.grey)),
-                child: Text('$currentPage')),
-            InkWell(
-              onTap: () {
-                goToNextPage();
-              },
-              child: CircleAvatar(
-                backgroundColor: AppColors.blue,
-                child: Icon(
-                  Icons.arrow_forward_ios,
-                  color: AppColors.white,
+              Container(
+                  padding: EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(width: 1, color: AppColors.grey)),
+                  child: AppText(
+                    title: 'Page $currentPage',
+                    fontWeight: FontWeight.bold,
+                  )),
+              InkWell(
+                onTap: () {
+                  goToNextPage();
+                },
+                child: CircleAvatar(
+                  backgroundColor: AppColors.blue,
+                  child: Icon(
+                    Icons.arrow_forward_ios,
+                    color: AppColors.white,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

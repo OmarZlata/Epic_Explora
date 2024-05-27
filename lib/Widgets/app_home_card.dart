@@ -1,15 +1,21 @@
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../Views/Place_Detials/detials_place_detials.dart';
 
 class AppHomeCard extends StatefulWidget {
+  final String cardText;
+  final String cardAddress;
+  final List cardimgUrl;
+  final int cardid;
 
-  late String cardText;
-  late String cardAddress;
-  late List?cardimgUrl;
-  late int? cardid;
-  AppHomeCard({Key? key, required this.cardText,required this.cardAddress,required this.cardimgUrl,required this.cardid}) : super(key: key);
+  AppHomeCard({
+    Key? key,
+    required this.cardText,
+    required this.cardAddress,
+    required this.cardimgUrl,
+    required this.cardid,
+  }) : super(key: key);
 
   @override
   State<AppHomeCard> createState() => _AppHomeCardState();
@@ -18,26 +24,27 @@ class AppHomeCard extends StatefulWidget {
 class _AppHomeCardState extends State<AppHomeCard> {
   bool isFavorite = false;
 
-
   @override
   Widget build(BuildContext context) {
     print("Card Text: ${widget.cardText}");
     return InkWell(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => detialsPlaceDetials(id: widget.cardid ,),
-            ));
+          context,
+          MaterialPageRoute(
+            builder: (context) => detialsPlaceDetials(id: widget.cardid),
+          ),
+        );
       },
       child: Row(
         children: [
           Container(
-            height: 248,
-            width: 210,
+            height: 248.h,
+            width: 210.w,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                border: Border.all(color: Colors.grey.withOpacity(.2))),
+              borderRadius: BorderRadius.circular(15),
+              border: Border.all(color: Colors.grey.withOpacity(.2)),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -45,10 +52,15 @@ class _AppHomeCardState extends State<AppHomeCard> {
                   child: Stack(
                     children: [
                       ClipRRect(
-                        child: Image.network( '${widget.cardimgUrl![0]}',),
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(15),
                           topLeft: Radius.circular(15),
+                        ),
+                        child: Image.network(
+                          widget.cardimgUrl[0],
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                          height: double.infinity,
                         ),
                       ),
                       Container(
@@ -58,7 +70,6 @@ class _AppHomeCardState extends State<AppHomeCard> {
                           children: [
                             Image.asset(
                               'assets/images/favbg.png',
-
                               fit: BoxFit.cover,
                               height: 28,
                               width: 28,
@@ -71,7 +82,7 @@ class _AppHomeCardState extends State<AppHomeCard> {
                               },
                               child: Icon(
                                 isFavorite ? Icons.favorite : Icons.favorite_border,
-                                color: isFavorite ? Colors.red : Colors.red,
+                                color: Colors.red,
                                 size: 28,
                               ),
                             ),
@@ -90,26 +101,19 @@ class _AppHomeCardState extends State<AppHomeCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "${widget.cardText}",maxLines: 1,
+                        widget.cardText,
+                        maxLines: 1,
                         style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 14,
                         ),
                       ),
-                      // Text(
-                      //   "dolor. ",
-                      //   style: TextStyle(
-                      //     fontWeight: FontWeight.w700,
-                      //     fontSize: 14,
-                      //   ),
-                      // ),
-                      SizedBox(
-                        height: 12,
-                      ),
+                      SizedBox(height: 12),
                       Container(
                         decoration: BoxDecoration(
-                            color: AppColors.grey.withOpacity(.1),
-                            borderRadius: BorderRadius.circular(8)),
+                          color: AppColors.grey.withOpacity(.1),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                         child: Row(
                           children: [
                             Icon(
@@ -117,7 +121,7 @@ class _AppHomeCardState extends State<AppHomeCard> {
                               color: AppColors.blue,
                             ),
                             Text(
-                              "${widget.cardAddress}",
+                              widget.cardAddress,
                               style: TextStyle(
                                 fontSize: 12,
                               ),
@@ -125,30 +129,29 @@ class _AppHomeCardState extends State<AppHomeCard> {
                           ],
                         ),
                       ),
-                      SizedBox(
-                        height: 12,
-                      ),
+                      SizedBox(height: 12),
                       Row(
                         children: [
-                          Row(
-                            children: [
-                              Text(
-                                "\$14.4",
-                                style: TextStyle(fontSize: 12,fontWeight: FontWeight.w600,),
-                              ),
-                            ],
+                          Text(
+                            "\$14.4",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                           Spacer(),
                           Row(
                             children: [
                               Image.asset('assets/images/rate.png'),
-
-                              Text("4.5",style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 12,
-                              ),),
+                              Text(
+                                "4.5",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 12,
+                                ),
+                              ),
                             ],
-                          )
+                          ),
                         ],
                       ),
                     ],
@@ -157,10 +160,7 @@ class _AppHomeCardState extends State<AppHomeCard> {
               ],
             ),
           ),
-
-          SizedBox(
-            width: 15,
-          ),
+          SizedBox(width: 15),
         ],
       ),
     );

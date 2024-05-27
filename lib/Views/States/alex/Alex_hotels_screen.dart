@@ -97,7 +97,7 @@ class _HotelsViewState extends State<HotelsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: isloading
-          ? Center(child: CircularProgressIndicator())
+          ? Center(child: CircularProgressIndicator(color: AppColors.blue,))
           : ListView.builder(
               itemCount: alextrip!.length,
               itemBuilder: (context, index) => APIAppCard(

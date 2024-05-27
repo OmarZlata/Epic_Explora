@@ -100,7 +100,7 @@ class _AswanPlacesScreenState extends State<AswanPlacesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: isloading
-          ? Center(child: CircularProgressIndicator())
+          ? Center(child: CircularProgressIndicator(color: AppColors.blue,))
           : ListView.builder(
         itemCount: aswanplaces!.length,
         itemBuilder: (context, index) => APIAppCard(

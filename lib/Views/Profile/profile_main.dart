@@ -48,7 +48,7 @@ class ProfileMainScreen extends StatelessWidget {
               centerTitle: true,
             ),
             body: Padding(
-              padding: const EdgeInsets.all(24.0),
+              padding: const EdgeInsets.symmetric(horizontal: 14.0,vertical: 8),
               child: ListView(
                 children: [
                   Column(
@@ -58,14 +58,17 @@ class ProfileMainScreen extends StatelessWidget {
                           backgroundImage: AssetImage(
                             'assets/images/profilepic.jfif',
                           )),
+                      SizedBox(height: 8,),
                       AppText(
                         title: 'Mohammed Ali',
                         fontWeight: FontWeight.bold,
                       ),
+
                       AppText(
                         title: "Mohammed@gmail.com",
                         color: AppColors.grey,
                       ),
+                      SizedBox(height: 8,),
                       InkWell(
                         onTap: () {
                           Navigator.push(
@@ -107,6 +110,7 @@ class ProfileMainScreen extends StatelessWidget {
                       )
                     ],
                   ),
+                  SizedBox(height: 8,),
                   AppTile(
                     title: "Setting",
                     icon: Icons.settings_outlined,
@@ -117,6 +121,7 @@ class ProfileMainScreen extends StatelessWidget {
                     },
                     color: AppColors.blue,
                   ),
+                  SizedBox(height: 8,),
                   AppTile(
                     title: "Currency Converter",
                     icon: CupertinoIcons.money_dollar_circle,
@@ -127,6 +132,7 @@ class ProfileMainScreen extends StatelessWidget {
                     },
                     color: AppColors.blue,
                   ),
+                  SizedBox(height: 8,),
                   AppTile(
                     title: "My Bookings",
                     icon: Icons.settings_outlined,
@@ -137,6 +143,7 @@ class ProfileMainScreen extends StatelessWidget {
                     },
                     color: AppColors.blue,
                   ),
+                  SizedBox(height: 8,),
                   AppTile(
                     title: "Terms of service",
                     icon: Icons.library_books,
@@ -147,24 +154,28 @@ class ProfileMainScreen extends StatelessWidget {
                     },
                     color: AppColors.blue,
                   ),
+                  SizedBox(height: 8,),
                   AppTile(
                     title: "Privacy policy",
                     icon: Icons.privacy_tip_outlined,
                     onPressed: () {},
                     color: AppColors.blue,
                   ),
+                  SizedBox(height: 8,),
                   AppTile(
                     title: "About",
                     icon: Icons.info_outline,
                     onPressed: () {},
                     color: AppColors.blue,
                   ),
+                  SizedBox(height: 8,),
                   AppTile(
                     title: "Change Password",
                     icon: Icons.lock_outline_rounded,
                     onPressed: () {},
                     color: AppColors.blue,
                   ),
+                  SizedBox(height: 8,),
                   AppTile(
                     title: "Logout",
                     icon: Icons.logout,

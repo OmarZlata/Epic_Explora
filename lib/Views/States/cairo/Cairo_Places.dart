@@ -99,7 +99,7 @@ class _CairoPlacesScreenState extends State<CairoPlacesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: isloading
-          ? Center(child: CircularProgressIndicator())
+          ? Center(child: CircularProgressIndicator(color: AppColors.blue,))
           : ListView.builder(
         itemCount: cairoplaces!.length,
         itemBuilder: (context, index) => APIAppCard(

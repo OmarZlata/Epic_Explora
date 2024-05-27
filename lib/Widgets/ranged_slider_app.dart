@@ -1,4 +1,4 @@
-import 'package:epic_expolre/Views/MainScreens/search_screen.dart';
+import 'package:epic_expolre/Views/search/search_screen.dart';
 import 'package:epic_expolre/Widgets/app_button.dart';
 import 'package:epic_expolre/Widgets/app_text.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
