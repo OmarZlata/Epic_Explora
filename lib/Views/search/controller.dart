@@ -1,20 +1,19 @@
-// class SearchController {
-//
-//   SearchController({required this.notes});
-//   final List<Note> notes;
-//
-//   List<Note> filteredNotes = [];
-//
-//   Future<void> search(String? value) async {
-//     filteredNotes.clear();
-//     if (value == null || value.trim().isEmpty) {
-//       return;
-//     }
-//     for (var note in notes) {
-//       if (note.title.toLowerCase().contains(value.toLowerCase())) {
-//         filteredNotes.add(note);
-//       }
-//     }
-//   }
-//
-// }
+import 'package:epic_expolre/core/api/AllplacesAPI.dart';
+
+
+
+class PlaceController {
+  List<AllPlaces> filterPlaces(String query, List<AllPlaces> places) {
+    if (query.isEmpty) {
+      return places;
+    }
+
+    return places.where((place) {
+      final nameLower = place.name!.toLowerCase();
+      final addressLower = place.address!.toLowerCase();
+      final searchLower = query.toLowerCase();
+
+      return nameLower.contains(searchLower) || addressLower.contains(searchLower);
+    }).toList();
+  }
+}

@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:epic_expolre/core/api/AllplacesAPI.dart';
+import 'package:epic_expolre/core/api/Recommended.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../../core/Location_utlis/location_utils.dart';
@@ -28,4 +30,23 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(HomeInit());
   }
 
+
+}
+
+
+
+class PlaceController {
+  List<Recommended> filterPlaces(String query, List<Recommended> places) {
+    if (query.isEmpty) {
+      return places;
+    }
+
+    return places.where((place) {
+      final nameLower = place.name!.toLowerCase();
+      final addressLower = place.address!.toLowerCase();
+      final searchLower = query.toLowerCase();
+
+      return nameLower.contains(searchLower) || addressLower.contains(searchLower);
+    }).toList();
+  }
 }

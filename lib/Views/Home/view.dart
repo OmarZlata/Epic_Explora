@@ -36,6 +36,7 @@ bool isloading=true;
 
 void _showBottomSheet(BuildContext context) {
   showModalBottomSheet(
+    backgroundColor: AppColors.white.withOpacity(.001),
     isScrollControlled: true,
     context: context,
     builder: (BuildContext context) {
@@ -114,6 +115,7 @@ class _HomeViewState extends State<HomeView> {
     }
   }
 
+
   Widget build(BuildContext context) {
     return SafeArea(
       child: BlocProvider(
@@ -184,7 +186,7 @@ class _HomeViewState extends State<HomeView> {
                             width: 285,
                             height: 60,
                             child: TextFormField(
-                              onFieldSubmitted: (value) {
+                              onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => SearchScreen(),
                                 ));

@@ -1,20 +1,15 @@
-import 'package:dio/dio.dart';
-import 'package:epic_expolre/Widgets/app_text.dart';
-import 'package:epic_expolre/core/app_colors/app_colors.dart';
+import 'package:epic_expolre/Views/search/controller.dart';
+import 'package:epic_expolre/core/api/AllplacesAPI.dart';
+import 'package:flutter/material.dart';
 import 'dart:developer';
-import 'package:flutter/material.dart';
-import 'package:epic_expolre/Widgets/app_AppBar.dart';
-import 'package:epic_expolre/Widgets/app_card.dart';
-import 'package:flutter/material.dart';
-
+import 'package:dio/dio.dart';
 import '../../../Widgets/API_App_card.dart';
 import '../../../cache/cache_helper.dart';
-import '../../../core/api/AlexTripAPI.dart';
 import '../../../core/api/const_end_ponits.dart';
-import '../../../core/models/AswanHotelsApi.dart';
-import '../../../core/models/CairoHotelsApi.dart';
-import '../../../core/models/RedSeaHotelsAPI.dart';
-import '../../core/api/AllplacesAPI.dart';
+import '../../../core/app_colors/app_colors.dart';
+import 'package:epic_expolre/Widgets/app_AppBar.dart';
+import 'package:epic_expolre/Widgets/app_card.dart';
+import 'package:epic_expolre/Widgets/app_text.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key});
@@ -57,9 +52,13 @@ class PlaceAPI {
 
 class _SearchScreenState extends State<SearchScreen> {
   List<AllPlaces>? allplaces;
+  List<AllPlaces>? filteredPlaces;
   bool isloading = true;
   PlaceAPI placeAPI = PlaceAPI();
   int currentPage = 1;
+  String searchQuery = '';
+
+  final PlaceController placeController = PlaceController();
 
   @override
   void initState() {
@@ -69,10 +68,10 @@ class _SearchScreenState extends State<SearchScreen> {
 
   void _fetchPlaces() async {
     try {
-      List<AllPlaces> fetchedPlaces =
-          await placeAPI.getAllTrips(page: currentPage);
+      List<AllPlaces> fetchedPlaces = await placeAPI.getAllTrips(page: currentPage);
       setState(() {
         allplaces = fetchedPlaces;
+        filteredPlaces = fetchedPlaces;
         isloading = false;
       });
     } catch (e) {
@@ -100,6 +99,14 @@ class _SearchScreenState extends State<SearchScreen> {
     }
   }
 
+  void updateSearchQuery(String query) {
+    setState(() {
+      searchQuery = query;
+      filteredPlaces = placeController.filterPlaces(query, allplaces ?? []);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -107,37 +114,40 @@ class _SearchScreenState extends State<SearchScreen> {
         appBar: AppAppBar(title: "Search Result"),
         body: isloading
             ? Center(
-                child: CircularProgressIndicator(
-                color: AppColors.blue,
-              ))
+            child: CircularProgressIndicator(
+              color: AppColors.blue,
+            ))
             : Padding(
-              padding: const EdgeInsets.all(14),
-              child: Column(
-                children: [
-                  TextFormField(
-                    maxLines: 1,
-                    decoration: InputDecoration(
-                        hintText: "Search",
-                        prefixIcon: Icon(Icons.search),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        )),
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                        padding: EdgeInsets.all(14),
-                        itemCount: allplaces!.length,
-                        itemBuilder: (context, index) => APIAppCard(
-                          cardText: allplaces![index].name!,
-                          cardAddress: allplaces![index].address!,
-                          cardimgUrl: allplaces![index].img_url!,
-                          cardid: allplaces![index].id!,
-                        ),
-                      ),
-                  ),
-                ],
+          padding: const EdgeInsets.all(14),
+          child: Column(
+            children: [
+              TextFormField(
+                onChanged: (value) {
+                  updateSearchQuery(value);
+                },
+                maxLines: 1,
+                decoration: InputDecoration(
+                    hintText: "Search",
+                    prefixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    )),
               ),
-            ),
+              Expanded(
+                child: ListView.builder(
+                  padding: EdgeInsets.all(14),
+                  itemCount: filteredPlaces!.length,
+                  itemBuilder: (context, index) => APIAppCard(
+                    cardText: filteredPlaces![index].name!,
+                    cardAddress: filteredPlaces![index].address!,
+                    cardimgUrl: filteredPlaces![index].img_url!,
+                    cardid: filteredPlaces![index].id!,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
