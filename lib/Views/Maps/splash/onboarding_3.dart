@@ -79,7 +79,7 @@ class _GoogleMapSplashViewState extends State<GoogleMapSplashView> {
               font_color: AppColors.white,
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => SignInView(),
+                  builder: (context) => GoogleMapsView(),
                 ));
               },
             ),

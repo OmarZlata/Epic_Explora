@@ -9,6 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../Widgets/app_ListTile.dart';
 import '../../Widgets/app_text.dart';
 import '../../Widgets/booking_tabBar.dart';
+import '../../Widgets/bottomNavigationBar.dart';
 import '../../core/app_colors/app_colors.dart';
 import '../Home/view.dart';
 import 'AppMode.dart';
@@ -31,7 +32,7 @@ class ProfileMainScreen extends StatelessWidget {
               leading: IconButton(
                 icon: Icon(Icons.arrow_back, color: Colors.black),
                 onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => HomeView())),
+                builder: (context) => bottomNavigationBar())),
               ),
               backgroundColor: AppColors.white,
               elevation: 1,
