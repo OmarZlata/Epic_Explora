@@ -1,6 +1,7 @@
 import 'package:epic_expolre/Views/Home/view.dart';
 import 'package:epic_expolre/Views/Maps/google_map/view.dart';
 import 'package:epic_expolre/Views/Profile/Terms.dart';
+import 'package:epic_expolre/Views/auth/SignIn.dart';
 import 'package:epic_expolre/Widgets/app_AppBar.dart';
 import 'package:epic_expolre/Widgets/bottomNavigationBar.dart';
 import 'package:epic_expolre/cubit/user_cubit.dart';
@@ -36,18 +37,17 @@ class _SignUpViewState extends State<SignUpView> {
           if (state is SignUpSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
+                backgroundColor: AppColors.blue,
                 content: Center(child: Text("success")),
               ),
             );
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const GoogleMapsView(),
-              ),
-            );
+            Navigator.pushReplacement(context, MaterialPageRoute(
+              builder: (context) =>  SignInView(),
+            ),);
           } else if (state is SignUpFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
+                backgroundColor: AppColors.blue,
                 content: Center(child: Text("Fialed to Sign Up")),
               ),
             );
@@ -254,7 +254,7 @@ class _SignUpViewState extends State<SignUpView> {
                             ))
                       ],
                     ),
-                    state is SignInLoading?
+                    state is SignUpLoading?
                     Center(
                       child: CircularProgressIndicator(
                         color: AppColors.blue,

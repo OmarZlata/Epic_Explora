@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:epic_expolre/Views/search/search_screen.dart';
 import 'package:epic_expolre/Widgets/app_button.dart';
 import 'package:epic_expolre/Widgets/app_text.dart';
@@ -15,7 +17,8 @@ class SliderScreen extends StatefulWidget {
 class _SliderScreenState extends State<SliderScreen> {
   int _selectedState = -1;
   int _selectedType = -1;
-  int _selectedStar = -1;
+  String ?title ;
+  String ?states;
 
   void _selectState(int index) {
     setState(() {
@@ -28,21 +31,11 @@ class _SliderScreenState extends State<SliderScreen> {
     });
   }
 
-  void _selectStar(int index) {
-    setState(() {
-      _selectedStar = index;
-    });
-  }
-
   Color? _getSearchType(int index) {
     return _selectedType == index ? AppColors.blue : Colors.grey[200];
   }
   Color? _getStateButtonColor(int index) {
     return _selectedState == index ? AppColors.blue : Colors.grey[200];
-  }
-
-  Color? _getStarButtonColor(int index) {
-    return _selectedStar == index ? AppColors.blue : Colors.grey[200];
   }
   Color _getStateTextColor(int index) {
     return _selectedState == index ? Colors.white : Colors.black;
@@ -52,15 +45,11 @@ class _SliderScreenState extends State<SliderScreen> {
   }
 
 
-  Color _getStarTextColor(int index) {
-    return _selectedStar == index ? Colors.white : Colors.black;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16),
-      height: 375.h,
+      height: 285.h,
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.only(
@@ -90,7 +79,15 @@ class _SliderScreenState extends State<SliderScreen> {
                     height: 37.h,
                     color: _getSearchType(i),
                     font_color: _getTypeTextColor(i),
-                    onTap: () => _selectType(i),
+                    onTap: () {
+                      _selectType(i);
+                      setState(() {
+                        title = ['Places','Hotels'][i];
+                      });
+                      log("$title");
+
+                    },
+
                   ),
                 ),
             ],
@@ -117,23 +114,19 @@ class _SliderScreenState extends State<SliderScreen> {
                     height: 37.h,
                     color: _getStateButtonColor(i),
                     font_color: _getStateTextColor(i),
-                    onTap: () => _selectState(i),
+                    onTap:() {
+                      _selectState(i);
+                      setState(() {
+                        states = ['All', 'Alexandria', 'Red Sea', 'Cairo', 'Aswan'][i];
+                      });
+                      log("$states");
+
+                    },
                   ),
                 ),
             ],
           ),
           SizedBox(height: 24.h),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              AppText(
-                title: "Stars",
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ],
-          ),
-          SizedBox(height: 16.h),
           Divider(color: AppColors.black.withOpacity(.2), height: 1),
           SizedBox(height: 16.h),
           Container(
@@ -147,7 +140,6 @@ class _SliderScreenState extends State<SliderScreen> {
                     onTap: () {
                       setState(() {
                         _selectedState = -1;
-                        _selectedStar = -1;
                         _selectedType = -1;
                       });
                     },
@@ -164,7 +156,7 @@ class _SliderScreenState extends State<SliderScreen> {
                     font_color: AppColors.white,
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => SearchScreen(),
+                        builder: (context) => SearchScreen(title:title!,states: states!),
                       ));
                     },
                   ),

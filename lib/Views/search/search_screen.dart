@@ -12,7 +12,9 @@ import 'package:epic_expolre/Widgets/app_card.dart';
 import 'package:epic_expolre/Widgets/app_text.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({Key? key});
+  const SearchScreen({Key? key, required this.title, required this.states});
+
+  final String title , states ;
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -71,7 +73,7 @@ class _SearchScreenState extends State<SearchScreen> {
       List<AllPlaces> fetchedPlaces = await placeAPI.getAllTrips(page: currentPage);
       setState(() {
         allplaces = fetchedPlaces;
-        filteredPlaces = fetchedPlaces;
+        filteredPlaces = fetchedPlaces.where((element) => element.address == widget.states).toList();
         isloading = false;
       });
     } catch (e) {
@@ -128,7 +130,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 maxLines: 1,
                 decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.blue), // Override the focused border color
+                      borderSide: BorderSide(color: AppColors.blue),
                     ),
                     hintText: "Search",
                     prefixIcon: Icon(Icons.search,color: AppColors.blue),

@@ -35,14 +35,10 @@ class UserCubit extends Cubit<UserState> {
 
   //Sign Up Form key
 
-  //Profile Pic
+
   //Sign up name
   TextEditingController signUpName = TextEditingController();
 
-  //Sign up phone number
-  TextEditingController signUpPhoneNumber = TextEditingController();
-
-  //Sign up email
   TextEditingController signUpEmail = TextEditingController();
 
   //Sign up password
@@ -67,9 +63,9 @@ class UserCubit extends Cubit<UserState> {
         },
       );
       final signUPModel = SignUpModel.fromJson(response);
-      // CacheHelper().saveData(key: ApiKey.token, value: user!.token);
+      // // CacheHelper().saveData(key: ApiKey.token, value: user!.token);
       // CacheHelper().saveData(key: ApiKey.id, value: user!.id);
-      print("SignUp Done And ID is :${user!.id}");
+      // print("SignUp Done And ID is :${user!.id}");
       emit(SignUpSuccess(message: signUPModel.message));
     } on ServerException catch (e) {
       emit(SignUpFailure(errMessage: e.errModel.errorMessage));

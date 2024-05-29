@@ -189,7 +189,7 @@ class _HomeViewState extends State<HomeView> {
                               readOnly: true,
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => SearchScreen(),
+                                  builder: (context) => SearchScreen(states:"" ,title: ""),
                                 ));
                               },
                               maxLines: 1,
