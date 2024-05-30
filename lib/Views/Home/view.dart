@@ -16,6 +16,7 @@ import '../../cache/cache_helper.dart';
 import '../../core/api/Recommended.dart';
 import '../../core/api/Recommended.dart';
 import '../../core/api/Recommended.dart';
+import '../../core/models/UserInfoAPI.dart';
 import '../search/search_screen.dart';
 import '../MainScreens/states_screen.dart';
 import '../States/alex/Alex_tab_bar.dart';
@@ -28,10 +29,36 @@ class HomeView extends StatefulWidget {
   @override
   State<HomeView> createState() => _HomeViewState();
 }
+class UserInfoAPI{
+  final String baseUrl= EndPoint.baseUrl;
+  Future <UserInfo> getUserInfo()async{
+    final BaseOptions baseOptions = BaseOptions(headers: {
+      "Authorization": "Bearer ${CacheHelper().getData(key: ApiKey.token)}",
+    });
+    Dio dio = Dio(baseOptions);
+    try {
+      Response response = await dio.get('${baseUrl}api/user/show_profile');
+      if (response.statusCode == 200) {
+        var data = response.data;
+        return UserInfo.fromJson(data);
+      } else {
+        throw Exception('Failed to load data');
+      }
+    } catch (e) {
+      throw Exception('Failed to load data');
+    }
+  }
+
+}
+
+
 
 List<Recommended>? recommended;
+UserInfoAPI? userInfoAPI;
+UserInfo? userInfo;
 PlaceService placeService = PlaceService();
 bool isloading=true;
+bool isloading2=true;
 
 void _showBottomSheet(BuildContext context) {
   showModalBottomSheet(
@@ -86,6 +113,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
+    fetchData();
 
     _fetchPlaces();
   }
@@ -100,6 +128,20 @@ class _HomeViewState extends State<HomeView> {
     final Dio dio = Dio(baseOption);
     final String baseUrl = 'https://c0bd-156-197-50-97.ngrok-free.app';
     Response response = await dio.get('$baseUrl/api/user/recommended/');
+  }
+
+  void fetchData() async {
+    try {
+      UserInfo fetchedData = await UserInfoAPI().getUserInfo();
+      setState(() {
+        userInfo = fetchedData;
+        isloading2= false;
+      });
+    } catch (e) {
+      setState(() {
+        isloading2 = false;
+      });
+    }
   }
 
   void _fetchPlaces() async {
@@ -150,10 +192,16 @@ class _HomeViewState extends State<HomeView> {
                           width: 5,
                         ),
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "Hi,Mohammed Hassan",
-                              style: TextStyle(fontSize: 12),
+                            Row(
+                              children: [
+                                SizedBox(width: 5,),
+                                Text(
+                                  userInfo?.name?? 'No Name',
+                                  style: TextStyle(fontSize: 20,color: AppColors.blue),
+                                ),
+                              ],
                             ),
                             Row(
                               children: [
