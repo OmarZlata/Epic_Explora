@@ -38,7 +38,7 @@ class _SignUpViewState extends State<SignUpView> {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 backgroundColor: AppColors.blue,
-                content: Center(child: Text("success")),
+                content: Center(child: AppText( title: 'Registertion Done',)),
               ),
             );
             Navigator.pushReplacement(context, MaterialPageRoute(
@@ -48,7 +48,7 @@ class _SignUpViewState extends State<SignUpView> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 backgroundColor: AppColors.blue,
-                content: Center(child: Text("Fialed to Sign Up")),
+                content: Center(child: AppText( title: 'Fialed to Sign Up',)),
               ),
             );
           }

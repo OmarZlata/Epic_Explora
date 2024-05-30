@@ -207,8 +207,8 @@ class _SignInViewState extends State<SignInView> {
                               if (signInFormKey.currentState!.validate()) {
                                 signInFormKey.currentState!.save();
                                 context.read<UserCubit>().signIn();
-                                print('Email: ${context.read<UserCubit>().signInEmail}');
-                                print('Password: ${context.read<UserCubit>().signInPassword}');
+                                context.read<UserCubit>().signInEmail.clear();
+                                context.read<UserCubit>().signInPassword.clear();
                               }
                             },
                           ),
