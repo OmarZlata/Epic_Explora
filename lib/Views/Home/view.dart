@@ -5,7 +5,7 @@ import 'package:epic_expolre/Views/States/cairo/Cairo_tab_bar.dart';
 import 'package:epic_expolre/Widgets/app_text.dart';
 import 'package:epic_expolre/core/api/Recommended.dart';
 import 'package:epic_expolre/core/api/const_end_ponits.dart';
-
+import 'string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../Widgets/app_home_card.dart';
@@ -50,6 +50,7 @@ class UserInfoAPI{
   }
 
 }
+
 
 
 
@@ -142,6 +143,7 @@ class _HomeViewState extends State<HomeView> {
         isloading2 = false;
       });
     }
+
   }
 
   void _fetchPlaces() async {
@@ -157,7 +159,10 @@ class _HomeViewState extends State<HomeView> {
   }
 
 
-  Widget build(BuildContext context) {
+
+
+
+Widget build(BuildContext context) {
     return SafeArea(
       child: BlocProvider(
         create: (context) => HomeCubit()..getCurrentLocation(),
@@ -197,9 +202,9 @@ class _HomeViewState extends State<HomeView> {
                             Row(
                               children: [
                                 SizedBox(width: 5,),
-                                Text(
-                                  userInfo?.name?? 'No Name',
-                                  style: TextStyle(fontSize: 20,color: AppColors.blue),
+                                AppText(title: userInfo?.name!.toUpperCase()?? 'No Name',color: AppColors.blue,fontSize: 18,
+
+
                                 ),
                               ],
                             ),
