@@ -5,7 +5,6 @@ import 'package:epic_expolre/Views/States/cairo/Cairo_tab_bar.dart';
 import 'package:epic_expolre/Widgets/app_text.dart';
 import 'package:epic_expolre/core/api/Recommended.dart';
 import 'package:epic_expolre/core/api/const_end_ponits.dart';
-import 'string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../Widgets/app_home_card.dart';
