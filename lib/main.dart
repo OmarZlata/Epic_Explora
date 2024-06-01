@@ -28,6 +28,7 @@ import 'Widgets/booking_tabBar.dart';
 import 'Widgets/bottomNavigationBar.dart';
 import 'Widgets/trips_tabBar.dart';
 import 'cache/cache_helper.dart';
+import 'tour_guide_views/Auth/guide_signUp.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   CacheHelper().init();
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primaryColor: Color(0xFF2F3C7E),
           ),
-          home:SplashScreen(),
+          home:GuideSignUp(),
         );
       },
     );
