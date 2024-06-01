@@ -1,31 +1,25 @@
-import 'package:epic_expolre/Views/Home/view.dart';
 import 'package:epic_expolre/Views/Maps/google_map/view.dart';
-import 'package:epic_expolre/Views/Profile/profile_main.dart';
-import 'package:epic_expolre/Views/auth/Forget_Password.dart';
 import 'package:epic_expolre/Views/auth/SignUp.dart';
 import 'package:epic_expolre/Widgets/app_AppBar.dart';
-import 'package:epic_expolre/Widgets/bottomNavigationBar.dart';
+import 'package:epic_expolre/Widgets/app_button.dart';
+import 'package:epic_expolre/Widgets/app_text.dart';
+import 'package:epic_expolre/Widgets/app_text_field.dart';
+import 'package:epic_expolre/core/app_colors/app_colors.dart';
+import 'package:epic_expolre/cubit/user_cubit.dart';
 import 'package:epic_expolre/cubit/user_state.dart';
+import 'package:epic_expolre/tour_guide_views/Auth/guide_forget_password.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../Widgets/app_text.dart';
-import '../../../Widgets/app_text_field.dart';
-import '../../../core/app_colors/app_colors.dart';
-import '../../Widgets/app_button.dart';
-import '../../cubit/user_cubit.dart';
-import 'dart:developer';
 
-class SignInView extends StatefulWidget {
-  const SignInView({Key? key}) : super(key: key);
+class GuideSignIn extends StatefulWidget {
+  const GuideSignIn({super.key});
 
   @override
-  State<SignInView> createState() => _SignInViewState();
+  State<GuideSignIn> createState() => _GuideSignInState();
 }
 
-class _SignInViewState extends State<SignInView> {
+class _GuideSignInState extends State<GuideSignIn> {
   bool obscurePassword = true;
-  final signInFormKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -82,11 +76,11 @@ class _SignInViewState extends State<SignInView> {
                     SizedBox(
                       height: 50,
                     ),
-                     Center(
-                      child: Image.asset('assets/images/signup.png'),
+                    Center(
+                      child: Image.asset('assets/images/Welcome2.png'),
                     ),
                     Form(
-                      key: signInFormKey,
+                      // key: signInFormKey,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -108,7 +102,7 @@ class _SignInViewState extends State<SignInView> {
                                 obscureText: false,
                                 maxLines: 1,
                                 controller:
-                                    context.read<UserCubit>().signInEmail,
+                                context.read<UserCubit>().signInEmail,
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return "Email can't be empty";
@@ -181,7 +175,7 @@ class _SignInViewState extends State<SignInView> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => ForgetPasswordScreen(),));
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => GuideForgetPassword(),));
                           },
                           child: AppText(
                               title: "Forget Password",
@@ -195,23 +189,23 @@ class _SignInViewState extends State<SignInView> {
                     ),
                     state is SignInLoading
                         ? Center(
-                            child: CircularProgressIndicator(
-                              color: AppColors.blue,
-                            ),
-                          )
+                      child: CircularProgressIndicator(
+                        color: AppColors.blue,
+                      ),
+                    )
                         : AppButton(
-                            color: AppColors.blue,
-                            font_color: AppColors.white,
-                            title: "Sign in",
-                            onTap: () {
-                              if (signInFormKey.currentState!.validate()) {
-                                signInFormKey.currentState!.save();
-                                context.read<UserCubit>().signIn();
-                                context.read<UserCubit>().signInEmail.clear();
-                                context.read<UserCubit>().signInPassword.clear();
-                              }
-                            },
-                          ),
+                      color: AppColors.blue,
+                      font_color: AppColors.white,
+                      title: "Sign in",
+                      onTap: () {
+                        // if (signInFormKey.currentState!.validate()) {
+                        //   signInFormKey.currentState!.save();
+                        //   context.read<UserCubit>().signIn();
+                        //   context.read<UserCubit>().signInEmail.clear();
+                        //   context.read<UserCubit>().signInPassword.clear();
+                        // }
+                      },
+                    ),
                     SizedBox(
                       height: 10,
                     ),

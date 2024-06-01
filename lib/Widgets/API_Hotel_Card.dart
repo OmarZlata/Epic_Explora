@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../Views/Hotel_Details/HotelDetailsMain.dart';
 import '../Views/Place_Detials/detials_place_detials.dart';
 import '../core/app_colors/app_colors.dart';
 
-class APIAppCard extends StatefulWidget {
+class ApiHotelCard extends StatefulWidget {
   final String cardText;
   final String cardAddress;
   final List cardimgUrl;
   final int cardid;
 
-  APIAppCard({
+  ApiHotelCard({
     Key? key,
     required this.cardText,
     required this.cardAddress,
@@ -19,10 +20,10 @@ class APIAppCard extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<APIAppCard> createState() => _APIAppCardState();
+  State<ApiHotelCard> createState() => _ApiHotelCardState();
 }
 
-class _APIAppCardState extends State<APIAppCard> {
+class _ApiHotelCardState extends State<ApiHotelCard> {
   bool isFavorite = false;
 
   @override
@@ -39,7 +40,7 @@ class _APIAppCardState extends State<APIAppCard> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => detialsPlaceDetials(id: widget.cardid),
+                    builder: (context) => HotelsDetails(id: widget.cardid),
                   ));
             },
             child: Container(

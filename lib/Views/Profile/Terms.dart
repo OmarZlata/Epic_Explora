@@ -9,6 +9,7 @@ class TermsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
       appBar: AppBar(
         iconTheme: IconThemeData(color: AppColors.black),
         title: AppText(

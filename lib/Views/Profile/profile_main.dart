@@ -44,6 +44,79 @@ class UserInfoAPI {
   }
 }
 
+void _showAlertDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Center(
+            child: AppText(
+          title: 'Logout',
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+          color: AppColors.red.withOpacity(.5),
+        )),
+        content: Container(
+          height: 140,
+          child: Column(
+            children: [
+              Container(
+                  child:
+                      Flexible(child: Image.asset('assets/images/logout.png'))),
+              SizedBox(
+                height: 8,
+              ),
+              AppText(
+                title: "Are You Sure You Want",
+                color: AppColors.grey,
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
+              AppText(
+                title: "To Logout ?",
+                color: AppColors.grey,
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          Divider(color: AppColors.grey, height: 0.5),
+          SizedBox(
+            height: 10,
+          ),
+          Column(
+            children: [
+              AppButton(
+                title: "Logout !",
+                color: AppColors.red.withOpacity(.4),
+                font_color: AppColors.white,
+                onTap: () {
+                  context.read<UserCubit>().logout();
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => SignInView(),
+                    ),
+                  );
+                },
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              AppButton(
+                title: "Cancel",
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          )
+        ],
+      );
+    },
+  );
+}
 
 class ProfileMainScreen extends StatefulWidget {
   ProfileMainScreen({super.key});
@@ -109,170 +182,169 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
             centerTitle: true,
           ),
           body: isLoading
-              ? Center(child: CircularProgressIndicator())
+              ? Center(
+                  child: CircularProgressIndicator(
+                  color: AppColors.blue,
+                ))
               : Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8),
-            child: ListView(
-              children: [
-                Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 40,
-                      backgroundImage: AssetImage(
-                        'assets/images/profilepic.jfif',
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    AppText(
-                      title: userInfo?.name?? 'No Name',
-                      fontWeight: FontWeight.bold,
-                    ),
-                    AppText(
-                      title: userInfo?.email?? 'No Email',
-                      color: AppColors.grey,
-                    ),
-                    SizedBox(height: 8),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => EditProfileScreen(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        height: 29,
-                        width: 115,
-                        alignment: Alignment.center,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            AppText(
-                              title: "Edit Profile",
-                              color: AppColors.white,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8),
+                  child: ListView(
+                    children: [
+                      Column(
+                        children: [
+                          CircleAvatar(
+                            radius: 40,
+                            backgroundImage: AssetImage(
+                              'assets/images/profilepic.jfif',
                             ),
-                            Icon(
-                              Icons.mode_edit_outline_outlined,
-                              color: AppColors.white,
-                              size: 18,
-                            ),
-                          ],
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: AppColors.blue,
-                          border: Border.all(
-                            color: AppColors.blue,
-                            width: 1.0,
                           ),
-                        ),
+                          SizedBox(height: 8),
+                          AppText(
+                            title: userInfo?.name ?? 'No Name',
+                            fontWeight: FontWeight.bold,
+                          ),
+                          AppText(
+                            title: userInfo?.email ?? 'No Email',
+                            color: AppColors.grey,
+                          ),
+                          SizedBox(height: 8),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => EditProfileScreen(),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              height: 29,
+                              width: 115,
+                              alignment: Alignment.center,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  AppText(
+                                    title: "Edit Profile",
+                                    color: AppColors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  Icon(
+                                    Icons.mode_edit_outline_outlined,
+                                    color: AppColors.white,
+                                    size: 18,
+                                  ),
+                                ],
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                color: AppColors.blue,
+                                border: Border.all(
+                                  color: AppColors.blue,
+                                  width: 1.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 8),
-                AppTile(
-                  title: "Setting",
-                  icon: Icons.settings_outlined,
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => AppModeScreen(),
+                      SizedBox(height: 8),
+                      AppTile(
+                        title: "Setting",
+                        icon: Icons.settings_outlined,
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => AppModeScreen(),
+                            ),
+                          );
+                        },
+                        color: AppColors.blue,
                       ),
-                    );
-                  },
-                  color: AppColors.blue,
-                ),
-                SizedBox(height: 8),
-                AppTile(
-                  title: "Currency Converter",
-                  icon: CupertinoIcons.money_dollar_circle,
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => Currency(),
+                      SizedBox(height: 8),
+                      AppTile(
+                        title: "Currency Converter",
+                        icon: CupertinoIcons.money_dollar_circle,
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => Currency(),
+                            ),
+                          );
+                        },
+                        color: AppColors.blue,
                       ),
-                    );
-                  },
-                  color: AppColors.blue,
-                ),
-                SizedBox(height: 8),
-                AppTile(
-                  title: "My Bookings",
-                  icon: Icons.settings_outlined,
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => BookingTabBar(),
+                      SizedBox(height: 8),
+                      AppTile(
+                        title: "My Bookings",
+                        icon: Icons.settings_outlined,
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => BookingTabBar(),
+                            ),
+                          );
+                        },
+                        color: AppColors.blue,
                       ),
-                    );
-                  },
-                  color: AppColors.blue,
-                ),
-                SizedBox(height: 8),
-                AppTile(
-                  title: "Terms of service",
-                  icon: Icons.library_books,
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => TermsScreen(),
+                      SizedBox(height: 8),
+                      AppTile(
+                        title: "Terms of service",
+                        icon: Icons.library_books,
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => TermsScreen(),
+                            ),
+                          );
+                        },
+                        color: AppColors.blue,
                       ),
-                    );
-                  },
-                  color: AppColors.blue,
+                      SizedBox(height: 8),
+                      AppTile(
+                        title: "Privacy policy",
+                        icon: Icons.privacy_tip_outlined,
+                        onPressed: () {},
+                        color: AppColors.blue,
+                      ),
+                      SizedBox(height: 8),
+                      AppTile(
+                        title: "About",
+                        icon: Icons.info_outline,
+                        onPressed: () {},
+                        color: AppColors.blue,
+                      ),
+                      SizedBox(height: 8),
+                      AppTile(
+                        title: "Change Password",
+                        icon: Icons.lock_outline_rounded,
+                        onPressed: () {},
+                        color: AppColors.blue,
+                      ),
+                      SizedBox(height: 8),
+                      AppTile(
+                        title: "Logout",
+                        icon: Icons.logout,
+                        onPressed: () {
+                          if (state is LogoutLoading) {
+                            Center(
+                              child: CircularProgressIndicator(
+                                color: AppColors.blue,
+                              ),
+                            );
+                          } else {
+                            _showAlertDialog(context);
+
+                          }
+                        },
+                        color: Colors.red,
+                      ),
+                    ],
+                  ),
                 ),
-                SizedBox(height: 8),
-                AppTile(
-                  title: "Privacy policy",
-                  icon: Icons.privacy_tip_outlined,
-                  onPressed: () {},
-                  color: AppColors.blue,
-                ),
-                SizedBox(height: 8),
-                AppTile(
-                  title: "About",
-                  icon: Icons.info_outline,
-                  onPressed: () {},
-                  color: AppColors.blue,
-                ),
-                SizedBox(height: 8),
-                AppTile(
-                  title: "Change Password",
-                  icon: Icons.lock_outline_rounded,
-                  onPressed: () {},
-                  color: AppColors.blue,
-                ),
-                SizedBox(height: 8),
-                AppTile(
-                  title: "Logout",
-                  icon: Icons.logout,
-                  onPressed: () {
-                    context.read<UserCubit>().logout();
-                    if (state is LogoutLoading) {
-                      Center(
-                        child: CircularProgressIndicator(
-                          color: AppColors.blue,
-                        ),
-                      );
-                    } else {
-                      print("Token Removed");
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => SignInView(),
-                        ),
-                      );
-                    }
-                  },
-                  color: Colors.red,
-                ),
-              ],
-            ),
-          ),
         );
       },
     );

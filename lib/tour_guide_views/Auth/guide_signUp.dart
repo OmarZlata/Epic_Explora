@@ -1,34 +1,28 @@
-import 'package:epic_expolre/Views/Home/view.dart';
-import 'package:epic_expolre/Views/Maps/google_map/view.dart';
 import 'package:epic_expolre/Views/Profile/Terms.dart';
 import 'package:epic_expolre/Views/auth/SignIn.dart';
 import 'package:epic_expolre/Widgets/app_AppBar.dart';
-import 'package:epic_expolre/Widgets/bottomNavigationBar.dart';
+import 'package:epic_expolre/Widgets/app_button.dart';
+import 'package:epic_expolre/Widgets/app_text.dart';
+import 'package:epic_expolre/Widgets/app_text_field.dart';
+import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:epic_expolre/cubit/user_cubit.dart';
 import 'package:epic_expolre/cubit/user_state.dart';
+import 'package:epic_expolre/tour_guide_views/Auth/guide_signUp2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../Widgets/app_button.dart';
-import '../../../Widgets/app_text.dart';
-import '../../../Widgets/app_text_field.dart';
-import '../../../core/app_colors/app_colors.dart';
-
-class SignUpView extends StatefulWidget {
-  SignUpView({super.key});
+class GuideSignUp extends StatefulWidget {
+  const GuideSignUp({super.key});
 
   @override
-  State<SignUpView> createState() => _SignUpViewState();
+  State<GuideSignUp> createState() => _GuideSignUpState();
 }
 
-class _SignUpViewState extends State<SignUpView> {
+class _GuideSignUpState extends State<GuideSignUp> {
   bool obscurePassword = true;
   bool obscurePasswordConfirm = true;
   bool isChecked = false;
-  final signUpFormKey = GlobalKey<FormState>();
-
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -56,17 +50,17 @@ class _SignUpViewState extends State<SignUpView> {
         builder: (context, state) {
           return Scaffold(
             backgroundColor: AppColors.white,
-            appBar: const AppAppBar(
-              title: 'Sign Up',
+            appBar:  AppAppBar(
+              title: 'Tour Guide SignUp',
               centerTitle: true,
             ),
             body: SingleChildScrollView(
               padding: EdgeInsets.symmetric(vertical: 8,horizontal: 24),
               child: Form(
-                key: signUpFormKey,
+                // key: signUpFormKey,
                 child: Column(
                   children: [
-                    Image.asset('assets/images/amico.png'),
+                    Image.asset('assets/images/Welcome1.png'),
                     SizedBox(height: 14.h,),
                     Container(
                       child: Column(
@@ -228,32 +222,7 @@ class _SignUpViewState extends State<SignUpView> {
                         ],
                       ),
                     ),
-                    Row(
-                      children: [
-                        Checkbox(
-                          value: isChecked,
-                          activeColor: AppColors.blue,
-                          onChanged: (value) {
-                            setState(() {
-                              isChecked = value!;
-                            });
-                          },
-
-                        ),
-                        AppText(
-                          title: "I agree",
-                          color: AppColors.black,
-                        ),
-                        TextButton(
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => TermsScreen(),));
-                            },
-                            child: AppText(
-                              title: "Terms & Conditions",
-                              color: AppColors.blue,
-                            ))
-                      ],
-                    ),
+                    SizedBox(height: 50,),
                     state is SignUpLoading?
                     Center(
                       child: CircularProgressIndicator(
@@ -261,16 +230,17 @@ class _SignUpViewState extends State<SignUpView> {
                       ),
                     ):
                     AppButton(
+                      width: double.infinity,
+                      color: AppColors.blue,
                       border_color: AppColors.white,
                       font_color: AppColors.white,
-                      color: isChecked ? AppColors.blue : AppColors.grey.withOpacity(.3),
-                      title: "Sign Up",
-                      onTap: isChecked
-                          ? () {
-                        if (signUpFormKey.currentState!.validate()) {
-                          context.read<UserCubit>().signUp();
-                          }
-                      } : null,
+                      title: "Next",
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => GuideSignUp2(),));
+                        // if (signUpFormKey.currentState!.validate()) {
+                        //   context.read<UserCubit>().signUp();
+                        // }
+                      }
                     ),
                   ],
                 ),

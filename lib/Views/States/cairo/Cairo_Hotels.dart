@@ -7,6 +7,7 @@ import 'package:epic_expolre/Widgets/app_card.dart';
 import 'package:flutter/material.dart';
 
 import '../../../Widgets/API_App_card.dart';
+import '../../../Widgets/API_Hotel_Card.dart';
 import '../../../cache/cache_helper.dart';
 import '../../../core/api/AlexTripAPI.dart';
 import '../../../core/api/const_end_ponits.dart';
@@ -100,7 +101,7 @@ class _CairoHotelsViewState extends State<CairoHotelsView> {
           ? Center(child: CircularProgressIndicator(color: AppColors.blue,))
           : ListView.builder(
               itemCount: cairohotels!.length,
-              itemBuilder: (context, index) => APIAppCard(
+              itemBuilder: (context, index) => ApiHotelCard(
                 cardText: cairohotels![index].name!,
                 cardAddress: cairohotels![index].address!,
                 cardimgUrl: cairohotels![index].img_url!,

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:epic_expolre/Widgets/API_Hotel_Card.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'dart:developer';
 import 'package:flutter/material.dart';
@@ -100,7 +101,7 @@ class _HotelsViewState extends State<HotelsView> {
           ? Center(child: CircularProgressIndicator(color: AppColors.blue,))
           : ListView.builder(
               itemCount: alextrip!.length,
-              itemBuilder: (context, index) => APIAppCard(
+              itemBuilder: (context, index) => ApiHotelCard(
                 cardText: alextrip![index].name!,
                 cardAddress: alextrip![index].address!,
                 cardimgUrl: alextrip![index].img_url!,
