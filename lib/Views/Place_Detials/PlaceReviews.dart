@@ -1,14 +1,130 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import '../../cache/cache_helper.dart';
+import '../../core/api/const_end_ponits.dart';
 import '../../core/app_colors/app_colors.dart';
 
 class PlaceReviewsScreen extends StatefulWidget {
-  const PlaceReviewsScreen({Key? key}) : super(key: key);
+  PlaceReviewsScreen({Key? key, required this.id}) : super(key: key);
+  final int id;
 
   @override
   State<PlaceReviewsScreen> createState() => _PlaceReviewsScreenState();
 }
 
 class _PlaceReviewsScreenState extends State<PlaceReviewsScreen> {
+  TextEditingController reviewController = TextEditingController();
+  final String baseUrl = EndPoint.baseUrl;
+  int _starRating = 0;
+
+  Future<void> putReview(String review, int starRating) async {
+    final BaseOptions baseOptions = BaseOptions(
+      validateStatus: (statusCode) {
+        return statusCode == 200 || statusCode == 422;
+      },
+      headers: {
+        "Authorization": "Bearer ${CacheHelper().getData(key: ApiKey.token)}",
+        "Accept": "application/json",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Content-Type": "application/json",
+      },
+    );
+    final Dio _dio = Dio(baseOptions);
+
+    try {
+      final data = {
+        'comments': review,
+        'star_rating': starRating,
+      };
+
+      print('Data: $data');
+      final response = await _dio.post(
+        '${baseUrl}api/user/review/makeReview/place/${widget.id}',
+        data: data,
+      );
+
+      if (response.statusCode == 200) {
+        // Handle successful response
+        print('Profile updated successfully: ${response.data}');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Review submitted successfully!'),
+            backgroundColor: AppColors.blue,
+          ),
+        );
+        reviewController.clear();
+        setState(() {
+          _starRating = 0;
+        });
+      } else {
+        // Handle non-200 status codes
+        print('Failed to update profile: ${response.statusCode}');
+        print('Response: ${response.data}');
+        print('Headers: ${response.headers}');
+        print('Request: ${response.requestOptions}');
+        print('Response Data: ${response.data}');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to submit review. Please try again.'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } catch (e) {
+      // Handle errors
+      print('Error updating profile: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error submitting review. Please try again.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
+  Widget textFieldReview() {
+    return TextField(
+      minLines: 1,
+      maxLines: 6,
+      controller: reviewController,
+      decoration: InputDecoration(
+        hintText: "Write feedback",
+        suffixIcon: IconButton(
+          icon: Icon(
+            Icons.send,
+            color: AppColors.yellow,
+          ),
+          onPressed: () {
+            final review = reviewController.text;
+            putReview(review, _starRating);
+          },
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+      ),
+    );
+  }
+
+  Widget starRatingWidget() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(5, (index) {
+        return IconButton(
+          icon: Icon(
+            index < _starRating ? Icons.star : Icons.star_border,
+            color: AppColors.yellow,
+          ),
+          onPressed: () {
+            setState(() {
+              _starRating = index + 1;
+            });
+          },
+        );
+      }),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +135,7 @@ class _PlaceReviewsScreenState extends State<PlaceReviewsScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Review this hotel",
+                "Review this Place",
                 style: TextStyle(
                   fontSize: 20,
                   color: AppColors.black,
@@ -28,20 +144,18 @@ class _PlaceReviewsScreenState extends State<PlaceReviewsScreen> {
                 ),
               ),
               SizedBox(height: 15),
-              TextField(
-                minLines: 1,
-                maxLines: 6,
-                decoration: InputDecoration(
-                  hintText: "Write feedback",
-                  suffixIcon: Icon(
-                    Icons.send,
-                    color: Colors.yellow,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
+              textFieldReview(),
+              SizedBox(height: 20),
+              Text(
+                "Rate this Place",
+                style: TextStyle(
+                  fontSize: 18,
+                  color: AppColors.black,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: "Poppins",
                 ),
               ),
+              starRatingWidget(),
               SizedBox(height: 20),
               Text(
                 "Overall Rating",

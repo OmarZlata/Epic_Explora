@@ -153,7 +153,7 @@ class _detialsPlaceDetialsState extends State<detialsPlaceDetials>
                 controller: _tabController,
                 children: [
                   PlaceDetailsScreen(Address: '${fetchedData?.address}', Desc: '${fetchedData?.description}',),
-                  PlaceReviewsScreen(),
+                  PlaceReviewsScreen(id: fetchedData?.id??0,),
                 ],
               ),
             ),
