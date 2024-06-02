@@ -5,8 +5,10 @@ import 'package:epic_expolre/Views/States/cairo/Cairo_tab_bar.dart';
 import 'package:epic_expolre/Widgets/app_text.dart';
 import 'package:epic_expolre/core/api/Recommended.dart';
 import 'package:epic_expolre/core/api/const_end_ponits.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../Widgets/app_home_card.dart';
 import '../../../Widgets/filter.dart';
 import '../../../core/app_colors/app_colors.dart';
@@ -76,6 +78,39 @@ void _showBottomSheet(BuildContext context) {
           ),
           child: SliderScreen(),
         ),
+      );
+    },
+  );
+}
+void _showpalestineAlertDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Center(child: AppText( title: 'Free Palestine',fontWeight: FontWeight.bold,)),
+        content: Container(
+          height: 100.h,
+          child: Column(
+            children: [
+              Image.asset(
+                  height: 100.h,'assets/images/palestine_flag.png'),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          Divider(),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Center(
+                child: AppText(
+                  title: "back",
+                  color: AppColors.black,
+                  fontWeight: FontWeight.bold,
+                )),
+          ),
+        ],
       );
     },
   );
@@ -219,10 +254,13 @@ Widget build(BuildContext context) {
                           ],
                         ),
                         Spacer(),
-                        InkWell(
+                        GestureDetector(
                           child:
-                          Image.asset('assets/images/Notification-icon.png'),
-                          onTap: () {},
+                          Image.asset(
+                              height: 45,'assets/images/palestine2.png'),
+                          onTap: () {
+                            _showpalestineAlertDialog(context);
+                          },
                         ),
                       ],
                     ),
