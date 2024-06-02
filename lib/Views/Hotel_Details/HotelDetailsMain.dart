@@ -161,8 +161,8 @@ class _HotelsDetailsState extends State<HotelsDetails>
                         HotelDetailsScreen(
                           Address:
                               fetchedData?.address ?? 'No address available',
-                          Price: fetchedData?.price?? 0, Rate: fetchedData?.rate?? 0.0,
-                          
+                          Price: fetchedData?.price?? 0, Rate: fetchedData?.rate?? 0.0, ID: fetchedData?.id?? 0,
+
                         ),
                         HotelReviewsScreen(id: fetchedData?.id?? 0,),
                       ],

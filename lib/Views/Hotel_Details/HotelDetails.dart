@@ -1,18 +1,126 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import '../../cache/cache_helper.dart';
+import '../../core/api/const_end_ponits.dart';
 import '../../core/app_colors/app_colors.dart';
 
 class HotelDetailsScreen extends StatefulWidget {
-  HotelDetailsScreen({Key? key, required this.Address, required this.Price, required this.Rate, });
+  HotelDetailsScreen({
+    Key? key,
+    required this.Address,
+    required this.Price,
+    required this.Rate,
+    required this.ID,
+  }) : super(key: key);
 
   final String Address;
   final int Price;
-final double Rate;
+  final double Rate;
+  final int ID;
 
   @override
   State<HotelDetailsScreen> createState() => _HotelDetailsScreenState();
 }
 
 class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
+  bool isFavorite = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadFavoriteStatus();
+  }
+
+  Future<void> _loadFavoriteStatus() async {
+    final bool? favoriteStatus = CacheHelper().getBool('favorite_status_${widget.ID}');
+    if (favoriteStatus != null) {
+      setState(() {
+        isFavorite = favoriteStatus;
+      });
+    }
+  }
+
+  Future<void> _saveFavoriteStatus(bool status) async {
+    CacheHelper().saveBool('favorite_status_${widget.ID}', status);
+  }
+
+  Future<void> SetFav() async {
+    final String baseUrl = EndPoint.baseUrl;
+    final BaseOptions baseOptions = BaseOptions(headers: {
+      "Authorization": "Bearer ${CacheHelper().getDataString(key: ApiKey.token)}",
+      "Accept": "*/*",
+      "Accept-Encoding": "gzip, deflate, br",
+    });
+    final Dio _dio = Dio(baseOptions);
+
+    try {
+      final response = await _dio.post(
+        '${baseUrl}api/user/favorite/add/hotel/${widget.ID}',
+        data: {},
+      );
+
+      if (response.statusCode == 200) {
+        print('Added to favorites successfully: ${response.data}');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text('Added to favorites successfully'),
+              backgroundColor: AppColors.blue
+          ),
+        );
+      } else {
+        print('Failed to add to favorites: ${response.statusCode}');
+        print('Response: ${response.data}');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to add to favorites. Please try again.'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } catch (e) {
+      print('Error adding to favorites: $e');
+    }
+  }
+
+  Future<void> RemoveFav() async {
+    print("delete???? ${widget.ID}");
+    final String baseUrl = EndPoint.baseUrl;
+    final BaseOptions baseOptions = BaseOptions(headers: {
+      "Authorization": "Bearer ${CacheHelper().getDataString(key: ApiKey.token)}",
+      "Accept": "*/*",
+      "Accept-Encoding": "gzip, deflate, br",
+    });
+    final Dio _dio = Dio(baseOptions);
+
+    try {
+      final response = await _dio.post(
+        '${baseUrl}api/user/favorite/delete/${widget.ID}',  // Ensure the endpoint is correct
+      );
+
+
+      if (response.statusCode == 200) {
+        print('Removed from favorites successfully: ${response.data}');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text('Removed from favorites successfully'),
+              backgroundColor: AppColors.blue
+          ),
+        );
+      } else {
+        print('Failed to remove from favorites: ${response.statusCode}');
+        print('Response: ${response.data}');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to remove from favorites. Please try again.'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } catch (e) {
+      print('Error removing from favorites: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,10 +177,23 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Icon(
-                      Icons.favorite_border,
-                      color: AppColors.red,
-                      size: 24,
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isFavorite = !isFavorite;
+                          _saveFavoriteStatus(isFavorite);
+                          if (isFavorite) {
+                            SetFav();
+                          } else {
+                            RemoveFav();
+                          }
+                        });
+                      },
+                      child: Icon(
+                        isFavorite ? Icons.favorite : Icons.favorite_border,
+                        color: Colors.red,
+                        size: 28,
+                      ),
                     ),
                   ),
                 ],
@@ -83,7 +204,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
               padding: const EdgeInsets.only(left: 16.0),
               child: Row(
                 children: [
-                   Text(
+                  Text(
                     "Price :  ",
                     style: TextStyle(
                       fontSize: 14,
@@ -92,7 +213,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                       fontFamily: "Poppins",
                     ),
                   ),
-                   Text(
+                  Text(
                     "${widget.Price} EGP",
                     style: TextStyle(
                       fontSize: 14,
@@ -120,7 +241,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                   Row(
                     children: [
                       Image.asset('assets/images/rate.png'),
-                       Text("${widget.Rate}"),
+                      Text("${widget.Rate}"),
                     ],
                   )
                 ],

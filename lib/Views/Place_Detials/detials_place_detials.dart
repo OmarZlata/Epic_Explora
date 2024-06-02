@@ -152,7 +152,7 @@ class _detialsPlaceDetialsState extends State<detialsPlaceDetials>
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  PlaceDetailsScreen(Address: '${fetchedData?.address}', Desc: '${fetchedData?.description}',),
+                  PlaceDetailsScreen(Address: '${fetchedData?.address}', Desc: '${fetchedData?.description}', ID: fetchedData?.id??0,),
                   PlaceReviewsScreen(id: fetchedData?.id??0,),
                 ],
               ),

@@ -10,6 +10,16 @@ class CacheHelper {
 
   String? getDataString({required String key}) {
     return sharedPreferences.getString(key);
+
+  }
+  // Save a boolean value to the cache
+  Future<bool> saveBool(String key, bool value) async {
+    return await sharedPreferences.setBool(key, value);
+  }
+
+  // Get a boolean value from the cache
+  bool? getBool(String key) {
+    return sharedPreferences.getBool(key);
   }
 
 //! this method to put data in local database using key
