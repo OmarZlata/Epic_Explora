@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../cache/cache_helper.dart';
 import '../../core/api/const_end_ponits.dart';
 import '../../core/app_colors/app_colors.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HotelDetailsScreen extends StatefulWidget {
   HotelDetailsScreen({
@@ -10,10 +11,12 @@ class HotelDetailsScreen extends StatefulWidget {
     required this.Address,
     required this.Price,
     required this.Rate,
-    required this.ID,
+    required this.ID, required this.Name,
+
   }) : super(key: key);
 
   final String Address;
+  final String Name;
   final int Price;
   final double Rate;
   final int ID;
@@ -79,6 +82,14 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
       }
     } catch (e) {
       print('Error adding to favorites: $e');
+    }
+  }
+  void _launchMaps(String query) async {
+    final url = 'https://www.google.com/maps/search/?api=1&query=$query';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
     }
   }
 
@@ -277,10 +288,15 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
               ),
             ),
             const SizedBox(height: 7),
-            Container(
-              height: 150,
-              width: 362,
-              child: Image.asset("assets/images/hotel map.png"),
+            InkWell(
+              onTap: () {
+                _launchMaps('${widget.Name} ${widget.Address}');
+              },
+              child: Container(
+                height: 150,
+                width: 362,
+                child: Image.asset("assets/images/hotel map.png"),
+              ),
             ),
             const SizedBox(height: 20),
             Container(
@@ -291,7 +307,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width - 60,
                       child: Text(
-                        " sss",
+                        "",
                         style: TextStyle(
                           fontSize: 14,
                           color: AppColors.grey,

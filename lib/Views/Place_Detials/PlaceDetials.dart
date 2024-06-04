@@ -1,14 +1,16 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../cache/cache_helper.dart';
 import '../../core/api/const_end_ponits.dart';
 import '../../core/app_colors/app_colors.dart';
 
 class PlaceDetailsScreen extends StatefulWidget {
-  PlaceDetailsScreen({Key? key, required this.Address, required this.Desc, required this.ID});
+  PlaceDetailsScreen({Key? key, required this.Address, required this.Desc, required this.ID, required this.Name});
   final String Desc;
   final String Address;
   final int ID;
+  final String Name;
 
   @override
   State<PlaceDetailsScreen> createState() => _PlaceDetailsScreenState();
@@ -112,6 +114,14 @@ class _PlaceDetailsScreenState extends State<PlaceDetailsScreen> {
       print('Error removing from favorites: $e');
     }
   }
+  void _launchMaps(String query) async {
+    final url = 'https://www.google.com/maps/search/?api=1&query=$query';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -144,6 +154,22 @@ class _PlaceDetailsScreenState extends State<PlaceDetailsScreen> {
                     ),
                   ),
                   const SizedBox(width: 200),
+                  Container(
+                    width: 28,
+                    height: 28,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: AppColors.black.withOpacity(0.1),
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Icon(
+                      Icons.share_outlined,
+                      color: AppColors.black,
+                      size: 24,
+                    ),
+                  ),
+                  const SizedBox(width: 40),
                   Container(
                     width: 28,
                     height: 28,
@@ -254,10 +280,15 @@ class _PlaceDetailsScreenState extends State<PlaceDetailsScreen> {
               ),
             ),
             const SizedBox(height: 7),
-            Container(
-              height: 150,
-              width: 362,
-              child: Image.asset("assets/images/hotel map.png"),
+            InkWell(
+              onTap: () {
+                _launchMaps("${widget.Name} ${widget.Address}");
+              },
+              child: Container(
+                height: 150,
+                width: 362,
+                child: Image.asset("assets/images/hotel map.png"),
+              ),
             ),
             const SizedBox(height: 20),
             Container(
