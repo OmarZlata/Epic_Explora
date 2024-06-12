@@ -2,22 +2,18 @@ import 'package:epic_expolre/Widgets/app_AppBar.dart';
 import 'package:epic_expolre/Widgets/app_text.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-  class OurGuiders extends StatefulWidget {
-  const OurGuiders({super.key});
+class GuideHomeView extends StatelessWidget {
+  const GuideHomeView({super.key});
 
-  @override
-  State<OurGuiders> createState() => _OurGuidersState();
-}
-
-class _OurGuidersState extends State<OurGuiders> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
           backgroundColor: AppColors.white,
           appBar: AppAppBar(
-            title: "Our Guiders",
+            title: "Tour Guide Home",
             textColor: AppColors.black,
             iconThemeColor: AppColors.black,
 
@@ -30,7 +26,7 @@ class _OurGuidersState extends State<OurGuiders> {
                   height: 125,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(18),
-                    color: AppColors.black.withOpacity(.12),
+                    color: AppColors.violet.withOpacity(.12),
                   ),
                   child: Row(
                     children: [
@@ -39,7 +35,7 @@ class _OurGuidersState extends State<OurGuiders> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: Image.asset(
-                            "assets/images/profilepic.jfif",
+                            "assets/images/classic lorem.png",
                             width: 104,
                             height: 104,
                             fit: BoxFit.cover,
@@ -55,7 +51,7 @@ class _OurGuidersState extends State<OurGuiders> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              "Ahmed Abdallah",
+                              "Cairo International Stadium",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 16),
                             ),
@@ -73,31 +69,38 @@ class _OurGuidersState extends State<OurGuiders> {
                                   width: 3,
                                 ),
                                 Text(
-                                  "Aswan Guider",
+                                  "Cairo",
                                   style: TextStyle(fontSize: 12),
                                 )
                               ],
                             ),
-                            const SizedBox(
-                              height: 19,
+                             SizedBox(
+                              height: 5.h,
                             ),
                             Row(
                               children: [
+                                Text("Requst From : Omar"),
+                                SizedBox(width: 50,),
                                 Container(
+                                  width: 50,
                                   height: 28,
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
+                                    borderRadius: BorderRadius.circular(20),
                                     color: AppColors.green,
                                   ),
                                   child: const Center(
                                       child: Text(
-                                        "  Available  ",
-                                        style: TextStyle(
-                                            fontSize: 15, color: AppColors.white),
-                                      )),
+                                    " Done ",
+                                    style: TextStyle(
+                                        fontSize: 15, color: AppColors.white),
+                                  )),
                                 )
                               ],
-                            )
+                            ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            Text("Phone Number : 0261537625")
                           ],
                         ),
                       ),
@@ -109,7 +112,7 @@ class _OurGuidersState extends State<OurGuiders> {
               ],
             ),
             itemCount: 10,
-
+            
           )),
     );
   }
