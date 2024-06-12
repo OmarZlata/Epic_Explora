@@ -8,6 +8,7 @@ import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:epic_expolre/cubit/user_cubit.dart';
 import 'package:epic_expolre/cubit/user_state.dart';
 import 'package:epic_expolre/tour_guide_views/Auth/guide_forget_password.dart';
+import 'package:epic_expolre/tour_guide_views/Auth/guide_signUp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -179,7 +180,7 @@ class _GuideSignInState extends State<GuideSignIn> {
                           },
                           child: AppText(
                               title: "Forget Password",
-                              color: AppColors.blue,
+                              color: AppColors.violet,
                               fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -190,11 +191,11 @@ class _GuideSignInState extends State<GuideSignIn> {
                     state is SignInLoading
                         ? Center(
                       child: CircularProgressIndicator(
-                        color: AppColors.blue,
+                        color: AppColors.violet,
                       ),
                     )
                         : AppButton(
-                      color: AppColors.blue,
+                      color: AppColors.violet,
                       font_color: AppColors.white,
                       title: "Sign in",
                       onTap: () {
@@ -219,12 +220,12 @@ class _GuideSignInState extends State<GuideSignIn> {
                         GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => SignUpView(),
+                              builder: (context) => GuideSignUp(),
                             ));
                           },
                           child: AppText(
                             title: " Sign Up",
-                            color: AppColors.blue,
+                            color: AppColors.violet,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

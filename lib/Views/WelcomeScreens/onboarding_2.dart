@@ -65,7 +65,7 @@ class WelcomeScreen2 extends StatelessWidget {
               color: AppColors.blue,
               font_color: AppColors.white,
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => GoogleMapSplashView(),));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GoogleMapSplashView(),));
               },
             ),
             SizedBox(height: 24,),
