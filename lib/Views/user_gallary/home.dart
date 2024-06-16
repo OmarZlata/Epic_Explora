@@ -20,24 +20,6 @@ class UserGallery extends StatefulWidget {
 }
 
 class _UserGalleryState extends State<UserGallery> {
-  List<XFile> _images = [];
-
-  Future<void> _pickImage() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-
-    if (image != null) {
-      setState(() {
-        _images.add(image);
-      });
-    }
-  }
-
-  void _deleteImage(int index) {
-    setState(() {
-      _images.removeAt(index);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +29,7 @@ class _UserGalleryState extends State<UserGallery> {
         child: Column(
           children: <Widget>[
             SizedBox(
-              height: 40,
+              height: 10,
             ),
             AppText(
               title: 'Trips Gallery',
@@ -73,7 +55,7 @@ class _UserGalleryState extends State<UserGallery> {
                 ),
                 child: Column(
                   children: [
-                    AppText(title: "Cairo",fontSize: 16,fontWeight: FontWeight.bold,),
+                    AppText(title: "Cairo",fontSize: 16,fontWeight: FontWeight.bold,color: AppColors.blue,),
                     SizedBox(height: 6,),
                     Expanded(
                       child: InkWell(
@@ -98,7 +80,7 @@ class _UserGalleryState extends State<UserGallery> {
                       ),
                     ),
                     SizedBox(height: 12,),
-                    AppText(title: "RedSea",fontSize: 16,fontWeight: FontWeight.bold,),
+                    AppText(title: "RedSea",fontSize: 16,fontWeight: FontWeight.bold,color: AppColors.blue),
                     SizedBox(height: 6,),
                     Expanded(
                       child: InkWell(
@@ -123,7 +105,7 @@ class _UserGalleryState extends State<UserGallery> {
                       ),
                     ),
                     SizedBox(height: 14,),
-                    AppText(title: "Aswan",fontSize: 16,fontWeight: FontWeight.bold,),
+                    AppText(title: "Aswan",fontSize: 16,fontWeight: FontWeight.bold,color: AppColors.blue),
                     SizedBox(height: 6,),
                     Expanded(
                       child: InkWell(
@@ -148,7 +130,7 @@ class _UserGalleryState extends State<UserGallery> {
                       ),
                     ),
                     SizedBox(height: 14,),
-                    AppText(title: "Alexandria",fontSize: 16,fontWeight: FontWeight.bold,),
+                    AppText(title: "Alexandria",fontSize: 16,fontWeight: FontWeight.bold,color: AppColors.blue),
                     SizedBox(height: 6,),
                     Expanded(
                       child: InkWell(

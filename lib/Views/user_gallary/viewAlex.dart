@@ -1,3 +1,4 @@
+import 'package:epic_expolre/Widgets/app_AppBar.dart';
 import 'package:epic_expolre/Widgets/app_button.dart';
 import 'package:epic_expolre/Widgets/app_text.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
@@ -37,12 +38,13 @@ class _AlexGalleryState extends State<AlexGallery> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.blue,
+      appBar: AppAppBar(color:AppColors.blue ,title: "",iconThemeColor: AppColors.white,),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             SizedBox(
-              height: 40,
+              height: 10,
             ),
             AppText(
               title: 'Alexandria Gallery',

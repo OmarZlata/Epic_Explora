@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:epic_expolre/Views/auth/SignIn.dart';
+import 'package:epic_expolre/Views/user_gallary/home.dart';
 import 'package:epic_expolre/Widgets/app_AppBar.dart';
 import 'package:epic_expolre/Widgets/app_button.dart';
 import 'package:epic_expolre/Widgets/bottomNavigationBar.dart';
@@ -285,6 +286,18 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => BookingTabBar(),
+                            ),
+                          );
+                        },
+                        color: AppColors.blue,
+                      ),
+                      AppTile(
+                        title: "Your Memories",
+                        icon: Icons.settings_outlined,
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => UserGallery(),
                             ),
                           );
                         },

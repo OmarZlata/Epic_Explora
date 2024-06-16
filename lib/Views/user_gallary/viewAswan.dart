@@ -6,6 +6,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
+import '../../Widgets/app_AppBar.dart';
+
 class AswanGallery extends StatefulWidget {
   const AswanGallery({super.key});
 
@@ -37,12 +39,13 @@ class _AswanGalleryState extends State<AswanGallery> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.blue,
+      appBar: AppAppBar(color:AppColors.blue ,title: "",iconThemeColor: AppColors.white,),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             SizedBox(
-              height: 40,
+              height: 10,
             ),
             AppText(
               title: 'Aswan Gallery',
