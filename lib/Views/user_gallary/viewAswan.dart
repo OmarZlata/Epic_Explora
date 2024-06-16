@@ -6,14 +6,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
-class UserGallery extends StatefulWidget {
-  const UserGallery({super.key});
+class AswanGallery extends StatefulWidget {
+  const AswanGallery({super.key});
 
   @override
-  _UserGalleryState createState() => _UserGalleryState();
+  _AswanGalleryState createState() => _AswanGalleryState();
 }
 
-class _UserGalleryState extends State<UserGallery> {
+class _AswanGalleryState extends State<AswanGallery> {
   List<XFile> _images = [];
 
   Future<void> _pickImage() async {
@@ -45,7 +45,7 @@ class _UserGalleryState extends State<UserGallery> {
               height: 40,
             ),
             AppText(
-              title: 'Trip Gallery',
+              title: 'Aswan Gallery',
               color: AppColors.white,
               fontSize: 20,
               textAlign: TextAlign.center,
