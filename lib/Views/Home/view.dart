@@ -254,13 +254,10 @@ Widget build(BuildContext context) {
                           ],
                         ),
                         Spacer(),
-                        GestureDetector(
-                          child:
-                          Image.asset(
-                              height: 45,'assets/images/palestine2.png'),
-                          onTap: () {
-                            _showpalestineAlertDialog(context);
-                          },
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Image.asset(
+                              height: 45,'assets/images/logo.png'),
                         ),
                       ],
                     ),

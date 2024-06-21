@@ -1,5 +1,6 @@
 import 'package:epic_expolre/Views/user_gallary/viewAswan.dart';
 import 'package:epic_expolre/Views/user_gallary/viewCairo.dart';
+import 'package:epic_expolre/Views/user_gallary/viewLuxor.dart';
 import 'package:epic_expolre/Views/user_gallary/viewRedsea.dart';
 import 'package:epic_expolre/Widgets/app_button.dart';
 import 'package:epic_expolre/Widgets/app_text.dart';
@@ -55,7 +56,6 @@ class _UserGalleryState extends State<UserGallery> {
                 ),
                 child: Column(
                   children: [
-                    AppText(title: "Cairo",fontSize: 16,fontWeight: FontWeight.bold,color: AppColors.blue,),
                     SizedBox(height: 6,),
                     Expanded(
                       child: InkWell(
@@ -79,8 +79,9 @@ class _UserGalleryState extends State<UserGallery> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 12,),
-                    AppText(title: "RedSea",fontSize: 16,fontWeight: FontWeight.bold,color: AppColors.blue),
+                    SizedBox(height: 6,),
+                    AppText(
+                      title: "Cairo",fontSize: 16,fontWeight: FontWeight.bold,color: AppColors.blue,),
                     SizedBox(height: 6,),
                     Expanded(
                       child: InkWell(
@@ -104,8 +105,9 @@ class _UserGalleryState extends State<UserGallery> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 14,),
-                    AppText(title: "Aswan",fontSize: 16,fontWeight: FontWeight.bold,color: AppColors.blue),
+                    SizedBox(height: 6,),
+                    AppText(
+                        title: "RedSea",fontSize: 16,fontWeight: FontWeight.bold,color: AppColors.blue),
                     SizedBox(height: 6,),
                     Expanded(
                       child: InkWell(
@@ -129,8 +131,9 @@ class _UserGalleryState extends State<UserGallery> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 14,),
-                    AppText(title: "Alexandria",fontSize: 16,fontWeight: FontWeight.bold,color: AppColors.blue),
+                    SizedBox(height: 6,),
+                    AppText(
+                        title: "Aswan",fontSize: 16,fontWeight: FontWeight.bold,color: AppColors.blue),
                     SizedBox(height: 6,),
                     Expanded(
                       child: InkWell(
@@ -154,12 +157,14 @@ class _UserGalleryState extends State<UserGallery> {
                         ),
                       ),
                     ),
-                    AppText(title: "Luxor",fontSize: 16,fontWeight: FontWeight.bold,color: AppColors.blue),
+                    SizedBox(height: 6,),
+                    AppText(
+                        title: "Alexandria",fontSize: 16,fontWeight: FontWeight.bold,color: AppColors.blue),
                     SizedBox(height: 6,),
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => AlexGallery(),));
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => LuxorGallery(),));
                         },
                         child: Container(
                           width: double.infinity,
@@ -172,13 +177,15 @@ class _UserGalleryState extends State<UserGallery> {
                           ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(15),
-                            child: Image.asset('assets/images/alexG.jpg',
+                            child: Image.asset('assets/images/LuxorG.jpg',
                               fit: BoxFit.cover,),
                           ),
                         ),
                       ),
                     ),
-
+                    SizedBox(height: 6,),
+                    AppText(
+                        title: "Luxor",fontSize: 16,fontWeight: FontWeight.bold,color: AppColors.blue),
                   ],
                 ),
               ),

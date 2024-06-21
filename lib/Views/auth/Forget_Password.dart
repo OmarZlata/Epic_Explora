@@ -14,6 +14,7 @@ class ForgetPasswordScreen extends StatelessWidget {
   ForgetPasswordScreen({super.key});
 
   bool obscurePassword = true;
+  bool isDisabled = false ;
   TextEditingController emailController = TextEditingController();
 
   @override
@@ -96,6 +97,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                               AppTextField(
                                 hint: "Email",
                                 radius: 8,
+                                enabled: !isDisabled,
                                 icon: Icons.email_outlined,
                                 hintFontSize: 12,
                                 obscureText: false,
@@ -133,6 +135,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                       if (context.read<UserCubit>().ForgetPasswordFormKey.currentState!.validate()) {
                         context.read<UserCubit>().ForgetPasswordFormKey.currentState!.save();
                         context.read<UserCubit>().forgotPassword();
+                        isDisabled=!isDisabled;
                       }
                     },
                   ),

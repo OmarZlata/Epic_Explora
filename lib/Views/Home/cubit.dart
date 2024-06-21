@@ -32,9 +32,6 @@ class HomeCubit extends Cubit<HomeStates> {
 
 
 }
-
-
-
 class PlaceController {
   List<Recommended> filterPlaces(String query, List<Recommended> places) {
     if (query.isEmpty) {

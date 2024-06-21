@@ -24,6 +24,7 @@ class SignInView extends StatefulWidget {
 
 class _SignInViewState extends State<SignInView> {
   bool obscurePassword = true;
+  bool isDisabled = false ;
   final signInFormKey = GlobalKey<FormState>();
 
   @override
@@ -103,6 +104,7 @@ class _SignInViewState extends State<SignInView> {
                               AppTextField(
                                 hint: "Email",
                                 radius: 8,
+                                enabled: !isDisabled,
                                 icon: Icons.email_outlined,
                                 hintFontSize: 12,
                                 obscureText: false,
@@ -136,6 +138,7 @@ class _SignInViewState extends State<SignInView> {
                                   AppTextField(
                                     hint: "Password",
                                     radius: 8,
+                                    enabled: !isDisabled,
                                     icon: Icons.lock_outline,
                                     hintFontSize: 12,
                                     suffixicon: IconButton(
@@ -209,6 +212,7 @@ class _SignInViewState extends State<SignInView> {
                                 context.read<UserCubit>().signIn();
                                 context.read<UserCubit>().signInEmail.clear();
                                 context.read<UserCubit>().signInPassword.clear();
+                                isDisabled=!isDisabled;
                               }
                             },
                           ),

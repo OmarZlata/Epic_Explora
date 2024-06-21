@@ -26,6 +26,7 @@ class _SignUpViewState extends State<SignUpView> {
   bool obscurePassword = true;
   bool obscurePasswordConfirm = true;
   bool isChecked = false;
+  bool isDisabled = false ;
   final signUpFormKey = GlobalKey<FormState>();
 
 
@@ -83,6 +84,7 @@ class _SignUpViewState extends State<SignUpView> {
                           AppTextField(
                             hint: "Name",
                             radius: 8,
+                            enabled: !isDisabled,
                             icon: Icons.person,
                             hintFontSize: 12,
                             obscureText: false,
@@ -111,6 +113,7 @@ class _SignUpViewState extends State<SignUpView> {
                                 AppTextField(
                                   hint: "Email",
                                   radius: 8,
+                                  enabled: !isDisabled,
                                   icon: Icons.email_outlined,
                                   hintFontSize: 12,
                                   obscureText: false,
@@ -147,6 +150,7 @@ class _SignUpViewState extends State<SignUpView> {
                                 AppTextField(
                                   hint: "Password",
                                   radius: 8,
+                                  enabled: !isDisabled,
                                   icon: Icons.lock_outline,
                                   hintFontSize: 12,
                                   suffixicon: IconButton(
@@ -194,6 +198,7 @@ class _SignUpViewState extends State<SignUpView> {
                                 AppTextField(
                                   hint: "Confirm Password",
                                   radius: 8,
+                                  enabled: !isDisabled,
                                   icon: Icons.lock_outline,
                                   hintFontSize: 12,
                                   suffixicon: IconButton(
@@ -269,6 +274,11 @@ class _SignUpViewState extends State<SignUpView> {
                           ? () {
                         if (signUpFormKey.currentState!.validate()) {
                           context.read<UserCubit>().signUp();
+                          context.read<UserCubit>().signUpName.clear();
+                          context.read<UserCubit>().signInEmail.clear();
+                          context.read<UserCubit>().signUpPassword.clear();
+                          context.read<UserCubit>().confirmPassword.clear();
+                          isDisabled=!isDisabled;
                           }
                       } : null,
                     ),
