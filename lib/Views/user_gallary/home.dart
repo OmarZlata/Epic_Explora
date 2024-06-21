@@ -154,6 +154,30 @@ class _UserGalleryState extends State<UserGallery> {
                         ),
                       ),
                     ),
+                    AppText(title: "Luxor",fontSize: 16,fontWeight: FontWeight.bold,color: AppColors.blue),
+                    SizedBox(height: 6,),
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => AlexGallery(),));
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(
+                              color: AppColors.grey,
+                            ),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(15),
+                            child: Image.asset('assets/images/alexG.jpg',
+                              fit: BoxFit.cover,),
+                          ),
+                        ),
+                      ),
+                    ),
 
                   ],
                 ),

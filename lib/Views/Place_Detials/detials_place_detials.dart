@@ -10,7 +10,6 @@ import '../../cache/cache_helper.dart';
 import '../../core/api/const_end_ponits.dart';
 import '../../core/app_colors/app_colors.dart';
 import '../../core/models/DetailsplaceAPImode.dart';
-
 import 'reviews_place_detials.dart';
 
 class detialsPlaceDetials extends StatefulWidget {

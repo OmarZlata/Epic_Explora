@@ -156,6 +156,7 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
+          backgroundColor: AppColors.white,
           appBar: AppBar(
             leading: IconButton(
               onPressed: () {
@@ -252,7 +253,7 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 8),
+                      SizedBox(height: 12),
                       AppTile(
                         title: "Setting",
                         icon: Icons.settings_outlined,
@@ -278,22 +279,10 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                         },
                         color: AppColors.blue,
                       ),
-                      SizedBox(height: 8),
-                      AppTile(
-                        title: "My Bookings",
-                        icon: Icons.settings_outlined,
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => BookingTabBar(),
-                            ),
-                          );
-                        },
-                        color: AppColors.blue,
-                      ),
+                      SizedBox(height: 8,),
                       AppTile(
                         title: "Your Memories",
-                        icon: Icons.settings_outlined,
+                        icon: CupertinoIcons.photo_fill_on_rectangle_fill,
                         onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(

@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primaryColor: Color(0xFF2F3C7E),
           ),
-          home:UserGallery(),
+          home:SplashScreen(),
         );
       },
     );
