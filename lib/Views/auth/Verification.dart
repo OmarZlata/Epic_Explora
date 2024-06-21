@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:epic_expolre/Views/auth/Reset_Password.dart';
+import 'package:epic_expolre/Views/auth/SignIn.dart';
 import 'package:epic_expolre/Widgets/app_AppBar.dart';
 import 'package:epic_expolre/cache/cache_helper.dart';
 import 'package:epic_expolre/core/api/const_end_ponits.dart';
@@ -60,7 +61,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
             Divider(color: AppColors.grey, height: 0.5),
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignInView(),));
               },
               child: Center(
                   child: AppText(

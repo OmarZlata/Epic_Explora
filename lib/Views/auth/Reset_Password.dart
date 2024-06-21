@@ -219,16 +219,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                               color: AppColors.blue,
                               font_color: AppColors.white,
                               onTap: () {
-                                if (context
-                                    .read<UserCubit>()
-                                    .resstPasswordFormKey
-                                    .currentState!
-                                    .validate()) {
-                                  context
-                                      .read<UserCubit>()
-                                      .resstPasswordFormKey
-                                      .currentState!
-                                      .save();
+                                if (context.read<UserCubit>().resstPasswordFormKey.currentState!.validate()) {
+                                  context.read<UserCubit>().resetPasswordEmail.clear();
+                                  context.read<UserCubit>().resstPasswordFormKey.currentState!.save();
                                   context.read<UserCubit>().resetPassword();
                                   _showAlertDialog(context);
                                 }
