@@ -7,6 +7,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class LuxorGallery extends StatefulWidget {
   const LuxorGallery({super.key});
 
@@ -17,6 +19,11 @@ class LuxorGallery extends StatefulWidget {
 class _LuxorGalleryState extends State<LuxorGallery> {
   List<XFile> _images = [];
 
+  void initState() {
+    super.initState();
+    _loadImages();
+  }
+
   Future<void> _pickImage() async {
     final ImagePicker _picker = ImagePicker();
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
@@ -25,6 +32,7 @@ class _LuxorGalleryState extends State<LuxorGallery> {
       setState(() {
         _images.add(image);
       });
+      _saveImages();
     }
   }
 
@@ -32,8 +40,24 @@ class _LuxorGalleryState extends State<LuxorGallery> {
     setState(() {
       _images.removeAt(index);
     });
+    _saveImages();
   }
 
+  Future<void> _saveImages() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> paths = _images.map((image) => image.path).toList();
+    await prefs.setStringList('Luxor_images', paths);
+  }
+
+  Future<void> _loadImages() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? paths = prefs.getStringList('Luxor_images');
+    if (paths != null) {
+      setState(() {
+        _images = paths.map((path) => XFile(path)).toList();
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -143,8 +167,6 @@ class _LuxorGalleryState extends State<LuxorGallery> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 14,),
-                    AppButton(title: "Save",color: AppColors.blue,font_color: AppColors.white,),
                   ],
                 ),
               ),

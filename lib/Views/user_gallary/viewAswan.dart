@@ -4,6 +4,7 @@ import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 
 import '../../Widgets/app_AppBar.dart';
@@ -18,6 +19,11 @@ class AswanGallery extends StatefulWidget {
 class _AswanGalleryState extends State<AswanGallery> {
   List<XFile> _images = [];
 
+  void initState() {
+    super.initState();
+    _loadImages();
+  }
+
   Future<void> _pickImage() async {
     final ImagePicker _picker = ImagePicker();
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
@@ -26,6 +32,7 @@ class _AswanGalleryState extends State<AswanGallery> {
       setState(() {
         _images.add(image);
       });
+      _saveImages();
     }
   }
 
@@ -33,6 +40,23 @@ class _AswanGalleryState extends State<AswanGallery> {
     setState(() {
       _images.removeAt(index);
     });
+    _saveImages();
+  }
+
+  Future<void> _saveImages() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> paths = _images.map((image) => image.path).toList();
+    await prefs.setStringList('Aswan_images', paths);
+  }
+
+  Future<void> _loadImages() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? paths = prefs.getStringList('Aswan_images');
+    if (paths != null) {
+      setState(() {
+        _images = paths.map((path) => XFile(path)).toList();
+      });
+    }
   }
 
   @override
@@ -144,8 +168,6 @@ class _AswanGalleryState extends State<AswanGallery> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 14,),
-                    AppButton(title: "Save",color: AppColors.blue,font_color: AppColors.white,),
                   ],
                 ),
               ),
