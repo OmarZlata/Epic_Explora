@@ -106,6 +106,8 @@ class _RedSeaHotelsViewState extends State<RedSeaHotelsView> {
           cardAddress: redseahotels![index].address!,
           cardimgUrl: redseahotels![index].img_url!,
           cardid: redseahotels![index].id!,
+          price: redseahotels![index].price!,
+          rate: redseahotels![index].rate!,
         ),
       ),
       bottomNavigationBar: Padding(

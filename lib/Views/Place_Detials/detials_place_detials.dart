@@ -34,7 +34,7 @@ class DetailsPlaceAPI {
     });
     Dio dio = Dio(baseOptions);
     try {
-      Response response = await dio.get('$baseUrl/api/user/place/show/$cardid');
+      Response response = await dio.get('${baseUrl}api/user/place/show/$cardid');
       if (response.statusCode == 200) {
         var data = response.data['data']['placeById'];
         print(data);

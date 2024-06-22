@@ -106,6 +106,8 @@ class _CairoHotelsViewState extends State<CairoHotelsView> {
                 cardAddress: cairohotels![index].address!,
                 cardimgUrl: cairohotels![index].img_url!,
                 cardid: cairohotels![index].id!,
+                price: cairohotels![index].price!,
+                rate: cairohotels![index].rate!,
               ),
             ),
       bottomNavigationBar: Padding(

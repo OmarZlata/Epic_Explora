@@ -15,35 +15,23 @@ import 'dart:developer';
 class UserCubit extends Cubit<UserState> {
   UserCubit(this.api) : super(UserInitial());
   final ApiConsumer api;
-
   GlobalKey<FormState> resstPasswordFormKey = GlobalKey();
   GlobalKey<FormState> paymentFormKey = GlobalKey();
   GlobalKey<FormState> ForgetPasswordFormKey = GlobalKey();
-
   GlobalKey<FormState> VerificationFormkey = GlobalKey();
-
   TextEditingController newPassword = TextEditingController();
   TextEditingController confirmNewPassword = TextEditingController();
   //Sign in email
   TextEditingController signInEmail = TextEditingController();
-
   TextEditingController otp = TextEditingController();
   TextEditingController resetPasswordEmail = TextEditingController();
-
   //Sign in password
   TextEditingController signInPassword = TextEditingController();
-
-  //Sign Up Form key
-
-
   //Sign up name
   TextEditingController signUpName = TextEditingController();
-
   TextEditingController signUpEmail = TextEditingController();
-
   //Sign up password
   TextEditingController signUpPassword = TextEditingController();
-
   //Sign up confirm password
   TextEditingController confirmPassword = TextEditingController();
   SignInModel? user;

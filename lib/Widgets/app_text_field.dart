@@ -16,7 +16,7 @@ class AppTextField extends StatelessWidget {
     this.suffixicon,
     required this.obscureText,
     this.maxLines = 1, this.controller,
-    this.textInputType,
+    this.textInputType, this.enabled,
   }) : super(key: key);
 
   final String hint;
@@ -33,6 +33,7 @@ class AppTextField extends StatelessWidget {
   final int maxLines;
   final TextInputType? textInputType;
   final TextEditingController? controller;
+  final bool? enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +41,7 @@ class AppTextField extends StatelessWidget {
       obscureText: obscureText,
       controller: controller,
       cursorColor: AppColors.blue,
+      enabled: enabled,
       keyboardAppearance: Brightness.dark,
       style: TextStyle(
         color: AppColors.black,

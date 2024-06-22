@@ -4,24 +4,27 @@ import '../core/app_colors/app_colors.dart';
 import 'bottomNavigationBar.dart';
 
 class AppAppBar extends StatelessWidget implements PreferredSizeWidget{
-  const AppAppBar({super.key,this.centerTitle, this.title,this.actions});
+  const AppAppBar({super.key,this.centerTitle, this.title,this.actions, this.color, this.iconThemeColor, this.textColor, this.leading});
 
 
   final title ;
   final List<Widget>? actions;
   final bool ?centerTitle;
-
+  final Color ?color;
+  final Color ? iconThemeColor;
+  final Color ? textColor;
+  final Widget? leading;
   @override
   Widget build(BuildContext context) {
     return AppBar(
-
+      leading: leading,
       iconTheme: IconThemeData(
-          color: AppColors.blue
+          color: iconThemeColor ?? AppColors.blue
       ),
-      backgroundColor: AppColors.white,
+      backgroundColor: color,
       elevation: 0,
       centerTitle: centerTitle??true,
-      title: AppText(title: "$title",color: AppColors.black,fontWeight: FontWeight.w600,fontSize: 18),
+      title: AppText(title: "$title",color: textColor,fontWeight: FontWeight.w600,fontSize: 18),
       actions: actions,
     );
   }

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:epic_expolre/Views/auth/SignIn.dart';
+import 'package:epic_expolre/Views/user_gallary/home.dart';
 import 'package:epic_expolre/Widgets/app_AppBar.dart';
 import 'package:epic_expolre/Widgets/app_button.dart';
 import 'package:epic_expolre/Widgets/bottomNavigationBar.dart';
@@ -155,20 +156,9 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
+          backgroundColor: AppColors.white,
           appBar: AppBar(
-            leading: IconButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => bottomNavigationBar(),
-                  ),
-                );
-              },
-              icon: Icon(
-                Icons.arrow_back_ios_outlined,
-                color: AppColors.black,
-              ),
-            ),
+
             backgroundColor: AppColors.white,
             elevation: 1,
             title: Text(
@@ -251,7 +241,7 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 8),
+                      SizedBox(height: 12),
                       AppTile(
                         title: "Setting",
                         icon: Icons.settings_outlined,
@@ -277,14 +267,14 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                         },
                         color: AppColors.blue,
                       ),
-                      SizedBox(height: 8),
+                      SizedBox(height: 8,),
                       AppTile(
-                        title: "My Bookings",
-                        icon: Icons.settings_outlined,
+                        title: "Your Memories",
+                        icon: CupertinoIcons.photo_fill_on_rectangle_fill,
                         onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => BookingTabBar(),
+                              builder: (context) => UserGallery(),
                             ),
                           );
                         },

@@ -5,7 +5,10 @@ class CairoHotels {
   String? description;
   String? address;
   List? img_url;
-  double? averageRating;
+  int? rate;
+  int? price;
+  bool? status;
+
 
   CairoHotels({
     this.id,
@@ -14,7 +17,9 @@ class CairoHotels {
     this.description,
     this.address,
     this.img_url,
-    this.averageRating,
+    this.rate,
+    this.price,
+    this.status
   });
   factory CairoHotels.fromJson(Map<String, dynamic> json) {
     return CairoHotels(
@@ -24,11 +29,13 @@ class CairoHotels {
       description: json['description'],
       address: json['address'],
       img_url: json['img_url'] ?? [],
-      averageRating: json['average_rating'] != null ? json['average_rating'].toDouble() : null,
+      rate: json['rate'],
+      price: json['price'],
+      status: json['status'],
     );
   }
   @override
   String toString() {
-    return 'CairoHotels{id: $id, stateId: $stateId, name: $name, description: $description}';
+    return 'AlexTrip{id: $id, stateId: $stateId, name: $name, description: $description}';
   }
 }

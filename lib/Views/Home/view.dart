@@ -1,7 +1,9 @@
 import 'dart:developer';
+import 'package:epic_expolre/Views/Home/Catogeries/states.dart';
 import 'package:epic_expolre/Views/States/Aswan/Aswan_tab_bar.dart';
 import 'package:epic_expolre/Views/States/RedSea/Red_Sea_tab_bar.dart';
 import 'package:epic_expolre/Views/States/cairo/Cairo_tab_bar.dart';
+import 'package:epic_expolre/Views/States/luxor/luxor_tab_bar.dart';
 import 'package:epic_expolre/Widgets/app_text.dart';
 import 'package:epic_expolre/core/api/Recommended.dart';
 import 'package:epic_expolre/core/api/const_end_ponits.dart';
@@ -353,96 +355,8 @@ Widget build(BuildContext context) {
                       ],
                     ),
                     SizedBox(height: 16),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Container(
-                        height: 120,
-                        child: Row(children: [
-                          Column(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => AlexTabBar(),));
-                                },
-                                child: Container(
-                                    width: 97,
-                                    height: 97,
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
-                                      image: DecorationImage(fit: BoxFit.fill,
-                                        image:
-                                        AssetImage("assets/images/alex.jpg"),
-                                      ),
-                                    )),
-                              ),
-                              Text("Alexandria"),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Column(
-                            children: [
-                              InkWell(
-                                onTap: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => CairoTabbar(),));},
-                                child: Container(
-                                    width: 97,
-                                    height: 97,
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
-                                      image: DecorationImage(fit: BoxFit.fill,
-                                        image:
-                                        AssetImage("assets/images/cairo.jpg"),
-                                      ),
-                                    )),
-                              ),
-                              Text("Cairo"),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Column(
-                            children: [
-                              InkWell(
-                                onTap: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => RedSeaTabbar(),));},
-                                child: Container(
-                                    width: 97,
-                                    height: 97,
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
-                                      image: DecorationImage(fit: BoxFit.fill,
-                                        image:
-                                        AssetImage("assets/images/redsea.jpg"),
-                                      ),
-                                    )),
-                              ),
-                              Text("Red Sea"),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Column(
-                            children: [
-                              InkWell(
-                                onTap: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => AswanTabbar(),));},
-                                child: Container(
-                                    width: 97,
-                                    height: 97,
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
-                                      image: DecorationImage(fit: BoxFit.fill,
-                                        image:
-                                        AssetImage("assets/images/Aswan.png"),
-                                      ),
-                                    )),
-                              ),
-                              Text("Aswan"),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                        ]),
-                      ),
-                    ),
+                    States(),
+
                     SizedBox(height: 16),
                     Row(
                       children: [

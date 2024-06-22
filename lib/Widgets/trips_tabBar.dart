@@ -1,81 +1,116 @@
+import 'package:epic_expolre/Widgets/app_AppBar.dart';
 import 'package:epic_expolre/Widgets/app_text.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
-import '../Views/My_Trips/future.dart';
-import '../Views/My_Trips/present.dart';
-import '../Views/My_Trips/previous.dart';
-  class TripsTabBar extends StatefulWidget {
-  const TripsTabBar({super.key});
+  class OurGuiders extends StatefulWidget {
+  const OurGuiders({super.key});
 
   @override
-  State<TripsTabBar> createState() => _TripsTabBarState();
+  State<OurGuiders> createState() => _OurGuidersState();
 }
 
-class _TripsTabBarState extends State<TripsTabBar> {
+class _OurGuidersState extends State<OurGuiders> {
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
+    return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
           backgroundColor: AppColors.white,
-          elevation: 1,
-          title: Text(
-            "My Trips",
-            style: TextStyle(
-                color: AppColors.black,
-                fontSize: 20,
-                fontWeight: FontWeight.w600),
+          appBar: AppAppBar(
+            title: "Our Guiders",
+            textColor: AppColors.black,
+            iconThemeColor: AppColors.black,
+
           ),
-          centerTitle: true,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 40,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: AppColors.grey.withOpacity(.2)),
-                child: TabBar(
-                  indicatorPadding: EdgeInsets.only(left:15 ,right:15,top: 6,bottom: 6,),
-                  splashBorderRadius: BorderRadius.circular(12),
-                  indicator: BoxDecoration(
-                    color: AppColors.blue,
-                    borderRadius: BorderRadius.circular(12),
+          body: ListView.builder(
+            padding: EdgeInsets.all(12),
+            itemBuilder: (context, index) => Column(
+              children: [
+                Container(
+                  height: 125,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(18),
+                    color: AppColors.black.withOpacity(.12),
                   ),
-                  labelColor: AppColors.white,
-                  unselectedLabelColor: AppColors.black,
-                  tabs: [
-                    Tab(
-                        child: AppText(
-                      title: 'Previous',
-                    )),
-                    Tab(
-                        child: AppText(
-                      title: 'Present',
-                    )),
-                    Tab(
-                        child: AppText(
-                      title: 'Future',
-                    )),
-                  ],
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.asset(
+                            "assets/images/profilepic.jfif",
+                            width: 104,
+                            height: 104,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Ahmed Abdallah",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            const Row(
+                              children: [
+                                Icon(
+                                  Icons.location_city_rounded,
+                                  size: 18,
+                                  color: AppColors.blue,
+                                ),
+                                SizedBox(
+                                  width: 3,
+                                ),
+                                Text(
+                                  "Aswan Guider",
+                                  style: TextStyle(fontSize: 12),
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 19,
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  height: 28,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: AppColors.green,
+                                  ),
+                                  child: const Center(
+                                      child: Text(
+                                        "  Available  ",
+                                        style: TextStyle(
+                                            fontSize: 15, color: AppColors.white),
+                                      )),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+
+                    ],
+                  ),
                 ),
-              ),
-              Expanded(
-                child: TabBarView(children: [
-                  PreviousScreen(),
-                  PresentScreen(),
-                  FutureScreen(),
-                ]),
-              )
-            ],
-          ),
-        ),
-      ),
+                SizedBox(height: 14,)
+              ],
+            ),
+            itemCount: 10,
+
+          )),
     );
   }
 }

@@ -5,7 +5,10 @@ class AlexTrip {
   String? description;
   String? address;
   List? img_url;
-  double? averageRating;
+  int? rate;
+  int? price;
+  bool? status;
+
 
   AlexTrip({
     this.id,
@@ -14,7 +17,9 @@ class AlexTrip {
     this.description,
     this.address,
     this.img_url,
-    this.averageRating,
+    this.rate,
+    this.price,
+    this.status
   });
   factory AlexTrip.fromJson(Map<String, dynamic> json) {
     return AlexTrip(
@@ -24,7 +29,9 @@ class AlexTrip {
       description: json['description'],
       address: json['address'],
       img_url: json['img_url'] ?? [],
-      averageRating: json['average_rating'] != null ? json['average_rating'].toDouble() : null,
+      rate: json['rate'],
+      price: json['price'],
+      status: json['status'],
     );
   }
   @override

@@ -107,6 +107,9 @@ class _AswanHotelsViewState extends State<AswanHotelsView> {
                 cardAddress: aswanhotels![index].address!,
                 cardimgUrl: aswanhotels![index].img_url!,
                 cardid: aswanhotels![index].id!,
+                price: aswanhotels![index].price!,
+                rate: aswanhotels![index].rate!,
+
               ),
             ),
       bottomNavigationBar: Padding(

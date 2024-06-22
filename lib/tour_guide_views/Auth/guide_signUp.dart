@@ -231,7 +231,7 @@ class _GuideSignUpState extends State<GuideSignUp> {
                     ):
                     AppButton(
                       width: double.infinity,
-                      color: AppColors.blue,
+                      color: AppColors.violet,
                       border_color: AppColors.white,
                       font_color: AppColors.white,
                       title: "Next",

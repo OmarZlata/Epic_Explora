@@ -5,7 +5,10 @@ class RedSeaHotels {
   String? description;
   String? address;
   List? img_url;
-  double? averageRating;
+  int? rate;
+  int? price;
+  bool? status;
+
 
   RedSeaHotels({
     this.id,
@@ -14,7 +17,9 @@ class RedSeaHotels {
     this.description,
     this.address,
     this.img_url,
-    this.averageRating,
+    this.rate,
+    this.price,
+    this.status
   });
   factory RedSeaHotels.fromJson(Map<String, dynamic> json) {
     return RedSeaHotels(
@@ -24,11 +29,13 @@ class RedSeaHotels {
       description: json['description'],
       address: json['address'],
       img_url: json['img_url'] ?? [],
-      averageRating: json['average_rating'] != null ? json['average_rating'].toDouble() : null,
+      rate: json['rate'],
+      price: json['price'],
+      status: json['status'],
     );
   }
   @override
   String toString() {
-    return 'RedSeaHotels{id: $id, stateId: $stateId, name: $name, description: $description}';
+    return 'AlexTrip{id: $id, stateId: $stateId, name: $name, description: $description}';
   }
 }

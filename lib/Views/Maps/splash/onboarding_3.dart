@@ -1,5 +1,9 @@
 import 'package:epic_expolre/Views/auth/SignIn.dart';
+import 'package:epic_expolre/tour_guide_views/Auth/guide_signIn.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../Widgets/app_button.dart';
 import '../../../Widgets/app_text.dart';
@@ -74,27 +78,27 @@ class _GoogleMapSplashViewState extends State<GoogleMapSplashView> {
             ),
             Spacer(),
             AppButton(
-              title: "Next",
+              title: "Register As User ",
               color: AppColors.blue,
               font_color: AppColors.white,
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) => SignInView(),
                 ));
               },
             ),
-            SizedBox(height: 24),
+            SizedBox(height: 10.h,),
             AppButton(
-              title: "Back",
-              color: AppColors.white,
-              font_color: AppColors.blue,
+              title: "Register As Guider",
+              color: AppColors.blue,
+              font_color: AppColors.white,
               onTap: () {
-                Navigator.pop(context);
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => GuideSignIn(),
+                ));
               },
             ),
-            SizedBox(
-              height: 25,
-            ),
+            SizedBox(height: 24),
           ],
         ),
       ),

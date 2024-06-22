@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../Views/Home/view.dart';
 import '../Views/MainScreens/favorites_screen.dart';
@@ -17,7 +18,7 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
   final List<Widget> _pages = [
     HomeView(),
     FavoriteScreen(),
-    TripsTabBar(),
+    OurGuiders(),
     ProfileMainScreen(),
   ];
   int  _currentIndex = 0 ;
@@ -40,7 +41,7 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
         },
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_filled),
+            icon: Icon(CupertinoIcons.house_fill),
             label: "Home",
           ),
           BottomNavigationBarItem(
@@ -48,11 +49,11 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
             label: 'Favorites',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.flight_takeoff),
-            label: 'My Trips',
+            icon: Icon(Icons.person_pin_rounded),
+            label: 'Tour Guider',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: Icon(CupertinoIcons.person_circle_fill),
             label: 'Profile',
           ),
         ],

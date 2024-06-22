@@ -230,7 +230,7 @@ class _GuideSignUp2State extends State<GuideSignUp2> {
                       children: [
                         Checkbox(
                           value: isChecked,
-                          activeColor: AppColors.blue,
+                          activeColor: AppColors.violet,
                           onChanged: (value) {
                             setState(() {
                               isChecked = value!;
@@ -264,7 +264,7 @@ class _GuideSignUp2State extends State<GuideSignUp2> {
                             border_color: AppColors.white,
                             font_color: AppColors.white,
                             color: isChecked
-                                ? AppColors.blue
+                                ? AppColors.violet
                                 : AppColors.grey.withOpacity(.3),
                             title: "SignUp",
                             onTap: isChecked

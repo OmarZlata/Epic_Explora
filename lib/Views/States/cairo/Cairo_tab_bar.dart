@@ -1,5 +1,4 @@
-import 'package:epic_expolre/Views/States/alex/places_screen.dart';
-import 'package:epic_expolre/Views/States/alex/Alex_hotels_screen.dart';
+
 import 'package:epic_expolre/Widgets/app_text.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';

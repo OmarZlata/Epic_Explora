@@ -65,7 +65,8 @@ class WelcomeScreen1 extends StatelessWidget {
               color: AppColors.blue,
               font_color: AppColors.white,
               onTap: () {
-                Navigator.push(
+                Navigator.pushReplacement(
+
                     context,
                     MaterialPageRoute(
                       builder: (context) => WelcomeScreen2(),

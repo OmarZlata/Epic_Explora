@@ -10,6 +10,8 @@ class ApiHotelCard extends StatefulWidget {
   final String cardAddress;
   final List cardimgUrl;
   final int cardid;
+  final int rate;
+  final int price;
 
   ApiHotelCard({
     Key? key,
@@ -17,6 +19,8 @@ class ApiHotelCard extends StatefulWidget {
     required this.cardAddress,
     required this.cardimgUrl,
     required this.cardid,
+    required this.rate,
+    required this.price,
   }) : super(key: key);
 
   @override
@@ -133,7 +137,7 @@ class _ApiHotelCardState extends State<ApiHotelCard> {
                                   SizedBox(
                                     height: 4,
                                   ),
-                                  Text("\$14.4"),
+                                  Text("${widget.price} EGP"),
                                   SizedBox(
                                     height: 4,
                                   ),
@@ -170,7 +174,7 @@ class _ApiHotelCardState extends State<ApiHotelCard> {
                                       Row(
                                         children: [
                                           Image.asset('assets/images/rate.png'),
-                                          Text("4.5"),
+                                          Text("${widget.rate}"),
                                         ],
                                       )
                                     ],

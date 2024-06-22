@@ -106,6 +106,8 @@ class _HotelsViewState extends State<HotelsView> {
                 cardAddress: alextrip![index].address!,
                 cardimgUrl: alextrip![index].img_url!,
                 cardid: alextrip![index].id!,
+                price: alextrip![index].price!,
+                rate: alextrip![index].rate!,
 
               ),
             ),

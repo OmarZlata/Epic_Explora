@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:epic_expolre/Widgets/Fav_App_card.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'dart:developer';
 import 'package:flutter/material.dart';
@@ -103,7 +104,7 @@ class _FavouriteHotelsScreenState extends State<FavouriteHotelsScreen> {
           ? Center(child: CircularProgressIndicator(color: AppColors.blue,))
           : ListView.builder(
         itemCount: favouritemodel!.length,
-        itemBuilder: (context, index) => ApiHotelCard(
+        itemBuilder: (context, index) => FavAppCard(
           cardText: favouritemodel![index].name!,
           cardAddress: favouritemodel![index].address!,
           cardimgUrl: favouritemodel![index].img_url!,

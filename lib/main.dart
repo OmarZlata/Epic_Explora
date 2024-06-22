@@ -10,6 +10,8 @@ import 'package:epic_expolre/Views/States/alex/trips_screen.dart';
 import 'package:epic_expolre/Views/WelcomeScreens/splash_screen.dart';
 import 'package:epic_expolre/Views/auth/SignIn.dart';
 import 'package:epic_expolre/Views/auth/SignUp.dart';
+import 'package:epic_expolre/Views/user_gallary/home.dart';
+import 'package:epic_expolre/Views/user_gallary/viewAswan.dart';
 import 'package:epic_expolre/Widgets/states_tab_bar.dart';
 import 'package:epic_expolre/core/api/dio_consumer.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
@@ -29,6 +31,7 @@ import 'Widgets/bottomNavigationBar.dart';
 import 'Widgets/trips_tabBar.dart';
 import 'cache/cache_helper.dart';
 import 'tour_guide_views/Auth/guide_signUp.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   CacheHelper().init();

@@ -1,7 +1,7 @@
 import 'package:epic_expolre/core/models/sign_up_model.dart';
 
 class EndPoint {
-  static String baseUrl = "https://epic-explore.vercel.app/api/";
+  static String baseUrl = "https://tour-guide-api.onrender.com/";
   static String signIn = "api/user/login/";
   static String register = "api/user/register/";
   static String logout = "api/user/logout/";
