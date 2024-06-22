@@ -12,6 +12,7 @@ class HotelDetailsScreen extends StatefulWidget {
     required this.Price,
     required this.Rate,
     required this.ID, required this.Name,
+    required this.status
 
   }) : super(key: key);
 
@@ -20,6 +21,7 @@ class HotelDetailsScreen extends StatefulWidget {
   final int Price;
   final double Rate;
   final int ID;
+  final bool status;
 
   @override
   State<HotelDetailsScreen> createState() => _HotelDetailsScreenState();
@@ -201,7 +203,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                         });
                       },
                       child: Icon(
-                        isFavorite ? Icons.favorite : Icons.favorite_border,
+                        widget.status ? Icons.favorite : Icons.favorite_border,
                         color: Colors.red,
                         size: 28,
                       ),
@@ -269,19 +271,22 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                       color: AppColors.grey.withOpacity(.1),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.location_on_outlined,
-                          color: AppColors.blue,
-                        ),
-                        Text(
-                          "${widget.Address} ,Egypt",
-                          style: TextStyle(
-                            fontSize: 12,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.location_on_outlined,
+                            color: AppColors.blue,
                           ),
-                        ),
-                      ],
+                          Text(
+                            "${widget.Address} ,Egypt",
+                            style: TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

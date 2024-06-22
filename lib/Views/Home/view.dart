@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:epic_expolre/Views/States/Aswan/Aswan_tab_bar.dart';
 import 'package:epic_expolre/Views/States/RedSea/Red_Sea_tab_bar.dart';
 import 'package:epic_expolre/Views/States/cairo/Cairo_tab_bar.dart';
+import 'package:epic_expolre/Views/States/luxor/luxor_tab_bar.dart';
 import 'package:epic_expolre/Widgets/app_text.dart';
 import 'package:epic_expolre/core/api/Recommended.dart';
 import 'package:epic_expolre/core/api/const_end_ponits.dart';
@@ -254,10 +255,13 @@ Widget build(BuildContext context) {
                           ],
                         ),
                         Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: Image.asset(
-                              height: 45,'assets/images/logo.png'),
+                        GestureDetector(
+                          child:
+                          Image.asset(
+                              height: 45,'assets/images/palestine2.png'),
+                          onTap: () {
+                            _showpalestineAlertDialog(context);
+                          },
                         ),
                       ],
                     ),
@@ -432,6 +436,26 @@ Widget build(BuildContext context) {
                                     )),
                               ),
                               Text("Aswan"),
+                            ],
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Column(
+                            children: [
+                              InkWell(
+                                onTap: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => LuxorTabbar(),));},
+                                child: Container(
+                                    width: 97,
+                                    height: 97,
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
+                                      image: DecorationImage(fit: BoxFit.fill,
+                                        image:
+                                        AssetImage("assets/images/luxor.jpg"),
+                                      ),
+                                    )),
+                              ),
+                              Text("Luxor"),
                             ],
                           ),
                           SizedBox(

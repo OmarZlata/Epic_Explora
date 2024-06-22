@@ -3,11 +3,12 @@ import 'package:epic_expolre/Widgets/app_text.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
-import 'Cairo_Hotels.dart';
-import 'Cairo_Places.dart';
+import 'luxor_hotels.dart';
+import 'luxor_places.dart';
 
-class CairoTabbar extends StatelessWidget {
-  const CairoTabbar({super.key});
+
+class LuxorTabbar extends StatelessWidget {
+  const LuxorTabbar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class CairoTabbar extends StatelessWidget {
           backgroundColor: AppColors.white,
           elevation: 1,
           title: Text(
-            "Cairo",
+            "Luxor",
             style: TextStyle(
                 color: AppColors.black,
                 fontSize: 20,
@@ -63,8 +64,9 @@ class CairoTabbar extends StatelessWidget {
               ),
               Expanded(
                 child: TabBarView(children: [
-                  CairoHotelsView(),
-                  CairoPlacesScreen(),
+                  LuxorHotelsView(),
+                  LuxorPlacesScreen()
+
 
                 ]),
               )

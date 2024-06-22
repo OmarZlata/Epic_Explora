@@ -10,6 +10,7 @@ import '../../cache/cache_helper.dart';
 import '../../core/api/const_end_ponits.dart';
 import '../../core/app_colors/app_colors.dart';
 import '../../core/models/DetailsplaceAPImode.dart';
+
 import 'reviews_place_detials.dart';
 
 class detialsPlaceDetials extends StatefulWidget {
@@ -33,7 +34,7 @@ class DetailsPlaceAPI {
     });
     Dio dio = Dio(baseOptions);
     try {
-      Response response = await dio.get('$baseUrl/api/user/place/show/$cardid');
+      Response response = await dio.get('${baseUrl}api/user/place/show/$cardid');
       if (response.statusCode == 200) {
         var data = response.data['data']['placeById'];
         print(data);
