@@ -63,32 +63,6 @@ class _AppHomeCardState extends State<AppHomeCard> {
                           height: double.infinity,
                         ),
                       ),
-                      Container(
-                        padding: EdgeInsets.all(12),
-                        alignment: Alignment.topRight,
-                        child: Stack(
-                          children: [
-                            Image.asset(
-                              'assets/images/favbg.png',
-                              fit: BoxFit.cover,
-                              height: 28,
-                              width: 28,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  isFavorite = !isFavorite;
-                                });
-                              },
-                              child: Icon(
-                                isFavorite ? Icons.favorite : Icons.favorite_border,
-                                color: Colors.red,
-                                size: 28,
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
                     ],
                   ),
                 ),

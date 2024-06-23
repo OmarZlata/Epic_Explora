@@ -1,3 +1,4 @@
+import 'package:epic_expolre/Views/MainScreens/Favourite_Hotels.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../Views/Home/view.dart';
@@ -17,7 +18,7 @@ class bottomNavigationBar extends StatefulWidget {
 class _bottomNavigationBarState extends State<bottomNavigationBar> {
   final List<Widget> _pages = [
     HomeView(),
-    FavoriteScreen(),
+    FavouriteHotelsScreen(),
     OurGuiders(),
     ProfileMainScreen(),
   ];

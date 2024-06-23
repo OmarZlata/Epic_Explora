@@ -21,7 +21,7 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget{
       iconTheme: IconThemeData(
           color: iconThemeColor ?? AppColors.blue
       ),
-      backgroundColor: color,
+      backgroundColor: color ??AppColors.white ,
       elevation: 0,
       centerTitle: centerTitle??true,
       title: AppText(title: "$title",color: textColor,fontWeight: FontWeight.w600,fontSize: 18),

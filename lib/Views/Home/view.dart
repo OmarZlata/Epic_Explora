@@ -32,9 +32,11 @@ class HomeView extends StatefulWidget {
   @override
   State<HomeView> createState() => _HomeViewState();
 }
-class UserInfoAPI{
-  final String baseUrl= EndPoint.baseUrl;
-  Future <UserInfo> getUserInfo()async{
+
+class UserInfoAPI {
+  final String baseUrl = EndPoint.baseUrl;
+
+  Future<UserInfo> getUserInfo() async {
     final BaseOptions baseOptions = BaseOptions(headers: {
       "Authorization": "Bearer ${CacheHelper().getData(key: ApiKey.token)}",
     });
@@ -51,18 +53,14 @@ class UserInfoAPI{
       throw Exception('Failed to load data');
     }
   }
-
 }
-
-
-
 
 List<Recommended>? recommended;
 UserInfoAPI? userInfoAPI;
 UserInfo? userInfo;
 PlaceService placeService = PlaceService();
-bool isloading=true;
-bool isloading2=true;
+bool isloading = true;
+bool isloading2 = true;
 
 void _showBottomSheet(BuildContext context) {
   showModalBottomSheet(
@@ -84,48 +82,13 @@ void _showBottomSheet(BuildContext context) {
     },
   );
 }
-void _showpalestineAlertDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Center(child: AppText( title: 'Free Palestine',fontWeight: FontWeight.bold,)),
-        content: Container(
-          height: 100.h,
-          child: Column(
-            children: [
-              Image.asset(
-                  height: 100.h,'assets/images/palestine_flag.png'),
-            ],
-          ),
-        ),
-        actions: <Widget>[
-          Divider(),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Center(
-                child: AppText(
-                  title: "back",
-                  color: AppColors.black,
-                  fontWeight: FontWeight.bold,
-                )),
-          ),
-        ],
-      );
-    },
-  );
-}
 
 class PlaceService {
-
   final String baseUrl = EndPoint.baseUrl;
 
   Future<List<Recommended>> getAllPlaces() async {
     final BaseOptions baseOption = BaseOptions(headers: {
-      "Authorization":
-      "Bearer ${CacheHelper().getData(key: ApiKey.token)}",
+      "Authorization": "Bearer ${CacheHelper().getData(key: ApiKey.token)}",
     });
     final Dio dio = Dio(baseOption);
     try {
@@ -134,7 +97,7 @@ class PlaceService {
         List<dynamic> data = response.data['data']['recommendedData'];
 
         var x = data.map((e) => Recommended.fromJson(e)).toList();
-        isloading=false;
+        isloading = false;
 
         return x;
       } else {
@@ -158,7 +121,7 @@ class _HomeViewState extends State<HomeView> {
   void printdata() async {
     final BaseOptions baseOption = BaseOptions(headers: {
       "Authorization":
-      "Bearer 38|WGCBg2vlkOAru2RUAVzMn7MhGIEx8GaoTAGXGzY8553dcf19",
+          "Bearer 38|WGCBg2vlkOAru2RUAVzMn7MhGIEx8GaoTAGXGzY8553dcf19",
       "Accept": "*/*",
       "Accept-Encoding": "gzip, deflate, br",
     });
@@ -172,14 +135,13 @@ class _HomeViewState extends State<HomeView> {
       UserInfo fetchedData = await UserInfoAPI().getUserInfo();
       setState(() {
         userInfo = fetchedData;
-        isloading2= false;
+        isloading2 = false;
       });
     } catch (e) {
       setState(() {
         isloading2 = false;
       });
     }
-
   }
 
   void _fetchPlaces() async {
@@ -194,11 +156,7 @@ class _HomeViewState extends State<HomeView> {
     }
   }
 
-
-
-
-
-Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return SafeArea(
       child: BlocProvider(
         create: (context) => HomeCubit()..getCurrentLocation(),
@@ -212,7 +170,9 @@ Widget build(BuildContext context) {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CircularProgressIndicator(color: AppColors.blue),
-                      SizedBox(height: 5,),
+                      SizedBox(
+                        height: 5,
+                      ),
                       AppText(title: "Loading...")
                     ],
                   ),
@@ -237,32 +197,35 @@ Widget build(BuildContext context) {
                           children: [
                             Row(
                               children: [
-                                SizedBox(width: 5,),
-                                AppText(title: userInfo?.name!.toUpperCase()?? 'No Name',color: AppColors.blue,fontSize: 18,
-
-
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                AppText(
+                                  title: userInfo?.name?.toUpperCase() ??
+                                      'No Name',
+                                  color: AppColors.blue,
+                                  fontSize: 18,
                                 ),
                               ],
                             ),
                             Row(
                               children: [
-                                Icon(
-                                  Icons.location_on_outlined,
-                                  color: AppColors.blue,
-                                ),
-                                Text(location.district+" ,"+location.country),
+                                Icon(Icons.location_on_outlined,
+                                    color: AppColors.blue),
+                                if (location != null)
+                                  Text(
+                                      '${location.district}, ${location.country}'),
+                                if (location == null)
+                                  Text('Location not available'),
                               ],
                             ),
                           ],
                         ),
                         Spacer(),
-                        GestureDetector(
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
                           child:
-                          Image.asset(
-                              height: 45,'assets/images/palestine2.png'),
-                          onTap: () {
-                            _showpalestineAlertDialog(context);
-                          },
+                              Image.asset(height: 45, 'assets/images/logo.png'),
                         ),
                       ],
                     ),
@@ -276,21 +239,24 @@ Widget build(BuildContext context) {
                           child: Container(
                             width: 285,
                             height: 60,
-
                             child: TextFormField(
                               readOnly: true,
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => SearchScreen(states:"" ,title: ""),
+                                  builder: (context) =>
+                                      SearchScreen(states: "", title: ""),
                                 ));
                               },
                               maxLines: 1,
                               decoration: InputDecoration(
                                   hintText: "Search",
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: AppColors.blue), // Override the focused border color
+                                    borderSide: BorderSide(
+                                        color: AppColors
+                                            .blue), // Override the focused border color
                                   ),
-                                  prefixIcon: Icon(Icons.search,color: AppColors.blue),
+                                  prefixIcon:
+                                      Icon(Icons.search, color: AppColors.blue),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   )),
@@ -382,23 +348,39 @@ Widget build(BuildContext context) {
                     ),
                     SizedBox(height: 16),
                     Container(
-                      constraints: isloading ? null : BoxConstraints(
-                        maxHeight: 248,
-                        maxWidth: 210,
-                      ),
-                      child: isloading
-                          ? Center(child: CircularProgressIndicator(color: AppColors.blue))
-                          : ListView.builder(
-                            itemCount: recommended!.length,
-                            scrollDirection: Axis.horizontal,
-                            clipBehavior: Clip.hardEdge,
-                            itemBuilder: (context, index) => AppHomeCard(
-                              cardText: recommended![index].name!,
-                              cardAddress: recommended![index].address!,
-                              cardimgUrl: recommended![index].img_url!,
-                              cardid: recommended![index].id!,
+                      constraints: isloading
+                          ? null
+                          : BoxConstraints(
+                              maxHeight: 248,
+                              maxWidth: 210,
                             ),
-                          ),
+                      child: isloading
+                          ? Center(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  CircularProgressIndicator(
+                                    color: AppColors.blue,
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  AppText(title: "Loading...")
+                                ],
+                              ),
+                            )
+                          : ListView.builder(
+                              itemCount: recommended?.length ?? 0,
+                              scrollDirection: Axis.horizontal,
+                              clipBehavior: Clip.hardEdge,
+                              itemBuilder: (context, index) => AppHomeCard(
+                                cardText: recommended![index].name!,
+                                cardAddress: recommended![index].address!,
+                                cardimgUrl: recommended![index].img_url!,
+                                cardid: recommended![index].id!,
+                              ),
+                            ),
                     ),
 
                     SizedBox(height: 16),

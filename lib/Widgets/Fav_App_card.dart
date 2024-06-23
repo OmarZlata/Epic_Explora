@@ -26,7 +26,7 @@ class FavAppCard extends StatefulWidget {
 }
 
 class _FavAppCardState extends State<FavAppCard> {
-  bool isFavorite = false;
+  bool isFavorite = true;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class _FavAppCardState extends State<FavAppCard> {
             child: Container(
               child: Center(
                 child: Material(
-                  elevation: 5,
+                  elevation: 4,
                   borderRadius: BorderRadius.circular(8),
                   child: Container(
                     height: 148,
@@ -70,12 +70,14 @@ class _FavAppCardState extends State<FavAppCard> {
                                       width: 100,
                                       height: 130,
                                       decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8), // Adjust the radius as needed
                                         image: DecorationImage(
                                           image: NetworkImage("${widget.cardimgUrl[0]}"),
                                           fit: BoxFit.cover,
                                         ),
                                       ),
-                                    ),
+                                    )
+
                                   ),
                                 ],
                               ),
@@ -95,16 +97,7 @@ class _FavAppCardState extends State<FavAppCard> {
                                         ),
                                       ),
                                       SizedBox(
-                                        width: 36,
-                                      ),
-                                      InkWell(
-                                        child: Image.asset('assets/images/dots.png'),
-                                        onTap: () {
-                                          print("Delete");
-                                        },
-                                      ),
-                                      SizedBox(
-                                        width: 5,
+                                        width: 50,
                                       ),
                                     ],
                                   ),

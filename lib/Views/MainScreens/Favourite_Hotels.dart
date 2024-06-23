@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:epic_expolre/Widgets/Fav_App_card.dart';
+import 'package:epic_expolre/Widgets/app_text.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'dart:developer';
 import 'package:flutter/material.dart';
@@ -34,12 +35,13 @@ class PlaceAPI {
 
     try {
       Response response =
-      await dio.get('${baseUrl}api/user/favorite/getFavorites?page=$page');
+          await dio.get('${baseUrl}api/user/favorite/getFavorites?page=$page');
       if (response.statusCode == 200) {
         List data = response.data['data'];
         log("data text${data}");
 
-        List<FavouriteModel> x = data.map((e) => FavouriteModel.fromJson(e)).toList();
+        List<FavouriteModel> x =
+            data.map((e) => FavouriteModel.fromJson(e)).toList();
 
         return x;
       } else {
@@ -68,7 +70,7 @@ class _FavouriteHotelsScreenState extends State<FavouriteHotelsScreen> {
   void _fetchPlaces() async {
     try {
       List<FavouriteModel> fetchedPlaces =
-      await placeAPI.getAllTrips(page: currentPage);
+          await placeAPI.getAllTrips(page: currentPage);
       setState(() {
         favouritemodel = fetchedPlaces;
         isloading = false;
@@ -100,55 +102,36 @@ class _FavouriteHotelsScreenState extends State<FavouriteHotelsScreen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
+      appBar: AppAppBar(
+        iconThemeColor: AppColors.blue,
+        title: "Favorite",
+      ),
       body: isloading
-          ? Center(child: CircularProgressIndicator(color: AppColors.blue,))
+          ? Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(
+                    color: AppColors.blue,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  AppText(title: "Loading...")
+                ],
+              ),
+            )
           : ListView.builder(
-        itemCount: favouritemodel!.length,
-        itemBuilder: (context, index) => FavAppCard(
-          cardText: favouritemodel![index].name!,
-          cardAddress: favouritemodel![index].address!,
-          cardimgUrl: favouritemodel![index].img_url!,
-          cardid: favouritemodel![index].id!,
-        ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            InkWell(
-              onTap: () {
-                goToPreviousPage();
-              },
-              child: CircleAvatar(
-                backgroundColor: AppColors.blue,
-                child: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.white,
-                ),
+              itemCount: favouritemodel!.length,
+              itemBuilder: (context, index) => FavAppCard(
+                cardText: favouritemodel![index].name!,
+                cardAddress: favouritemodel![index].address!,
+                cardimgUrl: favouritemodel![index].img_url!,
+                cardid: favouritemodel![index].id!,
               ),
             ),
-            Container(
-                padding: EdgeInsets.all(15),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(width: 1, color: AppColors.grey)),
-                child: Text('$currentPage')),
-            InkWell(
-              onTap: () {
-                goToNextPage();
-              },
-              child: CircleAvatar(
-                backgroundColor: AppColors.blue,
-                child: Icon(
-                  Icons.arrow_forward_ios,
-                  color: AppColors.white,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+      );
   }
 }

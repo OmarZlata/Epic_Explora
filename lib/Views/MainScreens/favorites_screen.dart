@@ -62,7 +62,7 @@ class FavoriteScreen extends StatelessWidget {
               Expanded(
                 child: TabBarView(children: [
                   FavouriteHotelsScreen(),
-                  AswanPlacesScreen(),
+
 
                 ]),
               )

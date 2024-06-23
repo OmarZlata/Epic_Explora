@@ -70,6 +70,7 @@ void _showAlertDialog(BuildContext context) {
               AppText(
                 title: "Are You Sure You Want",
                 color: AppColors.grey,
+
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
               ),
@@ -93,6 +94,7 @@ void _showAlertDialog(BuildContext context) {
                 title: "Logout !",
                 color: AppColors.red.withOpacity(.4),
                 font_color: AppColors.white,
+                border_color: AppColors.red.withOpacity(.3),
                 onTap: () {
                   context.read<UserCubit>().logout();
                   Navigator.of(context).pushReplacement(
@@ -106,6 +108,7 @@ void _showAlertDialog(BuildContext context) {
                 height: 8,
               ),
               AppButton(
+                border_color: AppColors.grey,
                 title: "Cancel",
                 onTap: () {
                   Navigator.of(context).pop();
@@ -157,25 +160,24 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
       builder: (context, state) {
         return Scaffold(
           backgroundColor: AppColors.white,
-          appBar: AppBar(
-
-            backgroundColor: AppColors.white,
-            elevation: 1,
-            title: Text(
-              "Profile Settings",
-              style: TextStyle(
-                color: AppColors.black,
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+          appBar: AppAppBar(
+            title: "Profile Settings",
             centerTitle: true,
           ),
           body: isLoading
               ? Center(
-                  child: CircularProgressIndicator(
-                  color: AppColors.blue,
-                ))
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(
+                    color: AppColors.blue,
+                                        ),
+                    SizedBox(height: 10,),
+                    AppText(title: "Loading...")
+                  ],
+                ),
+              )
               : Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8),
@@ -241,20 +243,7 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 12),
-                      AppTile(
-                        title: "Setting",
-                        icon: Icons.settings_outlined,
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => AppModeScreen(),
-                            ),
-                          );
-                        },
-                        color: AppColors.blue,
-                      ),
-                      SizedBox(height: 8),
+                      SizedBox(height: 22),
                       AppTile(
                         title: "Currency Converter",
                         icon: CupertinoIcons.money_dollar_circle,
