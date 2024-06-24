@@ -104,8 +104,10 @@ class _FavouriteHotelsScreenState extends State<FavouriteHotelsScreen> {
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppAppBar(
-        iconThemeColor: AppColors.blue,
+        color: Colors.white,
         title: "Favorite",
+        textColor: AppColors.blue,
+
       ),
       body: isloading
           ? Center(

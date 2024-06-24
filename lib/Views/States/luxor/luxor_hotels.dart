@@ -11,11 +11,10 @@ import '../../../Widgets/API_Hotel_Card.dart';
 import '../../../cache/cache_helper.dart';
 import '../../../core/api/AlexTripAPI.dart';
 import '../../../core/api/const_end_ponits.dart';
-import '../../../core/models/CairoHotelsApi.dart';
 import 'model/luxor_hotel_model.dart';
 
 class LuxorHotelsView extends StatefulWidget {
-  const LuxorHotelsView({Key? key});
+  const LuxorHotelsView({Key? key}) : super(key: key);
 
   @override
   State<LuxorHotelsView> createState() => _LuxorHotelsViewState();
@@ -24,7 +23,7 @@ class LuxorHotelsView extends StatefulWidget {
 class PlaceAPI {
   final String baseUrl = EndPoint.baseUrl;
 
-  Future<List<LuxorHotels>> getAllTrips({int page = 1}) async {
+  Future<List<LuxorHotels>> getAllTrips() async {
     final BaseOptions baseOptions = BaseOptions(headers: {
       "Authorization": "Bearer ${CacheHelper().getData(key: ApiKey.token)}",
       "Accept": "*/*",
@@ -33,15 +32,14 @@ class PlaceAPI {
     final Dio dio = Dio(baseOptions);
 
     try {
-      Response response =
-      await dio.get('${baseUrl}api/user/hotel/luxor?page=$page');
+      Response response = await dio.get('${baseUrl}api/user/hotel/luxor');
       if (response.statusCode == 200) {
-        List data = response.data['data']['hotels'];
+        List data = response.data['hotels'];
         log("data text${data}");
 
-        List<LuxorHotels> x = data.map((e) => LuxorHotels.fromJson(e)).toList();
+        List<LuxorHotels> hotels = data.map((e) => LuxorHotels.fromJson(e)).toList();
 
-        return x;
+        return hotels;
       } else {
         throw Exception('Failed to load data');
       }
@@ -54,63 +52,72 @@ class PlaceAPI {
 }
 
 class _LuxorHotelsViewState extends State<LuxorHotelsView> {
-  List<LuxorHotels>? luxorhotels;
-  bool isloading = true;
+  List<LuxorHotels> allLuxorHotels = [];
+  List<LuxorHotels> displayedLuxorHotels = [];
+  bool isLoading = true;
   PlaceAPI placeAPI = PlaceAPI();
   int currentPage = 1;
+  final int itemsPerPage = 10;
 
   @override
   void initState() {
     super.initState();
-    _fetchPlaces();
+    _fetchHotels();
   }
 
-  void _fetchPlaces() async {
+  void _fetchHotels() async {
     try {
-      List<LuxorHotels> fetchedPlaces =
-      await placeAPI.getAllTrips(page: currentPage);
+      List<LuxorHotels> fetchedHotels = await placeAPI.getAllTrips();
       setState(() {
-        luxorhotels = fetchedPlaces;
-        isloading = false;
+        allLuxorHotels = fetchedHotels;
+        _updateDisplayedHotels();
+        isLoading = false;
       });
     } catch (e) {
-      print('Error fetching places: $e');
+      print('Error fetching hotels: $e');
     }
   }
 
-  void goToNextPage() {
+  void _updateDisplayedHotels() {
+    int start = (currentPage - 1) * itemsPerPage;
+    int end = start + itemsPerPage;
     setState(() {
-      currentPage += 1;
-      luxorhotels = null;
-      isloading = true;
+      displayedLuxorHotels = allLuxorHotels.sublist(start, end > allLuxorHotels.length ? allLuxorHotels.length : end);
     });
-    _fetchPlaces();
+  }
+
+  void goToNextPage() {
+    if (currentPage * itemsPerPage < allLuxorHotels.length) {
+      setState(() {
+        currentPage += 1;
+        _updateDisplayedHotels();
+      });
+    }
   }
 
   void goToPreviousPage() {
     if (currentPage > 1) {
       setState(() {
         currentPage -= 1;
-        luxorhotels = null;
-        isloading = true;
+        _updateDisplayedHotels();
       });
-      _fetchPlaces();
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isloading
-          ? Center(child: CircularProgressIndicator(color: AppColors.blue,))
+      body: isLoading
+          ? Center(child: CircularProgressIndicator(color: AppColors.blue))
           : ListView.builder(
-        itemCount: luxorhotels!.length,
+        itemCount: displayedLuxorHotels.length,
         itemBuilder: (context, index) => ApiHotelCard(
-          cardText: luxorhotels![index].name!,
-          cardAddress: luxorhotels![index].address!,
-          cardimgUrl: luxorhotels![index].img_url!,
-          cardid: luxorhotels![index].id!,
-          price: luxorhotels![index].price!,
-          rate: luxorhotels![index].rate!,
+          cardText: displayedLuxorHotels[index].name!,
+          cardAddress: displayedLuxorHotels[index].address!,
+          cardimgUrl: displayedLuxorHotels[index].img_url!,
+          cardid: displayedLuxorHotels[index].id!,
+          price: displayedLuxorHotels[index].price!,
+          rate: displayedLuxorHotels[index].rate!,
         ),
       ),
       bottomNavigationBar: Padding(

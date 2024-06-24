@@ -24,18 +24,18 @@ class RedSeaPlacesScreen extends StatefulWidget {
 class PlaceAPI {
   final String baseUrl = EndPoint.baseUrl;
 
-  Future<List<RedSeaPlaces>> getAllTrips({int page = 1}) async {
+  Future<List<RedSeaPlaces>> getAllTrips() async {
     final BaseOptions baseOptions = BaseOptions(headers: {
       "Authorization": "Bearer ${CacheHelper().getData(key: ApiKey.token)}",
     });
     final Dio dio = Dio(baseOptions);
 
     try {
-      Response response = await dio.get('${baseUrl}api/user/place/red-sea?page=$page');
+      Response response = await dio.get('${baseUrl}api/user/place/red-sea');
       if (response.statusCode == 200) {
         print(response.data);
         final dynamic responseData = response.data;
-        final dynamic allPlacesData = responseData['data']['places'];
+        final dynamic allPlacesData = responseData['places'];
 
         if (allPlacesData is List) {
           List<RedSeaPlaces> places = allPlacesData.map((e) => RedSeaPlaces.fromJson(e)).toList();
@@ -54,10 +54,12 @@ class PlaceAPI {
 }
 
 class _RedSeaPlacesScreenState extends State<RedSeaPlacesScreen> {
-  List<RedSeaPlaces>? redseaplaces=[];
-  bool isloading = true;
+  List<RedSeaPlaces> allRedSeaPlaces = [];
+  List<RedSeaPlaces> displayedRedSeaPlaces = [];
+  bool isLoading = true;
   PlaceAPI placeAPI = PlaceAPI();
   int currentPage = 1;
+  final int itemsPerPage = 10;
 
   @override
   void initState() {
@@ -67,47 +69,55 @@ class _RedSeaPlacesScreenState extends State<RedSeaPlacesScreen> {
 
   void _fetchPlaces() async {
     try {
-      List<RedSeaPlaces> fetchedPlaces = await placeAPI.getAllTrips(page: currentPage);
+      List<RedSeaPlaces> fetchedPlaces = await placeAPI.getAllTrips();
       setState(() {
-        redseaplaces = fetchedPlaces;
-        isloading = false;
+        allRedSeaPlaces = fetchedPlaces;
+        _updateDisplayedPlaces();
+        isLoading = false;
       });
     } catch (e) {
       print('Error fetching places: $e');
     }
   }
 
-  void goToNextPage() {
+  void _updateDisplayedPlaces() {
+    int start = (currentPage - 1) * itemsPerPage;
+    int end = start + itemsPerPage;
     setState(() {
-      currentPage += 1;
-      redseaplaces = null;
-      isloading = true;
+      displayedRedSeaPlaces = allRedSeaPlaces.sublist(start, end > allRedSeaPlaces.length ? allRedSeaPlaces.length : end);
     });
-    _fetchPlaces();
+  }
+
+  void goToNextPage() {
+    if (currentPage * itemsPerPage < allRedSeaPlaces.length) {
+      setState(() {
+        currentPage += 1;
+        _updateDisplayedPlaces();
+      });
+    }
   }
 
   void goToPreviousPage() {
     if (currentPage > 1) {
       setState(() {
         currentPage -= 1;
-        redseaplaces = null;
-        isloading = true;
+        _updateDisplayedPlaces();
       });
-      _fetchPlaces();
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isloading
-          ? Center(child: CircularProgressIndicator(color: AppColors.blue,))
+      body: isLoading
+          ? Center(child: CircularProgressIndicator(color: AppColors.blue))
           : ListView.builder(
-        itemCount: redseaplaces!.length,
+        itemCount: displayedRedSeaPlaces.length,
         itemBuilder: (context, index) => APIAppCard(
-          cardText: redseaplaces![index].name!,
-          cardAddress: redseaplaces![index].address!,
-          cardimgUrl: redseaplaces![index].img_url!,
-          cardid: redseaplaces![index].id!,
+          cardText: displayedRedSeaPlaces[index].name!,
+          cardAddress: displayedRedSeaPlaces[index].address!,
+          cardimgUrl: displayedRedSeaPlaces[index].img_url!,
+          cardid: displayedRedSeaPlaces[index].id!,
         ),
       ),
       bottomNavigationBar: Padding(
@@ -115,11 +125,11 @@ class _RedSeaPlacesScreenState extends State<RedSeaPlacesScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            InkWell(onTap: () {
-              goToPreviousPage();
-            },
+            InkWell(
+              onTap: () {
+                goToPreviousPage();
+              },
               child: CircleAvatar(
-
                 backgroundColor: AppColors.blue,
                 child: Icon(
                   Icons.arrow_back_ios_new,
@@ -127,16 +137,18 @@ class _RedSeaPlacesScreenState extends State<RedSeaPlacesScreen> {
                 ),
               ),
             ),
-
             Container(
-                padding: EdgeInsets.all(15),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(width: 1, color: AppColors.grey)),
-                child: Text('$currentPage')),
-            InkWell(onTap: () {
-              goToNextPage();
-            },
+              padding: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(width: 1, color: AppColors.grey),
+              ),
+              child: Text('$currentPage'),
+            ),
+            InkWell(
+              onTap: () {
+                goToNextPage();
+              },
               child: CircleAvatar(
                 backgroundColor: AppColors.blue,
                 child: Icon(

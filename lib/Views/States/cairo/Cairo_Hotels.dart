@@ -14,7 +14,7 @@ import '../../../core/api/const_end_ponits.dart';
 import '../../../core/models/CairoHotelsApi.dart';
 
 class CairoHotelsView extends StatefulWidget {
-  const CairoHotelsView({Key? key});
+  const CairoHotelsView({Key? key}) : super(key: key);
 
   @override
   State<CairoHotelsView> createState() => _CairoHotelsViewState();
@@ -23,22 +23,21 @@ class CairoHotelsView extends StatefulWidget {
 class PlaceAPI {
   final String baseUrl = EndPoint.baseUrl;
 
-  Future<List<CairoHotels>> getAllTrips({int page = 1}) async {
+  Future<List<CairoHotels>> getAllTrips() async {
     final BaseOptions baseOptions = BaseOptions(headers: {
       "Authorization": "Bearer ${CacheHelper().getData(key: ApiKey.token)}",
     });
     final Dio dio = Dio(baseOptions);
 
     try {
-      Response response =
-          await dio.get('${baseUrl}api/user/hotel/cairo?page=$page');
+      Response response = await dio.get('${baseUrl}api/user/hotel/cairo');
       if (response.statusCode == 200) {
-        List data = response.data['data']['hotels'];
-        log("data text${data}");
+        List data = response.data['hotels'];
+        log("data text: $data");
 
-        List<CairoHotels> x = data.map((e) => CairoHotels.fromJson(e)).toList();
+        List<CairoHotels> hotels = data.map((e) => CairoHotels.fromJson(e)).toList();
 
-        return x;
+        return hotels;
       } else {
         throw Exception('Failed to load data');
       }
@@ -51,94 +50,115 @@ class PlaceAPI {
 }
 
 class _CairoHotelsViewState extends State<CairoHotelsView> {
-  List<CairoHotels>? cairohotels;
-  bool isloading = true;
+  List<CairoHotels> allCairoHotels = [];
+  List<CairoHotels> displayedCairoHotels = [];
+  bool isLoading = true;
   PlaceAPI placeAPI = PlaceAPI();
   int currentPage = 1;
+  final int itemsPerPage = 10;
 
   @override
   void initState() {
     super.initState();
-    _fetchPlaces();
+    _fetchHotels();
   }
 
-  void _fetchPlaces() async {
+  void _fetchHotels() async {
     try {
-      List<CairoHotels> fetchedPlaces =
-          await placeAPI.getAllTrips(page: currentPage);
+      List<CairoHotels> fetchedHotels = await placeAPI.getAllTrips();
       setState(() {
-        cairohotels = fetchedPlaces;
-        isloading = false;
+        allCairoHotels = fetchedHotels;
+        _updateDisplayedHotels();
+        isLoading = false;
       });
     } catch (e) {
-      print('Error fetching places: $e');
+      print('Error fetching hotels: $e');
     }
   }
 
-  void goToNextPage() {
+  void _updateDisplayedHotels() {
+    int start = (currentPage - 1) * itemsPerPage;
+    int end = start + itemsPerPage;
     setState(() {
-      currentPage += 1;
-      cairohotels = null;
-      isloading = true;
+      displayedCairoHotels = allCairoHotels.sublist(start, end > allCairoHotels.length ? allCairoHotels.length : end);
     });
-    _fetchPlaces();
+  }
+
+  void goToNextPage() {
+    if (currentPage * itemsPerPage < allCairoHotels.length) {
+      setState(() {
+        currentPage += 1;
+        _updateDisplayedHotels();
+      });
+    }
   }
 
   void goToPreviousPage() {
     if (currentPage > 1) {
       setState(() {
         currentPage -= 1;
-        cairohotels = null;
-        isloading = true;
+        _updateDisplayedHotels();
       });
-      _fetchPlaces();
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isloading
+      body: isLoading
           ? Center(child: CircularProgressIndicator(color: AppColors.blue,))
           : ListView.builder(
-              itemCount: cairohotels!.length,
-              itemBuilder: (context, index) => ApiHotelCard(
-                cardText: cairohotels![index].name!,
-                cardAddress: cairohotels![index].address!,
-                cardimgUrl: cairohotels![index].img_url!,
-                cardid: cairohotels![index].id!,
-                price: cairohotels![index].price!,
-                rate: cairohotels![index].rate!,
-              ),
-            ),
+        itemCount: displayedCairoHotels.length,
+        itemBuilder: (context, index) => ApiHotelCard(
+          cardText: displayedCairoHotels[index].name!,
+          cardAddress: displayedCairoHotels[index].address!,
+          cardimgUrl: displayedCairoHotels[index].img_url!,
+          cardid: displayedCairoHotels[index].id!,
+          price: displayedCairoHotels[index].price!,
+          rate: displayedCairoHotels[index].rate!,
+        ),
+      ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             InkWell(
               onTap: () {
                 goToPreviousPage();
               },
-              child: CircleAvatar(
-                backgroundColor: AppColors.blue,
+              child: Container(
+                padding: EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                    color: AppColors.blue,
+                    borderRadius: BorderRadius.circular(2)
+                ),
                 child: Icon(
                   Icons.arrow_back_ios_new,
                   color: AppColors.white,
                 ),
               ),
             ),
+            SizedBox(width: 35), // Adjust space between previous button and current page indicator
             Container(
-                padding: EdgeInsets.all(15),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(width: 1, color: AppColors.grey)),
-                child: Text('$currentPage')),
+              padding: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(width: 1, color: AppColors.blue),
+              ),
+              child: Text('$currentPage'),
+            ),
+            SizedBox(width: 35), // Adjust space between current page indicator and next button
             InkWell(
               onTap: () {
                 goToNextPage();
               },
-              child: CircleAvatar(
-                backgroundColor: AppColors.blue,
+              child: Container(
+                padding: EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                    color: AppColors.blue,
+                    borderRadius: BorderRadius.circular(2)
+                ),
                 child: Icon(
                   Icons.arrow_forward_ios,
                   color: AppColors.white,
@@ -147,6 +167,7 @@ class _CairoHotelsViewState extends State<CairoHotelsView> {
             ),
           ],
         ),
+
       ),
     );
   }

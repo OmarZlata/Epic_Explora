@@ -24,7 +24,7 @@ class AswanHotelsView extends StatefulWidget {
 class PlaceAPI {
   final String baseUrl = EndPoint.baseUrl;
 
-  Future<List<AswanHotels>> getAllTrips({int page = 1}) async {
+  Future<List<AswanHotels>> getAllTrips() async {
     final BaseOptions baseOptions = BaseOptions(headers: {
       "Authorization": "Bearer ${CacheHelper().getData(key: ApiKey.token)}",
     });
@@ -32,9 +32,9 @@ class PlaceAPI {
 
     try {
       Response response =
-          await dio.get('${baseUrl}api/user/hotel/aswan?page=$page');
+      await dio.get('${baseUrl}api/user/hotel/aswan');
       if (response.statusCode == 200) {
-        List data = response.data['data']['hotels'];
+        List data = response.data['hotels'];
         log("data text${data}");
 
         List<AswanHotels> x = data.map((e) => AswanHotels.fromJson(e)).toList();
@@ -52,66 +52,75 @@ class PlaceAPI {
 }
 
 class _AswanHotelsViewState extends State<AswanHotelsView> {
-  List<AswanHotels>? aswanhotels;
-  bool isloading = true;
+  List<AswanHotels> allAswanHotels = [];
+  List<AswanHotels> displayedAswanHotels = [];
+  bool isLoading = true;
   PlaceAPI placeAPI = PlaceAPI();
   int currentPage = 1;
+  final int itemsPerPage = 10;
 
   @override
   void initState() {
     super.initState();
-    _fetchPlaces();
+    _fetchHotels();
   }
 
-  void _fetchPlaces() async {
+  void _fetchHotels() async {
     try {
-      List<AswanHotels> fetchedPlaces =
-          await placeAPI.getAllTrips(page: currentPage);
+      List<AswanHotels> fetchedHotels =
+      await placeAPI.getAllTrips();
       setState(() {
-        aswanhotels = fetchedPlaces;
-        isloading = false;
+        allAswanHotels = fetchedHotels;
+        _updateDisplayedHotels();
+        isLoading = false;
       });
     } catch (e) {
-      print('Error fetching places: $e');
+      print('Error fetching hotels: $e');
     }
   }
 
-  void goToNextPage() {
+  void _updateDisplayedHotels() {
+    int start = (currentPage - 1) * itemsPerPage;
+    int end = start + itemsPerPage;
     setState(() {
-      currentPage += 1;
-      aswanhotels = null;
-      isloading = true;
+      displayedAswanHotels = allAswanHotels.sublist(start, end > allAswanHotels.length ? allAswanHotels.length : end);
     });
-    _fetchPlaces();
+  }
+
+  void goToNextPage() {
+    if (currentPage * itemsPerPage < allAswanHotels.length) {
+      setState(() {
+        currentPage += 1;
+        _updateDisplayedHotels();
+      });
+    }
   }
 
   void goToPreviousPage() {
     if (currentPage > 1) {
       setState(() {
         currentPage -= 1;
-        aswanhotels = null;
-        isloading = true;
+        _updateDisplayedHotels();
       });
-      _fetchPlaces();
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isloading
+      body: isLoading
           ? Center(child: CircularProgressIndicator(color: AppColors.blue,))
           : ListView.builder(
-              itemCount: aswanhotels!.length,
-              itemBuilder: (context, index) => ApiHotelCard(
-                cardText: aswanhotels![index].name!,
-                cardAddress: aswanhotels![index].address!,
-                cardimgUrl: aswanhotels![index].img_url!,
-                cardid: aswanhotels![index].id!,
-                price: aswanhotels![index].price!,
-                rate: aswanhotels![index].rate!,
-
-              ),
-            ),
+        itemCount: displayedAswanHotels.length,
+        itemBuilder: (context, index) => ApiHotelCard(
+          cardText: displayedAswanHotels[index].name!,
+          cardAddress: displayedAswanHotels[index].address!,
+          cardimgUrl: displayedAswanHotels[index].img_url!,
+          cardid: displayedAswanHotels[index].id!,
+          price: displayedAswanHotels[index].price!,
+          rate: displayedAswanHotels[index].rate!,
+        ),
+      ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(

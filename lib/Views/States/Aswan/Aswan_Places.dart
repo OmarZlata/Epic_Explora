@@ -24,18 +24,18 @@ class AswanPlacesScreen extends StatefulWidget {
 class PlaceAPI {
   final String baseUrl = EndPoint.baseUrl;
 
-  Future<List<AswanPlaces>> getAllTrips({int page = 1}) async {
+  Future<List<AswanPlaces>> getAllTrips() async {
     final BaseOptions baseOptions = BaseOptions(headers: {
       "Authorization": "Bearer ${CacheHelper().getData(key: ApiKey.token)}",
     });
     final Dio dio = Dio(baseOptions);
 
     try {
-      Response response = await dio.get('${baseUrl}api/user/place/aswan?page=$page');
+      Response response = await dio.get('${baseUrl}api/user/place/aswan');
       if (response.statusCode == 200) {
         print(response.data);
         final dynamic responseData = response.data;
-        final dynamic allPlacesData = responseData['data']['places'];
+        final dynamic allPlacesData = responseData['places'];
 
         if (allPlacesData is List) {
           List<AswanPlaces> places = allPlacesData.map((e) => AswanPlaces.fromJson(e)).toList();
@@ -54,10 +54,12 @@ class PlaceAPI {
 }
 
 class _AswanPlacesScreenState extends State<AswanPlacesScreen> {
-  List<AswanPlaces>? aswanplaces=[];
-  bool isloading = true;
+  List<AswanPlaces> allAswanPlaces = [];
+  List<AswanPlaces> displayedAswanPlaces = [];
+  bool isLoading = true;
   PlaceAPI placeAPI = PlaceAPI();
   int currentPage = 1;
+  final int itemsPerPage = 10;
 
   @override
   void initState() {
@@ -67,47 +69,55 @@ class _AswanPlacesScreenState extends State<AswanPlacesScreen> {
 
   void _fetchPlaces() async {
     try {
-      List<AswanPlaces> fetchedPlaces = await placeAPI.getAllTrips(page: currentPage);
+      List<AswanPlaces> fetchedPlaces = await placeAPI.getAllTrips();
       setState(() {
-        aswanplaces = fetchedPlaces;
-        isloading = false;
+        allAswanPlaces = fetchedPlaces;
+        _updateDisplayedPlaces();
+        isLoading = false;
       });
     } catch (e) {
       print('Error fetching places: $e');
     }
   }
 
-  void goToNextPage() {
+  void _updateDisplayedPlaces() {
+    int start = (currentPage - 1) * itemsPerPage;
+    int end = start + itemsPerPage;
     setState(() {
-      currentPage += 1;
-      aswanplaces = null;
-      isloading = true;
+      displayedAswanPlaces = allAswanPlaces.sublist(start, end > allAswanPlaces.length ? allAswanPlaces.length : end);
     });
-    _fetchPlaces();
+  }
+
+  void goToNextPage() {
+    if (currentPage * itemsPerPage < allAswanPlaces.length) {
+      setState(() {
+        currentPage += 1;
+        _updateDisplayedPlaces();
+      });
+    }
   }
 
   void goToPreviousPage() {
     if (currentPage > 1) {
       setState(() {
         currentPage -= 1;
-        aswanplaces = null;
-        isloading = true;
+        _updateDisplayedPlaces();
       });
-      _fetchPlaces();
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isloading
-          ? Center(child: CircularProgressIndicator(color: AppColors.blue,))
+      body: isLoading
+          ? Center(child: CircularProgressIndicator(color: AppColors.blue))
           : ListView.builder(
-        itemCount: aswanplaces!.length,
+        itemCount: displayedAswanPlaces.length,
         itemBuilder: (context, index) => APIAppCard(
-          cardText: aswanplaces![index].name!,
-          cardAddress: aswanplaces![index].address!,
-          cardimgUrl: aswanplaces![index].img_url!,
-          cardid: aswanplaces![index].id!,
+          cardText: displayedAswanPlaces[index].name!,
+          cardAddress: displayedAswanPlaces[index].address!,
+          cardimgUrl: displayedAswanPlaces[index].img_url!,
+          cardid: displayedAswanPlaces[index].id!,
         ),
       ),
       bottomNavigationBar: Padding(
@@ -115,11 +125,11 @@ class _AswanPlacesScreenState extends State<AswanPlacesScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            InkWell(onTap: () {
-              goToPreviousPage();
-            },
+            InkWell(
+              onTap: () {
+                goToPreviousPage();
+              },
               child: CircleAvatar(
-
                 backgroundColor: AppColors.blue,
                 child: Icon(
                   Icons.arrow_back_ios_new,
@@ -127,16 +137,18 @@ class _AswanPlacesScreenState extends State<AswanPlacesScreen> {
                 ),
               ),
             ),
-
             Container(
-                padding: EdgeInsets.all(15),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(width: 1, color: AppColors.grey)),
-                child: Text('$currentPage')),
-            InkWell(onTap: () {
-              goToNextPage();
-            },
+              padding: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(width: 1, color: AppColors.grey),
+              ),
+              child: Text('$currentPage'),
+            ),
+            InkWell(
+              onTap: () {
+                goToNextPage();
+              },
               child: CircleAvatar(
                 backgroundColor: AppColors.blue,
                 child: Icon(

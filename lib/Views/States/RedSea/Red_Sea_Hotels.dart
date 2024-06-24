@@ -11,8 +11,6 @@ import '../../../Widgets/API_Hotel_Card.dart';
 import '../../../cache/cache_helper.dart';
 import '../../../core/api/AlexTripAPI.dart';
 import '../../../core/api/const_end_ponits.dart';
-import '../../../core/models/AswanHotelsApi.dart';
-import '../../../core/models/CairoHotelsApi.dart';
 import '../../../core/models/RedSeaHotelsAPI.dart';
 
 class RedSeaHotelsView extends StatefulWidget {
@@ -25,21 +23,23 @@ class RedSeaHotelsView extends StatefulWidget {
 class PlaceAPI {
   final String baseUrl = EndPoint.baseUrl;
 
-  Future<List<RedSeaHotels>> getAllTrips({int page = 1}) async {
+  Future<List<RedSeaHotels>> getAllTrips() async {
     final BaseOptions baseOptions = BaseOptions(headers: {
       "Authorization": "Bearer ${CacheHelper().getData(key: ApiKey.token)}",
     });
     final Dio dio = Dio(baseOptions);
 
     try {
-      Response response = await dio.get('${baseUrl}api/user/hotel/red-sea?page=$page');
+      Response response =
+      await dio.get('${baseUrl}api/user/hotel/red-sea');
       if (response.statusCode == 200) {
-        List data = response.data['data']['hotels'];
-        log("data text${data}");
+        List data = response.data['hotels'];
+        log("data text: $data");
 
-        List<RedSeaHotels> x = data.map((e) => RedSeaHotels.fromJson(e)).toList();
+        List<RedSeaHotels> hotels =
+        data.map((e) => RedSeaHotels.fromJson(e)).toList();
 
-        return x;
+        return hotels;
       } else {
         throw Exception('Failed to load data');
       }
@@ -52,62 +52,73 @@ class PlaceAPI {
 }
 
 class _RedSeaHotelsViewState extends State<RedSeaHotelsView> {
-  List<RedSeaHotels>? redseahotels;
-  bool isloading = true;
+  List<RedSeaHotels> allRedSeaHotels = [];
+  List<RedSeaHotels> displayedRedSeaHotels = [];
+  bool isLoading = true;
   PlaceAPI placeAPI = PlaceAPI();
   int currentPage = 1;
+  final int itemsPerPage = 10;
 
   @override
   void initState() {
     super.initState();
-    _fetchPlaces();
+    _fetchHotels();
   }
 
-  void _fetchPlaces() async {
+  void _fetchHotels() async {
     try {
-      List<RedSeaHotels> fetchedPlaces = await placeAPI.getAllTrips(page: currentPage);
+      List<RedSeaHotels> fetchedHotels =
+      await placeAPI.getAllTrips();
       setState(() {
-        redseahotels = fetchedPlaces;
-        isloading = false;
+        allRedSeaHotels = fetchedHotels;
+        _updateDisplayedHotels();
+        isLoading = false;
       });
     } catch (e) {
-      print('Error fetching places: $e');
+      print('Error fetching hotels: $e');
     }
   }
 
-  void goToNextPage() {
+  void _updateDisplayedHotels() {
+    int start = (currentPage - 1) * itemsPerPage;
+    int end = start + itemsPerPage;
     setState(() {
-      currentPage += 1;
-      redseahotels = null;
-      isloading = true;
+      displayedRedSeaHotels = allRedSeaHotels.sublist(start, end > allRedSeaHotels.length ? allRedSeaHotels.length : end);
     });
-    _fetchPlaces();
+  }
+
+  void goToNextPage() {
+    if (currentPage * itemsPerPage < allRedSeaHotels.length) {
+      setState(() {
+        currentPage += 1;
+        _updateDisplayedHotels();
+      });
+    }
   }
 
   void goToPreviousPage() {
     if (currentPage > 1) {
       setState(() {
         currentPage -= 1;
-        redseahotels = null;
-        isloading = true;
+        _updateDisplayedHotels();
       });
-      _fetchPlaces();
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isloading
+      body: isLoading
           ? Center(child: CircularProgressIndicator(color: AppColors.blue,))
           : ListView.builder(
-        itemCount: redseahotels!.length,
+        itemCount: displayedRedSeaHotels.length,
         itemBuilder: (context, index) => ApiHotelCard(
-          cardText: redseahotels![index].name!,
-          cardAddress: redseahotels![index].address!,
-          cardimgUrl: redseahotels![index].img_url!,
-          cardid: redseahotels![index].id!,
-          price: redseahotels![index].price!,
-          rate: redseahotels![index].rate!,
+          cardText: displayedRedSeaHotels[index].name!,
+          cardAddress: displayedRedSeaHotels[index].address!,
+          cardimgUrl: displayedRedSeaHotels[index].img_url!,
+          cardid: displayedRedSeaHotels[index].id!,
+          price: displayedRedSeaHotels[index].price!,
+          rate: displayedRedSeaHotels[index].rate!,
         ),
       ),
       bottomNavigationBar: Padding(
@@ -115,11 +126,11 @@ class _RedSeaHotelsViewState extends State<RedSeaHotelsView> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            InkWell(onTap: () {
-              goToPreviousPage();
-            },
+            InkWell(
+              onTap: () {
+                goToPreviousPage();
+              },
               child: CircleAvatar(
-
                 backgroundColor: AppColors.blue,
                 child: Icon(
                   Icons.arrow_back_ios_new,
@@ -127,16 +138,18 @@ class _RedSeaHotelsViewState extends State<RedSeaHotelsView> {
                 ),
               ),
             ),
-
             Container(
-                padding: EdgeInsets.all(15),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(width: 1, color: AppColors.grey)),
-                child: Text('$currentPage')),
-            InkWell(onTap: () {
-              goToNextPage();
-            },
+              padding: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(width: 1, color: AppColors.grey),
+              ),
+              child: Text('$currentPage'),
+            ),
+            InkWell(
+              onTap: () {
+                goToNextPage();
+              },
               child: CircleAvatar(
                 backgroundColor: AppColors.blue,
                 child: Icon(

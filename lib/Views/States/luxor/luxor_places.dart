@@ -24,7 +24,7 @@ class LuxorPlacesScreen extends StatefulWidget {
 class PlaceAPI {
   final String baseUrl = EndPoint.baseUrl;
 
-  Future<List<LuxorPlaces>> getAllTrips({int page = 1}) async {
+  Future<List<LuxorPlaces>> getAllTrips() async {
     final BaseOptions baseOptions = BaseOptions(headers: {
       "Authorization": "Bearer ${CacheHelper().getData(key: ApiKey.token)}",
       "Accept": "*/*",
@@ -33,11 +33,11 @@ class PlaceAPI {
     final Dio dio = Dio(baseOptions);
 
     try {
-      Response response = await dio.get('${baseUrl}api/user/place/luxor?page=$page');
+      Response response = await dio.get('${baseUrl}api/user/place/luxor');
       if (response.statusCode == 200) {
         print(response.data);
         final dynamic responseData = response.data;
-        final dynamic allPlacesData = responseData['data']['places'];
+        final dynamic allPlacesData = responseData['places'];
 
         if (allPlacesData is List) {
           List<LuxorPlaces> places = allPlacesData.map((e) => LuxorPlaces.fromJson(e)).toList();
@@ -56,10 +56,12 @@ class PlaceAPI {
 }
 
 class _LuxorPlacesScreenState extends State<LuxorPlacesScreen> {
-  List<LuxorPlaces>? luxorplaces=[];
-  bool isloading = true;
+  List<LuxorPlaces> allLuxorPlaces = [];
+  List<LuxorPlaces> displayedLuxorPlaces = [];
+  bool isLoading = true;
   PlaceAPI placeAPI = PlaceAPI();
   int currentPage = 1;
+  final int itemsPerPage = 10;
 
   @override
   void initState() {
@@ -69,47 +71,55 @@ class _LuxorPlacesScreenState extends State<LuxorPlacesScreen> {
 
   void _fetchPlaces() async {
     try {
-      List<LuxorPlaces> fetchedPlaces = await placeAPI.getAllTrips(page: currentPage);
+      List<LuxorPlaces> fetchedPlaces = await placeAPI.getAllTrips();
       setState(() {
-        luxorplaces = fetchedPlaces;
-        isloading = false;
+        allLuxorPlaces = fetchedPlaces;
+        _updateDisplayedPlaces();
+        isLoading = false;
       });
     } catch (e) {
       print('Error fetching places: $e');
     }
   }
 
-  void goToNextPage() {
+  void _updateDisplayedPlaces() {
+    int start = (currentPage - 1) * itemsPerPage;
+    int end = start + itemsPerPage;
     setState(() {
-      currentPage += 1;
-      luxorplaces = null;
-      isloading = true;
+      displayedLuxorPlaces = allLuxorPlaces.sublist(start, end > allLuxorPlaces.length ? allLuxorPlaces.length : end);
     });
-    _fetchPlaces();
+  }
+
+  void goToNextPage() {
+    if (currentPage * itemsPerPage < allLuxorPlaces.length) {
+      setState(() {
+        currentPage += 1;
+        _updateDisplayedPlaces();
+      });
+    }
   }
 
   void goToPreviousPage() {
     if (currentPage > 1) {
       setState(() {
         currentPage -= 1;
-        luxorplaces = null;
-        isloading = true;
+        _updateDisplayedPlaces();
       });
-      _fetchPlaces();
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isloading
-          ? Center(child: CircularProgressIndicator(color: AppColors.blue,))
+      body: isLoading
+          ? Center(child: CircularProgressIndicator(color: AppColors.blue))
           : ListView.builder(
-        itemCount: luxorplaces!.length,
+        itemCount: displayedLuxorPlaces.length,
         itemBuilder: (context, index) => APIAppCard(
-          cardText: luxorplaces![index].name!,
-          cardAddress: luxorplaces![index].address!,
-          cardimgUrl: luxorplaces![index].img_url!,
-          cardid: luxorplaces![index].id!,
+          cardText: displayedLuxorPlaces[index].name!,
+          cardAddress: displayedLuxorPlaces[index].address!,
+          cardimgUrl: displayedLuxorPlaces[index].img_url!,
+          cardid: displayedLuxorPlaces[index].id!,
         ),
       ),
       bottomNavigationBar: Padding(
@@ -117,11 +127,11 @@ class _LuxorPlacesScreenState extends State<LuxorPlacesScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            InkWell(onTap: () {
-              goToPreviousPage();
-            },
+            InkWell(
+              onTap: () {
+                goToPreviousPage();
+              },
               child: CircleAvatar(
-
                 backgroundColor: AppColors.blue,
                 child: Icon(
                   Icons.arrow_back_ios_new,
@@ -129,16 +139,18 @@ class _LuxorPlacesScreenState extends State<LuxorPlacesScreen> {
                 ),
               ),
             ),
-
             Container(
-                padding: EdgeInsets.all(15),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(width: 1, color: AppColors.grey)),
-                child: Text('$currentPage')),
-            InkWell(onTap: () {
-              goToNextPage();
-            },
+              padding: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(width: 1, color: AppColors.grey),
+              ),
+              child: Text('$currentPage'),
+            ),
+            InkWell(
+              onTap: () {
+                goToNextPage();
+              },
               child: CircleAvatar(
                 backgroundColor: AppColors.blue,
                 child: Icon(

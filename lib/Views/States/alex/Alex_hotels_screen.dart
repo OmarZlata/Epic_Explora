@@ -22,23 +22,22 @@ class HotelsView extends StatefulWidget {
 class PlaceAPI {
   final String baseUrl = EndPoint.baseUrl;
 
-  Future<List<AlexTrip>> getAllTrips({int page = 1}) async {
+  Future<List<AlexTrip>> getAllTrips() async {
     final BaseOptions baseOptions = BaseOptions(headers: {
       "Authorization": "Bearer ${CacheHelper().getData(key: ApiKey.token)}",
-
     });
     final Dio dio = Dio(baseOptions);
 
     try {
       Response response =
-          await dio.get('${baseUrl}api/user/hotel/Alexandria?page=$page');
+      await dio.get('${baseUrl}api/user/hotel/Alexandria');
       if (response.statusCode == 200) {
-        List data = response.data['data']['hotels'];
-        log("data text${data}");
+        List data = response.data['hotels'];
+        log("data text: $data");
 
-        List<AlexTrip> x = data.map((e) => AlexTrip.fromJson(e)).toList();
+        List<AlexTrip> trips = data.map((e) => AlexTrip.fromJson(e)).toList();
 
-        return x;
+        return trips;
       } else {
         throw Exception('Failed to load data');
       }
@@ -51,76 +50,84 @@ class PlaceAPI {
 }
 
 class _HotelsViewState extends State<HotelsView> {
-  List<AlexTrip>? alextrip;
-  bool isloading = true;
+  List<AlexTrip> allAlexTrips = [];
+  List<AlexTrip> displayedAlexTrips = [];
+  bool isLoading = true;
   PlaceAPI placeAPI = PlaceAPI();
   int currentPage = 1;
+  final int itemsPerPage = 10;
 
   @override
   void initState() {
     super.initState();
-    _fetchPlaces();
+    _fetchTrips();
   }
 
-  void _fetchPlaces() async {
+  void _fetchTrips() async {
     try {
-      List<AlexTrip> fetchedPlaces =
-          await placeAPI.getAllTrips(page: currentPage);
+      List<AlexTrip> fetchedTrips = await placeAPI.getAllTrips();
       setState(() {
-        alextrip = fetchedPlaces;
-        isloading = false;
+        allAlexTrips = fetchedTrips;
+        _updateDisplayedTrips();
+        isLoading = false;
       });
     } catch (e) {
-      print('Error fetching places: $e');
+      print('Error fetching trips: $e');
     }
   }
 
-  void goToNextPage() {
+  void _updateDisplayedTrips() {
+    int start = (currentPage - 1) * itemsPerPage;
+    int end = start + itemsPerPage;
     setState(() {
-      currentPage += 1;
-      alextrip = null;
-      isloading = true;
+      displayedAlexTrips = allAlexTrips.sublist(start, end > allAlexTrips.length ? allAlexTrips.length : end);
     });
-    _fetchPlaces();
+  }
+
+  void goToNextPage() {
+    if (currentPage * itemsPerPage < allAlexTrips.length) {
+      setState(() {
+        currentPage += 1;
+        _updateDisplayedTrips();
+      });
+    }
   }
 
   void goToPreviousPage() {
     if (currentPage > 1) {
       setState(() {
         currentPage -= 1;
-        alextrip = null;
-        isloading = true;
+        _updateDisplayedTrips();
       });
-      _fetchPlaces();
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isloading
+      body: isLoading
           ? Center(child: CircularProgressIndicator(color: AppColors.blue,))
           : ListView.builder(
-              itemCount: alextrip!.length,
-              itemBuilder: (context, index) => ApiHotelCard(
-                cardText: alextrip![index].name!,
-                cardAddress: alextrip![index].address!,
-                cardimgUrl: alextrip![index].img_url!,
-                cardid: alextrip![index].id!,
-                price: alextrip![index].price!,
-                rate: alextrip![index].rate!,
-
-              ),
-            ),
+        itemCount: displayedAlexTrips.length,
+        itemBuilder: (context, index) => ApiHotelCard(
+          cardText: displayedAlexTrips[index].name!,
+          cardAddress: displayedAlexTrips[index].address!,
+          cardimgUrl: displayedAlexTrips[index].img_url!,
+          cardid: displayedAlexTrips[index].id!,
+          price: displayedAlexTrips[index].price!,
+          rate: displayedAlexTrips[index].rate!,
+        ),
+      ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            InkWell(onTap: () {
-              goToPreviousPage();
-            },
+            InkWell(
+              onTap: () {
+                goToPreviousPage();
+              },
               child: CircleAvatar(
-
                 backgroundColor: AppColors.blue,
                 child: Icon(
                   Icons.arrow_back_ios_new,
@@ -128,16 +135,18 @@ class _HotelsViewState extends State<HotelsView> {
                 ),
               ),
             ),
-
             Container(
-                padding: EdgeInsets.all(15),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(width: 1, color: AppColors.grey)),
-                child: Text('$currentPage')),
-            InkWell(onTap: () {
-              goToNextPage();
-            },
+              padding: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(width: 1, color: AppColors.grey),
+              ),
+              child: Text('$currentPage'),
+            ),
+            InkWell(
+              onTap: () {
+                goToNextPage();
+              },
               child: CircleAvatar(
                 backgroundColor: AppColors.blue,
                 child: Icon(

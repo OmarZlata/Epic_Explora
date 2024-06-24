@@ -2,7 +2,7 @@ import 'package:epic_expolre/Views/MainScreens/Favourite_Hotels.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../Views/Home/view.dart';
-import '../Views/MainScreens/favorites_screen.dart';
+
 
 import '../Views/Profile/profile_main.dart';
 import '../core/app_colors/app_colors.dart';
