@@ -16,6 +16,9 @@ final class ForgetPasswordFailure extends UserState {
   ForgetPasswordFailure({required this.errMessage});
 }
 
+
+
+
 final class ResetPasswordLoading extends UserState {}
 
 final class ResetPasswordSuccess extends UserState {}
@@ -25,6 +28,22 @@ final class ResetPasswordFailure extends UserState {
 
   ResetPasswordFailure({required this.errMessage});
 }
+
+
+
+
+final class GuiderSignInSuccess  extends UserState {}
+
+final class GuiderSignInLoading extends UserState {}
+
+final class GuiderSignInFailure extends UserState {
+  final String errMessage;
+
+  GuiderSignInFailure({required this.errMessage});
+}
+
+
+
 final class VerificationLoading extends UserState {}
 
 final class VerificationSuccess extends UserState {}
@@ -35,7 +54,15 @@ final class VerificationFailure extends UserState {
   VerificationFailure({required this.errMessage});
 }
 
+
+
+
+
 final class UploadProfilePic extends UserState {}
+
+
+
+
 
 final class SignInLoading extends UserState {}
 final class LogoutLoading extends UserState {}

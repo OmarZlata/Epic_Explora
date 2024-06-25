@@ -7,6 +7,7 @@ class EndPoint {
   static String logout = "api/user/logout/";
   static String forgot_password = "api/user/forgot_password/";
   static String reset_password = "api/user/reset_pass/";
+  static String GuiderSignIn = "api/guider/login";
 
   static String getUserDataEndPoint(id) {
     return "user/get-user/$id";
@@ -30,7 +31,10 @@ class ApiKey {
   static String id = "id";
   static String name = "name";
   static String phone = "phone";
+  static String phoneNnumber = "phone_number";
   static String confirmPassword = "password_confirmation";
+
+  static String isVerified = "is_verified";
   static String location = "location";
   static String profilePic = "profilePic";
   static String image = "image";

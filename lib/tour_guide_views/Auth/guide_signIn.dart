@@ -23,55 +23,59 @@ class GuideSignIn extends StatefulWidget {
 
 class _GuideSignInState extends State<GuideSignIn> {
   bool obscurePassword = true;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: BlocConsumer<UserCubit, UserState>(
         listener: (context, state) {
-          if (state is SignInSuccess) {
+          if (state is GuiderSignInSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 backgroundColor: AppColors.blue,
                 elevation: 1,
                 content: Center(
-                  child: Text("Success" ,style: TextStyle(
-                    color: AppColors.white,
-                  ),),
+                  child: Text(
+                    "Success",
+                    style: TextStyle(
+                      color: AppColors.white,
+                    ),
+                  ),
                 ),
               ),
             );
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const GoogleMapsView(),
-              ),
-            );
-          } else if (state is SignInFailure) {
+            print("Success");
+          } else if (state is GuiderSignInFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 elevation: 1,
                 backgroundColor: AppColors.blue,
                 padding: EdgeInsets.all(8),
                 content: Center(
-                  child: Text("E-mail or Password are not correct",
+                  child: Text(
+                    "E-mail or Password are not correct",
                     style: TextStyle(
                       color: AppColors.white,
-                    ),),
+                    ),
+                  ),
                 ),
               ),
+
             );
+            print("not correct");
           }
         },
         builder: (context, state) {
           return Scaffold(
             backgroundColor: AppColors.white,
-            appBar:AppAppBar(
-              title: "SignIn",
+            appBar: AppAppBar(
+              title: "Sign In",
               centerTitle: true,
             ),
             body: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 22,vertical:20 ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 22, vertical: 20),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -83,7 +87,7 @@ class _GuideSignInState extends State<GuideSignIn> {
                       child: Image.asset('assets/images/Welcome2.png'),
                     ),
                     Form(
-                      // key: ,
+                      key:  context.read<UserCubit>().GuiderSignInFormKey,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -105,7 +109,7 @@ class _GuideSignInState extends State<GuideSignIn> {
                                 obscureText: false,
                                 maxLines: 1,
                                 controller:
-                                context.read<UserCubit>().signInEmail,
+                                    context.read<UserCubit>().GuiderSignInEmail,
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return "Email can't be empty";
@@ -142,7 +146,9 @@ class _GuideSignInState extends State<GuideSignIn> {
                                         });
                                       },
                                       icon: Icon(
-                                        color: obscurePassword ?AppColors.grey:AppColors.blue,
+                                        color: obscurePassword
+                                            ? AppColors.grey
+                                            : AppColors.blue,
                                         obscurePassword
                                             ? Icons.visibility_off
                                             : Icons.visibility,
@@ -159,9 +165,7 @@ class _GuideSignInState extends State<GuideSignIn> {
                                       return null;
                                     },
                                     maxLines: 1,
-                                    controller: context
-                                        .read<UserCubit>()
-                                        .signInPassword,
+                                    controller: context.read<UserCubit>().GuiderSignInPassword,
                                   ),
                                 ],
                               ),
@@ -178,7 +182,9 @@ class _GuideSignInState extends State<GuideSignIn> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => GuideForgetPassword(),));
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => GuideForgetPassword(),
+                            ));
                           },
                           child: AppText(
                               title: "Forget Password",
@@ -190,26 +196,24 @@ class _GuideSignInState extends State<GuideSignIn> {
                     SizedBox(
                       height: 45,
                     ),
-                    state is SignInLoading
+                    state is GuiderSignInLoading
                         ? Center(
-                      child: CircularProgressIndicator(
-                        color: AppColors.violet,
-                      ),
-                    )
+                            child: CircularProgressIndicator(
+                              color: AppColors.violet,
+                            ),
+                          )
                         : AppButton(
                       color: AppColors.violet,
                       font_color: AppColors.white,
-                      title: "SignIn",
+                      title: "Sign In",
                       onTap: () {
-                        // if (signInFormKey.currentState!.validate()) {
-                        //   signInFormKey.currentState!.save();
-                        //   context.read<UserCubit>().signIn();
-                        //   context.read<UserCubit>().signInEmail.clear();
-                        //   context.read<UserCubit>().signInPassword.clear();
-                        // }
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GuideNavBar(),));
+                        if (context.read<UserCubit>().GuiderSignInFormKey.currentState!.validate()) {
+                          context.read<UserCubit>().GuiderSignInFormKey.currentState!.save();
+                          context.read<UserCubit>().GuiderLogin();  // Add parentheses to call the method
+                        }
                       },
                     ),
+
                     SizedBox(
                       height: 10,
                     ),
