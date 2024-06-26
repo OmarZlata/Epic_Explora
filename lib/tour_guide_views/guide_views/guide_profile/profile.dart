@@ -8,8 +8,10 @@ import 'package:epic_expolre/Widgets/app_text.dart';
 import 'package:epic_expolre/Widgets/booking_tabBar.dart';
 import 'package:epic_expolre/Widgets/guide_Nav_Bar.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
+import 'package:epic_expolre/cubit/user_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GuideProfile extends StatelessWidget {
   const GuideProfile({super.key});
@@ -18,6 +20,7 @@ class GuideProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: AppColors.white,
         appBar: AppAppBar(
           title: "Profile Settings",
           iconThemeColor: AppColors.black,
@@ -140,6 +143,7 @@ class GuideProfile extends StatelessWidget {
               title: "Logout",
               icon: Icons.logout,
               onPressed: () {
+                context.read<UserCubit>().GuiderLogOut;
               },
               color: Colors.red,
             ),

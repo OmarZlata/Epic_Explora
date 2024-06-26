@@ -11,7 +11,9 @@ import 'package:epic_expolre/cubit/user_state.dart';
 import 'package:epic_expolre/tour_guide_views/Auth/guide_forget_password.dart';
 import 'package:epic_expolre/tour_guide_views/Auth/guide_signUp.dart';
 import 'package:epic_expolre/tour_guide_views/guide_views/home/home_view.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GuideSignIn extends StatefulWidget {
@@ -44,7 +46,9 @@ class _GuideSignInState extends State<GuideSignIn> {
                 ),
               ),
             );
-            print("Success");
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => GuideNavBar(),
+            ));
           } else if (state is GuiderSignInFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -60,7 +64,6 @@ class _GuideSignInState extends State<GuideSignIn> {
                   ),
                 ),
               ),
-
             );
             print("not correct");
           }
@@ -87,7 +90,7 @@ class _GuideSignInState extends State<GuideSignIn> {
                       child: Image.asset('assets/images/Welcome2.png'),
                     ),
                     Form(
-                      key:  context.read<UserCubit>().GuiderSignInFormKey,
+                      key: context.read<UserCubit>().GuiderSignInFormKey,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -165,7 +168,9 @@ class _GuideSignInState extends State<GuideSignIn> {
                                       return null;
                                     },
                                     maxLines: 1,
-                                    controller: context.read<UserCubit>().GuiderSignInPassword,
+                                    controller: context
+                                        .read<UserCubit>()
+                                        .GuiderSignInPassword,
                                   ),
                                 ],
                               ),
@@ -203,17 +208,26 @@ class _GuideSignInState extends State<GuideSignIn> {
                             ),
                           )
                         : AppButton(
-                      color: AppColors.violet,
-                      font_color: AppColors.white,
-                      title: "Sign In",
-                      onTap: () {
-                        if (context.read<UserCubit>().GuiderSignInFormKey.currentState!.validate()) {
-                          context.read<UserCubit>().GuiderSignInFormKey.currentState!.save();
-                          context.read<UserCubit>().GuiderLogin();  // Add parentheses to call the method
-                        }
-                      },
-                    ),
-
+                            color: AppColors.violet,
+                            font_color: AppColors.white,
+                            title: "Sign In",
+                            onTap: () {
+                              if (context
+                                  .read<UserCubit>()
+                                  .GuiderSignInFormKey
+                                  .currentState!
+                                  .validate()) {
+                                context
+                                    .read<UserCubit>()
+                                    .GuiderSignInFormKey
+                                    .currentState!
+                                    .save();
+                                context
+                                    .read<UserCubit>()
+                                    .GuiderLogin(); // Add parentheses to call the method
+                              }
+                            },
+                          ),
                     SizedBox(
                       height: 10,
                     ),

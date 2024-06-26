@@ -8,6 +8,7 @@ class EndPoint {
   static String forgot_password = "api/user/forgot_password/";
   static String reset_password = "api/user/reset_pass/";
   static String GuiderSignIn = "api/guider/login";
+  static String GuiderLogOut = "api/guider/logout";
 
   static String getUserDataEndPoint(id) {
     return "user/get-user/$id";

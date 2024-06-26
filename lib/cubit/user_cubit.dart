@@ -149,11 +149,25 @@ class UserCubit extends Cubit<UserState> {
           ApiKey.password: GuiderSignInPassword.text,
         },
       );
-      print(" ${response.data}");
       emit(GuiderSignInSuccess());
     } on ServerException catch (e) {
       emit(GuiderSignInFailure(errMessage: e.errModel.errorMessage));
     }
   }
+
+  GuiderLogOut() async {
+    try {
+      emit(GuiderLogOutLoading());
+      final response = await api.put(
+        EndPoint.GuiderLogOut,
+        data: {
+        },
+      );
+      emit(GuiderLogOutSuccess());
+    } on ServerException catch (e) {
+      emit(GuiderLogOutFailure(errMessage: e.errModel.errorMessage));
+    }
+  }
+
 }
 

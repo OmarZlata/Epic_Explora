@@ -31,6 +31,18 @@ final class ResetPasswordFailure extends UserState {
 
 
 
+final class GuiderLogOutLoading extends UserState {}
+
+final class GuiderLogOutSuccess extends UserState {}
+
+final class GuiderLogOutFailure extends UserState {
+  final String errMessage;
+
+  GuiderLogOutFailure({required this.errMessage});
+}
+
+
+
 
 final class GuiderSignInSuccess  extends UserState {}
 

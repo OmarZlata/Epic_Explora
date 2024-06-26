@@ -1,5 +1,6 @@
 import 'package:epic_expolre/tour_guide_views/guide_views/guide_profile/profile.dart';
 import 'package:epic_expolre/tour_guide_views/guide_views/home/home_view.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../Views/Home/view.dart';
 import '../Views/MainScreens/favorites_screen.dart';
@@ -40,11 +41,11 @@ class _GuideNavBarState extends State<GuideNavBar> {
         },
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(CupertinoIcons.house_fill),
             label: "Home",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: Icon(CupertinoIcons.person_circle_fill),
             label: 'Profile',
           ),
         ],
