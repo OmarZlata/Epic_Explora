@@ -1,3 +1,4 @@
+
 import 'package:epic_expolre/core/api/const_end_ponits.dart';
 
 class GuiderSignInModel {
@@ -10,12 +11,9 @@ class GuiderSignInModel {
   final DateTime createdAt;
   final DateTime updatedAt;
   final String token;
-
   final String message;
 
   GuiderSignInModel({
-    required this.token,
-    required this.message,
     required this.id,
     required this.name,
     required this.email,
@@ -24,6 +22,8 @@ class GuiderSignInModel {
     required this.isVerified,
     required this.createdAt,
     required this.updatedAt,
+    required this.token,
+    required this.message,
   });
 
   factory GuiderSignInModel.fromJson(Map<String, dynamic> jsonData) {
@@ -32,10 +32,10 @@ class GuiderSignInModel {
       email: jsonData['user'][ApiKey.email],
       name: jsonData['user'][ApiKey.name],
       phoneNumber: jsonData['user'][ApiKey.phoneNnumber],
-      nationalId: jsonData['user'][ApiKey.name],
+      nationalId: jsonData['user'][ApiKey.nationalId], // Corrected
       isVerified: jsonData['user'][ApiKey.isVerified],
-      createdAt: jsonData['user'][ApiKey.createdAt],
-      updatedAt: jsonData['user'][ApiKey.updatedAt],
+      createdAt: DateTime.parse(jsonData['user'][ApiKey.createdAt]), // Corrected
+      updatedAt: DateTime.parse(jsonData['user'][ApiKey.updatedAt]), // Corrected
       token: jsonData[ApiKey.token],
       message: jsonData[ApiKey.message],
     );

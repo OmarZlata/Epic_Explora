@@ -29,6 +29,13 @@ class UserCubit extends Cubit<UserState> {
   TextEditingController GuiderSignInEmail = TextEditingController();
 
   TextEditingController GuiderSignInPassword = TextEditingController();
+
+  TextEditingController GuidersignUpName = TextEditingController();
+  TextEditingController GuidersignUpEmail = TextEditingController();
+  TextEditingController GuiderSignUpPassword = TextEditingController();
+  TextEditingController GuiderConfirmPassword = TextEditingController();
+  TextEditingController GuiderPhoneNumber = TextEditingController();
+  TextEditingController GuiderNationalId = TextEditingController();
   TextEditingController otp = TextEditingController();
   TextEditingController resetPasswordEmail = TextEditingController();
   //Sign in password
@@ -160,13 +167,39 @@ class UserCubit extends Cubit<UserState> {
       emit(GuiderLogOutLoading());
       final response = await api.put(
         EndPoint.GuiderLogOut,
-        data: {
-        },
+        option: Options(headers: {
+          'Authorization': 'Bearer ${Guider!.token}',
+        }),
       );
+      print(response);
       emit(GuiderLogOutSuccess());
     } on ServerException catch (e) {
       emit(GuiderLogOutFailure(errMessage: e.errModel.errorMessage));
     }
+  }
+  GuiderSignUp() async{
+      try {
+        emit(GuiderSignUpLoading());
+        final response = await api.post(
+          EndPoint.GuiderSignUp,
+          isFromData: true,
+          data: {
+            ApiKey.name: GuidersignUpName.text,
+            ApiKey.email: GuidersignUpEmail.text,
+            ApiKey.password: GuiderSignUpPassword.text,
+            ApiKey.confirmPassword: GuiderConfirmPassword.text,
+            ApiKey.phoneNnumber: GuiderPhoneNumber.text,
+            ApiKey.nationalId: GuiderNationalId.text,
+          },
+        );
+        final GuidersignUpModel = GuiderSignInModel.fromJson(response);
+        // // CacheHelper().saveData(key: ApiKey.token, value: user!.token);
+        // CacheHelper().saveData(key: ApiKey.id, value: user!.id);
+        // print("SignUp Done And ID is :${user!.id}");
+        emit(GuiderSignUpSuccess());
+      } on ServerException catch (e) {
+        emit(GuiderSignUpFailure(errMessage: e.errModel.errorMessage));
+      }
   }
 
 }

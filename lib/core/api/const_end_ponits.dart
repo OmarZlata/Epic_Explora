@@ -10,6 +10,7 @@ class EndPoint {
   static String GuiderSignIn = "api/guider/login";
   static String GuiderLogOut = "api/guider/logout";
 
+  static String GuiderSignUp = "api/guider/register";
   static String getUserDataEndPoint(id) {
     return "user/get-user/$id";
   }
@@ -20,6 +21,7 @@ class ApiKey {
   static String img = "image";
   static String updatedAt = "updated_at";
   static String createdAt = "created_at";
+  static String nationalId = "national_id";
   static String status = "status";
   static String errorMessage = "message";
   static String email = "email";

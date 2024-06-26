@@ -34,7 +34,7 @@ class _GuideSignInState extends State<GuideSignIn> {
           if (state is GuiderSignInSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                backgroundColor: AppColors.blue,
+                backgroundColor: AppColors.violet,
                 elevation: 1,
                 content: Center(
                   child: Text(
@@ -53,7 +53,7 @@ class _GuideSignInState extends State<GuideSignIn> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 elevation: 1,
-                backgroundColor: AppColors.blue,
+                backgroundColor: AppColors.violet,
                 padding: EdgeInsets.all(8),
                 content: Center(
                   child: Text(
