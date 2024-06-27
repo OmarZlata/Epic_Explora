@@ -212,7 +212,10 @@ class _SignInViewState extends State<SignInView> {
                                 context.read<UserCubit>().signIn();
                                 context.read<UserCubit>().signInEmail.clear();
                                 context.read<UserCubit>().signInPassword.clear();
-                                isDisabled=!isDisabled;
+                                if(state is SignInLoading){
+                                  isDisabled= false;
+                                }
+                                isDisabled = true;
                               }
                             },
                           ),

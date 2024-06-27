@@ -331,19 +331,6 @@ class _HomeViewState extends State<HomeView> {
                           style: TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 16),
                         ),
-                        Spacer(),
-                        InkWell(
-                          onTap: () {
-                            print("Recommendations");
-                          },
-                          child: Text(
-                            "See more",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16,
-                                color: AppColors.blue),
-                          ),
-                        ),
                       ],
                     ),
                     SizedBox(height: 16),
@@ -383,29 +370,6 @@ class _HomeViewState extends State<HomeView> {
                             ),
                     ),
 
-                    SizedBox(height: 16),
-                    Row(
-                      children: [
-                        Text(
-                          "popular",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 16),
-                        ),
-                        Spacer(),
-                        InkWell(
-                          onTap: () {
-                            print("popular");
-                          },
-                          child: Text(
-                            "See more",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16,
-                                color: AppColors.blue),
-                          ),
-                        ),
-                      ],
-                    ),
                     SizedBox(height: 16),
                     // Container(
                     //   height: 248,

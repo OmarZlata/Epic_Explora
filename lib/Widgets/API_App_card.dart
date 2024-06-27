@@ -66,13 +66,15 @@ class _APIAppCardState extends State<APIAppCard> {
                                     child: Container(
                                       width: 100,
                                       height: 130,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: NetworkImage("${widget.cardimgUrl[0]}"),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(8), // Adjust the radius as needed
+                                        child: Image.network(
+                                          widget.cardimgUrl[0],
                                           fit: BoxFit.cover,
                                         ),
                                       ),
                                     ),
+
                                   ),
                                 ],
                               ),

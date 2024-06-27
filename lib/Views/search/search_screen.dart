@@ -130,7 +130,7 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
         )
             : Padding(
-          padding: const EdgeInsets.all(14),
+          padding: const EdgeInsets.all(6),
           child: Column(
             children: [
               TextFormField(
@@ -151,54 +151,13 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
               Expanded(
                 child: ListView.builder(
-                  padding: EdgeInsets.all(14),
+                  padding: EdgeInsets.symmetric(vertical: 10),
                   itemCount: displayedPlaces?.length ?? 0,
                   itemBuilder: (context, index) => APIAppCard(
                     cardText: displayedPlaces![index].name!,
                     cardAddress: displayedPlaces![index].address!,
                     cardimgUrl: displayedPlaces![index].img_url!,
                     cardid: displayedPlaces![index].id!,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              InkWell(
-                onTap: () {
-                  goToPreviousPage();
-                },
-                child: CircleAvatar(
-                  backgroundColor: AppColors.blue,
-                  child: Icon(
-                    Icons.arrow_back_ios_new,
-                    color: AppColors.white,
-                  ),
-                ),
-              ),
-              Container(
-                  padding: EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(width: 1, color: AppColors.grey)),
-                  child: AppText(
-                    title: 'Page $currentPage',
-                    fontWeight: FontWeight.bold,
-                  )),
-              InkWell(
-                onTap: () {
-                  goToNextPage();
-                },
-                child: CircleAvatar(
-                  backgroundColor: AppColors.blue,
-                  child: Icon(
-                    Icons.arrow_forward_ios,
-                    color: AppColors.white,
                   ),
                 ),
               ),

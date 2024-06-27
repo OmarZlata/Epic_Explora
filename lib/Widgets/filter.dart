@@ -110,14 +110,14 @@ class _SliderScreenState extends State<SliderScreen> {
               for (int i = 0; i < 5; i++)
                 Expanded(
                   child: AppButton(
-                    title: ['All', 'Alex', 'Red Sea', 'Cairo', 'Aswan'][i],
+                    title: [ 'Alex', 'Red Sea', 'Cairo', 'Aswan', 'Luxor'][i],
                     height: 37.h,
                     color: _getStateButtonColor(i),
                     font_color: _getStateTextColor(i),
                     onTap:() {
                       _selectState(i);
                       setState(() {
-                        states = ['All', 'Alexandria', 'Red Sea', 'Cairo', 'Aswan'][i];
+                        states = ['Alexandria', 'Red Sea', 'Cairo', 'Aswan','Luxor'][i];
                       });
                       log("$states");
 
