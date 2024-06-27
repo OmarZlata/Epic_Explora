@@ -8,13 +8,12 @@ import '../../../cache/cache_helper.dart';
 import '../../../core/api/const_end_ponits.dart';
 import '../../../core/app_colors/app_colors.dart';
 import 'package:epic_expolre/Widgets/app_AppBar.dart';
-import 'package:epic_expolre/Widgets/app_card.dart';
 import 'package:epic_expolre/Widgets/app_text.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key, required this.title, required this.states});
 
-  final String title , states ;
+  final String title, states;
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -23,7 +22,7 @@ class SearchScreen extends StatefulWidget {
 class PlaceAPI {
   final String baseUrl = EndPoint.baseUrl;
 
-  Future<List<AllPlaces>> getAllTrips({int page = 1}) async {
+  Future<List<AllPlaces>> getAllTrips() async {
     final BaseOptions baseOptions = BaseOptions(headers: {
       "Authorization": "Bearer ${CacheHelper().getData(key: ApiKey.token)}",
       "Accept-Encoding": "gzip, deflate, br",
@@ -33,9 +32,9 @@ class PlaceAPI {
     final Dio dio = Dio(baseOptions);
 
     try {
-      Response response = await dio.get('${baseUrl}/api/user/place?page=$page');
+      Response response = await dio.get('${baseUrl}api/user/place');
       if (response.statusCode == 200) {
-        List data = response.data['data']['allPlaces'];
+        List data = response.data['allPlaces'];
         log("data text${data}");
 
         List<AllPlaces> x = data.map((e) => AllPlaces.fromJson(e)).toList();
@@ -53,11 +52,13 @@ class PlaceAPI {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  List<AllPlaces>? allplaces;
+  List<AllPlaces>? allPlaces;
   List<AllPlaces>? filteredPlaces;
-  bool isloading = true;
+  List<AllPlaces>? displayedPlaces;
+  bool isLoading = true;
   PlaceAPI placeAPI = PlaceAPI();
   int currentPage = 1;
+  final int itemsPerPage = 10;
   String searchQuery = '';
 
   final PlaceController placeController = PlaceController();
@@ -70,41 +71,49 @@ class _SearchScreenState extends State<SearchScreen> {
 
   void _fetchPlaces() async {
     try {
-      List<AllPlaces> fetchedPlaces = await placeAPI.getAllTrips(page: currentPage);
+      List<AllPlaces> fetchedPlaces = await placeAPI.getAllTrips();
       setState(() {
-        allplaces = fetchedPlaces;
-        filteredPlaces = fetchedPlaces.where((element) => element.address == widget.states).toList();
-        isloading = false;
+        allPlaces = fetchedPlaces;
+        filteredPlaces = allPlaces!.where((element) => element.address == widget.states).toList();
+        _updateDisplayedPlaces();
+        isLoading = false;
       });
     } catch (e) {
       print('Error fetching places: $e');
     }
   }
 
-  void goToNextPage() {
+  void _updateDisplayedPlaces() {
+    int start = (currentPage - 1) * itemsPerPage;
+    int end = start + itemsPerPage;
     setState(() {
-      currentPage += 1;
-      allplaces = null;
-      isloading = true;
+      displayedPlaces = filteredPlaces!.sublist(start, end > filteredPlaces!.length ? filteredPlaces!.length : end);
     });
-    _fetchPlaces();
+  }
+
+  void goToNextPage() {
+    if (currentPage * itemsPerPage < filteredPlaces!.length) {
+      setState(() {
+        currentPage += 1;
+        _updateDisplayedPlaces();
+      });
+    }
   }
 
   void goToPreviousPage() {
     if (currentPage > 1) {
       setState(() {
         currentPage -= 1;
-        allplaces = null;
-        isloading = true;
+        _updateDisplayedPlaces();
       });
-      _fetchPlaces();
     }
   }
 
   void updateSearchQuery(String query) {
     setState(() {
       searchQuery = query;
-      filteredPlaces = placeController.filterPlaces(query, allplaces ?? []);
+      filteredPlaces = placeController.filterPlaces(query, allPlaces ?? []);
+      _updateDisplayedPlaces();
     });
   }
 
@@ -114,11 +123,12 @@ class _SearchScreenState extends State<SearchScreen> {
       child: Scaffold(
         backgroundColor: AppColors.white,
         appBar: AppAppBar(title: "Search"),
-        body: isloading
+        body: isLoading
             ? Center(
-            child: CircularProgressIndicator(
-              color: AppColors.blue,
-            ))
+          child: CircularProgressIndicator(
+            color: AppColors.blue,
+          ),
+        )
             : Padding(
           padding: const EdgeInsets.all(14),
           child: Column(
@@ -129,25 +139,25 @@ class _SearchScreenState extends State<SearchScreen> {
                 },
                 maxLines: 1,
                 decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.blue),
-                    ),
-                    hintText: "Search",
-                    prefixIcon: Icon(Icons.search,color: AppColors.blue),
-
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    )),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: AppColors.blue),
+                  ),
+                  hintText: "Search",
+                  prefixIcon: Icon(Icons.search, color: AppColors.blue),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
               ),
               Expanded(
                 child: ListView.builder(
                   padding: EdgeInsets.all(14),
-                  itemCount: filteredPlaces!.length,
+                  itemCount: displayedPlaces?.length ?? 0,
                   itemBuilder: (context, index) => APIAppCard(
-                    cardText: filteredPlaces![index].name!,
-                    cardAddress: filteredPlaces![index].address!,
-                    cardimgUrl: filteredPlaces![index].img_url!,
-                    cardid: filteredPlaces![index].id!,
+                    cardText: displayedPlaces![index].name!,
+                    cardAddress: displayedPlaces![index].address!,
+                    cardimgUrl: displayedPlaces![index].img_url!,
+                    cardid: displayedPlaces![index].id!,
                   ),
                 ),
               ),

@@ -1,4 +1,6 @@
 
+import 'package:epic_expolre/Views/States/luxor/luxor_Restaurant.dart';
+import 'package:epic_expolre/Views/States/luxor/luxor_banks.dart';
 import 'package:epic_expolre/Widgets/app_text.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +15,7 @@ class LuxorTabbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -39,11 +41,11 @@ class LuxorTabbar extends StatelessWidget {
               Container(
                 height: 40,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: AppColors.grey.withOpacity(.2)),
+                  borderRadius: BorderRadius.circular(12),
+
+                ),
                 child: TabBar(
-                  indicatorPadding: EdgeInsets.only(left:15 ,right:15,top: 6,bottom: 6,),
-                  splashBorderRadius: BorderRadius.circular(12),
+                  indicatorPadding: EdgeInsets.only(left: 15, right: 15, top: 6, bottom: 6),
                   indicator: BoxDecoration(
                     color: AppColors.blue,
                     borderRadius: BorderRadius.circular(12),
@@ -52,23 +54,29 @@ class LuxorTabbar extends StatelessWidget {
                   unselectedLabelColor: AppColors.black,
                   tabs: [
                     Tab(
-                        child: AppText(
-                          title: 'Hotels',
-                        )),
+                        child: Icon(Icons.hotel)
+                    ),
                     Tab(
-                        child: AppText(
-                          title: 'Places  ',
-                        )),
+                      child: Icon(Icons.place),
+                    ),
+                    Tab(
+                      child: Icon(Icons.restaurant),
+                    ),
+                    Tab(
+                        child: Icon(Icons.monetization_on)
+                    ),
                   ],
                 ),
               ),
               Expanded(
-                child: TabBarView(children: [
-                  LuxorHotelsView(),
-                  LuxorPlacesScreen()
-
-
-                ]),
+                child: TabBarView(
+                  children: [
+                    LuxorHotelsView(),
+                    LuxorPlacesScreen(),
+                    LuxorRestaurantsScreen(),
+                    LuxorBanksScreen()
+                  ],
+                ),
               )
             ],
           ),

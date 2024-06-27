@@ -1,4 +1,6 @@
+import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 
@@ -6,15 +8,27 @@ class BankInfoCard extends StatelessWidget {
   final String bankName;
   final String address;
   final String status;
-  final String openingTime;
+  final String location;
+  final double rete;
 
   const BankInfoCard({
     Key? key,
     required this.bankName,
     required this.address,
     required this.status,
-    required this.openingTime,
+    required this.rete,
+    required this.location,
+
   }) : super(key: key);
+
+  void _launchMaps() async {
+    final url = '$location';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,14 +58,17 @@ class BankInfoCard extends StatelessWidget {
                     ),
                   ),
                   Text(' • '),
-                  Text('Opens $openingTime'),
+                  Image.asset('assets/images/rate.png'),
+                  Text('$rete'),
                 ],
               ),
             ],
           ),
           trailing: CircleAvatar(
-            backgroundColor: Colors.blue,
-            child: Icon(Icons.directions, color: Colors.white),
+            backgroundColor: AppColors.blue,
+            child: InkWell( onTap: () {
+              _launchMaps();
+            },child: Icon(Icons.directions, color: Colors.white)),
           ),
         ),
       ),

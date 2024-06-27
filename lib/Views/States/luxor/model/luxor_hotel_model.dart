@@ -5,7 +5,7 @@ class LuxorHotels {
   String? description;
   String? address;
   List? img_url;
-  int? rate;
+  double? rate;
   int? price;
   bool? status;
 
@@ -29,7 +29,7 @@ class LuxorHotels {
       description: json['description'],
       address: json['address'],
       img_url: json['img_url'] ?? [],
-      rate: json['rate'],
+      rate: (json['rate'] is int) ? (json['rate'] as int).toDouble() : json['rate'],
       price: json['price'],
       status: json['status'],
     );

@@ -1,33 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../Views/Hotel_Details/HotelDetailsMain.dart';
 import '../Views/Place_Detials/detials_place_detials.dart';
 import '../core/app_colors/app_colors.dart';
 
-class ApiHotelCard extends StatefulWidget {
+class RestaurantsCard extends StatefulWidget {
   final String cardText;
   final String cardAddress;
   final List cardimgUrl;
   final int cardid;
   final double rate;
-  final int price;
 
-  ApiHotelCard({
+  RestaurantsCard({
     Key? key,
     required this.cardText,
     required this.cardAddress,
     required this.cardimgUrl,
     required this.cardid,
     required this.rate,
-    required this.price,
   }) : super(key: key);
 
+  void _launchMaps(String query) async {
+    final url = 'https://www.google.com/maps/search/?api=1&query=$query';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
-  State<ApiHotelCard> createState() => _ApiHotelCardState();
+  State<RestaurantsCard> createState() => _ApiHotelCardState();
 }
 
-class _ApiHotelCardState extends State<ApiHotelCard> {
+class _ApiHotelCardState extends State<RestaurantsCard> {
   bool isFavorite = false;
 
   @override
@@ -41,11 +49,7 @@ class _ApiHotelCardState extends State<ApiHotelCard> {
           ),
           InkWell(
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HotelsDetails(id: widget.cardid),
-                  ));
+              widget._launchMaps("${widget.cardText} ${widget.cardAddress}");
             },
             child: Container(
               child: Center(
@@ -134,10 +138,6 @@ class _ApiHotelCardState extends State<ApiHotelCard> {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
-                                  Text("${widget.price} EGP"),
                                   SizedBox(
                                     height: 4,
                                   ),

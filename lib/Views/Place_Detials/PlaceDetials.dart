@@ -202,54 +202,6 @@ class _PlaceDetailsScreenState extends State<PlaceDetailsScreen> {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child: Row(
-                children: [
-                  const Text(
-                    "Price :    ",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: AppColors.black,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: "Poppins",
-                    ),
-                  ),
-                  const Text(
-                    "\$14.4",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: AppColors.blue,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: "Poppins",
-                    ),
-                  ),
-                  const SizedBox(width: 70),
-                  const Icon(
-                    Icons.favorite,
-                    color: AppColors.red,
-                    size: 24,
-                  ),
-                  const Text(
-                    "294Likes",
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: AppColors.grey,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: "Poppins",
-                    ),
-                  ),
-                  const SizedBox(width: 50),
-                  Row(
-                    children: [
-                      Image.asset('assets/images/rate.png'),
-                      const Text("4.5"),
-                    ],
-                  )
-                ],
-              ),
-            ),
             const SizedBox(height: 15),
             Padding(
               padding: const EdgeInsets.only(left: 25.0),
@@ -318,30 +270,10 @@ class _PlaceDetailsScreenState extends State<PlaceDetailsScreen> {
               padding: EdgeInsets.only(left: 30.0),
               child: Row(
                 children: [
-                  Text(
-                    "Near By",
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: AppColors.black,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
                 ],
               ),
             ),
             const SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.only(left: 24.0),
-              child: Container(
-                height: 248,
-                width: 450,
-                // child: ListView.builder(
-                //   itemCount: 9,
-                //   scrollDirection: Axis.horizontal,
-                //   itemBuilder: (context, index) => AppHomeCard(),
-                // ),
-              ),
-            ),
             const SizedBox(height: 23),
             Padding(
               padding: const EdgeInsets.only(bottom: 10.0),

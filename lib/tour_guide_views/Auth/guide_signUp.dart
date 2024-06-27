@@ -81,7 +81,7 @@ class _GuideSignUpState extends State<GuideSignUp> {
                             hintFontSize: 12,
                             obscureText: false,
                             maxLines: 1,
-                            controller: context.read<UserCubit>().signUpName,
+                            controller: context.read<UserCubit>().GuidersignUpName,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Please enter your name';
@@ -109,7 +109,7 @@ class _GuideSignUpState extends State<GuideSignUp> {
                                   hintFontSize: 12,
                                   obscureText: false,
                                   maxLines: 1,
-                                  controller: context.read<UserCubit>().signUpEmail,
+                                  controller: context.read<UserCubit>().GuidersignUpEmail,
                                   validator: (value) {
                                     if (value!.isEmpty) {
                                       return "Email can't be empty";
@@ -156,7 +156,7 @@ class _GuideSignUpState extends State<GuideSignUp> {
                                   ),
                                   obscureText: obscurePassword,
                                   maxLines: 1,
-                                  controller: context.read<UserCubit>().signUpPassword,
+                                  controller: context.read<UserCubit>().GuiderSignUpPassword,
                                   validator: (value) {
                                     if (value!.isEmpty) {
                                       return 'Please enter your password';
@@ -205,7 +205,7 @@ class _GuideSignUpState extends State<GuideSignUp> {
                                   ),
                                   obscureText: obscurePasswordConfirm,
                                   maxLines: 1,
-                                  controller: context.read<UserCubit>().confirmPassword,
+                                  controller: context.read<UserCubit>().GuiderConfirmPassword,
                                   validator: (value) {
                                     if (value!.isEmpty) {
                                       return 'Please confirm your password';

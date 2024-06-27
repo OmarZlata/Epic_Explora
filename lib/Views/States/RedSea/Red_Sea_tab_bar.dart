@@ -1,3 +1,5 @@
+import 'package:epic_expolre/Views/States/RedSea/RedSea_Banks.dart';
+import 'package:epic_expolre/Views/States/RedSea/ResSea_Rest.dart';
 import 'package:epic_expolre/Views/States/alex/places_screen.dart';
 import 'package:epic_expolre/Views/States/alex/Alex_hotels_screen.dart';
 import 'package:epic_expolre/Widgets/app_text.dart';
@@ -16,7 +18,7 @@ class RedSeaTabbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -42,11 +44,11 @@ class RedSeaTabbar extends StatelessWidget {
               Container(
                 height: 40,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: AppColors.grey.withOpacity(.2)),
+                  borderRadius: BorderRadius.circular(12),
+
+                ),
                 child: TabBar(
-                  indicatorPadding: EdgeInsets.only(left:15 ,right:15,top: 6,bottom: 6,),
-                  splashBorderRadius: BorderRadius.circular(12),
+                  indicatorPadding: EdgeInsets.only(left: 15, right: 15, top: 6, bottom: 6),
                   indicator: BoxDecoration(
                     color: AppColors.blue,
                     borderRadius: BorderRadius.circular(12),
@@ -55,22 +57,29 @@ class RedSeaTabbar extends StatelessWidget {
                   unselectedLabelColor: AppColors.black,
                   tabs: [
                     Tab(
-                        child: AppText(
-                          title: 'Hotels',
-                        )),
+                        child: Icon(Icons.hotel)
+                    ),
                     Tab(
-                        child: AppText(
-                          title: 'Places  ',
-                        )),
+                      child: Icon(Icons.place),
+                    ),
+                    Tab(
+                      child: Icon(Icons.restaurant),
+                    ),
+                    Tab(
+                        child: Icon(Icons.monetization_on)
+                    ),
                   ],
                 ),
               ),
               Expanded(
-                child: TabBarView(children: [
-                  RedSeaHotelsView(),
-                  RedSeaPlacesScreen(),
-
-                ]),
+                child: TabBarView(
+                  children: [
+                    RedSeaHotelsView(),
+                    RedSeaPlacesScreen(),
+                    RedSeaRestaurantsScreen(),
+                    RedSeaBanksScreen()
+                  ],
+                ),
               )
             ],
           ),

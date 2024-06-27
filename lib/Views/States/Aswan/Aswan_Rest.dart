@@ -14,11 +14,11 @@ import '../../../core/api/const_end_ponits.dart';
 import '../../../core/models/AlexPlacesAPI.dart';
 import '../../../core/models/RestaurantsModel.dart';
 
-class CairoRestaurantsScreen extends StatefulWidget {
-  const CairoRestaurantsScreen({Key? key});
+class AswanRestaurantsScreen extends StatefulWidget {
+  const AswanRestaurantsScreen({Key? key});
 
   @override
-  State<CairoRestaurantsScreen> createState() => _CairoRestaurantsScreenState();
+  State<AswanRestaurantsScreen> createState() => _AswanRestaurantsScreenState();
 }
 
 class PlaceAPI {
@@ -31,7 +31,7 @@ class PlaceAPI {
     final Dio dio = Dio(baseOptions);
 
     try {
-      Response response = await dio.get('${baseUrl}api/user/resturant/cairo');
+      Response response = await dio.get('${baseUrl}api/user/resturant/aswan');
       if (response.statusCode == 200) {
         print(response.data);
         final dynamic responseData = response.data;
@@ -53,7 +53,7 @@ class PlaceAPI {
   }
 }
 
-class _CairoRestaurantsScreenState extends State<CairoRestaurantsScreen> {
+class _AswanRestaurantsScreenState extends State<AswanRestaurantsScreen> {
   List<RestaurantsModel> AllRestaurants = [];
   List<RestaurantsModel> displayedAlexPlaces = [];
   bool isLoading = true;

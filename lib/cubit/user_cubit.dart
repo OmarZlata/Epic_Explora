@@ -3,6 +3,7 @@ import 'package:epic_expolre/cache/cache_helper.dart';
 import 'package:epic_expolre/core/api/api_consumer.dart';
 import 'package:epic_expolre/core/api/const_end_ponits.dart';
 import 'package:epic_expolre/core/errors/exceptions.dart';
+import 'package:epic_expolre/core/models/guider_signIn_model.dart';
 import 'package:epic_expolre/core/models/sign_in_model.dart';
 import 'package:epic_expolre/core/models/sign_up_model.dart';
 import 'package:epic_expolre/core/models/user_model.dart';
@@ -16,6 +17,7 @@ class UserCubit extends Cubit<UserState> {
   UserCubit(this.api) : super(UserInitial());
   final ApiConsumer api;
   GlobalKey<FormState> resstPasswordFormKey = GlobalKey();
+  GlobalKey<FormState> GuiderSignInFormKey = GlobalKey();
   GlobalKey<FormState> paymentFormKey = GlobalKey();
   GlobalKey<FormState> ForgetPasswordFormKey = GlobalKey();
   GlobalKey<FormState> VerificationFormkey = GlobalKey();
@@ -23,6 +25,17 @@ class UserCubit extends Cubit<UserState> {
   TextEditingController confirmNewPassword = TextEditingController();
   //Sign in email
   TextEditingController signInEmail = TextEditingController();
+
+  TextEditingController GuiderSignInEmail = TextEditingController();
+
+  TextEditingController GuiderSignInPassword = TextEditingController();
+
+  TextEditingController GuidersignUpName = TextEditingController();
+  TextEditingController GuidersignUpEmail = TextEditingController();
+  TextEditingController GuiderSignUpPassword = TextEditingController();
+  TextEditingController GuiderConfirmPassword = TextEditingController();
+  TextEditingController GuiderPhoneNumber = TextEditingController();
+  TextEditingController GuiderNationalId = TextEditingController();
   TextEditingController otp = TextEditingController();
   TextEditingController resetPasswordEmail = TextEditingController();
   //Sign in password
@@ -35,6 +48,7 @@ class UserCubit extends Cubit<UserState> {
   //Sign up confirm password
   TextEditingController confirmPassword = TextEditingController();
   SignInModel? user;
+  GuiderSignInModel? Guider;
   VerificationModel? verificationModel;
 
   signUp() async {
@@ -131,4 +145,62 @@ class UserCubit extends Cubit<UserState> {
       emit(ResetPasswordFailure(errMessage: e.errModel.errorMessage));
     }
   }
+
+  Future<void> GuiderLogin() async {
+    try {
+      emit(GuiderSignInLoading());
+      final response = await api.post(
+        EndPoint.GuiderSignIn,
+        data: {
+          ApiKey.email: GuiderSignInEmail.text,
+          ApiKey.password: GuiderSignInPassword.text,
+        },
+      );
+      emit(GuiderSignInSuccess());
+    } on ServerException catch (e) {
+      emit(GuiderSignInFailure(errMessage: e.errModel.errorMessage));
+    }
+  }
+
+  GuiderLogOut() async {
+    try {
+      emit(GuiderLogOutLoading());
+      final response = await api.put(
+        EndPoint.GuiderLogOut,
+        option: Options(headers: {
+          'Authorization': 'Bearer ${Guider!.token}',
+        }),
+      );
+      print(response);
+      emit(GuiderLogOutSuccess());
+    } on ServerException catch (e) {
+      emit(GuiderLogOutFailure(errMessage: e.errModel.errorMessage));
+    }
+  }
+  GuiderSignUp() async{
+      try {
+        emit(GuiderSignUpLoading());
+        final response = await api.post(
+          EndPoint.GuiderSignUp,
+          isFromData: true,
+          data: {
+            ApiKey.name: GuidersignUpName.text,
+            ApiKey.email: GuidersignUpEmail.text,
+            ApiKey.password: GuiderSignUpPassword.text,
+            ApiKey.confirmPassword: GuiderConfirmPassword.text,
+            ApiKey.phoneNnumber: GuiderPhoneNumber.text,
+            ApiKey.nationalId: GuiderNationalId.text,
+          },
+        );
+        final GuidersignUpModel = GuiderSignInModel.fromJson(response);
+        // // CacheHelper().saveData(key: ApiKey.token, value: user!.token);
+        // CacheHelper().saveData(key: ApiKey.id, value: user!.id);
+        // print("SignUp Done And ID is :${user!.id}");
+        emit(GuiderSignUpSuccess());
+      } on ServerException catch (e) {
+        emit(GuiderSignUpFailure(errMessage: e.errModel.errorMessage));
+      }
+  }
+
 }
+

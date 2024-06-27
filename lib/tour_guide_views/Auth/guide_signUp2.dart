@@ -116,7 +116,7 @@ class _GuideSignUp2State extends State<GuideSignUp2> {
                                   obscureText: obscurePassword,
                                   maxLines: 1,
                                   controller:
-                                      context.read<UserCubit>().signUpPassword,
+                                      context.read<UserCubit>().GuiderPhoneNumber,
                                   validator: (value) {
                                     if (value!.isEmpty) {
                                       return 'Please enter your Phone Number';
@@ -154,7 +154,7 @@ class _GuideSignUp2State extends State<GuideSignUp2> {
                                   obscureText: obscurePasswordConfirm,
                                   maxLines: 1,
                                   controller:
-                                      context.read<UserCubit>().confirmPassword,
+                                      context.read<UserCubit>().GuiderNationalId,
                                   validator: (value) {
                                     if (value!.isEmpty) {
                                       return 'Please enter your National ID';

@@ -4,7 +4,7 @@
   import 'Cairo_Hotels.dart';
   import 'Cairo_Places.dart';
   import 'Cairo_Restaurants.dart';
-  import 'Cairo_Activities.dart';
+  import 'Cairo_banks.dart';
 
   class CairoTabbar extends StatelessWidget {
     const CairoTabbar({super.key});
@@ -72,7 +72,7 @@
                       CairoHotelsView(),
                       CairoPlacesScreen(),
                       CairoRestaurantsScreen(),
-                      CairoActivitiesScreen(),
+                      CairoBanksScreen(),
                     ],
                   ),
                 )
