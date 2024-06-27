@@ -18,7 +18,7 @@ class _SliderScreenState extends State<SliderScreen> {
   int _selectedState = -1;
   int _selectedType = -1;
   String ?title ;
-  String ?states;
+  String ?states ;
 
   void _selectState(int index) {
     setState(() {

@@ -19,6 +19,7 @@ class EndPoint {
 class ApiKey {
   static String success = 'success';
   static String img = "image";
+  static String description = "description";
   static String updatedAt = "updated_at";
   static String createdAt = "created_at";
   static String nationalId = "national_id";

@@ -130,7 +130,7 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
         )
             : Padding(
-          padding: const EdgeInsets.all(6),
+          padding: const EdgeInsets.all(14),
           child: Column(
             children: [
               TextFormField(
@@ -151,7 +151,7 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
               Expanded(
                 child: ListView.builder(
-                  padding: EdgeInsets.symmetric(vertical: 10),
+                  padding: EdgeInsets.all(14),
                   itemCount: displayedPlaces?.length ?? 0,
                   itemBuilder: (context, index) => APIAppCard(
                     cardText: displayedPlaces![index].name!,
@@ -164,6 +164,7 @@ class _SearchScreenState extends State<SearchScreen> {
             ],
           ),
         ),
+
       ),
     );
   }

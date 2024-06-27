@@ -1,11 +1,13 @@
 import 'package:epic_expolre/Views/Home/view.dart';
 import 'package:epic_expolre/Views/Maps/google_map/view.dart';
+import 'package:epic_expolre/Views/Maps/splash/onboarding_3.dart';
 import 'package:epic_expolre/Views/Profile/profile_main.dart';
 import 'package:epic_expolre/Views/auth/Forget_Password.dart';
 import 'package:epic_expolre/Views/auth/SignUp.dart';
 import 'package:epic_expolre/Widgets/app_AppBar.dart';
 import 'package:epic_expolre/Widgets/bottomNavigationBar.dart';
 import 'package:epic_expolre/cubit/user_state.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../Widgets/app_text.dart';
@@ -72,6 +74,13 @@ class _SignInViewState extends State<SignInView> {
             appBar:AppAppBar(
               title: "Sign in",
               centerTitle: true,
+              leading: IconButton(
+                icon: Icon(
+                  CupertinoIcons.back
+                ), onPressed: () {
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GoogleMapSplashView(),));
+              },
+              ),
             ),
             body: SingleChildScrollView(
               child: Padding(
