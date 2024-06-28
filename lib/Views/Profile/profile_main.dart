@@ -102,6 +102,8 @@ void _showAlertDialog(BuildContext context) {
                       builder: (context) => SignInView(),
                     ),
                   );
+                  context.read<UserCubit>().signInEmail.clear();
+                  context.read<UserCubit>().signInPassword.clear();
                 },
               ),
               SizedBox(
@@ -300,7 +302,9 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                       AppTile(
                         title: "Change Password",
                         icon: Icons.lock_outline_rounded,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditProfileScreen(),));
+                        },
                         color: AppColors.blue,
                       ),
                       SizedBox(height: 8),

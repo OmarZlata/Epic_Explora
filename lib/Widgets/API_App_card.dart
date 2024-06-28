@@ -134,10 +134,6 @@ class _APIAppCardState extends State<APIAppCard> {
                                   SizedBox(
                                     height: 4,
                                   ),
-                                  Text("\$14.4"),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
                                   Row(
                                     children: [
                                       Row(

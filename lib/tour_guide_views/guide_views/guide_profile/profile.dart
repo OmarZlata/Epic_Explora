@@ -117,11 +117,11 @@ class GuideProfile extends StatelessWidget {
                 ),
                 SizedBox(height: 8),
                 AppText(
-                  title:  'No Name',
+                  title:  '${context.read<UserCubit>().GuiderSignUpName.text}',
                   fontWeight: FontWeight.bold,
                 ),
                 AppText(
-                  title: 'No Email',
+                  title: '${context.read<UserCubit>().GuiderSignInEmail.text}',
                   color: AppColors.grey,
                 ),
                 SizedBox(height: 8),

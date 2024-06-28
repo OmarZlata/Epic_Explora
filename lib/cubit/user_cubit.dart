@@ -19,6 +19,10 @@ class UserCubit extends Cubit<UserState> {
   final ApiConsumer api;
   GlobalKey<FormState> resstPasswordFormKey = GlobalKey();
   GlobalKey<FormState> GuiderSignInFormKey = GlobalKey();
+
+  GlobalKey<FormState> GuiderSignUpFormKey = GlobalKey();
+
+  GlobalKey<FormState> GuiderSignUp2FormKey = GlobalKey();
   GlobalKey<FormState> paymentFormKey = GlobalKey();
   GlobalKey<FormState> ForgetPasswordFormKey = GlobalKey();
   GlobalKey<FormState> VerificationFormkey = GlobalKey();
@@ -31,7 +35,7 @@ class UserCubit extends Cubit<UserState> {
 
   TextEditingController GuiderSignInPassword = TextEditingController();
 
-  TextEditingController GuidersignUpName = TextEditingController();
+  TextEditingController GuiderSignUpName = TextEditingController();
   TextEditingController GuidersignUpEmail = TextEditingController();
   TextEditingController GuiderSignUpPassword = TextEditingController();
   TextEditingController GuiderConfirmPassword = TextEditingController();
@@ -198,12 +202,13 @@ class UserCubit extends Cubit<UserState> {
           EndPoint.GuiderSignUp,
           isFromData: true,
           data: {
-            ApiKey.name: GuidersignUpName.text,
+            ApiKey.name: GuiderSignUpName.text,
             ApiKey.email: GuidersignUpEmail.text,
             ApiKey.password: GuiderSignUpPassword.text,
             ApiKey.confirmPassword: GuiderConfirmPassword.text,
             ApiKey.phoneNnumber: GuiderPhoneNumber.text,
             ApiKey.nationalId: GuiderNationalId.text,
+            ApiKey.description:"dsadadawdada",
           },
         );
         Guider = GuiderSignInModel.fromJson(response.data);

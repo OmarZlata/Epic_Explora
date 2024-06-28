@@ -219,8 +219,6 @@ class _SignInViewState extends State<SignInView> {
                               if (signInFormKey.currentState!.validate()) {
                                 signInFormKey.currentState!.save();
                                 context.read<UserCubit>().signIn();
-                                context.read<UserCubit>().signInEmail.clear();
-                                context.read<UserCubit>().signInPassword.clear();
                                 if(state is SignInLoading){
                                   isDisabled= false;
                                 }
