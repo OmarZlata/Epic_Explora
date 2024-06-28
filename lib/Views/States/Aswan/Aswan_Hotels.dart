@@ -11,8 +11,8 @@ import '../../../Widgets/API_Hotel_Card.dart';
 import '../../../cache/cache_helper.dart';
 import '../../../core/api/AlexTripAPI.dart';
 import '../../../core/api/const_end_ponits.dart';
-import '../../../core/models/AswanHotelsApi.dart';
-import '../../../core/models/CairoHotelsApi.dart';
+import '../../../core/models/user_models/AswanHotelsApi.dart';
+
 
 class AswanHotelsView extends StatefulWidget {
   const AswanHotelsView({Key? key});

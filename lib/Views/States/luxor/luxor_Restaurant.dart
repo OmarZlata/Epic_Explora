@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:epic_expolre/Widgets/RestaurantsCard.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
+import 'package:epic_expolre/core/models/user_models/RestaurantsModel.dart';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:epic_expolre/Widgets/app_AppBar.dart';
@@ -11,8 +12,8 @@ import '../../../Widgets/API_App_card.dart';
 import '../../../cache/cache_helper.dart';
 import '../../../core/api/AlexTripAPI.dart';
 import '../../../core/api/const_end_ponits.dart';
-import '../../../core/models/AlexPlacesAPI.dart';
-import '../../../core/models/RestaurantsModel.dart';
+import '../../../core/models/user_models/AlexPlacesAPI.dart';
+
 
 class LuxorRestaurantsScreen extends StatefulWidget {
   const LuxorRestaurantsScreen({Key? key});

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:epic_expolre/Widgets/Fav_App_card.dart';
 import 'package:epic_expolre/Widgets/app_text.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
+import 'package:epic_expolre/core/models/user_models/FavouriteModel.dart';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:epic_expolre/Widgets/app_AppBar.dart';
@@ -13,9 +14,8 @@ import '../../../Widgets/API_Hotel_Card.dart';
 import '../../../cache/cache_helper.dart';
 import '../../../core/api/AlexTripAPI.dart';
 import '../../../core/api/const_end_ponits.dart';
-import '../../../core/models/AswanHotelsApi.dart';
-import '../../../core/models/CairoHotelsApi.dart';
-import '../../core/models/FavouriteModel.dart';
+import '../../core/models/user_models/AswanHotelsApi.dart';
+
 
 class FavouriteHotelsScreen extends StatefulWidget {
   const FavouriteHotelsScreen({Key? key});

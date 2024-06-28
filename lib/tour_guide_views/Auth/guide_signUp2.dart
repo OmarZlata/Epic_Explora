@@ -269,10 +269,11 @@ class _GuideSignUp2State extends State<GuideSignUp2> {
                             title: "SignUp",
                             onTap: isChecked
                                 ? () {
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                      builder: (context) => GuideSignIn(),
-                                    ));
+                              context.read<UserCubit>().GuiderSignUp;
+                                    // Navigator.of(context)
+                                    //     .push(MaterialPageRoute(
+                                    //   builder: (context) => GuideSignIn(),
+                                    // ));
                                     // if (signUpFormKey.currentState!.validate()) {
                                     //   context.read<UserCubit>().signUp();
                                     // }

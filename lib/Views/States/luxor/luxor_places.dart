@@ -10,8 +10,8 @@ import '../../../Widgets/API_App_card.dart';
 import '../../../cache/cache_helper.dart';
 import '../../../core/api/AlexTripAPI.dart';
 import '../../../core/api/const_end_ponits.dart';
-import '../../../core/models/AlexPlacesAPI.dart';
-import '../../../core/models/CairoPlacesAPI.dart';
+import '../../../core/models/user_models/AlexPlacesAPI.dart';
+
 import 'model/luxor_places_model.dart';
 
 class LuxorPlacesScreen extends StatefulWidget {

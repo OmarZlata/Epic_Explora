@@ -3,13 +3,14 @@ import 'dart:math';
 import 'package:dio/dio.dart';
 import 'package:epic_expolre/Views/Place_Detials/PlaceDetials.dart';
 import 'package:epic_expolre/Views/Place_Detials/PlaceReviews.dart';
+import 'package:epic_expolre/core/models/user_models/DetailsplaceAPImode.dart';
 import 'package:flutter/material.dart';
 import '../../Widgets/app_home_card.dart';
 import '../../Widgets/app_text.dart';
 import '../../cache/cache_helper.dart';
 import '../../core/api/const_end_ponits.dart';
 import '../../core/app_colors/app_colors.dart';
-import '../../core/models/DetailsplaceAPImode.dart';
+
 
 import 'reviews_place_detials.dart';
 

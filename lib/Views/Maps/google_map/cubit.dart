@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:epic_expolre/core/models/location.dart';
+import 'package:epic_expolre/core/models/user_models/location.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 

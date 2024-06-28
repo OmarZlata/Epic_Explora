@@ -4,6 +4,7 @@ import 'package:epic_expolre/Views/user_gallary/home.dart';
 import 'package:epic_expolre/Widgets/app_AppBar.dart';
 import 'package:epic_expolre/Widgets/app_button.dart';
 import 'package:epic_expolre/Widgets/bottomNavigationBar.dart';
+import 'package:epic_expolre/core/models/user_models/UserInfoAPI.dart';
 import 'package:epic_expolre/cubit/user_cubit.dart';
 import 'package:epic_expolre/cubit/user_state.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,7 +17,6 @@ import '../../Widgets/booking_tabBar.dart';
 import '../../cache/cache_helper.dart';
 import '../../core/api/const_end_ponits.dart';
 import '../../core/app_colors/app_colors.dart';
-import '../../core/models/UserInfoAPI.dart'; // Assuming UserInfo is defined here
 import '../Home/view.dart';
 import 'AppMode.dart';
 import 'Edit_Profile.dart';
