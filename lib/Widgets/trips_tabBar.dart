@@ -1,83 +1,30 @@
-import 'dart:developer';
-
-import 'package:dio/dio.dart';
 import 'package:epic_expolre/Widgets/app_AppBar.dart';
 import 'package:epic_expolre/Widgets/app_text.dart';
-import 'package:epic_expolre/cache/cache_helper.dart';
-import 'package:epic_expolre/core/api/const_end_ponits.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
-import 'package:epic_expolre/core/models/guider_data.dart';
 import 'package:flutter/material.dart';
 
-  class OurGuiders extends StatefulWidget {
+class OurGuiders extends StatefulWidget {
   const OurGuiders({super.key});
 
   @override
   State<OurGuiders> createState() => _OurGuidersState();
 }
-class DataAPI {
-  final String baseUrl = EndPoint.baseUrl;
 
-  Future<List<GuiderAllData>> getAllTrips() async {
-    final BaseOptions baseOptions = BaseOptions(headers: {
-      "Authorization": "Bearer ${CacheHelper().getData(key: ApiKey.token)}",
-      "Accept-Encoding": "gzip, deflate, br",
-      'Content-Type': 'application/json',
-      "Accept": "application/json"
-    });
-    final Dio dio = Dio(baseOptions);
-
-    try {
-      Response response = await dio.get('${baseUrl}api/user/place');
-      if (response.statusCode == 200) {
-        List data = response.data['allPlaces'];
-        log("data text${data}");
-
-        List<GuiderAllData> x = data.map((e) => GuiderAllData.fromJson(e)).toList();
-
-        return x;
-      } else {
-        throw Exception('Failed to load data');
-      }
-    } on DioError catch (e) {
-      log("${e.response}");
-
-      throw Exception('${e.toString()}');
-    }
-  }
-}
 class _OurGuidersState extends State<OurGuiders> {
-  void initState() {
-    super.initState();
-    _fetchPlaces();
-  }
-
-  void _fetchPlaces() async {
-    try {
-      List<GuiderAllData> fetchedPlaces = await DataAPI.getAllTrips();
-      setState(() {
-
-      });
-    } catch (e) {
-      print('Error fetching places: $e');
-    }
-  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: AppColors.white,
-        appBar: AppAppBar(
-          title: "Our Guiders",
-          textColor: AppColors.black,
-          iconThemeColor: AppColors.black,
-        ),
-        body: ListView.builder(
-          padding: EdgeInsets.all(12),
-          itemCount: guiderData.length,
-          itemBuilder: (context, index) {
-            GuiderAllData data = guiderData[index];
-            return Column(
+          backgroundColor: AppColors.white,
+          appBar: AppAppBar(
+            title: "Our Guiders",
+            textColor: AppColors.black,
+            iconThemeColor: AppColors.black,
+
+          ),
+          body: ListView.builder(
+            padding: EdgeInsets.all(12),
+            itemBuilder: (context, index) => Column(
               children: [
                 Container(
                   height: 125,
@@ -107,15 +54,15 @@ class _OurGuidersState extends State<OurGuiders> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              data.name,
+                            const Text(
+                              "Ahmed Abdallah",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 16),
                             ),
                             const SizedBox(
                               height: 8,
                             ),
-                            Row(
+                            const Row(
                               children: [
                                 Icon(
                                   Icons.location_city_rounded,
@@ -126,7 +73,7 @@ class _OurGuidersState extends State<OurGuiders> {
                                   width: 3,
                                 ),
                                 Text(
-                                  data.description,
+                                  "Aswan Guider",
                                   style: TextStyle(fontSize: 12),
                                 )
                               ],
@@ -142,29 +89,28 @@ class _OurGuidersState extends State<OurGuiders> {
                                     borderRadius: BorderRadius.circular(10),
                                     color: AppColors.green,
                                   ),
-                                  child: Center(
-                                    child: Text(
-                                      "  Available  ",
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          color: AppColors.white),
-                                    ),
-                                  ),
+                                  child: const Center(
+                                      child: Text(
+                                        "  Available  ",
+                                        style: TextStyle(
+                                            fontSize: 15, color: AppColors.white),
+                                      )),
                                 )
                               ],
                             )
                           ],
                         ),
                       ),
+
                     ],
                   ),
                 ),
                 SizedBox(height: 14,)
               ],
-            );
-          },
-        ),
-      ),
+            ),
+            itemCount: 10,
+
+          )),
     );
   }
 }
