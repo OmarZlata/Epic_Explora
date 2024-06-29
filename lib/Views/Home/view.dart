@@ -189,10 +189,6 @@ class _HomeViewState extends State<HomeView> {
                   children: [
                     Row(
                       children: [
-                        Image.asset('assets/images/profile.png'),
-                        SizedBox(
-                          width: 5,
-                        ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

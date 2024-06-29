@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:epic_expolre/Views/auth/SignIn.dart';
+import 'package:epic_expolre/Views/translator/translator.dart';
 import 'package:epic_expolre/Views/user_gallary/home.dart';
 import 'package:epic_expolre/Widgets/app_AppBar.dart';
 import 'package:epic_expolre/Widgets/app_button.dart';
@@ -286,9 +287,11 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                       ),
                       SizedBox(height: 8),
                       AppTile(
-                        title: "Privacy policy",
-                        icon: Icons.privacy_tip_outlined,
-                        onPressed: () {},
+                        title: "Translator",
+                        icon: FontAwesomeIcons.language,
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => TranslatorView(),));
+                        },
                         color: AppColors.blue,
                       ),
                       SizedBox(height: 8),
