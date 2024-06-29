@@ -21,6 +21,7 @@ dependencies:
   geolocator: ^11.0.0
   flutter_bloc: ^8.1.4
   cupertino_icons: ^1.0.2
+  translator: ^0.1.5
   jwt_decoder: ^2.0.1
   dropdown_button2: ^2.3.9
   im_stepper: ^1.0.1+1
