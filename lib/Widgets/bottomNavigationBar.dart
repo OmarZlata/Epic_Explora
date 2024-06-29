@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../Views/Home/view.dart';
 
 
+import '../Views/MainScreens/favourites_tabbar.dart';
 import '../Views/Profile/profile_main.dart';
 import '../core/app_colors/app_colors.dart';
 import 'trips_tabBar.dart';
@@ -18,7 +19,7 @@ class bottomNavigationBar extends StatefulWidget {
 class _bottomNavigationBarState extends State<bottomNavigationBar> {
   final List<Widget> _pages = [
     HomeView(),
-    FavouriteHotelsScreen(),
+    FavTabBar(),
     OurGuiders(),
     ProfileMainScreen(),
   ];

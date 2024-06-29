@@ -7,7 +7,7 @@ import 'package:epic_expolre/Views/auth/SignIn.dart';
 import 'package:epic_expolre/Widgets/app_AppBar.dart';
 import 'package:epic_expolre/cache/cache_helper.dart';
 import 'package:epic_expolre/core/api/const_end_ponits.dart';
-import 'package:epic_expolre/core/models/verification_model.dart';
+
 import 'package:epic_expolre/cubit/user_cubit.dart';
 import 'package:epic_expolre/cubit/user_state.dart';
 import 'package:flutter/material.dart';

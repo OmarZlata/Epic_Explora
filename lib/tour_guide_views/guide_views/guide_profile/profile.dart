@@ -70,14 +70,14 @@ class GuideProfile extends StatelessWidget {
                   font_color: AppColors.white,
                   border_color: AppColors.red.withOpacity(.3),
                   onTap: () {
-                    context.read<UserCubit>().GuiderLogOut;
-                    // Navigator.of(context).pushReplacement(
-                    //   MaterialPageRoute(
-                    //     builder: (context) => GuideSignIn(),
-                    //   ),
-                    // );
+                    context.read<UserCubit>().GuiderLogOut();
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => GuideSignIn(),));
+                    context.read<UserCubit>().GuiderSignInEmail.clear();
+                    context.read<UserCubit>().GuiderSignInPassword.clear();
+
                   },
                 ),
+
                 SizedBox(
                   height: 8,
                 ),
@@ -117,11 +117,11 @@ class GuideProfile extends StatelessWidget {
                 ),
                 SizedBox(height: 8),
                 AppText(
-                  title:  'No Name',
+                  title:  '${context.read<UserCubit>().GuiderSignUpName.text}',
                   fontWeight: FontWeight.bold,
                 ),
                 AppText(
-                  title: 'No Email',
+                  title: '${context.read<UserCubit>().GuiderSignInEmail.text}',
                   color: AppColors.grey,
                 ),
                 SizedBox(height: 8),

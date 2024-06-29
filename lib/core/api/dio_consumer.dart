@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:epic_expolre/core/models/sign_up_model.dart';
+
 import '../errors/exceptions.dart';
 import 'api_consumer.dart';
 import 'api_interceptors.dart';

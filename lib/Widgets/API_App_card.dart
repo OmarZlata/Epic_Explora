@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../Views/Place_Detials/detials_place_detials.dart';
 import '../core/app_colors/app_colors.dart';
+import 'RandomNUM.dart';
 
 class APIAppCard extends StatefulWidget {
   final String cardText;
@@ -66,13 +67,15 @@ class _APIAppCardState extends State<APIAppCard> {
                                     child: Container(
                                       width: 100,
                                       height: 130,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: NetworkImage("${widget.cardimgUrl[0]}"),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(8), // Adjust the radius as needed
+                                        child: Image.network(
+                                          widget.cardimgUrl[0],
                                           fit: BoxFit.cover,
                                         ),
                                       ),
                                     ),
+
                                   ),
                                 ],
                               ),
@@ -132,30 +135,18 @@ class _APIAppCardState extends State<APIAppCard> {
                                   SizedBox(
                                     height: 4,
                                   ),
-                                  Text("\$14.4"),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
                                   Row(
                                     children: [
                                       Row(
                                         children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                isFavorite = !isFavorite;
-                                              });
-                                            },
-                                            child: Icon(
-                                              isFavorite
-                                                  ? Icons.favorite
-                                                  : Icons.favorite_border,
-                                              color: Colors.red,
-                                              size: 28,
-                                            ),
+                                          Icon(
+                                            Icons.favorite,
+
+                                            color: Colors.red,
+                                            size: 28,
                                           ),
                                           Text(
-                                            "294 Likes",
+                                            "${getRandomNumber()}",
                                             style: TextStyle(
                                               fontSize: 12,
                                               color: AppColors.grey,

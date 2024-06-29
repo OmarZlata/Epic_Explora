@@ -7,6 +7,7 @@ import 'package:epic_expolre/Views/States/luxor/luxor_tab_bar.dart';
 import 'package:epic_expolre/Widgets/app_text.dart';
 import 'package:epic_expolre/core/api/Recommended.dart';
 import 'package:epic_expolre/core/api/const_end_ponits.dart';
+import 'package:epic_expolre/core/models/user_models/UserInfoAPI.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +20,7 @@ import '../../cache/cache_helper.dart';
 import '../../core/api/Recommended.dart';
 import '../../core/api/Recommended.dart';
 import '../../core/api/Recommended.dart';
-import '../../core/models/UserInfoAPI.dart';
+
 import '../search/search_screen.dart';
 import '../MainScreens/states_screen.dart';
 import '../States/alex/Alex_tab_bar.dart';
@@ -331,19 +332,6 @@ class _HomeViewState extends State<HomeView> {
                           style: TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 16),
                         ),
-                        Spacer(),
-                        InkWell(
-                          onTap: () {
-                            print("Recommendations");
-                          },
-                          child: Text(
-                            "See more",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16,
-                                color: AppColors.blue),
-                          ),
-                        ),
                       ],
                     ),
                     SizedBox(height: 16),
@@ -383,29 +371,6 @@ class _HomeViewState extends State<HomeView> {
                             ),
                     ),
 
-                    SizedBox(height: 16),
-                    Row(
-                      children: [
-                        Text(
-                          "popular",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 16),
-                        ),
-                        Spacer(),
-                        InkWell(
-                          onTap: () {
-                            print("popular");
-                          },
-                          child: Text(
-                            "See more",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16,
-                                color: AppColors.blue),
-                          ),
-                        ),
-                      ],
-                    ),
                     SizedBox(height: 16),
                     // Container(
                     //   height: 248,

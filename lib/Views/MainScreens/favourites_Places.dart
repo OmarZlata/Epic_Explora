@@ -1,27 +1,24 @@
-import 'package:dio/dio.dart';
-import 'package:epic_expolre/Widgets/Fav_App_card.dart';
-import 'package:epic_expolre/Widgets/app_text.dart';
-import 'package:epic_expolre/core/app_colors/app_colors.dart';
-import 'package:epic_expolre/core/models/user_models/FavouriteModel.dart';
 import 'dart:developer';
-import 'package:flutter/material.dart';
-import 'package:epic_expolre/Widgets/app_AppBar.dart';
-import 'package:epic_expolre/Widgets/app_card.dart';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-import '../../../Widgets/API_App_card.dart';
-import '../../../Widgets/API_Hotel_Card.dart';
-import '../../../cache/cache_helper.dart';
-import '../../../core/api/AlexTripAPI.dart';
-import '../../../core/api/const_end_ponits.dart';
-import '../../core/models/user_models/AswanHotelsApi.dart';
+import '../../Widgets/FavPlacesCard.dart';
+import '../../Widgets/Fav_App_card.dart';
+import '../../Widgets/app_AppBar.dart';
+import '../../Widgets/app_text.dart';
+import '../../cache/cache_helper.dart';
+import '../../core/api/const_end_ponits.dart';
+import '../../core/app_colors/app_colors.dart';
+import '../../core/models/user_models/FavouriteModel.dart';
 
-class FavouriteHotelsScreen extends StatefulWidget {
-  const FavouriteHotelsScreen({Key? key});
+class FavouritsPlacesScreen extends StatefulWidget {
+  const FavouritsPlacesScreen({super.key});
 
   @override
-  State<FavouriteHotelsScreen> createState() => _FavouriteHotelsScreenState();
+  State<FavouritsPlacesScreen> createState() => _FavouritsPlacesScreenState();
 }
+
 
 class PlaceAPI {
   final String baseUrl = EndPoint.baseUrl;
@@ -34,7 +31,7 @@ class PlaceAPI {
 
     try {
       Response response =
-      await dio.get('${baseUrl}api/user/favorite/getFavorites?page=$page');
+      await dio.get('${baseUrl}api/user/favorite/places_fav');
       if (response.statusCode == 200) {
         List data = response.data['data'];
         log("data text${data}");
@@ -54,7 +51,8 @@ class PlaceAPI {
   }
 }
 
-class _FavouriteHotelsScreenState extends State<FavouriteHotelsScreen> {
+
+class _FavouritsPlacesScreenState extends State<FavouritsPlacesScreen> {
   List<FavouriteModel>? favouritemodel;
   bool isloading = true;
   PlaceAPI placeAPI = PlaceAPI();
@@ -65,7 +63,6 @@ class _FavouriteHotelsScreenState extends State<FavouriteHotelsScreen> {
     super.initState();
     _fetchPlaces();
   }
-
   void _fetchPlaces() async {
     try {
       List<FavouriteModel> fetchedPlaces =
@@ -99,13 +96,12 @@ class _FavouriteHotelsScreenState extends State<FavouriteHotelsScreen> {
     }
   }
 
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: AppAppBar(
-        iconThemeColor: AppColors.blue,
-        title: "Favorite",
-      ),
+
       body: isloading
           ? Center(
         child: Column(
@@ -124,7 +120,7 @@ class _FavouriteHotelsScreenState extends State<FavouriteHotelsScreen> {
       )
           : ListView.builder(
         itemCount: favouritemodel!.length,
-        itemBuilder: (context, index) => FavAppCard(
+        itemBuilder: (context, index) => FavPlacesCard(
           cardText: favouritemodel![index].name!,
           cardAddress: favouritemodel![index].address!,
           cardimgUrl: favouritemodel![index].img_url!,

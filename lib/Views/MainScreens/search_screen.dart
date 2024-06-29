@@ -10,9 +10,8 @@ import '../../../Widgets/API_App_card.dart';
 import '../../../cache/cache_helper.dart';
 import '../../../core/api/AlexTripAPI.dart';
 import '../../../core/api/const_end_ponits.dart';
-import '../../../core/models/AswanHotelsApi.dart';
-import '../../../core/models/CairoHotelsApi.dart';
-import '../../../core/models/RedSeaHotelsAPI.dart';
+import '../../core/models/user_models/AswanHotelsApi.dart';
+
 import '../../core/api/AllplacesAPI.dart';
 
 class SearchScreen extends StatefulWidget {

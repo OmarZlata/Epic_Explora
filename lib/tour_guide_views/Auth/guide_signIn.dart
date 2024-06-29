@@ -1,4 +1,5 @@
 import 'package:epic_expolre/Views/Maps/google_map/view.dart';
+import 'package:epic_expolre/Views/Maps/splash/onboarding_3.dart';
 import 'package:epic_expolre/Views/auth/SignUp.dart';
 import 'package:epic_expolre/Widgets/app_AppBar.dart';
 import 'package:epic_expolre/Widgets/app_button.dart';
@@ -74,6 +75,13 @@ class _GuideSignInState extends State<GuideSignIn> {
             appBar: AppAppBar(
               title: "Sign In",
               centerTitle: true,
+              leading: IconButton(
+                icon: Icon(
+                    CupertinoIcons.back
+                ), onPressed: () {
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GoogleMapSplashView(),));
+              },
+              ),
             ),
             body: SingleChildScrollView(
               child: Padding(

@@ -1,10 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:epic_expolre/core/api/AllplacesAPI.dart';
 import 'package:epic_expolre/core/api/Recommended.dart';
+import 'package:epic_expolre/core/models/user_models/location.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../../core/Location_utlis/location_utils.dart';
-import '../../../core/models/location.dart';
+
 part 'states.dart';
 
 class HomeCubit extends Cubit<HomeStates> {

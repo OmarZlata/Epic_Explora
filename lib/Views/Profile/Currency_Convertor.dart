@@ -5,6 +5,7 @@ import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:epic_expolre/Widgets/app_AppBar.dart';
 import 'package:epic_expolre/Widgets/app_button.dart';
 import 'package:epic_expolre/Widgets/app_text.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Currency extends StatefulWidget {
   Currency({Key? key}) : super(key: key);
@@ -154,112 +155,119 @@ class _CurrencyState extends State<Currency> {
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppAppBar(title: "Currency Converter"),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: isLoading
-              ? CircularProgressIndicator()
-              : Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    width: 100,
-                    child: DropdownButton<String>(
-                      value: selectedSourceCurrency,
-                      onChanged: (newValue) {
-                        setState(() {
-                          selectedSourceCurrency = newValue!;
-                        });
-                      },
-                      items: sourceCurrencyItems.map((item) {
-                        return DropdownMenuItem<String>(
-                          value: item.value,
-                          child: Text(
-                            item.value!, // Use the value of the item
-                            style: TextStyle(
-                                fontSize: 20), // Adjust the font size
-                          ),
-                        );
-                      }).toList(),
-                      iconSize: 30, // Adjust the icon size
-                    ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: isLoading
+            ? Center(child: CircularProgressIndicator())
+            : Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 100,
+                  child: DropdownButton<String>(
+                    value: selectedSourceCurrency,
+                    onChanged: (newValue) {
+                      setState(() {
+                        selectedSourceCurrency = newValue!;
+                      });
+                    },
+                    items: sourceCurrencyItems.map((item) {
+                      return DropdownMenuItem<String>(
+                        value: item.value,
+                        child: Text(
+                          item.value!, // Use the value of the item
+                          style: TextStyle(
+                              fontSize: 20), // Adjust the font size
+                        ),
+                      );
+                    }).toList(),
+                    iconSize: 30, // Adjust the icon size
                   ),
-                  ElevatedButton(
-                      style: ButtonStyle(
-                          shape: MaterialStatePropertyAll(CircleBorder()),
-                          backgroundColor:
-                          MaterialStatePropertyAll(AppColors.blue)),
-                      onPressed: () {
-                        swapCurrencies();
+                ),
+                ElevatedButton(
+                    style: ButtonStyle(
+                        shape: MaterialStatePropertyAll(CircleBorder()),
+                        backgroundColor:
+                        MaterialStatePropertyAll(AppColors.blue)),
+                    onPressed: () {
+                      swapCurrencies();
+                    },
+                    child: Icon(Icons.swap_horiz)),
+                SizedBox(
+                  width: 100, // Adjust the width as needed
+                  child: DropdownButton<String>(
+                    value: selectedTargetCurrency,
+                    onChanged: (newValue) {
+                      setState(() {
+                        selectedTargetCurrency = newValue!;
+                      });
+                    },
+                    items: targetCurrencyItems.map((item) {
+                      return DropdownMenuItem<String>(
+                        value: item.value,
+                        child: Text(
+                          item.value!, // Use the value of the item
+                          style: TextStyle(
+                              fontSize: 20), // Adjust the font size
+                        ),
+                      );
+                    }).toList(),
+                    iconSize: 30, // Adjust the icon size
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            TextField(
+              onChanged: (value) {
+                setState(() {
+                  displayedText = value;
+                });
+              },
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Enter amount',
+              ),
+            ),
+            SizedBox(height: 20,),
+            Center(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: AppButton(
+                      color: AppColors.blue,
+                      title: "Convert",
+                      font_color: AppColors.white,
+                      onTap: () {
+                        convertCurrency();
                       },
-                      child: Icon(Icons.swap_horiz)),
-                  SizedBox(
-                    width: 100, // Adjust the width as needed
-                    child: DropdownButton<String>(
-                      value: selectedTargetCurrency,
-                      onChanged: (newValue) {
-                        setState(() {
-                          selectedTargetCurrency = newValue!;
-                        });
-                      },
-                      items: targetCurrencyItems.map((item) {
-                        return DropdownMenuItem<String>(
-                          value: item.value,
-                          child: Text(
-                            item.value!, // Use the value of the item
-                            style: TextStyle(
-                                fontSize: 20), // Adjust the font size
-                          ),
-                        );
-                      }).toList(),
-                      iconSize: 30, // Adjust the icon size
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 20),
-              TextField(
-                onChanged: (value) {
-                  setState(() {
-                    displayedText = value;
-                  });
-                },
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Enter amount',
-                ),
+            ),
+            Spacer(),
+            Container(
+              height: 75.h,
+
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: AppColors.blue.withOpacity(0.15),
+
               ),
-              SizedBox(height: 20),
-              Center(
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: AppButton(
-                        color: AppColors.blue,
-                        title: "Convert",
-                        font_color: AppColors.white,
-                        onTap: () {
-                          convertCurrency();
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 20),
-              Center(
+              child: Center(
                 child: Text(
-                  'Result: $result ${selectedTargetCurrency.toUpperCase()}',
-                  style: TextStyle(fontSize: 20),
+                  '$result ${selectedTargetCurrency.toUpperCase()}',
+                  style: TextStyle(fontSize: 28,color: AppColors.blue,fontWeight: FontWeight.bold),
                 ),
               ),
-              SizedBox(height: 10),
-            ],
-          ),
+            ),
+            SizedBox(height: 10),
+          ],
         ),
       ),
     );

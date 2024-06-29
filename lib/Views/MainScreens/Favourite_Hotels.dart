@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:epic_expolre/Widgets/Fav_App_card.dart';
 import 'package:epic_expolre/Widgets/app_text.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
+import 'package:epic_expolre/core/models/user_models/FavouriteModel.dart';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:epic_expolre/Widgets/app_AppBar.dart';
@@ -13,9 +14,8 @@ import '../../../Widgets/API_Hotel_Card.dart';
 import '../../../cache/cache_helper.dart';
 import '../../../core/api/AlexTripAPI.dart';
 import '../../../core/api/const_end_ponits.dart';
-import '../../../core/models/AswanHotelsApi.dart';
-import '../../../core/models/CairoHotelsApi.dart';
-import '../../core/models/FavouriteModel.dart';
+import '../../core/models/user_models/AswanHotelsApi.dart';
+
 
 class FavouriteHotelsScreen extends StatefulWidget {
   const FavouriteHotelsScreen({Key? key});
@@ -35,7 +35,7 @@ class PlaceAPI {
 
     try {
       Response response =
-          await dio.get('${baseUrl}api/user/favorite/getFavorites?page=$page');
+          await dio.get('${baseUrl}api/user/favorite/hotels_fav');
       if (response.statusCode == 200) {
         List data = response.data['data'];
         log("data text${data}");
@@ -103,12 +103,6 @@ class _FavouriteHotelsScreenState extends State<FavouriteHotelsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: AppAppBar(
-        color: Colors.white,
-        title: "Favorite",
-        textColor: AppColors.blue,
-
-      ),
       body: isloading
           ? Center(
               child: Column(

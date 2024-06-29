@@ -1,4 +1,4 @@
-import 'package:epic_expolre/core/models/sign_up_model.dart';
+import 'package:epic_expolre/core/models/user_models/sign_up_model.dart';
 
 class EndPoint {
   static String baseUrl = "https://tour-guide-api.onrender.com/";
@@ -19,6 +19,7 @@ class EndPoint {
 class ApiKey {
   static String success = 'success';
   static String img = "image";
+  static String description = "description";
   static String updatedAt = "updated_at";
   static String createdAt = "created_at";
   static String nationalId = "national_id";
@@ -29,9 +30,11 @@ class ApiKey {
   static String confirmNewPassword = "password_confirmation";
   static String newPassword = "password";
   static String token = "token";
+  static String Guidertoken = "token";
   static String otp = "token";
   static String message = "message";
   static String id = "id";
+  static String GuiderId = "id";
   static String name = "name";
   static String phone = "phone";
   static String phoneNnumber = "phone_number";

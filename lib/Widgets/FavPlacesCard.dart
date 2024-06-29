@@ -4,32 +4,29 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../Views/Hotel_Details/HotelDetailsMain.dart';
 import '../Views/Place_Detials/detials_place_detials.dart';
 import '../core/app_colors/app_colors.dart';
-import 'RandomNUM.dart';
 
-class ApiHotelCard extends StatefulWidget {
+class FavPlacesCard extends StatefulWidget {
   final String cardText;
   final String cardAddress;
   final List cardimgUrl;
   final int cardid;
-  final double rate;
-  final int price;
 
-  ApiHotelCard({
+
+  FavPlacesCard({
     Key? key,
     required this.cardText,
     required this.cardAddress,
     required this.cardimgUrl,
     required this.cardid,
-    required this.rate,
-    required this.price,
+
   }) : super(key: key);
 
   @override
-  State<ApiHotelCard> createState() => _ApiHotelCardState();
+  State<FavPlacesCard> createState() => _FavPlacesCardState();
 }
 
-class _ApiHotelCardState extends State<ApiHotelCard> {
-  bool isFavorite = false;
+class _FavPlacesCardState extends State<FavPlacesCard> {
+  bool isFavorite = true;
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +42,13 @@ class _ApiHotelCardState extends State<ApiHotelCard> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HotelsDetails(id: widget.cardid),
+                    builder: (context) => detialsPlaceDetials(id: widget.cardid),
                   ));
             },
             child: Container(
               child: Center(
                 child: Material(
-                  elevation: 5,
+                  elevation: 4,
                   borderRadius: BorderRadius.circular(8),
                   child: Container(
                     height: 148,
@@ -69,16 +66,18 @@ class _ApiHotelCardState extends State<ApiHotelCard> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Flexible(
-                                    child: Container(
-                                      width: 100,
-                                      height: 130,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: NetworkImage("${widget.cardimgUrl[0]}"),
-                                          fit: BoxFit.cover,
+                                      child: Container(
+                                        width: 100,
+                                        height: 130,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(8), // Adjust the radius as needed
+                                          image: DecorationImage(
+                                            image: NetworkImage("${widget.cardimgUrl[0]}"),
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
-                                      ),
-                                    ),
+                                      )
+
                                   ),
                                 ],
                               ),
@@ -98,16 +97,7 @@ class _ApiHotelCardState extends State<ApiHotelCard> {
                                         ),
                                       ),
                                       SizedBox(
-                                        width: 36,
-                                      ),
-                                      InkWell(
-                                        child: Image.asset('assets/images/dots.png'),
-                                        onTap: () {
-                                          print("Delete");
-                                        },
-                                      ),
-                                      SizedBox(
-                                        width: 5,
+                                        width: 50,
                                       ),
                                     ],
                                   ),
@@ -138,22 +128,26 @@ class _ApiHotelCardState extends State<ApiHotelCard> {
                                   SizedBox(
                                     height: 4,
                                   ),
-                                  Text("${widget.price} EGP"),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
                                   Row(
                                     children: [
                                       Row(
                                         children: [
-                                          Icon(
-                                            Icons.favorite,
-
-                                            color: Colors.red,
-                                            size: 28,
+                                          GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                isFavorite = !isFavorite;
+                                              });
+                                            },
+                                            child: Icon(
+                                              isFavorite
+                                                  ? Icons.favorite
+                                                  : Icons.favorite_border,
+                                              color: Colors.red,
+                                              size: 28,
+                                            ),
                                           ),
                                           Text(
-                                            "${getRandomNumber()}",
+                                            "294 Likes",
                                             style: TextStyle(
                                               fontSize: 12,
                                               color: AppColors.grey,
@@ -164,12 +158,7 @@ class _ApiHotelCardState extends State<ApiHotelCard> {
                                       SizedBox(
                                         width: 50,
                                       ),
-                                      Row(
-                                        children: [
-                                          Image.asset('assets/images/rate.png'),
-                                          Text("${widget.rate}"),
-                                        ],
-                                      )
+
                                     ],
                                   ),
                                 ],
