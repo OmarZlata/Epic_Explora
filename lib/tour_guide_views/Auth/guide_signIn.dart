@@ -9,22 +9,22 @@ import 'package:epic_expolre/Widgets/guide_Nav_Bar.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:epic_expolre/cubit/user_cubit.dart';
 import 'package:epic_expolre/cubit/user_state.dart';
-import 'package:epic_expolre/tour_guide_views/Auth/guide_forget_password.dart';
 import 'package:epic_expolre/tour_guide_views/Auth/guide_signUp.dart';
 import 'package:epic_expolre/tour_guide_views/guide_views/home/home_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class GuideSignIn extends StatefulWidget {
-  const GuideSignIn({super.key});
+class GuiderSignIn extends StatefulWidget {
+  const GuiderSignIn({super.key});
 
   @override
-  State<GuideSignIn> createState() => _GuideSignInState();
+  State<GuiderSignIn> createState() => _GuiderSignInState();
 }
 
-class _GuideSignInState extends State<GuideSignIn> {
+class _GuiderSignInState extends State<GuiderSignIn> {
   bool obscurePassword = true;
 
   @override
@@ -188,26 +188,7 @@ class _GuideSignInState extends State<GuideSignIn> {
                       ),
                     ),
                     SizedBox(
-                      height: 8,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => GuideForgetPassword(),
-                            ));
-                          },
-                          child: AppText(
-                              title: "Forget Password",
-                              color: AppColors.violet,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 45,
+                      height: 24.h,
                     ),
                     state is GuiderSignInLoading
                         ? Center(
@@ -216,6 +197,7 @@ class _GuideSignInState extends State<GuideSignIn> {
                             ),
                           )
                         : AppButton(
+                      width: double.infinity,
                             color: AppColors.violet,
                             font_color: AppColors.white,
                             title: "Sign In",
@@ -247,6 +229,7 @@ class _GuideSignInState extends State<GuideSignIn> {
                           color: AppColors.grey,
                         ),
                         GestureDetector(
+
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => GuideSignUp(),

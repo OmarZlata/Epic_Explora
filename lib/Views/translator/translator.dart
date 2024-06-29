@@ -1,3 +1,5 @@
+import 'package:epic_expolre/Widgets/app_text.dart';
+import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:translator/translator.dart';
@@ -19,7 +21,7 @@ class _TranslatorViewState extends State<TranslatorView> {
     'Corsican', 'Croatian', 'Czech', 'Danish', 'Dutch', 'English', 'Esperanto',
     'Estonian', 'Filipino', 'Finnish', 'French', 'Frisian', 'Galician',
     'Georgian', 'German', 'Greek', 'Gujarati', 'Haitian Creole', 'Hausa',
-    'Hawaiian', 'Hebrew', 'Hindi', 'Hmong', 'Hungarian', 'Icelandic', 'Igbo',
+    'Hawaiian', 'Hindi', 'Hmong', 'Hungarian', 'Icelandic', 'Igbo',
     'Indonesian', 'Irish', 'Italian', 'Japanese', 'Javanese', 'Kannada',
     'Kazakh', 'Khmer', 'Korean', 'Kurdish (Kurmanji)', 'Kyrgyz', 'Lao', 'Latin',
     'Latvian', 'Lithuanian', 'Luxembourgish', 'Macedonian', 'Malagasy', 'Malay',
@@ -156,9 +158,6 @@ class _TranslatorViewState extends State<TranslatorView> {
           break;
         case 'Hawaiian':
           _transalateLanguage = 'haw';
-          break;
-        case 'Hebrew':
-          _transalateLanguage = 'he';
           break;
         case 'Hindi':
           _transalateLanguage = 'hi';
@@ -380,94 +379,102 @@ class _TranslatorViewState extends State<TranslatorView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[900],
-      appBar: AppBar(
-        backgroundColor: Colors.grey[850],
-        title: Text('Smart Translator',style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold
-        ),),
-        centerTitle: true,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          iconTheme: IconThemeData(
+            color: AppColors.blue
+          ),
+          centerTitle: true,
+          backgroundColor: AppColors.white,
+          title: AppText(title: 'Translator',color: AppColors.black, fontSize: 22,fontWeight: FontWeight.bold,),),
 
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 16,vertical: 18),
-        child: Column(
-          children: [
-            Text(
-              'Enter Text to Translate',
-              style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 10),
-            Card(
-              color: Colors.grey[800],
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  controller: lang,
-                  style: TextStyle(color: Colors.white),
-                  maxLines: null,
-                  decoration: InputDecoration(
-                    hintText: 'Enter text here',
-                    hintStyle: TextStyle(color: Colors.grey[400]),
-                    border: InputBorder.none,
+        body: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: 16,vertical: 18),
+          child: Column(
+            children: [
+              Card(
+                elevation: 7,
+                color: AppColors.white,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+
+                    controller: lang,
+                    style: TextStyle(color: AppColors.black),
+                    maxLines: null,
+                    decoration: InputDecoration(
+                      hintText: 'Enter text here',
+                      hintStyle: TextStyle(color: AppColors.black),
+                      border: InputBorder.none,
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: 10),
-            Card(
-              color: Colors.grey[800],
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: DropdownButton<String>(
-                  dropdownColor: Colors.grey[800],
-                  isExpanded: true,
-                  value: selectedLanguage,
-                  icon: Icon(Icons.arrow_drop_down, color: Colors.white),
-                  style: TextStyle(color: Colors.white),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      selectedLanguage = newValue!;
-                    });
-                  },
-                  items: listLanguage.map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
+              SizedBox(height: 10),
+              Card(
+                elevation: 7,
+                color: AppColors.blue,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: DropdownButton<String>(
+                    dropdownColor: AppColors.blue.withOpacity(.95),
+                    isExpanded: true,
+                    value: selectedLanguage,
+                    icon: Icon(Icons.arrow_drop_down, color: Colors.white),
+                    style: TextStyle(color: Colors.white),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedLanguage = newValue!;
+                      });
+                    },
+                    items: listLanguage.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 20),
-            isLoading
-                ? CircularProgressIndicator()
-                : ElevatedButton(
-              onPressed: trans,
-              style: ElevatedButton.styleFrom(
+              SizedBox(height: 20),
+              isLoading
+                  ? Center(child: Column(
+                    children: [
+                      CircularProgressIndicator(color: AppColors.blue,),
+                      SizedBox(height: 10,),
+                      AppText(title: "Loading..."),
+                    ],
+                  ))
+                  : ElevatedButton(
 
+                onPressed: trans,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.white,
+                  foregroundColor: AppColors.blue
+                ),
+                child: Text('Translate'),
               ),
-              child: Text('Translate'),
-            ),
-            SizedBox(height: 20),
-            Card(
-              color: Colors.grey[800],
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  out,
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+              SizedBox(height: 20),
+              Card(
+                elevation: 7,
+                color: AppColors.blue,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    out,
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-    );
+      );
   }
 }

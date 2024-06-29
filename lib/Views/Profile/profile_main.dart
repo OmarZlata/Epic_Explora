@@ -71,7 +71,6 @@ void _showAlertDialog(BuildContext context) {
               AppText(
                 title: "Are You Sure You Want",
                 color: AppColors.grey,
-
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
               ),
@@ -103,6 +102,7 @@ void _showAlertDialog(BuildContext context) {
                       builder: (context) => SignInView(),
                     ),
                   );
+                  // CacheHelper().removeData(key: )
                   context.read<UserCubit>().signInEmail.clear();
                   context.read<UserCubit>().signInPassword.clear();
                 },
@@ -169,18 +169,20 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
           ),
           body: isLoading
               ? Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircularProgressIndicator(
-                    color: AppColors.blue,
-                                        ),
-                    SizedBox(height: 10,),
-                    AppText(title: "Loading...")
-                  ],
-                ),
-              )
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircularProgressIndicator(
+                        color: AppColors.blue,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      AppText(title: "Loading...")
+                    ],
+                  ),
+                )
               : Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8),
@@ -248,6 +250,17 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                       ),
                       SizedBox(height: 22),
                       AppTile(
+                        title: "Translator",
+                        icon: FontAwesomeIcons.language,
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => TranslatorView(),
+                          ));
+                        },
+                        color: AppColors.blue,
+                      ),
+                      SizedBox(height: 8),
+                      AppTile(
                         title: "Currency Converter",
                         icon: CupertinoIcons.money_dollar_circle,
                         onPressed: () {
@@ -259,7 +272,9 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                         },
                         color: AppColors.blue,
                       ),
-                      SizedBox(height: 8,),
+                      SizedBox(
+                        height: 8,
+                      ),
                       AppTile(
                         title: "Your Memories",
                         icon: CupertinoIcons.photo_fill_on_rectangle_fill,
@@ -272,6 +287,7 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                         },
                         color: AppColors.blue,
                       ),
+
                       SizedBox(height: 8),
                       AppTile(
                         title: "Terms of service",
@@ -287,15 +303,6 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                       ),
                       SizedBox(height: 8),
                       AppTile(
-                        title: "Translator",
-                        icon: FontAwesomeIcons.language,
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => TranslatorView(),));
-                        },
-                        color: AppColors.blue,
-                      ),
-                      SizedBox(height: 8),
-                      AppTile(
                         title: "About",
                         icon: Icons.info_outline,
                         onPressed: () {},
@@ -306,7 +313,9 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                         title: "Change Password",
                         icon: Icons.lock_outline_rounded,
                         onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditProfileScreen(),));
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => EditProfileScreen(),
+                          ));
                         },
                         color: AppColors.blue,
                       ),
@@ -323,7 +332,6 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                             );
                           } else {
                             _showAlertDialog(context);
-
                           }
                         },
                         color: Colors.red,

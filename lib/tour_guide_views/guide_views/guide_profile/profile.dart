@@ -71,7 +71,7 @@ class GuideProfile extends StatelessWidget {
                   border_color: AppColors.red.withOpacity(.3),
                   onTap: () {
                     context.read<UserCubit>().GuiderLogOut();
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => GuideSignIn(),));
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => GuiderSignIn(),));
                     context.read<UserCubit>().GuiderSignInEmail.clear();
                     context.read<UserCubit>().GuiderSignInPassword.clear();
 

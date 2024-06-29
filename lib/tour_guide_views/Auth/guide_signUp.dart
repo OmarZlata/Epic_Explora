@@ -10,11 +10,14 @@ import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:epic_expolre/cubit/user_cubit.dart';
 import 'package:epic_expolre/cubit/user_state.dart';
 import 'package:epic_expolre/tour_guide_views/Auth/guide_signIn.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../Views/Maps/splash/onboarding_3.dart';
 
 class GuideSignUp extends StatefulWidget {
   const GuideSignUp({super.key});
@@ -30,6 +33,9 @@ class _GuideSignUpState extends State<GuideSignUp> {
   File? image;
   final ImagePicker imagePicker = ImagePicker();
   final GlobalKey<FormState> guiderSignUpFormKey = GlobalKey<FormState>();
+  final List<String> locations = ['Cairo', 'Alexandria' ,'Aswan', 'Red Sea','Luxor' ];
+  double _currentSliderValue = 0;
+
 
   Future<void> uploadImage() async {
     var pickedImage = await imagePicker.pickImage(source: ImageSource.gallery);
@@ -44,57 +50,72 @@ class _GuideSignUpState extends State<GuideSignUp> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: BlocConsumer<UserCubit, UserState>(
-        listener: (context, state) {
-          if (state is SignUpSuccess) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                backgroundColor: AppColors.blue,
-                content: Center(
-                  child: AppText(
-                    title: 'Registration Done',
-                  ),
+    return BlocConsumer<UserCubit, UserState>(
+      listener: (context, state) {
+        if (state is GuiderSignUpSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              backgroundColor: AppColors.blue,
+              content: Center(
+                child: AppText(
+                  title: 'Registration Done',
                 ),
               ),
-            );
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => SignInView(),
-              ),
-            );
-          } else if (state is SignUpFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                backgroundColor: AppColors.blue,
-                content: Center(
-                  child: AppText(
-                    title: 'Failed to Sign Up',
-                  ),
-                ),
-              ),
-            );
-          }
-        },
-        builder: (context, state) {
-          return Scaffold(
-            backgroundColor: AppColors.white,
-            appBar: const AppAppBar(
-              title: 'Tour Guide SignUp',
-              centerTitle: true,
             ),
-            body: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 24),
-              child: Column(
-                children: [
-                  Image.asset('assets/images/Welcome1.png'),
-                  SizedBox(
-                    height: 14.h,
-                  ),
-                  Form(
-                    key: context.read<UserCubit>().GuiderSignUpFormKey,
-                    child: Column(
+          );
+
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => GuiderSignIn(),
+            ),
+          );
+        } else if (state is GuiderSignUpFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: AppColors.blue,
+              content: Center(
+                child: AppText(
+                  title: 'Failed to Sign Up',
+                ),
+              ),
+            ),
+          );
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: AppColors.white,
+          appBar: AppAppBar(
+            title: "Sign Up",
+            centerTitle: true,
+            leading: IconButton(
+              icon: Icon(CupertinoIcons.back),
+              onPressed: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => GoogleMapSplashView(),
+                    ));
+              },
+            ),
+          ),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 20),
+              child: Form(
+                key: guiderSignUpFormKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 50,
+                    ),
+                    Center(
+                      child: Image.asset('assets/images/Welcome2.png'),
+                    ),
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         AppText(
@@ -112,8 +133,7 @@ class _GuideSignUpState extends State<GuideSignUp> {
                           hintFontSize: 12,
                           obscureText: false,
                           maxLines: 1,
-                          controller:
-                              context.read<UserCubit>().GuiderSignUpName,
+                          controller: context.read<UserCubit>().GuiderSignUpName,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'Please enter your name';
@@ -130,7 +150,7 @@ class _GuideSignUpState extends State<GuideSignUp> {
                           fontWeight: FontWeight.bold,
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 10.h,
                         ),
                         AppTextField(
                           hint: "Email",
@@ -139,8 +159,7 @@ class _GuideSignUpState extends State<GuideSignUp> {
                           hintFontSize: 12,
                           obscureText: false,
                           maxLines: 1,
-                          controller:
-                              context.read<UserCubit>().GuidersignUpEmail,
+                          controller: context.read<UserCubit>().GuiderSignUpEmail,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Email can't be empty";
@@ -153,16 +172,14 @@ class _GuideSignUpState extends State<GuideSignUp> {
                             return null;
                           },
                         ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
+                        SizedBox(height: 23),
                         AppText(
                           title: "Password",
                           color: AppColors.black,
                           fontWeight: FontWeight.bold,
                         ),
                         SizedBox(
-                          height: 10.h,
+                          height: 10,
                         ),
                         AppTextField(
                           hint: "Password",
@@ -185,9 +202,6 @@ class _GuideSignUpState extends State<GuideSignUp> {
                             ),
                           ),
                           obscureText: obscurePassword,
-                          maxLines: 1,
-                          controller:
-                              context.read<UserCubit>().GuiderSignUpPassword,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'Please enter your password';
@@ -197,6 +211,8 @@ class _GuideSignUpState extends State<GuideSignUp> {
                             }
                             return null;
                           },
+                          maxLines: 1,
+                          controller: context.read<UserCubit>().GuiderSignUpPassword,
                         ),
                         SizedBox(
                           height: 10.h,
@@ -217,8 +233,7 @@ class _GuideSignUpState extends State<GuideSignUp> {
                           suffixicon: IconButton(
                             onPressed: () {
                               setState(() {
-                                obscurePasswordConfirm =
-                                    !obscurePasswordConfirm;
+                                obscurePasswordConfirm = !obscurePasswordConfirm;
                               });
                             },
                             icon: Icon(
@@ -232,17 +247,12 @@ class _GuideSignUpState extends State<GuideSignUp> {
                           ),
                           obscureText: obscurePasswordConfirm,
                           maxLines: 1,
-                          controller:
-                              context.read<UserCubit>().GuiderConfirmPassword,
+                          controller: context.read<UserCubit>().GuiderConfirmPassword,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'Please confirm your password';
                             }
-                            if (value !=
-                                context
-                                    .read<UserCubit>()
-                                    .GuiderSignUpPassword
-                                    .text) {
+                            if (value != context.read<UserCubit>().GuiderSignUpPassword.text) {
                               return 'Passwords do not match';
                             }
                             return null;
@@ -267,8 +277,7 @@ class _GuideSignUpState extends State<GuideSignUp> {
                           obscureText: false,
                           textInputType: TextInputType.phone,
                           maxLines: 1,
-                          controller:
-                              context.read<UserCubit>().GuiderPhoneNumber,
+                          controller: context.read<UserCubit>().GuiderPhoneNumber,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'Please enter your Phone Number';
@@ -298,8 +307,7 @@ class _GuideSignUpState extends State<GuideSignUp> {
                           obscureText: false,
                           textInputType: TextInputType.number,
                           maxLines: 1,
-                          controller:
-                              context.read<UserCubit>().GuiderNationalId,
+                          controller: context.read<UserCubit>().GuiderNationalId,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'Please enter your National ID';
@@ -310,107 +318,90 @@ class _GuideSignUpState extends State<GuideSignUp> {
                             return null;
                           },
                         ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 18.h,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppText(
-                        title: "Upload National ID Image",
-                        color: AppColors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      SizedBox(
-                        height: 8.h,
-                      ),
-                      image == null
-                          ? InkWell(
-                              onTap: uploadImage,
-                              child: Container(
-                                width: double.infinity,
-                                height: 150,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  border: Border.all(
-                                    color: AppColors.grey,
-                                  ),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      FontAwesomeIcons.plus,
-                                      color: AppColors.grey.withOpacity(.9),
-                                    ),
-                                    SizedBox(
-                                      height: 8,
-                                    ),
-                                    AppText(
-                                      title: "Upload Image",
-                                      color: AppColors.grey.withOpacity(.9),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            )
-                          : Container(
-                              width: double.infinity,
-                              height: 200,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.file(
-                                  image!,
-                                  fit: BoxFit.cover,
-                                ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        AppText(
+                          title: "Your State",
+                          color: AppColors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        SizedBox(
+                          height: 14.h,
+                        ),
+                         Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            TextFormField(
+                              controller: context.read<UserCubit>().StateGuiderDescriptionController,
+                              readOnly: true,
+                              decoration: InputDecoration(
+                                labelText: 'Selected Location',
+                                border: OutlineInputBorder(),
                               ),
                             ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 18.h,
-                  ),
-                  Row(
-                    children: [
-                      Checkbox(
-                        value: isChecked,
-                        activeColor: AppColors.violet,
-                        onChanged: (value) {
-                          setState(() {
-                            isChecked = value!;
-                          });
-                        },
-                      ),
-                      AppText(
-                        title: "I agree",
-                        color: AppColors.black,
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => TermsScreen(),
-                          ));
-                        },
-                        child: AppText(
-                          title: "Terms & Conditions",
-                          color: AppColors.blue,
+                            SizedBox(height: 10.h),
+                            Slider(
+                              value: _currentSliderValue,
+                              min: 0,
+                              max: (locations.length - 1).toDouble(),
+                              divisions: locations.length - 1,
+                              label: locations[_currentSliderValue.toInt()],
+                              onChanged: (double value) {
+                                setState(() {
+                                  _currentSliderValue = value;
+                                  context.read<UserCubit>().StateGuiderDescriptionController.text = locations[_currentSliderValue.toInt()];
+                                });
+                              },
+                            ),
+                          ],
                         ),
-                      )
-                    ],
-                  ),
-                  state is SignUpLoading
-                      ? Center(
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        Row(
+                          children: [
+                            Checkbox(
+                              value: isChecked,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  isChecked = newValue!;
+                                });
+                              },
+                            ),
+                            AppText(
+                              title: "Accept Terms and Conditions",
+                              color: AppColors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            Spacer(),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => TermsScreen(),
+                                  ),
+                                );
+                              },
+                              child: AppText(
+                                title: "View",
+                                color: AppColors.blue,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                        state is GuiderSignUpLoading
+                            ? Center(
                           child: CircularProgressIndicator(
                             color: AppColors.blue,
                           ),
                         )
-                      : AppButton(
+                            : AppButton(
+                          width: double.infinity,
                           border_color: AppColors.white,
                           font_color: AppColors.white,
                           color: isChecked
@@ -419,23 +410,22 @@ class _GuideSignUpState extends State<GuideSignUp> {
                           title: "SignUp",
                           onTap: isChecked
                               ? () {
-                                  if (context.read<UserCubit>().GuiderSignUpFormKey.currentState!.validate()) {
-                                    context.read<UserCubit>().GuiderSignUpFormKey.currentState!.save();
-                                    context.read<UserCubit>().GuiderSignUp();
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                GuideSignIn()));
-                                  }
-                                }
+                            if (guiderSignUpFormKey.currentState!.validate()) {
+                              guiderSignUpFormKey.currentState!.save();
+                              context.read<UserCubit>().GuiderSignUp();
+                            }
+                          }
                               : null,
                         ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

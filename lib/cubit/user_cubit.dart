@@ -21,13 +21,13 @@ class UserCubit extends Cubit<UserState> {
   GlobalKey<FormState> GuiderSignInFormKey = GlobalKey();
 
   GlobalKey<FormState> GuiderSignUpFormKey = GlobalKey();
-
-  GlobalKey<FormState> GuiderSignUp2FormKey = GlobalKey();
+  GlobalKey<FormState> GuiderSignUpFormKeyNew = GlobalKey();
   GlobalKey<FormState> paymentFormKey = GlobalKey();
   GlobalKey<FormState> ForgetPasswordFormKey = GlobalKey();
   GlobalKey<FormState> VerificationFormkey = GlobalKey();
   TextEditingController newPassword = TextEditingController();
   TextEditingController confirmNewPassword = TextEditingController();
+  TextEditingController StateGuiderDescriptionController = TextEditingController();
   //Sign in email
   TextEditingController signInEmail = TextEditingController();
 
@@ -36,7 +36,7 @@ class UserCubit extends Cubit<UserState> {
   TextEditingController GuiderSignInPassword = TextEditingController();
 
   TextEditingController GuiderSignUpName = TextEditingController();
-  TextEditingController GuidersignUpEmail = TextEditingController();
+  TextEditingController GuiderSignUpEmail = TextEditingController();
   TextEditingController GuiderSignUpPassword = TextEditingController();
   TextEditingController GuiderConfirmPassword = TextEditingController();
   TextEditingController GuiderPhoneNumber = TextEditingController();
@@ -203,12 +203,12 @@ class UserCubit extends Cubit<UserState> {
           isFromData: true,
           data: {
             ApiKey.name: GuiderSignUpName.text,
-            ApiKey.email: GuidersignUpEmail.text,
+            ApiKey.email: GuiderSignUpEmail.text,
             ApiKey.password: GuiderSignUpPassword.text,
             ApiKey.confirmPassword: GuiderConfirmPassword.text,
             ApiKey.phoneNnumber: GuiderPhoneNumber.text,
             ApiKey.nationalId: GuiderNationalId.text,
-            ApiKey.description:"dsadadawdada",
+            ApiKey.description:StateGuiderDescriptionController.text,
           },
         );
         Guider = GuiderSignInModel.fromJson(response.data);

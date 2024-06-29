@@ -94,7 +94,7 @@ class _GoogleMapSplashViewState extends State<GoogleMapSplashView> {
               font_color: AppColors.white,
               onTap: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => GuideSignIn(),
+                  builder: (context) => GuiderSignIn(),
                 ));
               },
             ),
