@@ -5,6 +5,7 @@ import 'package:epic_expolre/Views/TourGuider/GuiderCard.dart';
 import 'package:epic_expolre/Widgets/app_AppBar.dart';
 import 'package:epic_expolre/Widgets/app_text.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../cache/cache_helper.dart';
@@ -86,7 +87,7 @@ class _OurGuidersState extends State<OurGuiders> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(CupertinoIcons.back, color: AppColors.blue),
           onPressed: () => Navigator.of(context).pop(),
         ),
         backgroundColor: AppColors.white,

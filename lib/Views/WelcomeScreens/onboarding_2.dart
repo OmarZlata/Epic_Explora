@@ -74,6 +74,7 @@ class WelcomeScreen2 extends StatelessWidget {
               title: "Back",
               color: AppColors.white,
               font_color: AppColors.blue,
+              border_color: AppColors.grey.withOpacity(.3),
               onTap: () {
                 Navigator.push(
                     context,

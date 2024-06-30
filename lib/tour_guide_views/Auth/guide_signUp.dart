@@ -88,6 +88,7 @@ class _GuideSignUpState extends State<GuideSignUp> {
           backgroundColor: AppColors.white,
           appBar: AppAppBar(
             title: "Sign Up",
+            iconThemeColor: AppColors.violet,
             centerTitle: true,
             leading: IconButton(
               icon: Icon(CupertinoIcons.back),
@@ -95,7 +96,7 @@ class _GuideSignUpState extends State<GuideSignUp> {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => GoogleMapSplashView(),
+                      builder: (context) => GuiderSignIn(),
                     ));
               },
             ),
@@ -385,7 +386,7 @@ class _GuideSignUpState extends State<GuideSignUp> {
                               },
                               child: AppText(
                                 title: "View",
-                                color: AppColors.blue,
+                                color: AppColors.violet,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -397,7 +398,7 @@ class _GuideSignUpState extends State<GuideSignUp> {
                         state is GuiderSignUpLoading
                             ? Center(
                           child: CircularProgressIndicator(
-                            color: AppColors.blue,
+                            color: AppColors.violet,
                           ),
                         )
                             : AppButton(
@@ -410,6 +411,7 @@ class _GuideSignUpState extends State<GuideSignUp> {
                           title: "SignUp",
                           onTap: isChecked
                               ? () {
+                            print(context.read<UserCubit>().StateGuiderDescriptionController.text);
                             if (guiderSignUpFormKey.currentState!.validate()) {
                               guiderSignUpFormKey.currentState!.save();
                               context.read<UserCubit>().GuiderSignUp();

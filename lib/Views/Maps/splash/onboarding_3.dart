@@ -90,8 +90,9 @@ class _GoogleMapSplashViewState extends State<GoogleMapSplashView> {
             SizedBox(height: 10.h,),
             AppButton(
               title: "Register As Guider",
-              color: AppColors.blue,
-              font_color: AppColors.white,
+              color: AppColors.white,
+              font_color: AppColors.violet,
+              border_color: AppColors.violet.withOpacity(.3),
               onTap: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) => GuiderSignIn(),

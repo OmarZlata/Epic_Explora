@@ -10,15 +10,13 @@ import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:epic_expolre/cubit/user_cubit.dart';
 import 'package:epic_expolre/cubit/user_state.dart';
 import 'package:epic_expolre/tour_guide_views/Auth/guide_signUp.dart';
-import 'package:epic_expolre/tour_guide_views/guide_views/home/home_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GuiderSignIn extends StatefulWidget {
-  const GuiderSignIn({super.key});
+  const GuiderSignIn({Key? key}) : super(key: key);
 
   @override
   State<GuiderSignIn> createState() => _GuiderSignInState();
@@ -66,34 +64,35 @@ class _GuiderSignInState extends State<GuiderSignIn> {
                 ),
               ),
             );
-            print("not correct");
           }
         },
         builder: (context, state) {
           return Scaffold(
             backgroundColor: AppColors.white,
             appBar: AppAppBar(
+              iconThemeColor: AppColors.violet,
               title: "Sign In",
               centerTitle: true,
               leading: IconButton(
-                icon: Icon(
-                    CupertinoIcons.back
-                ), onPressed: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GoogleMapSplashView(),));
-              },
+                icon: Icon(CupertinoIcons.back),
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => GoogleMapSplashView(),
+                    ),
+                  );
+                },
               ),
             ),
             body: SingleChildScrollView(
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 22, vertical: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 20),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      height: 50,
-                    ),
+                    SizedBox(height: 50),
                     Center(
                       child: Image.asset('assets/images/Welcome2.png'),
                     ),
@@ -107,129 +106,97 @@ class _GuiderSignInState extends State<GuiderSignIn> {
                             color: AppColors.black,
                             fontWeight: FontWeight.bold,
                           ),
-                          const SizedBox(
-                            height: 10,
+                          const SizedBox(height: 10),
+                          AppTextField(
+                            hint: "Email",
+                            radius: 8,
+                            icon: Icons.email_outlined,
+                            hintFontSize: 12,
+                            obscureText: false,
+                            maxLines: 1,
+                            controller: context.read<UserCubit>().GuiderSignInEmail,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Email can't be empty";
+                              }
+                              final emailRegex = RegExp(
+                                  r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+                              if (!emailRegex.hasMatch(value)) {
+                                return "Invalid email address";
+                              }
+                              return null;
+                            },
                           ),
-                          Column(
-                            children: [
-                              AppTextField(
-                                hint: "Email",
-                                radius: 8,
-                                icon: Icons.email_outlined,
-                                hintFontSize: 12,
-                                obscureText: false,
-                                maxLines: 1,
-                                controller:
-                                    context.read<UserCubit>().GuiderSignInEmail,
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return "Email can't be empty";
-                                  }
-                                  final emailRegex = RegExp(
-                                      r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
-                                  if (!emailRegex.hasMatch(value)) {
-                                    return "Invalid email address";
-                                  }
-                                  return null;
-                                },
+                          SizedBox(height: 23),
+                          const AppText(
+                            title: "Password",
+                            color: AppColors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          SizedBox(height: 10),
+                          AppTextField(
+                            hint: "Password",
+                            radius: 8,
+                            icon: Icons.lock_outline,
+                            hintFontSize: 12,
+                            suffixicon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  obscurePassword = !obscurePassword;
+                                });
+                              },
+                              icon: Icon(
+                                obscurePassword
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                                color: obscurePassword
+                                    ? AppColors.grey
+                                    : AppColors.blue,
                               ),
-                              SizedBox(height: 23),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  AppText(
-                                    title: "Password",
-                                    color: AppColors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  AppTextField(
-                                    hint: "Password",
-                                    radius: 8,
-                                    icon: Icons.lock_outline,
-                                    hintFontSize: 12,
-                                    suffixicon: IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          obscurePassword = !obscurePassword;
-                                        });
-                                      },
-                                      icon: Icon(
-                                        color: obscurePassword
-                                            ? AppColors.grey
-                                            : AppColors.blue,
-                                        obscurePassword
-                                            ? Icons.visibility_off
-                                            : Icons.visibility,
-                                      ),
-                                    ),
-                                    obscureText: obscurePassword,
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'Please enter your password';
-                                      }
-                                      if (value.length < 8) {
-                                        return 'Password must be at least 8 characters long';
-                                      }
-                                      return null;
-                                    },
-                                    maxLines: 1,
-                                    controller: context
-                                        .read<UserCubit>()
-                                        .GuiderSignInPassword,
-                                  ),
-                                ],
-                              ),
-                            ],
+                            ),
+                            obscureText: obscurePassword,
+                            maxLines: 1,
+                            controller: context.read<UserCubit>().GuiderSignInPassword,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter your password';
+                              }
+                              if (value.length < 8) {
+                                return 'Password must be at least 8 characters long';
+                              }
+                              return null;
+                            },
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 24.h,
-                    ),
+                    SizedBox(height: 24.h),
                     state is GuiderSignInLoading
                         ? Center(
-                            child: CircularProgressIndicator(
-                              color: AppColors.violet,
-                            ),
-                          )
+                      child: CircularProgressIndicator(
+                        color: AppColors.violet,
+                      ),
+                    )
                         : AppButton(
                       width: double.infinity,
-                            color: AppColors.violet,
-                            font_color: AppColors.white,
-                            title: "Sign In",
-                            onTap: () {
-                              if (context
-                                  .read<UserCubit>()
-                                  .GuiderSignInFormKey
-                                  .currentState!
-                                  .validate()) {
-                                context
-                                    .read<UserCubit>()
-                                    .GuiderSignInFormKey
-                                    .currentState!
-                                    .save();
-                                context
-                                    .read<UserCubit>()
-                                    .GuiderLogin(); // Add parentheses to call the method
-                              }
-                            },
-                          ),
-                    SizedBox(
-                      height: 10,
+                      color: AppColors.violet,
+                      font_color: AppColors.white,
+                      title: "Sign In",
+                      onTap: () {
+                        if (context.read<UserCubit>().GuiderSignInFormKey.currentState!.validate()) {
+                          context.read<UserCubit>().GuiderLogin();
+                        }
+                      },
                     ),
+                    SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         AppText(
-                          title: "Don’t have an Account ?",
+                          title: "Don’t have an Account?  ",
                           color: AppColors.grey,
                         ),
                         GestureDetector(
-
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => GuideSignUp(),
@@ -238,7 +205,7 @@ class _GuiderSignInState extends State<GuiderSignIn> {
                           child: AppText(
                             title: " SignUp",
                             color: AppColors.violet,
-                            fontWeight: FontWeight.bold,
+
                           ),
                         ),
                       ],

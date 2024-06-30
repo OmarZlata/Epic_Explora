@@ -4,6 +4,9 @@ import 'package:epic_expolre/core/api/api_consumer.dart';
 import 'package:epic_expolre/core/api/const_end_ponits.dart';
 import 'package:epic_expolre/core/errors/exceptions.dart';
 import 'package:epic_expolre/core/models/guider_models/guider_signIn_model.dart';
+import 'package:epic_expolre/core/models/guider_models/guider_signUp_data.dart';
+import 'package:epic_expolre/core/models/guider_models/guider_signUp_data.dart';
+import 'package:epic_expolre/core/models/guider_models/guider_signUp_data.dart';
 
 import 'package:epic_expolre/core/models/user_models/sign_in_model.dart';
 import 'package:epic_expolre/core/models/user_models/sign_up_model.dart';
@@ -13,6 +16,9 @@ import 'package:epic_expolre/cubit/user_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:developer';
+
+import '../core/models/guider_models/guider_signUp_data.dart';
+import '../core/models/guider_models/guider_signUp_data.dart';
 
 class UserCubit extends Cubit<UserState> {
   UserCubit(this.api) : super(UserInitial());
@@ -53,7 +59,8 @@ class UserCubit extends Cubit<UserState> {
   //Sign up confirm password
   TextEditingController confirmPassword = TextEditingController();
   SignInModel? user;
-  GuiderSignInModel? Guider;
+  GuiderSignInModel? GuiderSignIn;
+  TourGuiderSignUpModel? GuiderSignUpModel;
   VerificationModel? verificationModel;
 
   signUp() async {
@@ -161,11 +168,11 @@ class UserCubit extends Cubit<UserState> {
           ApiKey.password: GuiderSignInPassword.text,
         },
       );
-      Guider = GuiderSignInModel.fromJson(response);
-      CacheHelper().saveData(key: ApiKey.Guidertoken, value: Guider!.token);
-      CacheHelper().saveData(key: ApiKey.GuiderId, value: Guider!.id);
-      log("${Guider!.token}");
-      log("${Guider!.id}");
+      GuiderSignIn = GuiderSignInModel.fromJson(response);
+      CacheHelper().saveData(key: ApiKey.Guidertoken, value: GuiderSignIn!.token);
+      CacheHelper().saveData(key: ApiKey.GuiderId, value: GuiderSignIn!.id);
+      log("${GuiderSignIn!.token}");
+      log("${GuiderSignIn!.id}");
       log("===============Done===============");
       emit(GuiderSignInSuccess());
     } on ServerException catch (e) {
@@ -180,10 +187,10 @@ class UserCubit extends Cubit<UserState> {
       final response = await api.post(
         EndPoint.GuiderLogOut,
         option: Options(headers: {
-          'Authorization': 'Bearer ${Guider!.token}',
+          'Authorization': 'Bearer ${GuiderSignIn!.token}',
         }),
       );
-      Guider = GuiderSignInModel.fromJson(response.data);
+      GuiderSignIn = GuiderSignInModel.fromJson(response.data);
       log(response.toString());
       log("===========================Done Logout===========================");
       emit(GuiderLogOutSuccess());
@@ -211,7 +218,7 @@ class UserCubit extends Cubit<UserState> {
             ApiKey.description:StateGuiderDescriptionController.text,
           },
         );
-        Guider = GuiderSignInModel.fromJson(response.data);
+        GuiderSignUpModel = TourGuiderSignUpModel.fromJson(response.data);
         log(response);
         emit(GuiderSignUpSuccess());
       } on ServerException catch (e) {
