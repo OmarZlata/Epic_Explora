@@ -34,157 +34,130 @@ class _ApiHotelCardState extends State<ApiHotelCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 24,
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HotelsDetails(id: widget.cardid),
+            ),
+          );
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(16.r),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 10,
+                offset: Offset(0, 5),
+              ),
+            ],
           ),
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HotelsDetails(id: widget.cardid),
-                  ));
-            },
-            child: Container(
-              child: Center(
-                child: Material(
-                  elevation: 5,
-                  borderRadius: BorderRadius.circular(8),
-                  child: Container(
-                    height: 148,
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.circular(8),
+          child: Column(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+                child: Image.network(
+                  widget.cardimgUrl[0],
+                  height: 180.h,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(12.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.cardText,
+                      style: TextStyle(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
-                    child: Stack(
+                    SizedBox(height: 8.h),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.location_on,
+                          color: AppColors.blue,
+                          size: 18.sp,
+                        ),
+                        SizedBox(width: 4.w),
+                        Flexible(
+                          child: Text(
+                            "${widget.cardAddress}, Egypt",
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              color: AppColors.grey,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8.h),
+                    Text(
+                      "${widget.price} EGP",
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.blue,
+                      ),
+                    ),
+                    SizedBox(height: 8.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Flexible(
-                                    child: Container(
-                                      width: 100,
-                                      height: 130,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: NetworkImage("${widget.cardimgUrl[0]}"),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                            Icon(
+                              isFavorite ? Icons.favorite : Icons.favorite_border,
+                              color: Colors.red,
+                              size: 24.sp,
+                            ),
+                            SizedBox(width: 4.w),
+                            Text(
+                              "${getRandomNumber()}",
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                color: AppColors.grey,
                               ),
                             ),
-                            Expanded(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Flexible(
-                                        child: Text(
-                                          widget.cardText,
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 36,
-                                      ),
-                                      InkWell(
-                                        child: Image.asset('assets/images/dots.png'),
-                                        onTap: () {
-                                          print("Delete");
-                                        },
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.location_on_outlined,
-                                        color: AppColors.blue,
-                                      ),
-                                      Flexible(
-                                        child: Text(
-                                          "${widget.cardAddress}, Egypt",
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: AppColors.grey,
-                                          ),
-                                        ),
-                                      ),
-                                      Icon(
-                                        Icons.arrow_drop_down,
-                                        color: AppColors.blue,
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
-                                  Text("${widget.price} EGP"),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Icon(
-                                            Icons.favorite,
-
-                                            color: Colors.red,
-                                            size: 28,
-                                          ),
-                                          Text(
-                                            "${getRandomNumber()}",
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              color: AppColors.grey,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        width: 50,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Image.asset('assets/images/rate.png'),
-                                          Text("${widget.rate}"),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ],
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.star,
+                              color: Colors.yellow[700],
+                              size: 24.sp,
+                            ),
+                            SizedBox(width: 4.w),
+                            Text(
+                              "${widget.rate}",
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                color: AppColors.grey,
                               ),
                             ),
                           ],
                         ),
                       ],
                     ),
-                  ),
+                  ],
                 ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

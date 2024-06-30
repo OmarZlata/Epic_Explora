@@ -18,6 +18,7 @@ import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:epic_expolre/cubit/user_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'Views/Home/view.dart';
 import 'Views/My_Trips/Add_Trip/add_trip.dart';
@@ -30,6 +31,7 @@ import 'Widgets/booking_tabBar.dart';
 import 'Widgets/bottomNavigationBar.dart';
 import 'Widgets/trips_tabBar.dart';
 import 'cache/cache_helper.dart';
+import 'generated/l10n.dart';
 import 'tour_guide_views/Auth/guide_signUp.dart';
 
 void main() {
@@ -43,9 +45,26 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  static void setLocale(BuildContext context, Locale newLocale) {
+    _MyAppState state = context.findAncestorStateOfType<_MyAppState>()!;
+    state.setLocale(newLocale);
+  }
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Locale _locale = Locale('ar');
+
+  void setLocale(Locale locale) {
+    setState(() {
+      _locale = locale;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,14 +72,22 @@ class MyApp extends StatelessWidget {
       designSize: const Size(393, 852),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (_ , child) {
+      builder: (_, child) {
         return MaterialApp(
+          locale: _locale,
+          localizationsDelegates: [
+            S.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: S.delegate.supportedLocales,
           debugShowCheckedModeBanner: false,
           title: 'Epic Explore',
           theme: ThemeData(
             primaryColor: Color(0xFF2F3C7E),
           ),
-          home:SplashScreen(),
+          home: SplashScreen(),
         );
       },
     );

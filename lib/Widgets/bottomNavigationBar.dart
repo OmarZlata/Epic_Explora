@@ -7,6 +7,7 @@ import '../Views/Home/view.dart';
 import '../Views/MainScreens/favourites_tabbar.dart';
 import '../Views/Profile/profile_main.dart';
 import '../core/app_colors/app_colors.dart';
+import '../generated/l10n.dart';
 import 'trips_tabBar.dart';
 
 class bottomNavigationBar extends StatefulWidget {
@@ -44,19 +45,19 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.house_fill),
-            label: "Home",
+            label: S.of(context).home,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
-            label: 'Favorites',
+            label: S.of(context).favorite,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_pin_rounded),
-            label: 'Tour Guider',
+            label: S.of(context).tourGuider,
           ),
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.person_circle_fill),
-            label: 'Profile',
+            label: S.of(context).profile,
           ),
         ],
       ),

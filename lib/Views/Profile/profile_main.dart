@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:epic_expolre/Views/auth/SignIn.dart';
+import 'package:epic_expolre/Views/translator/translator.dart';
 import 'package:epic_expolre/Views/user_gallary/home.dart';
 import 'package:epic_expolre/Widgets/app_AppBar.dart';
 import 'package:epic_expolre/Widgets/app_button.dart';
@@ -17,8 +18,10 @@ import '../../Widgets/booking_tabBar.dart';
 import '../../cache/cache_helper.dart';
 import '../../core/api/const_end_ponits.dart';
 import '../../core/app_colors/app_colors.dart';
+import '../../generated/l10n.dart';
 import '../Home/view.dart';
 import 'AppMode.dart';
+import 'ChangeLocal.dart';
 import 'Edit_Profile.dart';
 import 'Terms.dart';
 import 'Currency_Convertor.dart';
@@ -52,7 +55,7 @@ void _showAlertDialog(BuildContext context) {
       return AlertDialog(
         title: Center(
             child: AppText(
-          title: 'Logout',
+          title: S.of(context).logout,
           fontWeight: FontWeight.bold,
           fontSize: 20,
           color: AppColors.red.withOpacity(.5),
@@ -68,14 +71,13 @@ void _showAlertDialog(BuildContext context) {
                 height: 8,
               ),
               AppText(
-                title: "Are You Sure You Want",
+                title: S.of(context).confirmPassword,
                 color: AppColors.grey,
-
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
               ),
               AppText(
-                title: "To Logout ?",
+                title: S.of(context).logoutPrompt,
                 color: AppColors.grey,
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
@@ -91,7 +93,7 @@ void _showAlertDialog(BuildContext context) {
           Column(
             children: [
               AppButton(
-                title: "Logout !",
+                title: S.of(context).logout,
                 color: AppColors.red.withOpacity(.4),
                 font_color: AppColors.white,
                 border_color: AppColors.red.withOpacity(.3),
@@ -102,6 +104,7 @@ void _showAlertDialog(BuildContext context) {
                       builder: (context) => SignInView(),
                     ),
                   );
+                  // CacheHelper().removeData(key: )
                   context.read<UserCubit>().signInEmail.clear();
                   context.read<UserCubit>().signInPassword.clear();
                 },
@@ -111,7 +114,7 @@ void _showAlertDialog(BuildContext context) {
               ),
               AppButton(
                 border_color: AppColors.grey,
-                title: "Cancel",
+                title: S.of(context).cancel,
                 onTap: () {
                   Navigator.of(context).pop();
                 },
@@ -162,24 +165,32 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
       builder: (context, state) {
         return Scaffold(
           backgroundColor: AppColors.white,
-          appBar: AppAppBar(
-            title: "Profile Settings",
+          appBar: AppBar(
+            title: AppText(
+                title: S.of(context).profileSettings,
+                color: AppColors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 20),
             centerTitle: true,
+            backgroundColor: AppColors.white,
+            elevation: 0.5,
           ),
           body: isLoading
               ? Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircularProgressIndicator(
-                    color: AppColors.blue,
-                                        ),
-                    SizedBox(height: 10,),
-                    AppText(title: "Loading...")
-                  ],
-                ),
-              )
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircularProgressIndicator(
+                        color: AppColors.blue,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      AppText(title: S.of(context).loading,)
+                    ],
+                  ),
+                )
               : Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8),
@@ -195,11 +206,11 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                           ),
                           SizedBox(height: 8),
                           AppText(
-                            title: userInfo?.name ?? 'No Name',
+                            title: userInfo?.name ?? S.of(context).noName,
                             fontWeight: FontWeight.bold,
                           ),
                           AppText(
-                            title: userInfo?.email ?? 'No Email',
+                            title: userInfo?.email ?? S.of(context).noEmail,
                             color: AppColors.grey,
                           ),
                           SizedBox(height: 8),
@@ -214,14 +225,14 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                             },
                             child: Container(
                               height: 29,
-                              width: 115,
+                              width: 170,
                               alignment: Alignment.center,
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   AppText(
-                                    title: "Edit Profile",
+                                    title: S.of(context).editProfile,
                                     color: AppColors.white,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
@@ -247,7 +258,29 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                       ),
                       SizedBox(height: 22),
                       AppTile(
-                        title: "Currency Converter",
+                        title: S.of(context).language,
+                        icon: CupertinoIcons.globe,
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => LocaleSwitchScreen(),
+                          ));
+                        },
+                        color: AppColors.blue,
+                      ),
+                      SizedBox(height: 8),
+                      AppTile(
+                        title: S.of(context).translator,
+                        icon: FontAwesomeIcons.language,
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => TranslatorView(),
+                          ));
+                        },
+                        color: AppColors.blue,
+                      ),
+                      SizedBox(height: 8),
+                      AppTile(
+                        title: S.of(context).currencyConverter,
                         icon: CupertinoIcons.money_dollar_circle,
                         onPressed: () {
                           Navigator.of(context).push(
@@ -258,9 +291,11 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                         },
                         color: AppColors.blue,
                       ),
-                      SizedBox(height: 8,),
+                      SizedBox(
+                        height: 8,
+                      ),
                       AppTile(
-                        title: "Your Memories",
+                        title: S.of(context).yourMemories,
                         icon: CupertinoIcons.photo_fill_on_rectangle_fill,
                         onPressed: () {
                           Navigator.of(context).push(
@@ -271,9 +306,10 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                         },
                         color: AppColors.blue,
                       ),
+
                       SizedBox(height: 8),
                       AppTile(
-                        title: "Terms of service",
+                        title: S.of(context).termsOfService,
                         icon: Icons.library_books,
                         onPressed: () {
                           Navigator.of(context).push(
@@ -286,30 +322,25 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                       ),
                       SizedBox(height: 8),
                       AppTile(
-                        title: "Privacy policy",
-                        icon: Icons.privacy_tip_outlined,
-                        onPressed: () {},
-                        color: AppColors.blue,
-                      ),
-                      SizedBox(height: 8),
-                      AppTile(
-                        title: "About",
+                        title: S.of(context).about,
                         icon: Icons.info_outline,
                         onPressed: () {},
                         color: AppColors.blue,
                       ),
                       SizedBox(height: 8),
                       AppTile(
-                        title: "Change Password",
+                        title: S.of(context).changePassword,
                         icon: Icons.lock_outline_rounded,
                         onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditProfileScreen(),));
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => EditProfileScreen(),
+                          ));
                         },
                         color: AppColors.blue,
                       ),
                       SizedBox(height: 8),
                       AppTile(
-                        title: "Logout",
+                        title: S.of(context).logout,
                         icon: Icons.logout,
                         onPressed: () {
                           if (state is LogoutLoading) {
@@ -320,7 +351,6 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                             );
                           } else {
                             _showAlertDialog(context);
-
                           }
                         },
                         color: Colors.red,

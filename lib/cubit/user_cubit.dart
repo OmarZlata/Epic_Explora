@@ -4,6 +4,9 @@ import 'package:epic_expolre/core/api/api_consumer.dart';
 import 'package:epic_expolre/core/api/const_end_ponits.dart';
 import 'package:epic_expolre/core/errors/exceptions.dart';
 import 'package:epic_expolre/core/models/guider_models/guider_signIn_model.dart';
+import 'package:epic_expolre/core/models/guider_models/guider_signUp_data.dart';
+import 'package:epic_expolre/core/models/guider_models/guider_signUp_data.dart';
+import 'package:epic_expolre/core/models/guider_models/guider_signUp_data.dart';
 
 import 'package:epic_expolre/core/models/user_models/sign_in_model.dart';
 import 'package:epic_expolre/core/models/user_models/sign_up_model.dart';
@@ -14,6 +17,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:developer';
 
+import '../core/models/guider_models/guider_signUp_data.dart';
+import '../core/models/guider_models/guider_signUp_data.dart';
+
 class UserCubit extends Cubit<UserState> {
   UserCubit(this.api) : super(UserInitial());
   final ApiConsumer api;
@@ -21,13 +27,13 @@ class UserCubit extends Cubit<UserState> {
   GlobalKey<FormState> GuiderSignInFormKey = GlobalKey();
 
   GlobalKey<FormState> GuiderSignUpFormKey = GlobalKey();
-
-  GlobalKey<FormState> GuiderSignUp2FormKey = GlobalKey();
+  GlobalKey<FormState> GuiderSignUpFormKeyNew = GlobalKey();
   GlobalKey<FormState> paymentFormKey = GlobalKey();
   GlobalKey<FormState> ForgetPasswordFormKey = GlobalKey();
   GlobalKey<FormState> VerificationFormkey = GlobalKey();
   TextEditingController newPassword = TextEditingController();
   TextEditingController confirmNewPassword = TextEditingController();
+  TextEditingController StateGuiderDescriptionController = TextEditingController();
   //Sign in email
   TextEditingController signInEmail = TextEditingController();
 
@@ -36,7 +42,7 @@ class UserCubit extends Cubit<UserState> {
   TextEditingController GuiderSignInPassword = TextEditingController();
 
   TextEditingController GuiderSignUpName = TextEditingController();
-  TextEditingController GuidersignUpEmail = TextEditingController();
+  TextEditingController GuiderSignUpEmail = TextEditingController();
   TextEditingController GuiderSignUpPassword = TextEditingController();
   TextEditingController GuiderConfirmPassword = TextEditingController();
   TextEditingController GuiderPhoneNumber = TextEditingController();
@@ -53,7 +59,8 @@ class UserCubit extends Cubit<UserState> {
   //Sign up confirm password
   TextEditingController confirmPassword = TextEditingController();
   SignInModel? user;
-  GuiderSignInModel? Guider;
+  GuiderSignInModel? GuiderSignIn;
+  TourGuiderSignUpModel? GuiderSignUpModel;
   VerificationModel? verificationModel;
 
   signUp() async {
@@ -161,11 +168,11 @@ class UserCubit extends Cubit<UserState> {
           ApiKey.password: GuiderSignInPassword.text,
         },
       );
-      Guider = GuiderSignInModel.fromJson(response);
-      CacheHelper().saveData(key: ApiKey.Guidertoken, value: Guider!.token);
-      CacheHelper().saveData(key: ApiKey.GuiderId, value: Guider!.id);
-      log("${Guider!.token}");
-      log("${Guider!.id}");
+      GuiderSignIn = GuiderSignInModel.fromJson(response);
+      CacheHelper().saveData(key: ApiKey.Guidertoken, value: GuiderSignIn!.token);
+      CacheHelper().saveData(key: ApiKey.GuiderId, value: GuiderSignIn!.id);
+      log("${GuiderSignIn!.token}");
+      log("${GuiderSignIn!.id}");
       log("===============Done===============");
       emit(GuiderSignInSuccess());
     } on ServerException catch (e) {
@@ -180,10 +187,10 @@ class UserCubit extends Cubit<UserState> {
       final response = await api.post(
         EndPoint.GuiderLogOut,
         option: Options(headers: {
-          'Authorization': 'Bearer ${Guider!.token}',
+          'Authorization': 'Bearer ${GuiderSignIn!.token}',
         }),
       );
-      Guider = GuiderSignInModel.fromJson(response.data);
+      GuiderSignIn = GuiderSignInModel.fromJson(response.data);
       log(response.toString());
       log("===========================Done Logout===========================");
       emit(GuiderLogOutSuccess());
@@ -203,15 +210,15 @@ class UserCubit extends Cubit<UserState> {
           isFromData: true,
           data: {
             ApiKey.name: GuiderSignUpName.text,
-            ApiKey.email: GuidersignUpEmail.text,
+            ApiKey.email: GuiderSignUpEmail.text,
             ApiKey.password: GuiderSignUpPassword.text,
             ApiKey.confirmPassword: GuiderConfirmPassword.text,
             ApiKey.phoneNnumber: GuiderPhoneNumber.text,
             ApiKey.nationalId: GuiderNationalId.text,
-            ApiKey.description:"dsadadawdada",
+            ApiKey.description:StateGuiderDescriptionController.text,
           },
         );
-        Guider = GuiderSignInModel.fromJson(response.data);
+        GuiderSignUpModel = TourGuiderSignUpModel.fromJson(response.data);
         log(response);
         emit(GuiderSignUpSuccess());
       } on ServerException catch (e) {

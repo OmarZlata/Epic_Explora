@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../Widgets/app_button.dart';
 import '../../Widgets/app_text.dart';
 import '../../core/app_colors/app_colors.dart';
+import '../../generated/l10n.dart';
 import 'onboarding_2.dart';
 
 class WelcomeScreen1 extends StatelessWidget {
@@ -34,20 +35,20 @@ class WelcomeScreen1 extends StatelessWidget {
               ),
             ),
             AppText(
-              title: "Welcome To Epic Explore",
+              title: S.of(context).welcome,
               color: AppColors.black,
               fontSize: 22 ,
               fontWeight: FontWeight.w700,
             ),
             SizedBox(height: 10,),
             AppText(
-              title: "Explore a world of possibilities as you ",
+              title:S.of(context).exploreIntro,
               color: AppColors.grey,
               fontSize: 18 ,
 
             ),
             AppText(
-              title: "plan your next adventure .",
+              title: S.of(context).planAdventure,
               color: AppColors.grey,
               fontSize: 18 ,
 
@@ -61,7 +62,7 @@ class WelcomeScreen1 extends StatelessWidget {
               ],),
             Spacer(),
             AppButton(
-              title: "Next",
+              title: S.of(context).next,
               color: AppColors.blue,
               font_color: AppColors.white,
               onTap: () {

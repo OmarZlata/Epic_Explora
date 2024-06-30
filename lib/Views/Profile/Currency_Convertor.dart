@@ -195,7 +195,7 @@ class _CurrencyState extends State<Currency> {
                     onPressed: () {
                       swapCurrencies();
                     },
-                    child: Icon(Icons.swap_horiz)),
+                    child: Icon(Icons.swap_horiz,color: AppColors.white,)),
                 SizedBox(
                   width: 100, // Adjust the width as needed
                   child: DropdownButton<String>(

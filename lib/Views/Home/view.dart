@@ -21,6 +21,7 @@ import '../../core/api/Recommended.dart';
 import '../../core/api/Recommended.dart';
 import '../../core/api/Recommended.dart';
 
+import '../../generated/l10n.dart';
 import '../search/search_screen.dart';
 import '../MainScreens/states_screen.dart';
 import '../States/alex/Alex_tab_bar.dart';
@@ -174,14 +175,14 @@ class _HomeViewState extends State<HomeView> {
                       SizedBox(
                         height: 5,
                       ),
-                      AppText(title: "Loading...")
+                      AppText(title: S.of(context).loading,)
                     ],
                   ),
                 );
               }
               final location = cubit.location;
               if (location == null) {
-                return Center(child: Text('Something went wrong!'));
+                return Center(child: Text(S.of(context).error,));
               }
               return Padding(
                 padding: const EdgeInsets.all(12),
@@ -189,10 +190,6 @@ class _HomeViewState extends State<HomeView> {
                   children: [
                     Row(
                       children: [
-                        Image.asset('assets/images/profile.png'),
-                        SizedBox(
-                          width: 5,
-                        ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -203,7 +200,7 @@ class _HomeViewState extends State<HomeView> {
                                 ),
                                 AppText(
                                   title: userInfo?.name?.toUpperCase() ??
-                                      'No Name',
+                                      S.of(context).noName,
                                   color: AppColors.blue,
                                   fontSize: 18,
                                 ),
@@ -217,7 +214,7 @@ class _HomeViewState extends State<HomeView> {
                                   Text(
                                       '${location.district}, ${location.country}'),
                                 if (location == null)
-                                  Text('Location not available'),
+                                  Text(S.of(context).locationUnavailable),
                               ],
                             ),
                           ],
@@ -250,7 +247,7 @@ class _HomeViewState extends State<HomeView> {
                               },
                               maxLines: 1,
                               decoration: InputDecoration(
-                                  hintText: "Search",
+                                  hintText: S.of(context).search,
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                         color: AppColors
@@ -293,7 +290,7 @@ class _HomeViewState extends State<HomeView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "All Offers",
+                          S.of(context).allOffers,
                           style: TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 16),
                         ),
@@ -315,7 +312,7 @@ class _HomeViewState extends State<HomeView> {
                     Row(
                       children: [
                         Text(
-                          "Select State",
+                          S.of(context).selectState,
                           style: TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 16),
                         ),
@@ -328,7 +325,7 @@ class _HomeViewState extends State<HomeView> {
                     Row(
                       children: [
                         Text(
-                          "Recommendations",
+                          S.of(context).recommendations,
                           style: TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 16),
                         ),
@@ -354,7 +351,7 @@ class _HomeViewState extends State<HomeView> {
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  AppText(title: "Loading...")
+                                  AppText(title: S.of(context).loading,)
                                 ],
                               ),
                             )

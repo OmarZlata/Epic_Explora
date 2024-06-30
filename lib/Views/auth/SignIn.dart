@@ -17,6 +17,8 @@ import '../../Widgets/app_button.dart';
 import '../../cubit/user_cubit.dart';
 import 'dart:developer';
 
+import '../../generated/l10n.dart';
+
 class SignInView extends StatefulWidget {
   const SignInView({Key? key}) : super(key: key);
 
@@ -100,8 +102,8 @@ class _SignInViewState extends State<SignInView> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const AppText(
-                            title: "Email",
+                           AppText(
+                            title: S.of(context).email,
                             color: AppColors.black,
                             fontWeight: FontWeight.bold,
                           ),
@@ -111,7 +113,7 @@ class _SignInViewState extends State<SignInView> {
                           Column(
                             children: [
                               AppTextField(
-                                hint: "Email",
+                                hint: S.of(context).email,
                                 radius: 8,
                                 enabled: !isDisabled,
                                 icon: Icons.email_outlined,
@@ -137,7 +139,7 @@ class _SignInViewState extends State<SignInView> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   AppText(
-                                    title: "Password",
+                                    title: S.of(context).password,
                                     color: AppColors.black,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -145,7 +147,7 @@ class _SignInViewState extends State<SignInView> {
                                     height: 10,
                                   ),
                                   AppTextField(
-                                    hint: "Password",
+                                    hint: S.of(context).password,
                                     radius: 8,
                                     enabled: !isDisabled,
                                     icon: Icons.lock_outline,
@@ -196,7 +198,7 @@ class _SignInViewState extends State<SignInView> {
                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => ForgetPasswordScreen(),));
                           },
                           child: AppText(
-                              title: "Forget Password",
+                              title: S.of(context).forgetPassword,
                               color: AppColors.blue,
                               fontWeight: FontWeight.bold),
                         ),
@@ -214,7 +216,7 @@ class _SignInViewState extends State<SignInView> {
                         : AppButton(
                             color: AppColors.blue,
                             font_color: AppColors.white,
-                            title: "Sign in",
+                            title: S.of(context).signIn,
                             onTap: () {
                               if (signInFormKey.currentState!.validate()) {
                                 signInFormKey.currentState!.save();
@@ -233,7 +235,7 @@ class _SignInViewState extends State<SignInView> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         AppText(
-                          title: "Don’t have an Account ?",
+                          title: S.of(context).noAccountPrompt,
                           color: AppColors.grey,
                         ),
                         GestureDetector(
@@ -243,7 +245,7 @@ class _SignInViewState extends State<SignInView> {
                             ));
                           },
                           child: AppText(
-                            title: " Sign Up",
+                            title: S.of(context).signUp,
                             color: AppColors.blue,
                             fontWeight: FontWeight.bold,
                           ),

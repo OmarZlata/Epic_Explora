@@ -9,6 +9,7 @@ import '../../../Widgets/app_button.dart';
 import '../../../Widgets/app_text.dart';
 import '../../../core/Location_utlis/location_utils.dart';
 import '../../../core/app_colors/app_colors.dart';
+import '../../../generated/l10n.dart';
 import '../google_map/view.dart';
 
 class GoogleMapSplashView extends StatefulWidget {
@@ -51,7 +52,7 @@ class _GoogleMapSplashViewState extends State<GoogleMapSplashView> {
               ),
             ),
             AppText(
-              title: "Find Your Location ",
+              title: S.of(context).findLocation,
               color: AppColors.black,
               fontSize: 22,
               fontWeight: FontWeight.w700,
@@ -60,12 +61,12 @@ class _GoogleMapSplashViewState extends State<GoogleMapSplashView> {
               height: 5,
             ),
             AppText(
-              title: "Find Every Place Around You ",
+              title: S.of(context).findPlaces,
               color: AppColors.grey,
               fontSize: 18,
             ),
             AppText(
-              title: "Let's Explore",
+              title: S.of(context).explore,
               color: AppColors.grey,
               fontSize: 18,
             ),
@@ -78,7 +79,7 @@ class _GoogleMapSplashViewState extends State<GoogleMapSplashView> {
             ),
             Spacer(),
             AppButton(
-              title: "Register As User ",
+              title: S.of(context).registerUser,
               color: AppColors.blue,
               font_color: AppColors.white,
               onTap: () {
@@ -89,12 +90,13 @@ class _GoogleMapSplashViewState extends State<GoogleMapSplashView> {
             ),
             SizedBox(height: 10.h,),
             AppButton(
-              title: "Register As Guider",
-              color: AppColors.blue,
-              font_color: AppColors.white,
+              title: S.of(context).registerGuider,
+              color: AppColors.white,
+              font_color: AppColors.violet,
+              border_color: AppColors.violet.withOpacity(.3),
               onTap: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => GuideSignIn(),
+                  builder: (context) => GuiderSignIn(),
                 ));
               },
             ),
