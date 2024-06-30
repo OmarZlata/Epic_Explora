@@ -7,7 +7,7 @@ import '../Views/MainScreens/favorites_screen.dart';
 
 import '../Views/Profile/profile_main.dart';
 import '../core/app_colors/app_colors.dart';
-import 'Guider/trips_tabBar.dart';
+import 'Guider/guiders_data.dart';
 
 class GuideNavBar extends StatefulWidget {
   const GuideNavBar({super.key});

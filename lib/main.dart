@@ -29,7 +29,7 @@ import 'Views/Profile/Settings.dart';
 import 'Views/Profile/Terms.dart';
 import 'Widgets/booking_tabBar.dart';
 import 'Widgets/bottomNavigationBar.dart';
-import 'Widgets/Guider/trips_tabBar.dart';
+import 'Widgets/Guider/guiders_data.dart';
 import 'cache/cache_helper.dart';
 import 'generated/l10n.dart';
 import 'tour_guide_views/Auth/guide_signUp.dart';

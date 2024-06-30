@@ -17,21 +17,26 @@ class DescriptionScreen extends StatefulWidget {
 
 class _DescriptionScreenState extends State<DescriptionScreen> {
   final _formKey = GlobalKey<FormState>();
+  bool _showDescription = false;
 
   void _submitDescription() {
     if (_formKey.currentState!.validate()) {
+      setState(() {
+        _showDescription = true;
+      });
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: Center(
               child: AppText(
-                title: 'Description',
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-                color: AppColors.blue,
-              )),
+            title: 'Description',
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+            color: AppColors.blue,
+          )),
           content: AppText(
-            title: context.read<UserCubit>().DescriptionController.text,
+            title:
+                "Your Message are sent to the Guider And He will reply Soon! ",
             fontSize: 16,
             color: AppColors.black,
           ),
@@ -49,7 +54,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
           ],
         ),
       );
-      context.read<UserCubit>().SendGuiderReq();
+
     }
   }
 
@@ -71,7 +76,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
           key: _formKey,
           child: Column(
             children: [
-              if (descriptionText.isNotEmpty)
+              if (_showDescription && descriptionText.isNotEmpty)
                 Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
@@ -107,9 +112,6 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                     return null;
                   },
                   obscureText: false,
-                  onChanged: (value) {
-                    setState(() {});
-                  },
                 ),
               ),
               SizedBox(height: 15.h),
@@ -118,7 +120,10 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                 color: AppColors.blue,
                 font_color: AppColors.white,
                 title: "Submit",
-                onTap: _submitDescription,
+                onTap: () {
+                  context.read<UserCubit>().SendGuiderReq();
+                  _submitDescription();
+                },
               ),
             ],
           ),

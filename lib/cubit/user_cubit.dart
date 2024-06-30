@@ -3,6 +3,7 @@ import 'package:epic_expolre/cache/cache_helper.dart';
 import 'package:epic_expolre/core/api/api_consumer.dart';
 import 'package:epic_expolre/core/api/const_end_ponits.dart';
 import 'package:epic_expolre/core/errors/exceptions.dart';
+import 'package:epic_expolre/core/models/guider_models/guider_data.dart';
 import 'package:epic_expolre/core/models/guider_models/guider_signIn_model.dart';
 import 'package:epic_expolre/core/models/guider_models/guider_signUp_data.dart';
 import 'package:epic_expolre/core/models/guider_models/guider_signUp_data.dart';
@@ -69,6 +70,8 @@ class UserCubit extends Cubit<UserState> {
   GuiderSignInModel? GuiderSignIn;
   TourGuiderSignUpModel? GuiderSignUpModel;
   VerificationModel? verificationModel;
+  GuiderAllData? GuiderData;
+
 
   signUp() async {
     try {
@@ -191,7 +194,6 @@ class UserCubit extends Cubit<UserState> {
   Future<void> GuiderLogOut() async {
     try {
       emit(GuiderLogOutLoading());
-      log("start");
       final response = await api.post(
         EndPoint.GuiderLogOut,
         option: Options(headers: {
@@ -236,18 +238,16 @@ class UserCubit extends Cubit<UserState> {
   SendGuiderReq() async {
     try {
       emit(SendGuiderReqLoading());
-      final response = await api.post(
-        EndPoint.SendGuiderReq,
-        isFromData: true,
-        data: {
-          ApiKey.UserMessage: DescriptionController.text,
-        },
-        option: Options(headers: {
-          'Authorization': 'Bearer ${user!.token}',
-        })
-      );
-      user = SignInModel.fromJson(response);
-      log(response);
+      CacheHelper().getData(key: ApiKey.GuiderId);
+      print(CacheHelper().getData(key: ApiKey.GuiderId));
+      final response = await api.post(EndPoint.SendGuiderReq(CacheHelper().getData(key: ApiKey.GuiderId)),
+          isFromData: true,
+          data: {
+            ApiKey.UserMessage: DescriptionController.text,
+          },
+          option: Options(headers: {
+            'Authorization': 'Bearer ${CacheHelper().getData(key: ApiKey.token)}',
+          }));
       emit(SendGuiderReqSuccess());
     } on ServerException catch (e) {
       emit(SendGuiderReqFailure(errMessage: e.errModel.errorMessage));

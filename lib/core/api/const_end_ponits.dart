@@ -10,9 +10,11 @@ class EndPoint {
   static String GuiderSignIn = "api/guider/login";
   static String GuiderLogOut = "api/guider/logout";
   static String GuiderSignUp = "api/guider/register";
-  static String SendGuiderReq= "api/user/contact/contact_request/";
+  static String SendGuiderReq (id){
+    return "api/user/contact/contact_request/$id" ;
+  }
   static String getUserDataEndPoint(id) {
-    return "user/get-user/$id";
+    return "user/get-user/$id" ;
   }
 }
 

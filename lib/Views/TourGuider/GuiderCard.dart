@@ -8,6 +8,7 @@ import 'package:flutter/widgets.dart';
 import '../../core/app_colors/app_colors.dart';
 
 class GuiderCard extends StatelessWidget {
+  final int id;
   final String name;
   final String phoneNumber;
   final String email;
@@ -16,6 +17,7 @@ class GuiderCard extends StatelessWidget {
 
   const GuiderCard({
     super.key,
+    required this.id,
     required this.name,
     required this.phoneNumber,
     required this.email,
@@ -36,10 +38,17 @@ class GuiderCard extends StatelessWidget {
                 color: AppColors.blue,
               )),
           content: Container(
-            height: 225,
+            height: 350,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                AppText(
+                  title: 'ID: $id',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: AppColors.black,
+                ),
+                SizedBox(height: 8),
                 AppText(
                   title: 'Name: $name',
                   fontWeight: FontWeight.bold,
@@ -101,7 +110,9 @@ class GuiderCard extends StatelessWidget {
                     color: AppColors.blue,
                     font_color: AppColors.white,
                     onTap: () {
-                     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => DescriptionScreen(),));
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => DescriptionScreen(),
+                      ));
                     },
                   ),
                 ),
