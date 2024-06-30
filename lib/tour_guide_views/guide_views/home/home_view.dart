@@ -1,119 +1,152 @@
-import 'package:epic_expolre/Widgets/app_AppBar.dart';
-import 'package:epic_expolre/Widgets/app_text.dart';
+import 'package:epic_expolre/cache/cache_helper.dart';
+import 'package:epic_expolre/core/api/const_end_ponits.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:dio/dio.dart';
 
-class GuideHomeView extends StatelessWidget {
-  const GuideHomeView({super.key});
+
+class ContactRequest {
+  final int id;
+  final String name;
+  final String email;
+  final String message;
+  final bool isApproved;
+
+  ContactRequest({
+    required this.id,
+    required this.name,
+    required this.email,
+    required this.message,
+    required this.isApproved,
+  });
+
+  factory ContactRequest.fromJson(Map<String, dynamic> json) {
+    return ContactRequest(
+      id: json['id'],
+      name: json['name'],
+      email: json['email'],
+      message: json['message'],
+      isApproved: json['is_approved'],
+    );
+  }
+}
+
+class ContactRequestsScreen extends StatefulWidget {
+  const ContactRequestsScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ContactRequestsScreen> createState() => _ContactRequestsScreenState();
+}
+
+class _ContactRequestsScreenState extends State<ContactRequestsScreen> {
+  late Future<List<ContactRequest>> _contactRequests;
+
+  Future<List<ContactRequest>> fetchContactRequests() async {
+    final token = CacheHelper().getData(key: ApiKey.token);
+    final response = await Dio().get(
+      'https://tour-guide-api.onrender.com/api/guider/get_contact/',
+      options: Options(
+        headers: {
+          "Authorization": "Bearer $token",
+        },
+      ),
+    );
+    if (response.statusCode == 200) {
+      List<dynamic> data = response.data['contact_requests'];
+      return data.map((json) => ContactRequest.fromJson(json)).toList();
+    } else {
+      throw Exception('Failed to load contact requests');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _contactRequests = fetchContactRequests();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          backgroundColor: AppColors.white,
-          appBar: AppAppBar(
-            title: "Tour Guide Home",
-            textColor: AppColors.black,
-            iconThemeColor: AppColors.black,
-
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Contact Requests',
+          style: TextStyle(
+            color: AppColors.white,
           ),
-          body: ListView.builder(
-            padding: EdgeInsets.all(12),
-            itemBuilder: (context, index) => Column(
-              children: [
-                Container(
-                  height: 125,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(18),
-                    color: AppColors.violet.withOpacity(.12),
-                  ),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.asset(
-                            "assets/images/classic lorem.png",
-                            width: 104,
-                            height: 104,
-                            fit: BoxFit.cover,
+        ),
+        backgroundColor: AppColors.blue,
+        centerTitle: true,
+      ),
+      body: FutureBuilder<List<ContactRequest>>(
+        future: _contactRequests,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(color: AppColors.blue),
+            );
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return Center(child: Text('No contact requests found'));
+          } else {
+            return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                ContactRequest request = snapshot.data![index];
+                return Card(
+                  margin: EdgeInsets.all(8.0),
+                  child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Name: ${request.name}',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        SizedBox(height: 8),
+                        Text(
+                          'Email: ${request.email}',
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          'Message: ${request.message}',
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        SizedBox(height: 8),
+                        Row(
                           children: [
-                            const Text(
-                              "Cairo International Stadium",
+                            Text(
+                              'Approved: ',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16),
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            const SizedBox(
-                              height: 8,
+                            Icon(
+                              request.isApproved
+                                  ? Icons.check_circle
+                                  : Icons.cancel,
+                              color: request.isApproved
+                                  ? Colors.green
+                                  : Colors.red,
                             ),
-                            const Row(
-                              children: [
-                                Icon(
-                                  Icons.location_city_rounded,
-                                  size: 18,
-                                  color: AppColors.blue,
-                                ),
-                                SizedBox(
-                                  width: 3,
-                                ),
-                                Text(
-                                  "Cairo",
-                                  style: TextStyle(fontSize: 12),
-                                )
-                              ],
-                            ),
-                             SizedBox(
-                              height: 5.h,
-                            ),
-                            Row(
-                              children: [
-                                Text("Requst From : Omar"),
-                                SizedBox(width: 50,),
-                                Container(
-                                  width: 50,
-                                  height: 28,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: AppColors.green,
-                                  ),
-                                  child: const Center(
-                                      child: Text(
-                                    " Done ",
-                                    style: TextStyle(
-                                        fontSize: 15, color: AppColors.white),
-                                  )),
-                                )
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            Text("Phone Number : 0261537625")
                           ],
                         ),
-                      ),
-
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(height: 14,)
-              ],
-            ),
-            itemCount: 10,
-            
-          )),
+                );
+              },
+            );
+          }
+        },
+      ),
     );
   }
 }
