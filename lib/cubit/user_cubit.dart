@@ -201,6 +201,7 @@ class UserCubit extends Cubit<UserState> {
         }),
       );
       GuiderSignIn = GuiderSignInModel.fromJson(response.data);
+      CacheHelper().saveData(key: ApiKey.Guidertoken, value: GuiderSignIn!.token);
       log(response.toString());
       log("===========================Done Logout===========================");
       emit(GuiderLogOutSuccess());
