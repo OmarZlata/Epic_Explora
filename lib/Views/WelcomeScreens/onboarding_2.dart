@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../Widgets/app_button.dart';
 import '../../Widgets/app_text.dart';
 import '../../core/app_colors/app_colors.dart';
+import '../../generated/l10n.dart';
 
 
 class WelcomeScreen2 extends StatelessWidget {
@@ -35,20 +36,20 @@ class WelcomeScreen2 extends StatelessWidget {
               ),
             ),
             AppText(
-              title: "Book Cheapest Fight",
+              title: S.of(context).bookFlight,
               color: AppColors.black,
               fontSize: 22 ,
               fontWeight: FontWeight.w700,
             ),
             SizedBox(height: 10,),
             AppText(
-              title: "We compare prices from 200+ booking",
+              title: S.of(context).comparePrices,
               color: AppColors.grey,
               fontSize: 18 ,
 
             ),
             AppText(
-              title: "site to help you find the lowest price .",
+              title: S.of(context).lowestPrice,
               color: AppColors.grey,
               fontSize: 18 ,
 
@@ -62,7 +63,7 @@ class WelcomeScreen2 extends StatelessWidget {
               ],),
             Spacer(),
             AppButton(
-              title: "Next",
+              title: S.of(context).next,
               color: AppColors.blue,
               font_color: AppColors.white,
               onTap: () {
@@ -71,7 +72,7 @@ class WelcomeScreen2 extends StatelessWidget {
             ),
             SizedBox(height: 24,),
             AppButton(
-              title: "Back",
+              title: S.of(context).back,
               color: AppColors.white,
               font_color: AppColors.blue,
               border_color: AppColors.grey.withOpacity(.3),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../generated/l10n.dart';
 import '../../States/Aswan/Aswan_tab_bar.dart';
 import '../../States/RedSea/Red_Sea_tab_bar.dart';
 import '../../States/alex/Alex_tab_bar.dart';
@@ -14,7 +15,7 @@ class States extends StatelessWidget {
     return  SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Container(
-        height: 120,
+        height: 130,
         child: Row(children: [
           Column(
             children: [
@@ -32,7 +33,7 @@ class States extends StatelessWidget {
                       ),
                     )),
               ),
-              Text("Alexandria"),
+              Text(S.of(context).alexandria,),
             ],
           ),
           SizedBox(
@@ -52,7 +53,7 @@ class States extends StatelessWidget {
                       ),
                     )),
               ),
-              Text("Cairo"),
+              Text(S.of(context).cairo,),
             ],
           ),
           SizedBox(
@@ -72,7 +73,7 @@ class States extends StatelessWidget {
                       ),
                     )),
               ),
-              Text("Red Sea"),
+              Text(S.of(context).redSea,),
             ],
           ),
           SizedBox(
@@ -92,7 +93,7 @@ class States extends StatelessWidget {
                       ),
                     )),
               ),
-              Text("Aswan"),
+              Text(S.of(context).aswan,),
             ],
           ),
           SizedBox(
@@ -112,7 +113,7 @@ class States extends StatelessWidget {
                       ),
                     )),
               ),
-              Text("Luxor"),
+              Text(S.of(context).luxor,),
             ],
           ),
           SizedBox(

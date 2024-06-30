@@ -104,30 +104,7 @@ class _AppHomeCardState extends State<AppHomeCard> {
                         ),
                       ),
                       SizedBox(height: 12),
-                      Row(
-                        children: [
-                          Text(
-                            "\$14.4",
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          Spacer(),
-                          Row(
-                            children: [
-                              Image.asset('assets/images/rate.png'),
-                              Text(
-                                "4.5",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+
                     ],
                   ),
                 ),
