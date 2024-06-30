@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:epic_expolre/Views/auth/SignIn.dart';
 import 'package:epic_expolre/Views/translator/translator.dart';
@@ -12,6 +14,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../Widgets/app_ListTile.dart';
 import '../../Widgets/app_text.dart';
 import '../../Widgets/booking_tabBar.dart';
@@ -135,11 +139,15 @@ class ProfileMainScreen extends StatefulWidget {
 class _ProfileMainScreenState extends State<ProfileMainScreen> {
   bool isLoading = true;
   UserInfo? userInfo;
+  bool obscurePassword = true;
+  File? _image;
+  final ImagePicker _picker = ImagePicker();
 
   @override
   void initState() {
     super.initState();
     fetchData();
+    _loadImage();
   }
 
   void fetchData() async {
@@ -153,6 +161,27 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
       setState(() {
         isLoading = false;
       });
+    }
+  }
+
+  Future<void> _loadImage() async {
+    final prefs = await SharedPreferences.getInstance();
+    final imagePath = prefs.getString('profile_image');
+    if (imagePath != null) {
+      setState(() {
+        _image = File(imagePath);
+      });
+    }
+  }
+
+  Future<void> _pickImage() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString('profile_image', pickedFile.path);
     }
   }
 
@@ -190,10 +219,13 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
                     children: [
                       Column(
                         children: [
-                          CircleAvatar(
-                            radius: 40,
-                            backgroundImage: AssetImage(
-                              'assets/images/profilepic.jfif',
+                          GestureDetector(
+                            onTap: _pickImage,
+                            child: CircleAvatar(
+                              radius: 40,
+                              backgroundImage: _image != null
+                                  ? FileImage(_image!)
+                                  : AssetImage('assets/images/profilepic.jfif') as ImageProvider,
                             ),
                           ),
                           SizedBox(height: 8),

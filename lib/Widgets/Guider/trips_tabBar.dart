@@ -3,14 +3,15 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:epic_expolre/Views/TourGuider/GuiderCard.dart';
 import 'package:epic_expolre/Widgets/app_AppBar.dart';
+import 'package:epic_expolre/Widgets/app_button.dart';
 import 'package:epic_expolre/Widgets/app_text.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../cache/cache_helper.dart';
-import '../core/api/const_end_ponits.dart';
-import '../core/models/user_models/guider_all_model.dart';
+import '../../cache/cache_helper.dart';
+import '../../core/api/const_end_ponits.dart';
+import '../../core/models/user_models/guider_all_model.dart';
 
 class OurGuiders extends StatefulWidget {
   const OurGuiders({super.key});
@@ -60,7 +61,6 @@ class _OurGuidersState extends State<OurGuiders> {
   PlaceAPI placeAPI = PlaceAPI();
   int currentPage = 1;
   final int itemsPerPage = 10;
-
   @override
   void initState() {
     super.initState();
@@ -79,6 +79,7 @@ class _OurGuidersState extends State<OurGuiders> {
       print('Error fetching places: $e');
     }
   }
+
 
 
 

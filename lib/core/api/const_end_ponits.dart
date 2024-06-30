@@ -9,8 +9,8 @@ class EndPoint {
   static String reset_password = "api/user/reset_pass/";
   static String GuiderSignIn = "api/guider/login";
   static String GuiderLogOut = "api/guider/logout";
-
   static String GuiderSignUp = "api/guider/register";
+  static String SendGuiderReq= "api/user/contact/contact_request/";
   static String getUserDataEndPoint(id) {
     return "user/get-user/$id";
   }
@@ -33,6 +33,7 @@ class ApiKey {
   static String Guidertoken = "token";
   static String otp = "token";
   static String message = "message";
+  static String UserMessage = "message";
   static String id = "id";
   static String GuiderId = "id";
   static String name = "name";

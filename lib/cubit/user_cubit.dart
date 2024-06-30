@@ -33,11 +33,14 @@ class UserCubit extends Cubit<UserState> {
   GlobalKey<FormState> VerificationFormkey = GlobalKey();
   TextEditingController newPassword = TextEditingController();
   TextEditingController confirmNewPassword = TextEditingController();
-  TextEditingController StateGuiderDescriptionController = TextEditingController();
+  TextEditingController StateGuiderDescriptionController =
+      TextEditingController();
+
   //Sign in email
   TextEditingController signInEmail = TextEditingController();
 
   TextEditingController GuiderSignInEmail = TextEditingController();
+  final DescriptionController = TextEditingController();
 
   TextEditingController GuiderSignInPassword = TextEditingController();
 
@@ -49,13 +52,17 @@ class UserCubit extends Cubit<UserState> {
   TextEditingController GuiderNationalId = TextEditingController();
   TextEditingController otp = TextEditingController();
   TextEditingController resetPasswordEmail = TextEditingController();
+
   //Sign in password
   TextEditingController signInPassword = TextEditingController();
+
   //Sign up name
   TextEditingController signUpName = TextEditingController();
   TextEditingController signUpEmail = TextEditingController();
+
   //Sign up password
   TextEditingController signUpPassword = TextEditingController();
+
   //Sign up confirm password
   TextEditingController confirmPassword = TextEditingController();
   SignInModel? user;
@@ -169,7 +176,8 @@ class UserCubit extends Cubit<UserState> {
         },
       );
       GuiderSignIn = GuiderSignInModel.fromJson(response);
-      CacheHelper().saveData(key: ApiKey.Guidertoken, value: GuiderSignIn!.token);
+      CacheHelper()
+          .saveData(key: ApiKey.Guidertoken, value: GuiderSignIn!.token);
       CacheHelper().saveData(key: ApiKey.GuiderId, value: GuiderSignIn!.id);
       log("${GuiderSignIn!.token}");
       log("${GuiderSignIn!.id}");
@@ -202,29 +210,47 @@ class UserCubit extends Cubit<UserState> {
     }
   }
 
-  GuiderSignUp() async{
-      try {
-        emit(GuiderSignUpLoading());
-        final response = await api.post(
-          EndPoint.GuiderSignUp,
-          isFromData: true,
-          data: {
-            ApiKey.name: GuiderSignUpName.text,
-            ApiKey.email: GuiderSignUpEmail.text,
-            ApiKey.password: GuiderSignUpPassword.text,
-            ApiKey.confirmPassword: GuiderConfirmPassword.text,
-            ApiKey.phoneNnumber: GuiderPhoneNumber.text,
-            ApiKey.nationalId: GuiderNationalId.text,
-            ApiKey.description:StateGuiderDescriptionController.text,
-          },
-        );
-        GuiderSignUpModel = TourGuiderSignUpModel.fromJson(response.data);
-        log(response);
-        emit(GuiderSignUpSuccess());
-      } on ServerException catch (e) {
-        emit(GuiderSignUpFailure(errMessage: e.errModel.errorMessage));
-      }
+  GuiderSignUp() async {
+    try {
+      emit(GuiderSignUpLoading());
+      final response = await api.post(
+        EndPoint.GuiderSignUp,
+        isFromData: true,
+        data: {
+          ApiKey.name: GuiderSignUpName.text,
+          ApiKey.email: GuiderSignUpEmail.text,
+          ApiKey.password: GuiderSignUpPassword.text,
+          ApiKey.phoneNnumber: GuiderPhoneNumber.text,
+          ApiKey.nationalId: GuiderNationalId.text,
+          ApiKey.description: StateGuiderDescriptionController.text,
+        },
+      );
+      GuiderSignUpModel = TourGuiderSignUpModel.fromJson(response.data);
+      log(response);
+      emit(GuiderSignUpSuccess());
+    } on ServerException catch (e) {
+      emit(GuiderSignUpFailure(errMessage: e.errModel.errorMessage));
+    }
   }
 
+  SendGuiderReq() async {
+    try {
+      emit(SendGuiderReqLoading());
+      final response = await api.post(
+        EndPoint.SendGuiderReq,
+        isFromData: true,
+        data: {
+          ApiKey.UserMessage: DescriptionController.text,
+        },
+        option: Options(headers: {
+          'Authorization': 'Bearer ${user!.token}',
+        })
+      );
+      user = SignInModel.fromJson(response);
+      log(response);
+      emit(SendGuiderReqSuccess());
+    } on ServerException catch (e) {
+      emit(SendGuiderReqFailure(errMessage: e.errModel.errorMessage));
+    }
+  }
 }
-

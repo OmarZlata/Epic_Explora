@@ -1,3 +1,4 @@
+import 'package:epic_expolre/Widgets/Guider/resqust_screen.dart';
 import 'package:epic_expolre/Widgets/app_button.dart';
 import 'package:epic_expolre/Widgets/app_text.dart';
 import 'package:flutter/cupertino.dart';
@@ -33,61 +34,44 @@ class GuiderCard extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
                 color: AppColors.blue,
-              )
-          ),
+              )),
           content: Container(
-            height: 200,
+            height: 225,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'ID: ',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
+                AppText(
+                  title: 'Name: $name',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: AppColors.black,
                 ),
                 SizedBox(height: 8),
-                Text(
-                  'Name:',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
+                AppText(
+                  title: 'Phone Number: $phoneNumber',
+                  fontSize: 16,
+                  color: AppColors.black,
                 ),
                 SizedBox(height: 8),
-                Text(
-                  'Phone Number:',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black,
-                  ),
+                AppText(
+                  title: 'Email: $email',
+                  fontSize: 16,
+                  color: AppColors.black,
                 ),
                 SizedBox(height: 8),
-                Text(
-                  'Email:',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black,
-                  ),
-                ),
-                SizedBox(height: 8),
-                Text(
-                  'Description:',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey[600],
-                  ),
+                AppText(
+                  title: 'Description: $description',
+                  fontSize: 14,
+                  color: Colors.grey[600],
                 ),
                 SizedBox(height: 8),
                 Row(
                   children: [
-                    Text(
-                      'Verified: ',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    AppText(
+                      title: 'Verified: ',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: AppColors.black,
                     ),
                     Icon(
                       isVerified ? Icons.check_circle : Icons.cancel,
@@ -98,15 +82,32 @@ class GuiderCard extends StatelessWidget {
               ],
             ),
           ),
-          actions: [Row(
-            children: [
-              Expanded(child: AppButton(title: "Cancel",color: AppColors.white,onTap: () {
-               Navigator.of(context).pop();
-              },)),
-              SizedBox(width: 10,),
-              Expanded(child: AppButton(title: "Request",color: AppColors.blue,font_color: AppColors.white,)),
-            ],
-          )],
+          actions: [
+            Row(
+              children: [
+                Expanded(
+                  child: AppButton(
+                    title: "Cancel",
+                    color: AppColors.white,
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ),
+                SizedBox(width: 10),
+                Expanded(
+                  child: AppButton(
+                    title: "Request",
+                    color: AppColors.blue,
+                    font_color: AppColors.white,
+                    onTap: () {
+                     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => DescriptionScreen(),));
+                    },
+                  ),
+                ),
+              ],
+            )
+          ],
         );
       },
     );
