@@ -1,10 +1,12 @@
 import 'package:epic_expolre/Widgets/app_AppBar.dart';
+import 'package:epic_expolre/Widgets/app_button.dart';
 import 'package:epic_expolre/Widgets/app_text.dart';
 import 'package:epic_expolre/Widgets/app_text_field.dart';
 import 'package:epic_expolre/Widgets/guide_Nav_Bar.dart';
 import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:epic_expolre/cubit/user_cubit.dart';
 import 'package:epic_expolre/cubit/user_state.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,13 +14,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class VerifyScreen extends StatelessWidget {
   VerifyScreen({super.key});
 
-
+  GlobalKey<FormState> VerificationCodeFormKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) {
-        if (state is GuiderSignUpSuccess) {
+        if (state is VerifyAccSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               backgroundColor: AppColors.blue,
@@ -36,7 +38,7 @@ class VerifyScreen extends StatelessWidget {
               builder: (context) => GuideNavBar(),
             ),
           );
-        } else if (state is GuiderSignUpFailure) {
+        } else if (state is VerifyAccFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               backgroundColor: AppColors.blue,
@@ -67,23 +69,43 @@ class VerifyScreen extends StatelessWidget {
                 SizedBox(
                   height: 10.h,
                 ),
-                AppTextField(
-                  hint: "Verification Code",
-                  radius: 8,
-                  icon: Icons.phone,
-                  hintFontSize: 12,
-                  obscureText: false,
-                  textInputType: TextInputType.phone,
-                  maxLines: 1,
-                  controller: context.read<UserCubit>().OtpPhoneController,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter your Phone Number';
+                Form(
+                  key: VerificationCodeFormKey,
+                  child: AppTextField(
+                    hint: "Verification Code",
+                    radius: 8,
+                    icon: Icons.phone,
+                    hintFontSize: 12,
+                    obscureText: false,
+                    textInputType: TextInputType.phone,
+                    maxLines: 1,
+                    controller: context.read<UserCubit>().OtpPhoneController,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter your Phone Number';
+                      }
+                      if (value.length != 11 && value.length != 10) {
+                        return 'Invalid Phone Number';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                state is VerifyAccLoading
+                    ? Center(
+                  child: CircularProgressIndicator(
+                    color: AppColors.blue,
+                  ),
+                )
+                    : AppButton(
+                  color: AppColors.violet,
+                  font_color: AppColors.white,
+                  title: "Verfiy",
+                  onTap: () {
+                    if (VerificationCodeFormKey.currentState!.validate()) {
+                      VerificationCodeFormKey.currentState!.save();
+                      context.read<UserCubit>().VerifyAcc();
                     }
-                    if (value.length != 11 && value.length != 10) {
-                      return 'Invalid Phone Number';
-                    }
-                    return null;
                   },
                 ),
               ],

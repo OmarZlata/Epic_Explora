@@ -68,7 +68,7 @@ class _GuideSignUpState extends State<GuideSignUp> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => GuiderSignIn(),
+              builder: (context) => VerifyScreen(),
             ),
           );
         } else if (state is GuiderSignUpFailure) {
@@ -97,7 +97,7 @@ class _GuideSignUpState extends State<GuideSignUp> {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => VerifyScreen(),
+                      builder: (context) => GuiderSignIn(),
                     ));
               },
             ),
