@@ -8,7 +8,8 @@ import '../Views/MainScreens/favourites_tabbar.dart';
 import '../Views/Profile/profile_main.dart';
 import '../core/app_colors/app_colors.dart';
 import '../generated/l10n.dart';
-import 'trips_tabBar.dart';
+import 'Guider/guiders_data.dart';
+
 
 class bottomNavigationBar extends StatefulWidget {
   const bottomNavigationBar({super.key});
@@ -64,4 +65,3 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
     );
   }
 }
-

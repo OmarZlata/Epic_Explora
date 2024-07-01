@@ -69,6 +69,20 @@ final class GuiderSignUpFailure extends UserState {
 }
 
 
+
+final class SendGuiderReqSuccess  extends UserState {}
+
+final class SendGuiderReqLoading extends UserState {}
+
+final class SendGuiderReqFailure extends UserState {
+  final String errMessage;
+
+  SendGuiderReqFailure({required this.errMessage});
+}
+
+
+
+
 final class VerificationLoading extends UserState {}
 
 final class VerificationSuccess extends UserState {}

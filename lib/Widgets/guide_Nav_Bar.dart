@@ -1,13 +1,10 @@
+
+import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:epic_expolre/tour_guide_views/guide_views/guide_profile/profile.dart';
 import 'package:epic_expolre/tour_guide_views/guide_views/home/home_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../Views/Home/view.dart';
-import '../Views/MainScreens/favorites_screen.dart';
 
-import '../Views/Profile/profile_main.dart';
-import '../core/app_colors/app_colors.dart';
-import 'trips_tabBar.dart';
 
 class GuideNavBar extends StatefulWidget {
   const GuideNavBar({super.key});
@@ -18,7 +15,7 @@ class GuideNavBar extends StatefulWidget {
 
 class _GuideNavBarState extends State<GuideNavBar> {
   final List<Widget> _pages = [
-    GuideHomeView(),
+    GuidersReq(),
     GuideProfile(),
   ];
   int  _currentIndex = 0 ;

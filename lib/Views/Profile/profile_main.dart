@@ -55,18 +55,18 @@ void _showAlertDialog(BuildContext context) {
       return AlertDialog(
         title: Center(
             child: AppText(
-          title: S.of(context).logout,
-          fontWeight: FontWeight.bold,
-          fontSize: 20,
-          color: AppColors.red.withOpacity(.5),
-        )),
+              title: S.of(context).logout,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: AppColors.red.withOpacity(.5),
+            )),
         content: Container(
           height: 140,
           child: Column(
             children: [
               Container(
                   child:
-                      Flexible(child: Image.asset('assets/images/logout.png'))),
+                  Flexible(child: Image.asset('assets/images/logout.png'))),
               SizedBox(
                 height: 8,
               ),
@@ -177,187 +177,187 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
           ),
           body: isLoading
               ? Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircularProgressIndicator(
-                        color: AppColors.blue,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      AppText(title: S.of(context).loading,)
-                    ],
-                  ),
-                )
-              : Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8),
-                  child: ListView(
-                    children: [
-                      Column(
-                        children: [
-                          CircleAvatar(
-                            radius: 40,
-                            backgroundImage: AssetImage(
-                              'assets/images/profilepic.jfif',
-                            ),
-                          ),
-                          SizedBox(height: 8),
-                          AppText(
-                            title: userInfo?.name ?? S.of(context).noName,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          AppText(
-                            title: userInfo?.email ?? S.of(context).noEmail,
-                            color: AppColors.grey,
-                          ),
-                          SizedBox(height: 8),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => EditProfileScreen(),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              height: 29,
-                              width: 170,
-                              alignment: Alignment.center,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  AppText(
-                                    title: S.of(context).editProfile,
-                                    color: AppColors.white,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  Icon(
-                                    Icons.mode_edit_outline_outlined,
-                                    color: AppColors.white,
-                                    size: 18,
-                                  ),
-                                ],
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                color: AppColors.blue,
-                                border: Border.all(
-                                  color: AppColors.blue,
-                                  width: 1.0,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 22),
-                      AppTile(
-                        title: S.of(context).language,
-                        icon: CupertinoIcons.globe,
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => LocaleSwitchScreen(),
-                          ));
-                        },
-                        color: AppColors.blue,
-                      ),
-                      SizedBox(height: 8),
-                      AppTile(
-                        title: S.of(context).translator,
-                        icon: FontAwesomeIcons.language,
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => TranslatorView(),
-                          ));
-                        },
-                        color: AppColors.blue,
-                      ),
-                      SizedBox(height: 8),
-                      AppTile(
-                        title: S.of(context).currencyConverter,
-                        icon: CupertinoIcons.money_dollar_circle,
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => Currency(),
-                            ),
-                          );
-                        },
-                        color: AppColors.blue,
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      AppTile(
-                        title: S.of(context).yourMemories,
-                        icon: CupertinoIcons.photo_fill_on_rectangle_fill,
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => UserGallery(),
-                            ),
-                          );
-                        },
-                        color: AppColors.blue,
-                      ),
-
-                      SizedBox(height: 8),
-                      AppTile(
-                        title: S.of(context).termsOfService,
-                        icon: Icons.library_books,
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => TermsScreen(),
-                            ),
-                          );
-                        },
-                        color: AppColors.blue,
-                      ),
-                      SizedBox(height: 8),
-                      AppTile(
-                        title: S.of(context).about,
-                        icon: Icons.info_outline,
-                        onPressed: () {},
-                        color: AppColors.blue,
-                      ),
-                      SizedBox(height: 8),
-                      AppTile(
-                        title: S.of(context).changePassword,
-                        icon: Icons.lock_outline_rounded,
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => EditProfileScreen(),
-                          ));
-                        },
-                        color: AppColors.blue,
-                      ),
-                      SizedBox(height: 8),
-                      AppTile(
-                        title: S.of(context).logout,
-                        icon: Icons.logout,
-                        onPressed: () {
-                          if (state is LogoutLoading) {
-                            Center(
-                              child: CircularProgressIndicator(
-                                color: AppColors.blue,
-                              ),
-                            );
-                          } else {
-                            _showAlertDialog(context);
-                          }
-                        },
-                        color: Colors.red,
-                      ),
-                    ],
-                  ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(
+                  color: AppColors.blue,
                 ),
+                SizedBox(
+                  height: 10,
+                ),
+                AppText(title: S.of(context).loading,)
+              ],
+            ),
+          )
+              : Padding(
+            padding:
+            const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8),
+            child: ListView(
+              children: [
+                Column(
+                  children: [
+                    CircleAvatar(
+                      radius: 40,
+                      backgroundImage: AssetImage(
+                        'assets/images/profilepic.jfif',
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    AppText(
+                      title: userInfo?.name ?? S.of(context).noName,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    AppText(
+                      title: userInfo?.email ?? S.of(context).noEmail,
+                      color: AppColors.grey,
+                    ),
+                    SizedBox(height: 8),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EditProfileScreen(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        height: 29,
+                        width: 170,
+                        alignment: Alignment.center,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            AppText(
+                              title: S.of(context).editProfile,
+                              color: AppColors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            Icon(
+                              Icons.mode_edit_outline_outlined,
+                              color: AppColors.white,
+                              size: 18,
+                            ),
+                          ],
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: AppColors.blue,
+                          border: Border.all(
+                            color: AppColors.blue,
+                            width: 1.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 22),
+                AppTile(
+                  title: S.of(context).language,
+                  icon: CupertinoIcons.globe,
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => LocaleSwitchScreen(),
+                    ));
+                  },
+                  color: AppColors.blue,
+                ),
+                SizedBox(height: 8),
+                AppTile(
+                  title: S.of(context).translator,
+                  icon: FontAwesomeIcons.language,
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => TranslatorView(),
+                    ));
+                  },
+                  color: AppColors.blue,
+                ),
+                SizedBox(height: 8),
+                AppTile(
+                  title: S.of(context).currencyConverter,
+                  icon: CupertinoIcons.money_dollar_circle,
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => Currency(),
+                      ),
+                    );
+                  },
+                  color: AppColors.blue,
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                AppTile(
+                  title: S.of(context).yourMemories,
+                  icon: CupertinoIcons.photo_fill_on_rectangle_fill,
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => UserGallery(),
+                      ),
+                    );
+                  },
+                  color: AppColors.blue,
+                ),
+
+                SizedBox(height: 8),
+                AppTile(
+                  title: S.of(context).termsOfService,
+                  icon: Icons.library_books,
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => TermsScreen(),
+                      ),
+                    );
+                  },
+                  color: AppColors.blue,
+                ),
+                SizedBox(height: 8),
+                AppTile(
+                  title: S.of(context).about,
+                  icon: Icons.info_outline,
+                  onPressed: () {},
+                  color: AppColors.blue,
+                ),
+                SizedBox(height: 8),
+                AppTile(
+                  title: S.of(context).changePassword,
+                  icon: Icons.lock_outline_rounded,
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => EditProfileScreen(),
+                    ));
+                  },
+                  color: AppColors.blue,
+                ),
+                SizedBox(height: 8),
+                AppTile(
+                  title: S.of(context).logout,
+                  icon: Icons.logout,
+                  onPressed: () {
+                    if (state is LogoutLoading) {
+                      Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.blue,
+                        ),
+                      );
+                    } else {
+                      _showAlertDialog(context);
+                    }
+                  },
+                  color: Colors.red,
+                ),
+              ],
+            ),
+          ),
         );
       },
     );

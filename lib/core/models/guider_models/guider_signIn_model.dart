@@ -36,7 +36,7 @@ class GuiderSignInModel {
       isVerified: jsonData['user'][ApiKey.isVerified],
       createdAt: DateTime.parse(jsonData['user'][ApiKey.createdAt]), // Corrected
       updatedAt: DateTime.parse(jsonData['user'][ApiKey.updatedAt]), // Corrected
-      token: jsonData[ApiKey.token],
+      token: jsonData[ApiKey.Guidertoken],
       message: jsonData[ApiKey.message],
     );
   }

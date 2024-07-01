@@ -29,7 +29,7 @@ import 'Views/Profile/Settings.dart';
 import 'Views/Profile/Terms.dart';
 import 'Widgets/booking_tabBar.dart';
 import 'Widgets/bottomNavigationBar.dart';
-import 'Widgets/trips_tabBar.dart';
+import 'Widgets/Guider/guiders_data.dart';
 import 'cache/cache_helper.dart';
 import 'generated/l10n.dart';
 import 'tour_guide_views/Auth/guide_signUp.dart';
@@ -58,7 +58,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Locale _locale = Locale('ar');
+  Locale _locale = Locale('en');
 
   void setLocale(Locale locale) {
     setState(() {

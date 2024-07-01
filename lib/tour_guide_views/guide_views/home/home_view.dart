@@ -1,119 +1,183 @@
-import 'package:epic_expolre/Widgets/app_AppBar.dart';
-import 'package:epic_expolre/Widgets/app_text.dart';
-import 'package:epic_expolre/core/app_colors/app_colors.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'dart:developer';
 
-class GuideHomeView extends StatelessWidget {
-  const GuideHomeView({super.key});
+import 'package:dio/dio.dart';
+import 'package:epic_expolre/Widgets/app_AppBar.dart';
+import 'package:epic_expolre/Widgets/app_button.dart';
+import 'package:epic_expolre/Widgets/app_text.dart';
+import 'package:epic_expolre/cache/cache_helper.dart';
+import 'package:epic_expolre/core/api/const_end_ponits.dart';
+import 'package:epic_expolre/core/app_colors/app_colors.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+class ContactRequest {
+  final int id;
+  final String name;
+  final String email;
+  final String message;
+  final bool isApproved;
+
+  ContactRequest({
+    required this.id,
+    required this.name,
+    required this.email,
+    required this.message,
+    required this.isApproved,
+  });
+
+  factory ContactRequest.fromJson(Map<String, dynamic> json) {
+    return ContactRequest(
+      id: json['id'],
+      name: json['name'],
+      email: json['email'],
+      message: json['message'],
+      isApproved: json['is_approved'],
+    );
+  }
+}
+
+class GuidersReq extends StatefulWidget {
+  const GuidersReq({super.key});
+
+  @override
+  State<GuidersReq> createState() => _GuidersReqState();
+}
+
+class PlaceAPI {
+  final String baseUrl = EndPoint.baseUrl;
+
+  Future<List<ContactRequest>> getAllTrips() async {
+    final BaseOptions baseOptions = BaseOptions(headers: {
+      "Authorization": "Bearer ${CacheHelper().getData(key: ApiKey.Guidertoken)}",
+    });
+    final Dio dio = Dio(baseOptions);
+
+    try {
+      Response response = await dio.get('${baseUrl}api/guider/get_contact/');
+      if (response.statusCode == 200) {
+        final dynamic responseData = response.data;
+        final dynamic allGuidersData = responseData['contact_requests'];
+
+        if (allGuidersData is List) {
+          List<ContactRequest> guiders = allGuidersData.map((e) => ContactRequest.fromJson(e)).toList();
+          return guiders;
+        } else {
+          throw Exception('Invalid data format: allGuidersData is not a List');
+        }
+      } else {
+        throw Exception('Failed to load data');
+      }
+    } on DioException catch (e) {
+      log("${e.response}");
+      throw Exception('${e.toString()}');
+    }
+  }
+}
+
+class _GuidersReqState extends State<GuidersReq> {
+  List<ContactRequest> allRequests = [];
+  bool isLoading = true;
+  PlaceAPI placeAPI = PlaceAPI();
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchPlaces();
+  }
+
+  void _fetchPlaces() async {
+    try {
+      List<ContactRequest> fetchedPlaces = await placeAPI.getAllTrips();
+      setState(() {
+        allRequests = fetchedPlaces;
+        isLoading = false;
+      });
+    } catch (e) {
+      print('Error fetching places: $e');
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          backgroundColor: AppColors.white,
-          appBar: AppAppBar(
-            title: "Tour Guide Home",
-            textColor: AppColors.black,
-            iconThemeColor: AppColors.black,
-
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(CupertinoIcons.back, color: AppColors.blue),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: AppColors.white,
+        elevation: 1,
+        title: Text(
+          "Guiders",
+          style: TextStyle(
+            color: AppColors.black,
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
           ),
-          body: ListView.builder(
-            padding: EdgeInsets.all(12),
-            itemBuilder: (context, index) => Column(
-              children: [
-                Container(
-                  height: 125,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(18),
-                    color: AppColors.violet.withOpacity(.12),
+        ),
+        centerTitle: true,
+      ),
+      body: isLoading
+          ? Center(child: CircularProgressIndicator(color: AppColors.blue))
+          : allRequests.isEmpty
+          ? Center(child: Text('There are no requests yet'))
+          : ListView.builder(
+        itemCount: allRequests.length,
+        itemBuilder: (context, index) {
+          ContactRequest request = allRequests[index];
+          return Card(
+            margin: EdgeInsets.all(8.0),
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Name: ${request.name}',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  child: Row(
+                  SizedBox(height: 8),
+                  Text(
+                    'Email: ${request.email}',
+                    style: TextStyle(fontSize: 14),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Message: ${request.message}',
+                    style: TextStyle(fontSize: 14),
+                  ),
+                  SizedBox(height: 8),
+                  Row(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.asset(
-                            "assets/images/classic lorem.png",
-                            width: 104,
-                            height: 104,
-                            fit: BoxFit.cover,
-                          ),
+                      Text(
+                        'Approved: ',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(
-                        width: 16,
+                      Icon(
+                        request.isApproved
+                            ? Icons.check_circle
+                            : Icons.cancel,
+                        color: request.isApproved
+                            ? Colors.green
+                            : Colors.red,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Cairo International Stadium",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16),
-                            ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            const Row(
-                              children: [
-                                Icon(
-                                  Icons.location_city_rounded,
-                                  size: 18,
-                                  color: AppColors.blue,
-                                ),
-                                SizedBox(
-                                  width: 3,
-                                ),
-                                Text(
-                                  "Cairo",
-                                  style: TextStyle(fontSize: 12),
-                                )
-                              ],
-                            ),
-                             SizedBox(
-                              height: 5.h,
-                            ),
-                            Row(
-                              children: [
-                                Text("Requst From : Omar"),
-                                SizedBox(width: 50,),
-                                Container(
-                                  width: 50,
-                                  height: 28,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: AppColors.green,
-                                  ),
-                                  child: const Center(
-                                      child: Text(
-                                    " Done ",
-                                    style: TextStyle(
-                                        fontSize: 15, color: AppColors.white),
-                                  )),
-                                )
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            Text("Phone Number : 0261537625")
-                          ],
-                        ),
-                      ),
-
                     ],
                   ),
-                ),
-                SizedBox(height: 14,)
-              ],
+                ],
+              ),
             ),
-            itemCount: 10,
-            
-          )),
+          );
+        },
+      ),
     );
   }
 }

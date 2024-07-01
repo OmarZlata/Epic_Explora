@@ -171,23 +171,24 @@ class _GuiderSignInState extends State<GuiderSignIn> {
                       ),
                     ),
                     SizedBox(height: 24.h),
-                    state is GuiderSignInLoading
-                        ? Center(
-                      child: CircularProgressIndicator(
+                    if (state is GuiderSignInLoading)
+                      Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.violet,
+                        ),
+                      )
+                    else
+                      AppButton(
+                        width: double.infinity,
                         color: AppColors.violet,
+                        font_color: AppColors.white,
+                        title: "Sign In",
+                        onTap: () {
+                          if (context.read<UserCubit>().GuiderSignInFormKey.currentState!.validate()) {
+                            context.read<UserCubit>().GuiderLogin();
+                          }
+                        },
                       ),
-                    )
-                        : AppButton(
-                      width: double.infinity,
-                      color: AppColors.violet,
-                      font_color: AppColors.white,
-                      title: "Sign In",
-                      onTap: () {
-                        if (context.read<UserCubit>().GuiderSignInFormKey.currentState!.validate()) {
-                          context.read<UserCubit>().GuiderLogin();
-                        }
-                      },
-                    ),
                     SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -205,7 +206,6 @@ class _GuiderSignInState extends State<GuiderSignIn> {
                           child: AppText(
                             title: " SignUp",
                             color: AppColors.violet,
-
                           ),
                         ),
                       ],

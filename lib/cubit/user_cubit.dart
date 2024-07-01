@@ -3,6 +3,7 @@ import 'package:epic_expolre/cache/cache_helper.dart';
 import 'package:epic_expolre/core/api/api_consumer.dart';
 import 'package:epic_expolre/core/api/const_end_ponits.dart';
 import 'package:epic_expolre/core/errors/exceptions.dart';
+import 'package:epic_expolre/core/models/guider_models/guider_data.dart';
 import 'package:epic_expolre/core/models/guider_models/guider_signIn_model.dart';
 import 'package:epic_expolre/core/models/guider_models/guider_signUp_data.dart';
 import 'package:epic_expolre/core/models/guider_models/guider_signUp_data.dart';
@@ -33,11 +34,14 @@ class UserCubit extends Cubit<UserState> {
   GlobalKey<FormState> VerificationFormkey = GlobalKey();
   TextEditingController newPassword = TextEditingController();
   TextEditingController confirmNewPassword = TextEditingController();
-  TextEditingController StateGuiderDescriptionController = TextEditingController();
+  TextEditingController StateGuiderDescriptionController =
+      TextEditingController();
+
   //Sign in email
   TextEditingController signInEmail = TextEditingController();
 
   TextEditingController GuiderSignInEmail = TextEditingController();
+  final DescriptionController = TextEditingController();
 
   TextEditingController GuiderSignInPassword = TextEditingController();
 
@@ -49,19 +53,25 @@ class UserCubit extends Cubit<UserState> {
   TextEditingController GuiderNationalId = TextEditingController();
   TextEditingController otp = TextEditingController();
   TextEditingController resetPasswordEmail = TextEditingController();
+
   //Sign in password
   TextEditingController signInPassword = TextEditingController();
+
   //Sign up name
   TextEditingController signUpName = TextEditingController();
   TextEditingController signUpEmail = TextEditingController();
+
   //Sign up password
   TextEditingController signUpPassword = TextEditingController();
+
   //Sign up confirm password
   TextEditingController confirmPassword = TextEditingController();
   SignInModel? user;
   GuiderSignInModel? GuiderSignIn;
   TourGuiderSignUpModel? GuiderSignUpModel;
   VerificationModel? verificationModel;
+  GuiderAllData? GuiderData;
+
 
   signUp() async {
     try {
@@ -169,7 +179,8 @@ class UserCubit extends Cubit<UserState> {
         },
       );
       GuiderSignIn = GuiderSignInModel.fromJson(response);
-      CacheHelper().saveData(key: ApiKey.Guidertoken, value: GuiderSignIn!.token);
+      CacheHelper()
+          .saveData(key: ApiKey.Guidertoken, value: GuiderSignIn!.token);
       CacheHelper().saveData(key: ApiKey.GuiderId, value: GuiderSignIn!.id);
       log("${GuiderSignIn!.token}");
       log("${GuiderSignIn!.id}");
@@ -183,7 +194,6 @@ class UserCubit extends Cubit<UserState> {
   Future<void> GuiderLogOut() async {
     try {
       emit(GuiderLogOutLoading());
-      log("start");
       final response = await api.post(
         EndPoint.GuiderLogOut,
         option: Options(headers: {
@@ -191,6 +201,7 @@ class UserCubit extends Cubit<UserState> {
         }),
       );
       GuiderSignIn = GuiderSignInModel.fromJson(response.data);
+      CacheHelper().saveData(key: ApiKey.Guidertoken, value: GuiderSignIn!.token);
       log(response.toString());
       log("===========================Done Logout===========================");
       emit(GuiderLogOutSuccess());
@@ -202,29 +213,45 @@ class UserCubit extends Cubit<UserState> {
     }
   }
 
-  GuiderSignUp() async{
-      try {
-        emit(GuiderSignUpLoading());
-        final response = await api.post(
-          EndPoint.GuiderSignUp,
-          isFromData: true,
-          data: {
-            ApiKey.name: GuiderSignUpName.text,
-            ApiKey.email: GuiderSignUpEmail.text,
-            ApiKey.password: GuiderSignUpPassword.text,
-            ApiKey.confirmPassword: GuiderConfirmPassword.text,
-            ApiKey.phoneNnumber: GuiderPhoneNumber.text,
-            ApiKey.nationalId: GuiderNationalId.text,
-            ApiKey.description:StateGuiderDescriptionController.text,
-          },
-        );
-        GuiderSignUpModel = TourGuiderSignUpModel.fromJson(response.data);
-        log(response);
-        emit(GuiderSignUpSuccess());
-      } on ServerException catch (e) {
-        emit(GuiderSignUpFailure(errMessage: e.errModel.errorMessage));
-      }
+  GuiderSignUp() async {
+    try {
+      emit(GuiderSignUpLoading());
+      final response = await api.post(
+        EndPoint.GuiderSignUp,
+        isFromData: true,
+        data: {
+          ApiKey.name: GuiderSignUpName.text,
+          ApiKey.email: GuiderSignUpEmail.text,
+          ApiKey.password: GuiderSignUpPassword.text,
+          ApiKey.phoneNnumber: GuiderPhoneNumber.text,
+          ApiKey.nationalId: GuiderNationalId.text,
+          ApiKey.description: StateGuiderDescriptionController.text,
+        },
+      );
+      GuiderSignUpModel = TourGuiderSignUpModel.fromJson(response.data);
+      log(response);
+      emit(GuiderSignUpSuccess());
+    } on ServerException catch (e) {
+      emit(GuiderSignUpFailure(errMessage: e.errModel.errorMessage));
+    }
   }
 
+  SendGuiderReq() async {
+    try {
+      emit(SendGuiderReqLoading());
+      CacheHelper().getData(key: ApiKey.GuiderId);
+      print(CacheHelper().getData(key: ApiKey.GuiderId));
+      final response = await api.post(EndPoint.SendGuiderReq(CacheHelper().getData(key: ApiKey.GuiderId)),
+          isFromData: true,
+          data: {
+            ApiKey.UserMessage: DescriptionController.text,
+          },
+          option: Options(headers: {
+            'Authorization': 'Bearer ${CacheHelper().getData(key: ApiKey.token)}',
+          }));
+      emit(SendGuiderReqSuccess());
+    } on ServerException catch (e) {
+      emit(SendGuiderReqFailure(errMessage: e.errModel.errorMessage));
+    }
+  }
 }
-
