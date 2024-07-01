@@ -16,7 +16,7 @@ class GuideNavBar extends StatefulWidget {
 class _GuideNavBarState extends State<GuideNavBar> {
   final List<Widget> _pages = [
     GuidersReq(),
-    GuideProfile(),
+    GuiderProfileMainScreen(),
   ];
   int  _currentIndex = 0 ;
 

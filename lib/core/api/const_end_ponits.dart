@@ -21,6 +21,7 @@ class EndPoint {
 class ApiKey {
   static String success = 'success';
   static String img = "image";
+  static String OtpPhone = "verification_code";
   static String description = "description";
   static String updatedAt = "updated_at";
   static String createdAt = "created_at";

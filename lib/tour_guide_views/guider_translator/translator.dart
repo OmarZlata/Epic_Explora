@@ -384,7 +384,7 @@ class _GuiderTranslatorViewState extends State<GuiderTranslatorView> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           iconTheme: IconThemeData(
-            color: AppColors.blue
+            color: AppColors.violet
           ),
           centerTitle: true,
           backgroundColor: AppColors.white,
@@ -416,12 +416,12 @@ class _GuiderTranslatorViewState extends State<GuiderTranslatorView> {
               SizedBox(height: 10),
               Card(
                 elevation: 7,
-                color: AppColors.blue,
+                color: AppColors.violet,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: DropdownButton<String>(
-                    dropdownColor: AppColors.blue.withOpacity(.95),
+                    dropdownColor: AppColors.violet.withOpacity(.95),
                     isExpanded: true,
                     value: selectedLanguage,
                     icon: Icon(Icons.arrow_drop_down, color: Colors.white),
@@ -444,7 +444,7 @@ class _GuiderTranslatorViewState extends State<GuiderTranslatorView> {
               isLoading
                   ? Center(child: Column(
                     children: [
-                      CircularProgressIndicator(color: AppColors.blue,),
+                      CircularProgressIndicator(color: AppColors.violet,),
                       SizedBox(height: 10,),
                       AppText(title: "Loading..."),
                     ],
@@ -461,7 +461,7 @@ class _GuiderTranslatorViewState extends State<GuiderTranslatorView> {
               SizedBox(height: 20),
               Card(
                 elevation: 7,
-                color: AppColors.blue,
+                color: AppColors.violet,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

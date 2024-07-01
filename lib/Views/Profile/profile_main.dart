@@ -57,18 +57,15 @@ void _showAlertDialog(BuildContext context) {
       return AlertDialog(
         title: Center(
             child: AppText(
-          title: 'Logout',
-          fontWeight: FontWeight.bold,
-          fontSize: 20,
-          color: AppColors.red.withOpacity(.5),
-        )),
+              title: 'Logout',
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: AppColors.red.withOpacity(.5),
+            )),
         content: Container(
-          height: 140,
+          height: 75,
           child: Column(
             children: [
-              Container(
-                  child:
-                      Flexible(child: Image.asset('assets/images/logout.png'))),
               SizedBox(
                 height: 8,
               ),

@@ -26,6 +26,7 @@ class UserCubit extends Cubit<UserState> {
   final ApiConsumer api;
   GlobalKey<FormState> resstPasswordFormKey = GlobalKey();
   GlobalKey<FormState> GuiderSignInFormKey = GlobalKey();
+  TextEditingController OtpPhoneController = TextEditingController();
 
   GlobalKey<FormState> GuiderSignUpFormKey = GlobalKey();
   GlobalKey<FormState> GuiderSignUpFormKeyNew = GlobalKey();
@@ -229,8 +230,6 @@ class UserCubit extends Cubit<UserState> {
           ApiKey.description: StateGuiderDescriptionController.text,
         },
       );
-      GuiderSignUpModel = TourGuiderSignUpModel.fromJson(response.data);
-      log(response);
       emit(GuiderSignUpSuccess());
     } on ServerException catch (e) {
       emit(GuiderSignUpFailure(errMessage: e.errModel.errorMessage));
@@ -253,6 +252,23 @@ class UserCubit extends Cubit<UserState> {
       emit(SendGuiderReqSuccess());
     } on ServerException catch (e) {
       emit(SendGuiderReqFailure(errMessage: e.errModel.errorMessage));
+    }
+  }
+  VerifyAcc() async {
+    emit(VerifyAccLoading());
+    try {
+      CacheHelper().getData(key: ApiKey.GuiderId);
+      print(CacheHelper().getData(key: ApiKey.GuiderId));
+      final response = await api.post(EndPoint.SendGuiderReq(CacheHelper().getData(key: ApiKey.GuiderId)),
+          isFromData: true,
+          data: {
+            ApiKey.phoneNnumber: GuiderPhoneNumber.text,
+            ApiKey.OtpPhone:OtpPhoneController.text
+          },
+      );
+      emit(VerifyAccSuccess());
+    } on ServerException catch (e) {
+      emit(VerifyAccFailure(errMessage: e.errModel.errorMessage));
     }
   }
 }
