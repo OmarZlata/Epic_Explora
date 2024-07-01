@@ -152,12 +152,12 @@ class _SearchScreenState extends State<SearchScreen> {
               Expanded(
                 child: ListView.builder(
                   padding: EdgeInsets.all(14),
-                  itemCount: displayedPlaces?.length ?? 0,
+                  itemCount: filteredPlaces?.length ?? 0,
                   itemBuilder: (context, index) => APIAppCard(
-                    cardText: displayedPlaces![index].name!,
-                    cardAddress: displayedPlaces![index].address!,
-                    cardimgUrl: displayedPlaces![index].img_url!,
-                    cardid: displayedPlaces![index].id!,
+                    cardText: filteredPlaces![index].name!,
+                    cardAddress: filteredPlaces![index].address!,
+                    cardimgUrl: filteredPlaces![index].img_url!,
+                    cardid: filteredPlaces![index].id!,
                   ),
                 ),
               ),
