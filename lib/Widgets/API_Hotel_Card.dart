@@ -105,7 +105,7 @@ class _ApiHotelCardState extends State<ApiHotelCard> {
                     ),
                     SizedBox(height: 8.h),
                     Text(
-                      "${widget.price} USD",
+                      "${widget.price} EGP",
                       style: TextStyle(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.bold,

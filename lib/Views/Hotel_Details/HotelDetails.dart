@@ -227,7 +227,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                     ),
                   ),
                   Text(
-                    "${widget.Price} USD",
+                    "${widget.Price} EGP",
                     style: TextStyle(
                       fontSize: 14,
                       color: AppColors.blue,

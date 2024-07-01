@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:epic_expolre/Views/auth/SignIn.dart';
 import 'package:epic_expolre/Views/translator/translator.dart';
@@ -12,6 +14,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../Widgets/app_ListTile.dart';
 import '../../Widgets/app_text.dart';
 import '../../Widgets/booking_tabBar.dart';
@@ -55,29 +59,26 @@ void _showAlertDialog(BuildContext context) {
       return AlertDialog(
         title: Center(
             child: AppText(
-              title: S.of(context).logout,
+              title: 'Logout',
               fontWeight: FontWeight.bold,
               fontSize: 20,
               color: AppColors.red.withOpacity(.5),
             )),
         content: Container(
-          height: 140,
+          height: 75,
           child: Column(
             children: [
-              Container(
-                  child:
-                  Flexible(child: Image.asset('assets/images/logout.png'))),
               SizedBox(
                 height: 8,
               ),
               AppText(
-                title: S.of(context).confirmPassword,
+                title: "Are You Sure You Want",
                 color: AppColors.grey,
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
               ),
               AppText(
-                title: S.of(context).logoutPrompt,
+                title: "To Logout ?",
                 color: AppColors.grey,
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
@@ -93,7 +94,7 @@ void _showAlertDialog(BuildContext context) {
           Column(
             children: [
               AppButton(
-                title: S.of(context).logout,
+                title: "Logout !",
                 color: AppColors.red.withOpacity(.4),
                 font_color: AppColors.white,
                 border_color: AppColors.red.withOpacity(.3),
@@ -114,7 +115,7 @@ void _showAlertDialog(BuildContext context) {
               ),
               AppButton(
                 border_color: AppColors.grey,
-                title: S.of(context).cancel,
+                title: "Cancel",
                 onTap: () {
                   Navigator.of(context).pop();
                 },
@@ -137,11 +138,15 @@ class ProfileMainScreen extends StatefulWidget {
 class _ProfileMainScreenState extends State<ProfileMainScreen> {
   bool isLoading = true;
   UserInfo? userInfo;
+  bool obscurePassword = true;
+  File? _image;
+  final ImagePicker _picker = ImagePicker();
 
   @override
   void initState() {
     super.initState();
     fetchData();
+    _loadImage();
   }
 
   void fetchData() async {
@@ -155,6 +160,27 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
       setState(() {
         isLoading = false;
       });
+    }
+  }
+
+  Future<void> _loadImage() async {
+    final prefs = await SharedPreferences.getInstance();
+    final imagePath = prefs.getString('profile_image');
+    if (imagePath != null) {
+      setState(() {
+        _image = File(imagePath);
+      });
+    }
+  }
+
+  Future<void> _pickImage() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString('profile_image', pickedFile.path);
     }
   }
 
@@ -177,187 +203,190 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
           ),
           body: isLoading
               ? Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircularProgressIndicator(
-                  color: AppColors.blue,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                AppText(title: S.of(context).loading,)
-              ],
-            ),
-          )
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircularProgressIndicator(
+                        color: AppColors.blue,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      AppText(title: "Loading...")
+                    ],
+                  ),
+                )
               : Padding(
-            padding:
-            const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8),
-            child: ListView(
-              children: [
-                Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 40,
-                      backgroundImage: AssetImage(
-                        'assets/images/profilepic.jfif',
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    AppText(
-                      title: userInfo?.name ?? S.of(context).noName,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    AppText(
-                      title: userInfo?.email ?? S.of(context).noEmail,
-                      color: AppColors.grey,
-                    ),
-                    SizedBox(height: 8),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => EditProfileScreen(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        height: 29,
-                        width: 170,
-                        alignment: Alignment.center,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            AppText(
-                              title: S.of(context).editProfile,
-                              color: AppColors.white,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8),
+                  child: ListView(
+                    children: [
+                      Column(
+                        children: [
+                          GestureDetector(
+                            onTap: _pickImage,
+                            child: CircleAvatar(
+                              radius: 40,
+                              backgroundImage: _image != null
+                                  ? FileImage(_image!)
+                                  : AssetImage('assets/images/profilepic.jfif') as ImageProvider,
                             ),
-                            Icon(
-                              Icons.mode_edit_outline_outlined,
-                              color: AppColors.white,
-                              size: 18,
-                            ),
-                          ],
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: AppColors.blue,
-                          border: Border.all(
-                            color: AppColors.blue,
-                            width: 1.0,
                           ),
-                        ),
+                          SizedBox(height: 8),
+                          AppText(
+                            title: userInfo?.name ?? 'No Name',
+                            fontWeight: FontWeight.bold,
+                          ),
+                          AppText(
+                            title: userInfo?.email ?? 'No Email',
+                            color: AppColors.grey,
+                          ),
+                          SizedBox(height: 8),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => EditProfileScreen(),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              height: 29,
+                              width: 115,
+                              alignment: Alignment.center,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  AppText(
+                                    title: "Edit Profile",
+                                    color: AppColors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  Icon(
+                                    Icons.mode_edit_outline_outlined,
+                                    color: AppColors.white,
+                                    size: 18,
+                                  ),
+                                ],
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                color: AppColors.blue,
+                                border: Border.all(
+                                  color: AppColors.blue,
+                                  width: 1.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 22),
-                AppTile(
-                  title: S.of(context).language,
-                  icon: CupertinoIcons.globe,
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => LocaleSwitchScreen(),
-                    ));
-                  },
-                  color: AppColors.blue,
-                ),
-                SizedBox(height: 8),
-                AppTile(
-                  title: S.of(context).translator,
-                  icon: FontAwesomeIcons.language,
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => TranslatorView(),
-                    ));
-                  },
-                  color: AppColors.blue,
-                ),
-                SizedBox(height: 8),
-                AppTile(
-                  title: S.of(context).currencyConverter,
-                  icon: CupertinoIcons.money_dollar_circle,
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => Currency(),
+                      SizedBox(height: 22),
+                      AppTile(
+                        title: S.of(context).language,
+                        icon: CupertinoIcons.globe,
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => LocaleSwitchScreen(),
+                          ));
+                        },
+                        color: AppColors.blue,
                       ),
-                    );
-                  },
-                  color: AppColors.blue,
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                AppTile(
-                  title: S.of(context).yourMemories,
-                  icon: CupertinoIcons.photo_fill_on_rectangle_fill,
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => UserGallery(),
+                      SizedBox(height: 8),
+                      AppTile(
+                        title: "Translator",
+                        icon: FontAwesomeIcons.language,
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => TranslatorView(),
+                          ));
+                        },
+                        color: AppColors.blue,
                       ),
-                    );
-                  },
-                  color: AppColors.blue,
-                ),
+                      SizedBox(height: 8),
+                      AppTile(
+                        title: "Currency Converter",
+                        icon: CupertinoIcons.money_dollar_circle,
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => Currency(),
+                            ),
+                          );
+                        },
+                        color: AppColors.blue,
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      AppTile(
+                        title: "Your Memories",
+                        icon: CupertinoIcons.photo_fill_on_rectangle_fill,
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => UserGallery(),
+                            ),
+                          );
+                        },
+                        color: AppColors.blue,
+                      ),
 
-                SizedBox(height: 8),
-                AppTile(
-                  title: S.of(context).termsOfService,
-                  icon: Icons.library_books,
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => TermsScreen(),
+                      SizedBox(height: 8),
+                      AppTile(
+                        title: "Terms of service",
+                        icon: Icons.library_books,
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => TermsScreen(),
+                            ),
+                          );
+                        },
+                        color: AppColors.blue,
                       ),
-                    );
-                  },
-                  color: AppColors.blue,
+                      SizedBox(height: 8),
+                      AppTile(
+                        title: "About",
+                        icon: Icons.info_outline,
+                        onPressed: () {},
+                        color: AppColors.blue,
+                      ),
+                      SizedBox(height: 8),
+                      AppTile(
+                        title: "Change Password",
+                        icon: Icons.lock_outline_rounded,
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => EditProfileScreen(),
+                          ));
+                        },
+                        color: AppColors.blue,
+                      ),
+                      SizedBox(height: 8),
+                      AppTile(
+                        title: "Logout",
+                        icon: Icons.logout,
+                        onPressed: () {
+                          if (state is LogoutLoading) {
+                            Center(
+                              child: CircularProgressIndicator(
+                                color: AppColors.blue,
+                              ),
+                            );
+                          } else {
+                            _showAlertDialog(context);
+                          }
+                        },
+                        color: Colors.red,
+                      ),
+                    ],
+                  ),
                 ),
-                SizedBox(height: 8),
-                AppTile(
-                  title: S.of(context).about,
-                  icon: Icons.info_outline,
-                  onPressed: () {},
-                  color: AppColors.blue,
-                ),
-                SizedBox(height: 8),
-                AppTile(
-                  title: S.of(context).changePassword,
-                  icon: Icons.lock_outline_rounded,
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => EditProfileScreen(),
-                    ));
-                  },
-                  color: AppColors.blue,
-                ),
-                SizedBox(height: 8),
-                AppTile(
-                  title: S.of(context).logout,
-                  icon: Icons.logout,
-                  onPressed: () {
-                    if (state is LogoutLoading) {
-                      Center(
-                        child: CircularProgressIndicator(
-                          color: AppColors.blue,
-                        ),
-                      );
-                    } else {
-                      _showAlertDialog(context);
-                    }
-                  },
-                  color: Colors.red,
-                ),
-              ],
-            ),
-          ),
         );
       },
     );

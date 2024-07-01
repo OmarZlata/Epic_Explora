@@ -14,7 +14,6 @@ import '../../../Widgets/app_button.dart';
 import '../../../Widgets/app_text.dart';
 import '../../../Widgets/app_text_field.dart';
 import '../../../core/app_colors/app_colors.dart';
-import '../../generated/l10n.dart';
 
 class SignUpView extends StatefulWidget {
   SignUpView({super.key});
@@ -38,9 +37,9 @@ class _SignUpViewState extends State<SignUpView> {
         listener: (context, state) {
           if (state is SignUpSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
-               SnackBar(
+              const SnackBar(
                 backgroundColor: AppColors.blue,
-                content: Center(child: AppText( title: S.of(context).registrationDone,)),
+                content: Center(child: AppText( title: 'Registertion Done',)),
               ),
             );
             Navigator.pushReplacement(context, MaterialPageRoute(
@@ -50,7 +49,7 @@ class _SignUpViewState extends State<SignUpView> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 backgroundColor: AppColors.blue,
-                content: Center(child: AppText( title: S.of(context).signUpFail,)),
+                content: Center(child: AppText( title: 'Fialed to Sign Up',)),
               ),
             );
           }
@@ -58,8 +57,8 @@ class _SignUpViewState extends State<SignUpView> {
         builder: (context, state) {
           return Scaffold(
             backgroundColor: AppColors.white,
-            appBar:  AppAppBar(
-              title: S.of(context).signUp,
+            appBar: const AppAppBar(
+              title: 'Sign Up',
               centerTitle: true,
             ),
             body: SingleChildScrollView(
@@ -75,7 +74,7 @@ class _SignUpViewState extends State<SignUpView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           AppText(
-                            title: S.of(context).fullName,
+                            title: "Full Name",
                             color: AppColors.black,
                             fontWeight: FontWeight.bold,
                           ),
@@ -83,7 +82,7 @@ class _SignUpViewState extends State<SignUpView> {
                             height: 10.h,
                           ),
                           AppTextField(
-                            hint:S.of(context).name,
+                            hint: "Name",
                             radius: 8,
                             enabled: !isDisabled,
                             icon: Icons.person,
@@ -93,7 +92,7 @@ class _SignUpViewState extends State<SignUpView> {
                             controller: context.read<UserCubit>().signUpName,
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return S.of(context).enterName;
+                                return 'Please enter your name';
                               }
                               return null;
                             },
@@ -104,7 +103,7 @@ class _SignUpViewState extends State<SignUpView> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 AppText(
-                                  title:S.of(context).email,
+                                  title: "Email",
                                   color: AppColors.black,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -112,7 +111,7 @@ class _SignUpViewState extends State<SignUpView> {
                                   height: 10,
                                 ),
                                 AppTextField(
-                                  hint: S.of(context).email,
+                                  hint: "Email",
                                   radius: 8,
                                   enabled: !isDisabled,
                                   icon: Icons.email_outlined,
@@ -122,12 +121,12 @@ class _SignUpViewState extends State<SignUpView> {
                                   controller: context.read<UserCubit>().signUpEmail,
                                   validator: (value) {
                                     if (value!.isEmpty) {
-                                      return S.of(context).emailEmpty;
+                                      return "Email can't be empty";
                                     }
                                     final emailRegex =
                                     RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
                                     if (!emailRegex.hasMatch(value)) {
-                                      return S.of(context).invalidEmail;
+                                      return "Invalid email address";
                                     }
                                     return null;
                                   },
@@ -141,7 +140,7 @@ class _SignUpViewState extends State<SignUpView> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 AppText(
-                                  title: S.of(context).password,
+                                  title: "Password",
                                   color: AppColors.black,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -149,7 +148,7 @@ class _SignUpViewState extends State<SignUpView> {
                                   height: 10.h,
                                 ),
                                 AppTextField(
-                                  hint: S.of(context).password,
+                                  hint: "Password",
                                   radius: 8,
                                   enabled: !isDisabled,
                                   icon: Icons.lock_outline,
@@ -170,7 +169,7 @@ class _SignUpViewState extends State<SignUpView> {
                                   controller: context.read<UserCubit>().signUpPassword,
                                   validator: (value) {
                                     if (value!.isEmpty) {
-                                      return S.of(context).enterPassword;
+                                      return 'Please enter your password';
                                     }
                                     if (value.length < 8) {
                                       return 'Password must be at least 8 characters long';
@@ -188,7 +187,7 @@ class _SignUpViewState extends State<SignUpView> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 AppText(
-                                  title: S.of(context).confirmPassword,
+                                  title: "Confirm Password",
                                   color: AppColors.black,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -197,7 +196,7 @@ class _SignUpViewState extends State<SignUpView> {
                                 ),
 
                                 AppTextField(
-                                  hint: S.of(context).confirmPassword,
+                                  hint: "Confirm Password",
                                   radius: 8,
                                   enabled: !isDisabled,
                                   icon: Icons.lock_outline,
@@ -247,7 +246,7 @@ class _SignUpViewState extends State<SignUpView> {
 
                         ),
                         AppText(
-                          title: S.of(context).agree,
+                          title: "I agree",
                           color: AppColors.black,
                         ),
                         TextButton(
@@ -255,7 +254,7 @@ class _SignUpViewState extends State<SignUpView> {
                               Navigator.of(context).push(MaterialPageRoute(builder: (context) => TermsScreen(),));
                             },
                             child: AppText(
-                              title: S.of(context).termsConditions,
+                              title: "Terms & Conditions",
                               color: AppColors.blue,
                             ))
                       ],
@@ -270,7 +269,7 @@ class _SignUpViewState extends State<SignUpView> {
                       border_color: AppColors.white,
                       font_color: AppColors.white,
                       color: isChecked ? AppColors.blue : AppColors.grey.withOpacity(.3),
-                      title: S.of(context).signUp,
+                      title: "Sign Up",
                       onTap: isChecked
                           ? () {
                         if (signUpFormKey.currentState!.validate()) {

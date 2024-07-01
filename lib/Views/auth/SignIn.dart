@@ -28,7 +28,8 @@ class SignInView extends StatefulWidget {
 
 class _SignInViewState extends State<SignInView> {
   bool obscurePassword = true;
-  bool isDisabled = false ;
+  bool isDisabled = false;
+
   final signInFormKey = GlobalKey<FormState>();
 
   @override
@@ -42,9 +43,12 @@ class _SignInViewState extends State<SignInView> {
                 backgroundColor: AppColors.blue,
                 elevation: 1,
                 content: Center(
-                  child: Text("Success" ,style: TextStyle(
-                    color: AppColors.white,
-                  ),),
+                  child: Text(
+                    "Success",
+                    style: TextStyle(
+                      color: AppColors.white,
+                    ),
+                  ),
                 ),
               ),
             );
@@ -61,10 +65,12 @@ class _SignInViewState extends State<SignInView> {
                 backgroundColor: AppColors.blue,
                 padding: EdgeInsets.all(8),
                 content: Center(
-                  child: Text("E-mail or Password are not correct",
+                  child: Text(
+                    "E-mail or Password are not correct",
                     style: TextStyle(
                       color: AppColors.white,
-                    ),),
+                    ),
+                  ),
                 ),
               ),
             );
@@ -73,20 +79,24 @@ class _SignInViewState extends State<SignInView> {
         builder: (context, state) {
           return Scaffold(
             backgroundColor: AppColors.white,
-            appBar:AppAppBar(
+            appBar: AppAppBar(
               title: "Sign in",
               centerTitle: true,
               leading: IconButton(
-                icon: Icon(
-                  CupertinoIcons.back
-                ), onPressed: () {
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GoogleMapSplashView(),));
-              },
+                icon: Icon(CupertinoIcons.back),
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => GoogleMapSplashView(),
+                      ));
+                },
               ),
             ),
             body: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 22,vertical:20 ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 22, vertical: 20),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -94,7 +104,7 @@ class _SignInViewState extends State<SignInView> {
                     SizedBox(
                       height: 50,
                     ),
-                     Center(
+                    Center(
                       child: Image.asset('assets/images/signup.png'),
                     ),
                     Form(
@@ -102,7 +112,7 @@ class _SignInViewState extends State<SignInView> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                           AppText(
+                          AppText(
                             title: S.of(context).email,
                             color: AppColors.black,
                             fontWeight: FontWeight.bold,
@@ -112,28 +122,52 @@ class _SignInViewState extends State<SignInView> {
                           ),
                           Column(
                             children: [
-                              AppTextField(
-                                hint: S.of(context).email,
-                                radius: 8,
-                                enabled: !isDisabled,
-                                icon: Icons.email_outlined,
-                                hintFontSize: 12,
-                                obscureText: false,
-                                maxLines: 1,
-                                controller:
-                                    context.read<UserCubit>().signInEmail,
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return "Email can't be empty";
-                                  }
-                                  final emailRegex = RegExp(
-                                      r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
-                                  if (!emailRegex.hasMatch(value)) {
-                                    return "Invalid email address";
-                                  }
-                                  return null;
-                                },
-                              ),
+                              state is SignInLoading
+                                  ? IgnorePointer(
+                                ignoring: true,
+                                    child: AppTextField(
+                                        hint: S.of(context).email,
+                                        radius: 8,
+                                        icon: Icons.email_outlined,
+                                        hintFontSize: 12,
+                                        obscureText: false,
+                                        maxLines: 1,
+                                        controller:
+                                            context.read<UserCubit>().signInEmail,
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return "Email can't be empty";
+                                          }
+                                          final emailRegex = RegExp(
+                                              r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+                                          if (!emailRegex.hasMatch(value)) {
+                                            return "Invalid email address";
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                  )
+                                  : AppTextField(
+                                      hint: S.of(context).email,
+                                      radius: 8,
+                                      icon: Icons.email_outlined,
+                                      hintFontSize: 12,
+                                      obscureText: false,
+                                      maxLines: 1,
+                                      controller:
+                                          context.read<UserCubit>().signInEmail,
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return "Email can't be empty";
+                                        }
+                                        final emailRegex = RegExp(
+                                            r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+                                        if (!emailRegex.hasMatch(value)) {
+                                          return "Invalid email address";
+                                        }
+                                        return null;
+                                      },
+                                    ),
                               SizedBox(height: 23),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,7 +183,6 @@ class _SignInViewState extends State<SignInView> {
                                   AppTextField(
                                     hint: S.of(context).password,
                                     radius: 8,
-                                    enabled: !isDisabled,
                                     icon: Icons.lock_outline,
                                     hintFontSize: 12,
                                     suffixicon: IconButton(
@@ -159,7 +192,9 @@ class _SignInViewState extends State<SignInView> {
                                         });
                                       },
                                       icon: Icon(
-                                        color: obscurePassword ?AppColors.grey:AppColors.blue,
+                                        color: obscurePassword
+                                            ? AppColors.grey
+                                            : AppColors.blue,
                                         obscurePassword
                                             ? Icons.visibility_off
                                             : Icons.visibility,
@@ -195,7 +230,9 @@ class _SignInViewState extends State<SignInView> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => ForgetPasswordScreen(),));
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => ForgetPasswordScreen(),
+                            ));
                           },
                           child: AppText(
                               title: S.of(context).forgetPassword,
@@ -221,10 +258,8 @@ class _SignInViewState extends State<SignInView> {
                               if (signInFormKey.currentState!.validate()) {
                                 signInFormKey.currentState!.save();
                                 context.read<UserCubit>().signIn();
-                                if(state is SignInLoading){
-                                  isDisabled= false;
-                                }
-                                isDisabled = true;
+                                if (state is SignInLoading) {
+                                } else {}
                               }
                             },
                           ),

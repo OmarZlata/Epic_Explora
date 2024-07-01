@@ -10,6 +10,7 @@ import 'package:epic_expolre/core/app_colors/app_colors.dart';
 import 'package:epic_expolre/cubit/user_cubit.dart';
 import 'package:epic_expolre/cubit/user_state.dart';
 import 'package:epic_expolre/tour_guide_views/Auth/guide_signIn.dart';
+import 'package:epic_expolre/tour_guide_views/guide_views/guide_profile/verify_acc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,7 +68,7 @@ class _GuideSignUpState extends State<GuideSignUp> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => GuiderSignIn(),
+              builder: (context) => VerifyScreen(),
             ),
           );
         } else if (state is GuiderSignUpFailure) {

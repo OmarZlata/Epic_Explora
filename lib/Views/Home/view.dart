@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:epic_expolre/Views/Home/360/screens/home_screen.dart';
 import 'package:epic_expolre/Views/Home/Catogeries/states.dart';
 import 'package:epic_expolre/Views/States/Aswan/Aswan_tab_bar.dart';
 import 'package:epic_expolre/Views/States/RedSea/Red_Sea_tab_bar.dart';
@@ -251,7 +252,7 @@ class _HomeViewState extends State<HomeView> {
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                         color: AppColors
-                                            .blue), // Override the focused border color
+                                            .blue)
                                   ),
                                   prefixIcon:
                                       Icon(Icons.search, color: AppColors.blue),
@@ -290,19 +291,22 @@ class _HomeViewState extends State<HomeView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          S.of(context).allOffers,
+                          "360 Images",
                           style: TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 16),
                         ),
                         SizedBox(height: 16),
                         InkWell(
                           onTap: () {
-                            print('offers');
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeImageScreen(),));
                           },
                           child: Center(
-                            child: Image.asset(
-                              'assets/images/offers.png',
-                              fit: BoxFit.cover,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15),
+                              child: Image.asset(
+                                'assets/images/360DD.jpg',
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),

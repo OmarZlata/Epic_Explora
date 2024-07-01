@@ -9,7 +9,6 @@ import '../../../Widgets/app_button.dart';
 import '../../../Widgets/app_text.dart';
 import '../../../core/Location_utlis/location_utils.dart';
 import '../../../core/app_colors/app_colors.dart';
-import '../../../generated/l10n.dart';
 import '../google_map/view.dart';
 
 class GoogleMapSplashView extends StatefulWidget {
@@ -52,7 +51,7 @@ class _GoogleMapSplashViewState extends State<GoogleMapSplashView> {
               ),
             ),
             AppText(
-              title: S.of(context).findLocation,
+              title: "Find Your Location ",
               color: AppColors.black,
               fontSize: 22,
               fontWeight: FontWeight.w700,
@@ -61,12 +60,12 @@ class _GoogleMapSplashViewState extends State<GoogleMapSplashView> {
               height: 5,
             ),
             AppText(
-              title: S.of(context).findPlaces,
+              title: "Find Every Place Around You ",
               color: AppColors.grey,
               fontSize: 18,
             ),
             AppText(
-              title: S.of(context).explore,
+              title: "Let's Explore",
               color: AppColors.grey,
               fontSize: 18,
             ),
@@ -79,7 +78,7 @@ class _GoogleMapSplashViewState extends State<GoogleMapSplashView> {
             ),
             Spacer(),
             AppButton(
-              title: S.of(context).registerUser,
+              title: "Register As User ",
               color: AppColors.blue,
               font_color: AppColors.white,
               onTap: () {
@@ -90,7 +89,7 @@ class _GoogleMapSplashViewState extends State<GoogleMapSplashView> {
             ),
             SizedBox(height: 10.h,),
             AppButton(
-              title: S.of(context).registerGuider,
+              title: "Register As Guider",
               color: AppColors.white,
               font_color: AppColors.violet,
               border_color: AppColors.violet.withOpacity(.3),

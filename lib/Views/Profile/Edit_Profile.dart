@@ -274,30 +274,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           child: Column(
             children: [
               SizedBox(height: 24,),
-              Stack(
-                children: [
-                  CircleAvatar(
-                      radius: 40,
-                      backgroundImage: AssetImage(
-                        'assets/images/profilepic.jfif',
-                      )),
-                  Positioned(
-                      right: 2,
-                      bottom: 2,
-                      child: InkWell(
-                        onTap: () {
 
-                        },
-                        child: CircleAvatar(
-                          radius: 12,
-                          backgroundColor: AppColors.blue,
-                          child: Icon(Icons.mode_edit_outline_outlined, color: AppColors.white,
-                            size: 16,),
-
-                        ),
-                      ))
-                ],
-              ),
               NameTextField(),
               EmailTextField(),
               PasswordTextField(),

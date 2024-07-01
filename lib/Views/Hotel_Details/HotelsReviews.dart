@@ -77,7 +77,6 @@ class _HotelReviewsScreenState extends State<HotelReviewsScreen> {
     }
   }
 
-
   Widget textFieldReview() {
     return TextField(
       minLines: 1,
@@ -181,7 +180,7 @@ class _HotelReviewsScreenState extends State<HotelReviewsScreen> {
               SizedBox(height: 10),
               ListView.builder(
                 shrinkWrap: true,
-                itemCount: 1,
+                itemCount: 7,
                 itemBuilder: (context, index) {
                   return _buildReviewItem();
                 },

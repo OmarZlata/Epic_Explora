@@ -185,7 +185,7 @@ class _PlaceReviewsScreenState extends State<PlaceReviewsScreen> {
               SizedBox(height: 10),
               ListView.builder(
                 shrinkWrap: true,
-                itemCount: 1,
+                itemCount: 7,
                 itemBuilder: (context, index) {
                   return _buildReviewItem();
                 },

@@ -26,6 +26,7 @@ class UserCubit extends Cubit<UserState> {
   final ApiConsumer api;
   GlobalKey<FormState> resstPasswordFormKey = GlobalKey();
   GlobalKey<FormState> GuiderSignInFormKey = GlobalKey();
+  TextEditingController OtpPhoneController = TextEditingController();
 
   GlobalKey<FormState> GuiderSignUpFormKey = GlobalKey();
   GlobalKey<FormState> GuiderSignUpFormKeyNew = GlobalKey();
@@ -74,8 +75,9 @@ class UserCubit extends Cubit<UserState> {
 
 
   signUp() async {
+    emit(SignUpLoading());
     try {
-      emit(SignUpLoading());
+
       final response = await api.post(
         EndPoint.register,
         isFromData: true,
@@ -97,8 +99,8 @@ class UserCubit extends Cubit<UserState> {
   }
 
   signIn() async {
+    emit(SignInLoading());
     try {
-      emit(SignInLoading());
       final response = await api.post(
         EndPoint.signIn,
         data: {
@@ -117,8 +119,8 @@ class UserCubit extends Cubit<UserState> {
   }
 
   logout() async {
+    emit(LogoutLoading());
     try {
-      emit(LogoutLoading());
       final response = await api.post(
         EndPoint.logout,
         option: Options(headers: {
@@ -133,8 +135,8 @@ class UserCubit extends Cubit<UserState> {
   }
 
   forgotPassword() async {
+    emit(ForgetPasswordLoading());
     try {
-      emit(ForgetPasswordLoading());
       final response = await api.post(
         EndPoint.forgot_password,
         data: {
@@ -151,8 +153,8 @@ class UserCubit extends Cubit<UserState> {
   }
 
   resetPassword() async {
+    emit(ResetPasswordLoading());
     try {
-      emit(ResetPasswordLoading());
       final response = await api.put(
         EndPoint.reset_password,
         data: {
@@ -169,8 +171,8 @@ class UserCubit extends Cubit<UserState> {
   }
 
   Future<void> GuiderLogin() async {
+    emit(GuiderSignInLoading());
     try {
-      emit(GuiderSignInLoading());
       final response = await api.post(
         EndPoint.GuiderSignIn,
         data: {
@@ -192,8 +194,8 @@ class UserCubit extends Cubit<UserState> {
   }
 
   Future<void> GuiderLogOut() async {
+    emit(GuiderLogOutLoading());
     try {
-      emit(GuiderLogOutLoading());
       final response = await api.post(
         EndPoint.GuiderLogOut,
         option: Options(headers: {
@@ -214,8 +216,8 @@ class UserCubit extends Cubit<UserState> {
   }
 
   GuiderSignUp() async {
+    emit(GuiderSignUpLoading());
     try {
-      emit(GuiderSignUpLoading());
       final response = await api.post(
         EndPoint.GuiderSignUp,
         isFromData: true,
@@ -228,8 +230,6 @@ class UserCubit extends Cubit<UserState> {
           ApiKey.description: StateGuiderDescriptionController.text,
         },
       );
-      GuiderSignUpModel = TourGuiderSignUpModel.fromJson(response.data);
-      log(response);
       emit(GuiderSignUpSuccess());
     } on ServerException catch (e) {
       emit(GuiderSignUpFailure(errMessage: e.errModel.errorMessage));
@@ -237,8 +237,8 @@ class UserCubit extends Cubit<UserState> {
   }
 
   SendGuiderReq() async {
+    emit(SendGuiderReqLoading());
     try {
-      emit(SendGuiderReqLoading());
       CacheHelper().getData(key: ApiKey.GuiderId);
       print(CacheHelper().getData(key: ApiKey.GuiderId));
       final response = await api.post(EndPoint.SendGuiderReq(CacheHelper().getData(key: ApiKey.GuiderId)),
@@ -252,6 +252,23 @@ class UserCubit extends Cubit<UserState> {
       emit(SendGuiderReqSuccess());
     } on ServerException catch (e) {
       emit(SendGuiderReqFailure(errMessage: e.errModel.errorMessage));
+    }
+  }
+  VerifyAcc() async {
+    emit(VerifyAccLoading());
+    try {
+      CacheHelper().getData(key: ApiKey.GuiderId);
+      print(CacheHelper().getData(key: ApiKey.GuiderId));
+      final response = await api.post(EndPoint.SendGuiderReq(CacheHelper().getData(key: ApiKey.GuiderId)),
+          isFromData: true,
+          data: {
+            ApiKey.phoneNnumber: GuiderPhoneNumber.text,
+            ApiKey.OtpPhone:OtpPhoneController.text
+          },
+      );
+      emit(VerifyAccSuccess());
+    } on ServerException catch (e) {
+      emit(VerifyAccFailure(errMessage: e.errModel.errorMessage));
     }
   }
 }
