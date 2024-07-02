@@ -86,7 +86,7 @@ class _StaticMessageScreenState extends State<StaticMessageScreen> {
                         children: [
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              primary: AppColors.green,
+                              backgroundColor: AppColors.green,
                               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.r),
@@ -101,7 +101,7 @@ class _StaticMessageScreenState extends State<StaticMessageScreen> {
                           ),
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              primary: AppColors.red,
+                              backgroundColor: AppColors.red,
                               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.r),
